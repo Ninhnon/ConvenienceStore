@@ -60,11 +60,15 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 
                             <ComboBox Style="{StaticResource CustomComboBox}"
                                       SelectedIndex="0"
-                                      Width="100">
+                                      Width="100"
+                                      SelectionChanged="ComboBox_SelectionChanged">
                                 <TextBlock Text="Tăng dần"
                                            FontSize="16"/>
                                 <TextBlock Text="Giảm dần"
                                            FontSize="16"/>
+                                <!--<i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged"
+                                </i:Interaction.Triggers>-->
                             </ComboBox>
 
                         </StackPanel>
@@ -212,7 +216,9 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 Grid.Column="1"
                 Background="{StaticResource FloralWhite}"
                 CornerRadius="0 25 25 0">
-            <StackPanel VerticalAlignment="Center"
+            <StackPanel DataContext="{Binding SelectedInputInfo}"
+                        VerticalAlignment="Center"
+
                         Margin="30 0"
                         Visibility="{Binding ElementName=InputInfoCards, Path=SelectedItem, Converter={StaticResource HasOjectConverter}}">
 
@@ -228,8 +234,8 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     
                 </Ellipse>
 
-                <StackPanel DataContext="{Binding DisplayManager}"
-                            Margin="0 0 0 20">
+                <StackPanel Margin="0 0 0 15">
+
                     <Grid Margin="0 0 0 5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"/>
@@ -241,7 +247,8 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                            Width="30"
                            HorizontalAlignment="Left"/>
                         <TextBlock Grid.Column="2"
-                               Text="{Binding Name}"
+                               Text="{Binding UserName}"
+
                                FontSize="18"
                                FontWeight="SemiBold"
                                    VerticalAlignment="Center"
@@ -285,15 +292,18 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     </Grid>
                 </StackPanel>
 
-                <Separator Margin="0 0 0 20">
+                <Separator Margin="0 0 0 15"
+                           Background="#D9D9D9">
+
                     <Separator.RenderTransform>
                         <ScaleTransform ScaleY="3" />
                     </Separator.RenderTransform>
                 </Separator>
 
-                <StackPanel DataContext="{Binding ElementName=InputInfoCards, Path=SelectedItem}">
+                <StackPanel>
 
-                    <Grid Margin="0 0 0 10">
+                    <Grid Margin="0 0 0 5">
+
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="15"/>
@@ -309,6 +319,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                    VerticalAlignment="Center"
                                d:Text="01-12-2022"/>
                     </Grid>
+
                     <Grid Margin="0 0 0 5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"/>
@@ -328,12 +339,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                    Cursor="Hand"
                                    VerticalAlignment="Center"
                                    d:Text="Công Ty CP Hàng Tiêu Dùng Masan">
-                        <!--<i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseEnter">
-                        <i:InvokeCommandAction Command="{Binding SupplierCommand}"
-                                                   CommandParameter="{Binding ElementName=PagesNavigation}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>-->
+
                         </TextBlock>
                     </Grid>
 
