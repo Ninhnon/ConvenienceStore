@@ -34,5 +34,29 @@ namespace ConvenienceStore.Views
                 VM.SetProductsCorrespondSearch();
             }
         }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            var VM = comboBox.DataContext as InputInfoVM;
+            if (comboBox.SelectedIndex == 0)
+            {
+                var ascInputInfos = VM.ObservableInputInfos.OrderBy(e => e.InputDate).ToList();
+                VM.ObservableInputInfos.Clear();
+                for (int i = 0; i < ascInputInfos.Count; ++i)
+                {
+                    VM.ObservableInputInfos.Add(ascInputInfos[i]);
+                }
+            }
+            else
+            {
+                var descInputInfos = VM.ObservableInputInfos.OrderByDescending(e => e.InputDate).ToList();
+                VM.ObservableInputInfos.Clear();
+                for (int i = 0; i < descInputInfos.Count; ++i)
+                {
+                    VM.ObservableInputInfos.Add(descInputInfos[i]);
+                }
+            }
+        }
     }
 }

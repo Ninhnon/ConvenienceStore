@@ -11,7 +11,7 @@
              xmlns:UserControls="clr-namespace:ConvenienceStore.Views.Lam.UserControls"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
-             Height="660" Width="1200"
+             Height="660"
              Background="Transparent">
     
     <UserControl.Resources>
@@ -20,17 +20,17 @@
         <Converters:StringToVisibility x:Key="StringToVisibility"/>
         <Converters:IndexToVisibility x:Key="IndexToVisibility"/>
         <Converters:IntToVNDCurrency x:Key="IntToVNDCurrency"/>
+        <Converters:HasOjectConverter x:Key="HasOjectConverter"/>
     </UserControl.Resources>
-    
-    <Grid>
+
+    <Grid DataContext="{StaticResource InputInfoVM}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="725"/>
             <ColumnDefinition Width="400"/>
         </Grid.ColumnDefinitions>
 
-        <Border DataContext="{StaticResource InputInfoVM}"
-                Grid.Column="1"
+        <Border 
+                Grid.Column="0"
                 Background="{StaticResource Gray91}">
             <Grid>
 
@@ -60,11 +60,15 @@
 
                             <ComboBox Style="{StaticResource CustomComboBox}"
                                       SelectedIndex="0"
-                                      Width="100">
+                                      Width="100"
+                                      SelectionChanged="ComboBox_SelectionChanged">
                                 <TextBlock Text="Tăng dần"
                                            FontSize="16"/>
                                 <TextBlock Text="Giảm dần"
                                            FontSize="16"/>
+                                <!--<i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged"
+                                </i:Interaction.Triggers>-->
                             </ComboBox>
 
                         </StackPanel>
@@ -78,13 +82,14 @@
                                    VerticalAlignment="Center"/>
 
                             <ComboBox Style="{StaticResource CustomComboBox}"
-                                  SelectedIndex="0"
-                                  ItemsSource="{Binding managerNames}">
+                                      SelectedIndex="0"
+                                      SelectedItem="{Binding SelectedManager, Mode=OneWayToSource}"
+                                      ItemsSource="{Binding managers}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding}"
-                                               FontSize="16"
-                                               Foreground="Gray"/>
+                                                   FontSize="16"
+                                                   Foreground="Gray"/>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
@@ -109,7 +114,7 @@
 
 
                 <ListBox x:Name="InputInfoCards"
-                         ItemsSource="{Binding inputInfos}"
+                         ItemsSource="{Binding ObservableInputInfos}"
                          SelectedItem="{Binding SelectedInputInfo, Mode=OneWayToSource}"
                          Margin="25 130 25 27"
                          VerticalAlignment="Top">
@@ -152,18 +157,17 @@
                                       VerticalAlignment="Top"
                                       Visibility="Hidden">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="50"/>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="50"/>
                                     </Grid.ColumnDefinitions>
 
                                     <Border x:Name="DetailButton"
-                                            Margin="14 15 0 0"
+                                            Margin="15 15 0 0"
                                             CornerRadius="2"
                                             Cursor="Hand">
                                         <Image Source="../Assets/Images/IconForInputInfo/info_32.png"
-                                               Height="20"
-                                               Margin="2 0 2 0"/>
+                                               Height="20"/>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseEnter">
                                                 <i:ChangePropertyAction PropertyName="Background"
@@ -209,35 +213,142 @@
         </Border>
 
         <Border x:Name="InputInfoS2"
-                Grid.Column="2"
+                Grid.Column="1"
                 Background="{StaticResource FloralWhite}"
                 CornerRadius="0 25 25 0">
-            <StackPanel DataContext="{Binding ElementName=InputInfoCards, Path=SelectedItem}"
+            <StackPanel DataContext="{Binding SelectedInputInfo}"
                         VerticalAlignment="Center"
                         Margin="30 0"
-                        Visibility="Visible">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="110"/>
-                        <ColumnDefinition Width="15"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+                        Visibility="{Binding ElementName=InputInfoCards, Path=SelectedItem, Converter={StaticResource HasOjectConverter}}">
 
-                    <TextBlock Text="Người nhập:"
-                               FontSize="18"
-                               FontWeight="SemiBold"/>
-                    <TextBlock Grid.Column="2"
+                <Ellipse Stroke="Transparent"
+                         Width="200"
+                         Height="200"
+                         Panel.ZIndex="2"
+                         VerticalAlignment="Top"
+                         Grid.Row="0"
+                         Grid.RowSpan="2"
+                         Fill="#E9E9E9"
+                         Margin="0 0 0 30">
+                    
+                </Ellipse>
+
+                <StackPanel Margin="0 0 0 15">
+                    <Grid Margin="0 0 0 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="275"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="../Assets/Images/IconForInputInfo/user_color.png"
+                           Width="30"
+                           HorizontalAlignment="Left"/>
+                        <TextBlock Grid.Column="2"
                                Text="{Binding UserName}"
                                FontSize="18"
                                FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
                                d:Text="Trần Lê Hoàng Lâm"/>
-                </Grid>
+                    </Grid>
+
+                    <Grid Margin="0 0 0 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="275"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="../Assets/Images/IconForInputInfo/telephone.png"
+                           Width="30"
+                           HorizontalAlignment="Left"/>
+
+                        <TextBlock Grid.Column="2"
+                               Text="{Binding Phone}"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                               d:Text="0915203143"/>
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="275"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="../Assets/Images/IconForInputInfo/gmail.png"
+                           Width="30"
+                           HorizontalAlignment="Left"/>
+                        <TextBlock Grid.Column="2"
+                               Text="{Binding Email}"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               d:Text="tl.hoanglam174@gmail.com"/>
+                    </Grid>
+                </StackPanel>
+
+                <Separator Margin="0 0 0 15"
+                           Background="#D9D9D9">
+                    <Separator.RenderTransform>
+                        <ScaleTransform ScaleY="3" />
+                    </Separator.RenderTransform>
+                </Separator>
+
+                <StackPanel>
+
+                    <Grid Margin="0 0 0 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="275"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="../Assets/Images/IconForInputInfo/calendar_color.png"
+                           Width="30"
+                           HorizontalAlignment="Left"/>
+                        <TextBlock Grid.Column="2"
+                               Text="{Binding InputDate, StringFormat=dd-MM-yyyy}"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                               d:Text="01-12-2022"/>
+                    </Grid>
+                    
+
+                    
+                    <Grid Margin="0 0 0 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="275"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="../Assets/Images/IconForInputInfo/delivery-courier.png"
+                               Width="30"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"/>
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding SupplierName}"
+                                   Style="{StaticResource InteractiveTextBlock}"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   TextWrapping="Wrap"
+                                   Cursor="Hand"
+                                   VerticalAlignment="Center"
+                                   d:Text="Công Ty CP Hàng Tiêu Dùng Masan">
+                        
+                        </TextBlock>
+                    </Grid>
+
+                </StackPanel>
             </StackPanel>
+
+            
         </Border>
 
         <!--Products Screen-->
         <Border x:Name="ProductS1"
-                Grid.Column="1"
+                Grid.Column="0"
                 Background="{StaticResource Gray91}"
                 CornerRadius="25"
                 Visibility="Hidden"
@@ -443,7 +554,7 @@
         </Border>
 
         <Border x:Name="ProductS2"
-                Grid.Column="2"
+                Grid.Column="1"
                 Background="{StaticResource FloralWhite}"
                 CornerRadius="0 25 25 0"
                 DataContext="{Binding ElementName=ListViewProductCard, Path=SelectedItem}"
