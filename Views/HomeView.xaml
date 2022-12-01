@@ -237,7 +237,7 @@
                         </lvc:CartesianChart.AxisY>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Initialized">
-                                <i:InvokeCommandAction Command="{Binding InitColumnChartCommand}" 
+                                <i:InvokeCommandAction Command="{Binding InitColumnChartTodayCommand}" 
                                            CommandParameter="{Binding ElementName=wdHome}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>

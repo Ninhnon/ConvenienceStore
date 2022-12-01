@@ -34,5 +34,6 @@ namespace ConvenienceStore.Views
                 VM.SetProductsCorrespondSearch();
             }
         }
+
     }
 }
