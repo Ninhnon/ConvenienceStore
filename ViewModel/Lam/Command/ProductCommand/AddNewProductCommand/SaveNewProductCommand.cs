@@ -46,6 +46,7 @@ namespace ConvenienceStore.ViewModel.Lam.Command.ProductCommand.AddNewProductCom
             window.ExpiryDateErrorMessage.Text = string.Empty;
             window.DiscountErrorMessage.Text = string.Empty;
             window.StockErrorMessage.Text = string.Empty;
+            window.ImageProductErrorMessage.Text = string.Empty;
 
             // Pre Validation
             bool isValid = true;
@@ -104,6 +105,20 @@ namespace ConvenienceStore.ViewModel.Lam.Command.ProductCommand.AddNewProductCom
                 isValid = false;
             }
 
+            // Update CHK_Date NSX < HSD 
+            if (window.ManufacturingDate.SelectedDate.HasValue && window.ExpiryDate.SelectedDate.HasValue && window.ManufacturingDate.SelectedDate >= window.ExpiryDate.SelectedDate)
+            {
+                window.ManufacturingDateErrorMessage.Text = "NSX phải bé hơn HSD";
+                isValid = false;
+            }
+
+            // Check xem manager đã upload ảnh lên chưa
+            if (window.ImageProduct.ImageSource == null)
+            {
+                window.ImageProductErrorMessage.Text = "Chưa tải ảnh lên";
+                isValid = false;
+            }
+
             if (!isValid) return;
             // Pre Validation Done 
 
@@ -117,13 +132,15 @@ namespace ConvenienceStore.ViewModel.Lam.Command.ProductCommand.AddNewProductCom
                 Cost = int.Parse(window.CostTextBox.Text),
                 Price = int.Parse(window.PriceTextBox.Text),
                 Stock = int.Parse(window.StockTextBox.Text),
+                // Update 
                 ManufacturingDate = (DateTime)window.ManufacturingDate.SelectedDate,
                 ExpiryDate = (DateTime)window.ExpiryDate.SelectedDate,
+                // End Update
                 Discount = int.Parse(window.DiscountTextBox.Text)
             };
 
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(window.ImageProduct.ImageSource as BitmapSource));
+            encoder.Frames.Add(BitmapFrame.Create(window.ImageProduct.ImageSource as BitmapImage));
             using (MemoryStream ms = new MemoryStream())
             {
                 encoder.Save(ms);

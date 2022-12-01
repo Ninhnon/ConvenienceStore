@@ -156,62 +156,68 @@
                                              VerticalAlignment="Top">
                         </materialDesign:Card>-->
 
-                        <Border 
-                                Grid.Column="2"
-                                Width="193"
-                                Height="193"
-                                VerticalAlignment="Top"
-                                BorderBrush="#808080"
-                                BorderThickness="2"
-                                CornerRadius="15"
-                                MouseEnter="ImagePreview_MouseEnter">
-
-                            <StackPanel x:Name="ImagePreview"
-                                        Orientation="Vertical"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Visibility="{Binding ElementName=ImageProduct, Path=ImageSource, Converter={StaticResource HasImageConverter}}">
-
-                                <Image x:Name="IconPicture"
-                                        Source="../../../Assets/Images/IconForProduct/image.png"
-                                        Width="75"
-                                        Margin="0 0 0 5"/>
-
-                                <TextBlock Text="Image Preview"
-                                           Foreground="#808080"
-                                           FontSize="16"
-                                           FontWeight="DemiBold"/>
-                            </StackPanel>
-
-                            <Border.Background>
-                                <ImageBrush x:Name="ImageProduct"
-                                            Stretch="UniformToFill"/>
-                            </Border.Background>
-
-                        </Border>
-
-                        <Border x:Name="MarkUploadImage"
-                                Grid.Column="2"
-                                Width="193"
-                                Height="193"
-                                VerticalAlignment="Top"
-                                Background="#E9E9E9"
-                                BorderBrush="#808080"
-                                BorderThickness="2"
-                                CornerRadius="15"
-                                Visibility="Hidden"
-                                MouseLeave="MarkUploadImage_MouseLeave">
-                            <Button Style="{StaticResource MaterialDesignOutlinedButton}"
-                                    Content="Upload Image"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    Foreground="Black"
+                        <StackPanel Grid.Column="2">
+                            <Grid>
+                                <Border 
+                                    Grid.Column="2"
+                                    Width="193"
+                                    Height="193"
+                                    VerticalAlignment="Top"
                                     BorderBrush="#808080"
                                     BorderThickness="2"
-                                    Cursor="Hand"
-                                    Command="{StaticResource UploadImageCommand}"
-                                    CommandParameter="{Binding ElementName=ImageProduct}"/>
-                        </Border>
+                                    CornerRadius="15"
+                                    MouseEnter="ImagePreview_MouseEnter">
+
+                                    <StackPanel x:Name="ImagePreview"
+                                            Orientation="Vertical"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            Visibility="{Binding ElementName=ImageProduct, Path=ImageSource, Converter={StaticResource HasImageConverter}}">
+
+                                        <Image x:Name="IconPicture"
+                                            Source="../../../Assets/Images/IconForProduct/image.png"
+                                            Width="75"
+                                            Margin="0 0 0 5"/>
+
+                                        <TextBlock Text="Image Preview"
+                                               Foreground="#808080"
+                                               FontSize="16"
+                                               FontWeight="DemiBold"/>
+                                    </StackPanel>
+
+                                    <Border.Background>
+                                        <ImageBrush x:Name="ImageProduct"
+                                                Stretch="UniformToFill"/>
+                                    </Border.Background>
+
+                                </Border>
+
+                                <Border x:Name="MarkUploadImage"
+                                    Grid.Column="2"
+                                    Width="193"
+                                    Height="193"
+                                    VerticalAlignment="Top"
+                                    Background="#E9E9E9"
+                                    BorderBrush="#808080"
+                                    BorderThickness="2"
+                                    CornerRadius="15"
+                                    Visibility="Hidden"
+                                    MouseLeave="MarkUploadImage_MouseLeave">
+                                    <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                                        Content="Upload Image"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Foreground="Black"
+                                        BorderBrush="#808080"
+                                        BorderThickness="2"
+                                        Cursor="Hand"
+                                        Command="{StaticResource UploadImageCommand}"
+                                        CommandParameter="{Binding ElementName=ImageProduct}"/>
+                                </Border>
+                            </Grid>
+                            <TextBlock x:Name="ImageProductErrorMessage"
+                                           Foreground="Red"/>
+                        </StackPanel>
                     </Grid>
 
                     <Grid Margin="0 0 0 10">

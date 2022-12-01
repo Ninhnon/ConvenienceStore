@@ -18,6 +18,7 @@ namespace ConvenienceStore.ViewModel.Lam
     {
         public ObservableCollection<String> managerNames { get; set; }
         public ObservableCollection<InputInfo> inputInfos { get; set; }
+        public ObservableCollection<Supplier> suppliers { get; set; }
 
         private InputInfo selectedInputInfo;
 
@@ -83,6 +84,8 @@ namespace ConvenienceStore.ViewModel.Lam
 
             managerNames = DatabaseHelper.FetchingManagerNames();
             managerNames.Insert(0, "All");
+
+            suppliers = DatabaseHelper.FetchingSupplier();
 
             products = new List<Product>();
             ObservableProducts = new ObservableCollection<Product>();

@@ -1,5 +1,6 @@
 ﻿using ConvenienceStore.Model.Lam;
 using ConvenienceStore.Validation.Lam;
+using ConvenienceStore.ViewModel.Lam.Helpers;
 using ConvenienceStore.Views.Lam.ProductWindow;
 using FluentValidation;
 using System;
@@ -83,6 +84,12 @@ namespace ConvenienceStore.ViewModel.Lam.Command.ProductCommand.EditProductComma
                 }
             }
 
+            if (window.ManufacturingDate.SelectedDate.HasValue && window.ExpiryDate.SelectedDate.HasValue && window.ManufacturingDate.SelectedDate < window.ExpiryDate.SelectedDate)
+            {
+                window.ManufacturingDateErrorMessage.Text = "NSX phải bé hơn HSD";
+                isValid = false;
+            }
+
             if (!isValid) return;
 
             var newProduct = new Product()
@@ -92,8 +99,10 @@ namespace ConvenienceStore.ViewModel.Lam.Command.ProductCommand.EditProductComma
                 Cost = int.Parse(window.CostTextBox.Text),
                 Price = int.Parse(window.PriceTextBox.Text),
                 Stock = int.Parse(window.StockTextBox.Text),
-                ManufacturingDate = DateTime.Parse(window.ManufacturingDate.Text),
-                ExpiryDate = DateTime.Parse(window.ExpiryDate.Text),
+                // Update
+                ManufacturingDate = (DateTime)window.ManufacturingDate.SelectedDate,
+                ExpiryDate = (DateTime)window.ExpiryDate.SelectedDate,
+                // End Update
                 Discount = int.Parse(window.DiscountTextBox.Text)
             };
 

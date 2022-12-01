@@ -25,7 +25,7 @@ namespace ConvenienceStore.ViewModel.Lam.Command.ProductCommand.AddNewProductCom
             var BarcodeContent = window.BarcodeTextBox.Text;
             if (!string.IsNullOrEmpty(BarcodeContent))
             {
-                return BarcodeContent.Length >= 12;
+                return BarcodeContent.Length >= 8;  // Update
             }
             return false;
         }
@@ -43,6 +43,8 @@ namespace ConvenienceStore.ViewModel.Lam.Command.ProductCommand.AddNewProductCom
             byte[] bytes;
 
             (title, bytes) = DatabaseHelper.FetchingProductTableViaBarcode(BarcodeContent);
+
+            if (bytes == null) return;  // Update
 
             string s = Convert.ToBase64String(bytes);
 
