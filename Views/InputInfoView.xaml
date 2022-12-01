@@ -151,7 +151,7 @@
 
                                 <Grid x:Name="OperateButtons"
                                       VerticalAlignment="Top"
-                                      Visibility="Visible">
+                                      Visibility="Hidden">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="50"/>
                                         <ColumnDefinition Width="*"/>
@@ -352,9 +352,9 @@
                           HorizontalAlignment="Stretch"
                           Margin="30 25 30 0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <Border Background="Transparent"
@@ -408,9 +408,9 @@
                       Margin="30 90 30 0">
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Orientation="Horizontal">
