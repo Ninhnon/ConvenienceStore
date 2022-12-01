@@ -1,28 +1,24 @@
-﻿using ConvenienceStore.Model;
-using ConvenienceStore.Views.Login;
-using Microsoft.VisualBasic.ApplicationServices;
+﻿using ConvenienceStore.Views.Login;
 using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
-namespace ConvenienceStore.Views.Staff
+namespace ConvenienceStore
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class StaffMainWindow : Window
+    public partial class Staff : Window
     {
         Model.User user;
-        public StaffMainWindow()
+        public Staff()
         {
             InitializeComponent();
         }
-        public StaffMainWindow(Model.User tk)
+        public Staff(Model.User tk)
         {
             this.user = tk;
             //this.MaNV = tk.MaNV;
@@ -86,8 +82,8 @@ namespace ConvenienceStore.Views.Staff
 
         private void btnDangXuat_Click(object sender, RoutedEventArgs e)
         {
-                new LoginWindow().Show();
-                this.Close();
+            new LoginWindow().Show();
+            this.Close();
         }
     }
 }

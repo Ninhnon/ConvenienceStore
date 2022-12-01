@@ -3,7 +3,6 @@ using ConvenienceStore.Model;
 using ConvenienceStore.ViewModel.MainBase;
 using ConvenienceStore.ViewModel.StaffVM;
 using ConvenienceStore.Views;
-using ConvenienceStore.Views.Staff;
 using Emgu.CV.Cuda;
 using System;
 using System.Collections.Generic;
@@ -100,7 +99,7 @@ namespace ConvenienceStore.ViewModel.Login
                 {
                     MainStaffViewModel.StaffCurrent = acc;
                     //MainStaffViewModel.Image = acc.Image;
-                    Views.Staff.MainWindow n = new Views.Staff.MainWindow();
+                    StaffMainWindow n = new StaffMainWindow();
 
                     //n.txbHoTenNV.Text = acc.Name;
 

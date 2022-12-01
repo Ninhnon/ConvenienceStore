@@ -6,12 +6,14 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Markup;
 
 namespace ConvenienceStore.ViewModel.Lam.Helpers
 {
     public class DatabaseHelper
     {
-        static readonly string strCon = @"Data Source=LAPTOP-JF6O07NR\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True";
+        //static readonly string strCon = @"Data Source=LAPTOP-JF6O07NR\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True";
+        static readonly string strCon = @"Data Source=LAPTOP-O791JS0J\SQLEXPRESS;Initial Catalog = ConvenienceStore; Integrated Security = True";
         public static SqlConnection sqlCon = new SqlConnection(strCon);
 
         static readonly string queryInputInfo = @"select InputInfo.Id, InputDate, Users.Name, Supplier.Name
