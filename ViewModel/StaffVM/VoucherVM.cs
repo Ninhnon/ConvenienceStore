@@ -103,12 +103,12 @@ namespace ConvenienceStore.ViewModel.StaffVM
         //        OnPropertyChanged();
         //    }
         //}
-        readonly SqlConnection connection = new("Data Source=LAPTOP-O791JS0J\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True");
+        readonly SqlConnection connection = new("Data Source=LAPTOP-JF6O07NR\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True");
 
         private ObservableCollection<Vouchers>? _List;
         public ObservableCollection<Vouchers>? List { get => _List; set { _List = value; OnPropertyChanged(); } }
         public List<Vouchers> danhsach = new();
-        readonly string DanhSachSanPham = @"select * from [Vouchers]";
+        readonly string DanhSachSanPham = @"select * from [Voucher]";
         public void FetchData()
         {
             SqlCommand cmd = new(DanhSachSanPham, connection);

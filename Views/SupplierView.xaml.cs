@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ConvenienceStore.Views
 {
     /// <summary>
-    /// Interaction logic for ProfileView.xaml
+    /// Interaction logic for SupplierView.xaml
     /// </summary>
-    public partial class ProfileView : Page
+    public partial class SupplierView : Page
     {
-        public ProfileView()
+        public SupplierView()
         {
             InitializeComponent();
         }

@@ -22,6 +22,7 @@ namespace ConvenienceStore
         public MainWindow()
         {
             InitializeComponent();
+            PagesNavigation.Navigate(new Uri("Views/InputInfoView.xaml", UriKind.RelativeOrAbsolute));
         }
         private void CloseApp_Click(object sender, RoutedEventArgs e)
         {
@@ -34,6 +35,54 @@ namespace ConvenienceStore
             {
                 this.DragMove();
             }
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void btnRestore_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+                WindowState = WindowState.Maximized;
+            else
+                WindowState = WindowState.Normal;
+        }
+
+        private void btnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void rdHome_Click(object sender, RoutedEventArgs e)
+        {
+            PagesNavigation.Navigate(new System.Uri("Views/HomeView.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void rdInputInfo_Click(object sender, RoutedEventArgs e)
+        {
+            PagesNavigation.Navigate(new Uri("Views/InputInfoView.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void rdProfile_Click(object sender, RoutedEventArgs e)
+        {
+            PagesNavigation.Navigate(new System.Uri("Views/ProfileView.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void rdSupplier_Click(object sender, RoutedEventArgs e)
+        {
+            PagesNavigation.Navigate(new System.Uri("Views/SupplierView.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void rdVoucher_Click(object sender, RoutedEventArgs e)
+        {
+            PagesNavigation.Navigate(new System.Uri("Views/VoucherView.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void rdReport_Click(object sender, RoutedEventArgs e)
+        {
+            PagesNavigation.Navigate(new System.Uri("Views/ReportView.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }

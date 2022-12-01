@@ -18,7 +18,7 @@ namespace ConvenienceStore.DataLayerAccess
         {
             try
             {
-                strConn = "Data Source=LAPTOP-O791JS0J\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True";
+                strConn = "Data Source=LAPTOP-JF6O07NR\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True";
             }
             catch
             {
@@ -33,7 +33,7 @@ namespace ConvenienceStore.DataLayerAccess
             {
                 if(conn.State!=System.Data.ConnectionState.Open)
                 {
-                    conn.ConnectionString = "Data Source=LAPTOP-O791JS0J\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True";
+                    conn.ConnectionString = "Data Source=LAPTOP-JF6O07NR\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True";
                     conn.Open();
                 }
             }

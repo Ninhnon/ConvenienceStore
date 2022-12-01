@@ -1,8 +1,8 @@
-﻿using ConvenienceStore.Model;
+﻿using ConvenienceStore.Views.Staff;
+using ConvenienceStore.Model;
 using ConvenienceStore.ViewModel.MainBase;
 using ConvenienceStore.ViewModel.StaffVM;
 using ConvenienceStore.Views;
-using ConvenienceStore.Views.Staff;
 using Emgu.CV.Cuda;
 using System;
 using System.Collections.Generic;
@@ -31,7 +31,7 @@ namespace ConvenienceStore.ViewModel.Login
         public ICommand CloseCommand { get; set; }
         public ICommand LoginCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
-        readonly SqlConnection connection = new("Data Source=LAPTOP-O791JS0J\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True");
+        readonly SqlConnection connection = new("Data Source=LAPTOP-JF6O07NR\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True");
 
         private ObservableCollection<User> _List;
         public ObservableCollection<User> List { get => _List; set { _List = value; OnPropertyChanged(); } }
@@ -49,7 +49,7 @@ namespace ConvenienceStore.ViewModel.Login
                     UserRole = read.GetString(1),
                     Name = read.GetString(2),
                     Address = read.IsDBNull(3) ? null : read.GetString(3),
-                    Phone = read.GetString(4),
+                    Phone = read.IsDBNull(4) ? null : read.GetString(4),
                     Email = read.IsDBNull(5) ? null : read.GetString(5),
                     UserName = read.GetString(6),
                     Password = read.GetString(7),
@@ -95,13 +95,34 @@ namespace ConvenienceStore.ViewModel.Login
             if (accCount > 0)
             {
                 IsLogin = true;
-                if (role == "1")
+                if (role == "0")
                 {
                     MainStaffViewModel.StaffCurrent = acc;
                     //MainStaffViewModel.Image = acc.Image;
                     StaffMainWindow n = new StaffMainWindow();
 
-                    n.txbHoTenNV.Text = acc.Name;
+                    //n.txbHoTenNV.Text = acc.Name;
+
+                    //string s = Convert.ToBase64String(acc.Image);
+
+                    //BitmapImage imageSource = new BitmapImage();
+
+                    //imageSource.BeginInit();
+                    //imageSource.StreamSource = new MemoryStream(System.Convert.FromBase64String(s));
+                    //imageSource.EndInit();
+                    //ImageBrush imageBrush = new ImageBrush(imageSource);
+                    //n.imgAvatar.Fill = imageBrush;
+                    //n.imgAvatar.ImageSource = image;
+                    n.Show();
+                    p.Close();
+                }
+                if (role == "1")
+                {
+                    //MainStaffViewModel.StaffCurrent = acc;
+                    //MainStaffViewModel.Image = acc.Image;
+                    MainWindow n = new MainWindow();
+
+                    //n.txbHoTenNV.Text = acc.Name;
 
                     //string s = Convert.ToBase64String(acc.Image);
 

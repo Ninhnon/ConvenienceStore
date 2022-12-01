@@ -1,20 +1,19 @@
-﻿using ConvenienceStore.Model.Lam;
+using ConvenienceStore.Model.Lam;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConvenienceStore.ViewModel.Lam.Helpers
 {
     public class DatabaseHelper
     {
-        static readonly string strCon = @"Data Source=LAPTOP-JF6O07NR\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True";
+        //static readonly string strCon = @"Data Source=LAPTOP-JF6O07NR\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True";
+        static readonly string strCon = @"Data Source=LAPTOP-O791JS0J\SQLEXPRESS;Initial Catalog = ConvenienceStore; Integrated Security = True";
         public static SqlConnection sqlCon = new SqlConnection(strCon);
 
-        static readonly string queryInputInfo = @"select InputInfo.Id, InputDate, Users.Name, Supplier.Name
+        static readonly string queryInputInfo = @"select InputInfo.Id, InputDate, InputInfo.UserId, Users.Name, Users.Email, Users.Phone, Avatar, Supplier.Id, Supplier.Name
+
                                                   from InputInfo, Users, Supplier
                                                   where InputInfo.UserId = Users.Id and InputInfo.SupplierId = Supplier.Id
                                                   order by InputDate asc";
@@ -29,7 +28,7 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
 
         static readonly string querySupllier = "select * from Supplier";
 
-        static readonly string queryManagerNames = "select Name from Users where UserRole = 1";
+        static readonly string queryManagers = "select * from Users where UserRole = 1";
 
         static readonly string insertInputInfo = "insert InputInfo values ('{0}', {1}, {2})";
 
@@ -63,12 +62,12 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
 
         static readonly string deleteSupplier = "delete Supplier where Id = {1}";
 
-        public static ObservableCollection<InputInfo> FetchingInputInfo()
+        public static List<InputInfo> FetchingInputInfo()
         {
             sqlCon.Open();
             var cmd = new SqlCommand(queryInputInfo, sqlCon);
 
-            ObservableCollection<InputInfo> inputInfos = new ObservableCollection<InputInfo>();
+            List<InputInfo> inputInfos = new List<InputInfo>();
 
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -78,8 +77,14 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
                     {
                         Id = reader.GetInt32(0),
                         InputDate = reader.GetDateTime(1),
-                        UserName = reader.GetString(2),
-                        SupplierName = reader.GetString(3),
+                        UserId = reader.GetInt32(2),
+                        UserName = reader.GetString(3),
+                        Email = reader.GetString(4),
+                        Phone = reader.GetString(5),
+                        // Còn Avatar nữa nè
+                        SupplerId = reader.GetInt32(7),
+                        SupplierName = reader.GetString(8),
+
                     }
                 );
             }
@@ -161,23 +166,31 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
             return suppliers;
         }
 
-        public static ObservableCollection<string> FetchingManagerNames()
+        public static ObservableCollection<Manager> FetchingManagers()
         {
             sqlCon.Open();
 
-            var managerNames = new ObservableCollection<string>();
+            var managers = new ObservableCollection<Manager>();
 
-            var cmd = new SqlCommand(queryManagerNames, sqlCon);
+            var cmd = new SqlCommand(queryManagers, sqlCon);
 
             SqlDataReader reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
-                managerNames.Add(reader.GetString(0));
+                managers.Add(new Manager()
+                {
+                    Id = reader.GetInt32(0),
+                    Name = reader.GetString(2),
+
+                    Address = reader.IsDBNull(3)?null:reader.GetString(3),
+                    Phone = reader.IsDBNull(4) ? null:reader.GetString(4),
+                    Email = reader.IsDBNull(5) ? null:reader.GetString(5),
+                });
             }
 
             sqlCon.Close();
-            return managerNames;
+            return managers;
         }
 
         public static (string, byte[]) FetchingProductTableViaBarcode(string Barcode)

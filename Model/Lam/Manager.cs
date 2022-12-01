@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConvenienceStore.Model.Lam
 {
-    public class Supplier
+    public class Manager
     {
         public int Id { get; set; }
         public string Name { get; set; }
