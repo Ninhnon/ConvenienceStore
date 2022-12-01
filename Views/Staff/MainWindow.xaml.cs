@@ -1,20 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace ConvenienceStore.Staff
+namespace ConvenienceStore.Views.Staff
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -63,6 +50,21 @@ namespace ConvenienceStore.Staff
         {
             // PagesNavigation.Navigate(new HomePage());
             PagesNavigation.Navigate(new System.Uri("Views/Staff/ProfileWindow.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void rdProduct_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void rdVoucher_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void rdReport_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
