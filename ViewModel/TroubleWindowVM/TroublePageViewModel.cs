@@ -104,7 +104,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         string? filepath;
         bool IsImageChanged = false;
         public static Grid MaskName { get; set; }
-        readonly SqlConnection connection = new("Data Source=LAPTOP-JF6O07NR\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True");
+        readonly SqlConnection connection = new("Data Source=LAPTOP-O791JS0J\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True");
 
         public List<Report> danhsach = new();
         readonly string DanhSachReport = @"select * from Report";

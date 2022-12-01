@@ -84,7 +84,7 @@ namespace ConvenienceStore.ViewModel.Lam.Command.ProductCommand.EditProductComma
                 }
             }
 
-            if (window.ManufacturingDate.SelectedDate.HasValue && window.ExpiryDate.SelectedDate.HasValue && window.ManufacturingDate.SelectedDate >= window.ExpiryDate.SelectedDate)
+            if (window.ManufacturingDate.SelectedDate.HasValue && window.ExpiryDate.SelectedDate.HasValue && window.ManufacturingDate.SelectedDate < window.ExpiryDate.SelectedDate)
             {
                 window.ManufacturingDateErrorMessage.Text = "NSX phải bé hơn HSD";
                 isValid = false;

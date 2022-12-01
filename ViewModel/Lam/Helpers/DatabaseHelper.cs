@@ -14,7 +14,7 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
         static readonly string strCon = @"Data Source=LAPTOP-JF6O07NR\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True";
         public static SqlConnection sqlCon = new SqlConnection(strCon);
 
-        static readonly string queryInputInfo = @"select InputInfo.Id, InputDate, InputInfo.UserId, Users.Name, Users.Email, Users.Phone, Avatar, Supplier.Id, Supplier.Name
+        static readonly string queryInputInfo = @"select InputInfo.Id, InputDate, Users.Name, Supplier.Name
                                                   from InputInfo, Users, Supplier
                                                   where InputInfo.UserId = Users.Id and InputInfo.SupplierId = Supplier.Id
                                                   order by InputDate asc";
@@ -29,7 +29,7 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
 
         static readonly string querySupllier = "select * from Supplier";
 
-        static readonly string queryManagers = "select * from Users where UserRole = 1";
+        static readonly string queryManagerNames = "select Name from Users where UserRole = 1";
 
         static readonly string insertInputInfo = "insert InputInfo values ('{0}', {1}, {2})";
 
@@ -63,12 +63,12 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
 
         static readonly string deleteSupplier = "delete Supplier where Id = {1}";
 
-        public static List<InputInfo> FetchingInputInfo()
+        public static ObservableCollection<InputInfo> FetchingInputInfo()
         {
             sqlCon.Open();
             var cmd = new SqlCommand(queryInputInfo, sqlCon);
 
-            List<InputInfo> inputInfos = new List<InputInfo>();
+            ObservableCollection<InputInfo> inputInfos = new ObservableCollection<InputInfo>();
 
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -78,13 +78,8 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
                     {
                         Id = reader.GetInt32(0),
                         InputDate = reader.GetDateTime(1),
-                        UserId = reader.GetInt32(2),
-                        UserName = reader.GetString(3),
-                        Email = reader.GetString(4),
-                        Phone = reader.GetString(5),
-                        // Còn Avatar nữa nè
-                        SupplerId = reader.GetInt32(7),
-                        SupplierName = reader.GetString(8),
+                        UserName = reader.GetString(2),
+                        SupplierName = reader.GetString(3),
                     }
                 );
             }
@@ -166,30 +161,23 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
             return suppliers;
         }
 
-        public static ObservableCollection<Manager> FetchingManagers()
+        public static ObservableCollection<string> FetchingManagerNames()
         {
             sqlCon.Open();
 
-            var managers = new ObservableCollection<Manager>();
+            var managerNames = new ObservableCollection<string>();
 
-            var cmd = new SqlCommand(queryManagers, sqlCon);
+            var cmd = new SqlCommand(queryManagerNames, sqlCon);
 
             SqlDataReader reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
-                managers.Add(new Manager()
-                {
-                    Id = reader.GetInt32(0),
-                    Name = reader.GetString(2),
-                    Address = reader.GetString(3),
-                    Phone = reader.GetString(4),
-                    Email = reader.GetString(5),
-                });
+                managerNames.Add(reader.GetString(0));
             }
 
             sqlCon.Close();
-            return managers;
+            return managerNames;
         }
 
         public static (string, byte[]) FetchingProductTableViaBarcode(string Barcode)

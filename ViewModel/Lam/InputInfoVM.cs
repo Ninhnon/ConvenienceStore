@@ -16,28 +16,8 @@ namespace ConvenienceStore.ViewModel.Lam
 {
     public class InputInfoVM : INotifyPropertyChanged
     {
-        public ObservableCollection<Manager> managers { get; set; }
-        public List<InputInfo> inputInfos { get; set; }
-        public ObservableCollection<InputInfo> ObservableInputInfos { get; set; }
-
-        private Manager selectedManager;
-
-        public Manager SelectedManager
-        {
-            get { return selectedManager; }
-            set 
-            { 
-                selectedManager = value;
-                OnPropertyChanged("SelectedManager");
-
-                if (selectedManager != null)
-                {
-                    SetInputInfosCoresspondManager();
-                }
-            }
-        }
-
-
+        public ObservableCollection<String> managerNames { get; set; }
+        public ObservableCollection<InputInfo> inputInfos { get; set; }
         public ObservableCollection<Supplier> suppliers { get; set; }
 
         private InputInfo selectedInputInfo;
@@ -69,6 +49,7 @@ namespace ConvenienceStore.ViewModel.Lam
             {
                 searchContent = value;
                 OnPropertyChanged("SearchContent");
+
             }
         }
 
@@ -100,14 +81,9 @@ namespace ConvenienceStore.ViewModel.Lam
         public InputInfoVM()
         {
             inputInfos = DatabaseHelper.FetchingInputInfo();
-            ObservableInputInfos = new ObservableCollection<InputInfo>();
 
-            managers = DatabaseHelper.FetchingManagers();
-            managers.Insert(0, new Manager()
-            {
-                Id = 0,
-                Name = "All"
-            });
+            managerNames = DatabaseHelper.FetchingManagerNames();
+            managerNames.Insert(0, "All");
 
             suppliers = DatabaseHelper.FetchingSupplier();
 
@@ -133,19 +109,6 @@ namespace ConvenienceStore.ViewModel.Lam
 
             searchContent = "";
             SetProductsCorrespondSearch();
-        }
-
-        public void SetInputInfosCoresspondManager()
-        {
-            ObservableInputInfos.Clear();
-
-            for (int i = 0; i < inputInfos.Count; ++i)
-            {
-                if (inputInfos[i].UserId == selectedManager.Id || selectedManager.Name == "All")
-                {
-                    ObservableInputInfos.Add(inputInfos[i]);
-                }
-            }
         }
 
         public void SetProductsCorrespondSearch()
