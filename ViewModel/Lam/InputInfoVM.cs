@@ -53,10 +53,39 @@ namespace ConvenienceStore.ViewModel.Lam
                 if (value != null)
                 {
                     OpenDetail(selectedInputInfo.Id);
+
+                    DisplayManager = managers.FirstOrDefault(e => e.Id == selectedInputInfo.UserId);
+                    DisplaySupplier = suppliers.FirstOrDefault(e => e.Id == selectedInputInfo.SupplerId);
                 }
 
             }
         }
+
+        private Manager displayManager;
+
+        public Manager DisplayManager
+        {
+            get { return displayManager; }
+            set 
+            { 
+                displayManager = value;
+                OnPropertyChanged("DisplayManager");
+            }
+        }
+
+
+        private Supplier displaySupplier;
+
+        public Supplier DisplaySupplier
+        {
+            get { return displaySupplier; }
+            set
+            {
+                displaySupplier = value;
+                OnPropertyChanged("DisplaySupplier");
+            }
+        }
+
 
         public List<Product> products;
 

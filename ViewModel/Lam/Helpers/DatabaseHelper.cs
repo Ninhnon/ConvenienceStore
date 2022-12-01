@@ -1,20 +1,19 @@
-﻿using ConvenienceStore.Model.Lam;
+using ConvenienceStore.Model.Lam;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConvenienceStore.ViewModel.Lam.Helpers
 {
     public class DatabaseHelper
     {
-        static readonly string strCon = @"Data Source=LAPTOP-JF6O07NR\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True";
+        //static readonly string strCon = @"Data Source=LAPTOP-JF6O07NR\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True";
+        static readonly string strCon = @"Data Source=LAPTOP-O791JS0J\SQLEXPRESS;Initial Catalog = ConvenienceStore; Integrated Security = True";
         public static SqlConnection sqlCon = new SqlConnection(strCon);
 
         static readonly string queryInputInfo = @"select InputInfo.Id, InputDate, InputInfo.UserId, Users.Name, Users.Email, Users.Phone, Avatar, Supplier.Id, Supplier.Name
+
                                                   from InputInfo, Users, Supplier
                                                   where InputInfo.UserId = Users.Id and InputInfo.SupplierId = Supplier.Id
                                                   order by InputDate asc";
@@ -85,6 +84,7 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
                         // Còn Avatar nữa nè
                         SupplerId = reader.GetInt32(7),
                         SupplierName = reader.GetString(8),
+
                     }
                 );
             }
@@ -182,9 +182,10 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
                 {
                     Id = reader.GetInt32(0),
                     Name = reader.GetString(2),
-                    Address = reader.GetString(3),
-                    Phone = reader.GetString(4),
-                    Email = reader.GetString(5),
+
+                    Address = reader.IsDBNull(3)?null:reader.GetString(3),
+                    Phone = reader.IsDBNull(4) ? null:reader.GetString(4),
+                    Email = reader.IsDBNull(5) ? null:reader.GetString(5),
                 });
             }
 

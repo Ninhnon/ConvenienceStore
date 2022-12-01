@@ -1,31 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace ConvenienceStore.Staff
+namespace ConvenienceStore.Views.Staff
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class StaffMainWindow : Window
     {
         private Uri paymentPage = new Uri("Views/Staff/PaymentWindow.xaml", UriKind.RelativeOrAbsolute);
         private Uri historyPage = new Uri("Views/Staff/HistoryWindow.xaml", UriKind.RelativeOrAbsolute);
         private Uri profilePage = new Uri("Views/Staff/ProfileWindow.xaml", UriKind.RelativeOrAbsolute);
 
-        public MainWindow()
+        public StaffMainWindow()
         {
             InitializeComponent();
             PagesNavigation.Navigate(new System.Uri("Views/Staff/PaymentWindow.xaml", UriKind.RelativeOrAbsolute));
@@ -51,18 +38,33 @@ namespace ConvenienceStore.Staff
 
         private void rdPayment_Click(object sender, RoutedEventArgs e)
         {
-            PagesNavigation.Navigate(new System.Uri("Views/Staff/PaymentWindow.xaml", UriKind.RelativeOrAbsolute));
+            PagesNavigation.Navigate(new Uri("Views/Staff/PaymentWindow.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void rdHistory_Click(object sender, RoutedEventArgs e)
         {
-            PagesNavigation.Navigate(new System.Uri("Views/Staff/HistoryWindow.xaml", UriKind.RelativeOrAbsolute));
+            PagesNavigation.Navigate(new Uri("Views/Staff/HistoryWindow.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void rdProfile_Click(object sender, RoutedEventArgs e)
         {
             // PagesNavigation.Navigate(new HomePage());
             PagesNavigation.Navigate(new System.Uri("Views/Staff/ProfileWindow.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void rdProduct_Click(object sender, RoutedEventArgs e)
+        {
+            PagesNavigation.Navigate(new System.Uri("Views/Staff/ProductWindow/ProductPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void rdVoucher_Click(object sender, RoutedEventArgs e)
+        {
+            PagesNavigation.Navigate(new System.Uri("Views/Staff/VoucherWindow/VoucherPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void rdReport_Click(object sender, RoutedEventArgs e)
+        {
+            PagesNavigation.Navigate(new System.Uri("Views/Staff/TroubleWindow/TroublePage.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }

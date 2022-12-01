@@ -19,7 +19,7 @@ namespace ConvenienceStore.Views
     /// <summary>
     /// Interaction logic for InputInfoView.xaml
     /// </summary>
-    public partial class InputInfoView : UserControl
+    public partial class InputInfoView : Page
     {
         public InputInfoView()
         {
@@ -58,5 +58,6 @@ namespace ConvenienceStore.Views
                 }
             }
         }
+
     }
 }

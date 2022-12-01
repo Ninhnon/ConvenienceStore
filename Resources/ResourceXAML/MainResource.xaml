@@ -6,13 +6,13 @@
                     xmlns:userControlViewModel="clr-namespace:ConvenienceStore.ViewModel.UserControlVM" 
                     xmlns:vmLogin="clr-namespace:ConvenienceStore.ViewModel.Login"
                     xmlns:converter="clr-namespace:ConvenienceStore.ViewModel.Converters"
-                                        xmlns:ViewModel="clr-namespace:ConvenienceStore.ViewModel"
+                    xmlns:ViewModel="clr-namespace:ConvenienceStore.ViewModel"
                     xmlns:Model="clr-namespace:ConvenienceStore.Model"
                     xmlns:view="clr-namespace:ConvenienceStore.Views"
                     xmlns:local="clr-namespace:ConvenienceStore"
                     xmlns:vmLam="clr-namespace:ConvenienceStore.ViewModel.Lam"
-                      xmlns:subViewModel="clr-namespace:ConvenienceStore.ViewModel.SubViewModel"
-                      xmlns:ucViewModel="clr-namespace:ConvenienceStore.Resources.UserControlCustom.UCViewModel">
+                    xmlns:subViewModel="clr-namespace:ConvenienceStore.ViewModel.SubViewModel"
+                    xmlns:ucViewModel="clr-namespace:ConvenienceStore.Resources.UserControlCustom.UCViewModel">
     <ViewModel:ReportViewModel x:Key="ReportVM"></ViewModel:ReportViewModel>
     <ViewModel:EmployeeViewModel x:Key="EmployeeVM"/>
     <ViewModel:MainWindowViewModel x:Key="MainWindowVM"></ViewModel:MainWindowViewModel>

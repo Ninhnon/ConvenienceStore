@@ -58,6 +58,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="193"/>
+
                         </Grid.ColumnDefinitions>
 
                         <StackPanel>

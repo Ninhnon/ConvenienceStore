@@ -65,20 +65,20 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public MainStaffViewModel()
         {
 
-            ProductCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
-            {
-                p.Content = new ProductPage();
-            });
-            VoucherCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
-            {
-                p.Content = new VoucherPage();
+            //ProductCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            //{
+            //    p.Content = new ProductPage();
+            //});
+            //VoucherCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            //{
+            //    p.Content = new VoucherPage();
 
-            });
-            ReportCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
-            {
-                p.Content = new TroublePage();
+            //});
+            //ReportCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            //{
+            //    p.Content = new TroublePage();
 
-            });
+            //});
 
             CloseWindowCommand = new RelayCommand<Grid>((p) => { return p == null ? false : true; }, (p) =>
             {
