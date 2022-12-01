@@ -3,10 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Markup;
 
 namespace ConvenienceStore.ViewModel.Lam.Helpers
 {
@@ -181,9 +177,9 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
                 {
                     Id = reader.GetInt32(0),
                     Name = reader.GetString(2),
-                    Address = reader.GetString(3),
-                    Phone = reader.GetString(4),
-                    Email = reader.GetString(5),
+                    Address = reader.IsDBNull(3)?null:reader.GetString(3),
+                    Phone = reader.IsDBNull(4) ? null:reader.GetString(4),
+                    Email = reader.IsDBNull(5) ? null:reader.GetString(5),
                 });
             }
 

@@ -22,7 +22,7 @@ namespace ConvenienceStore
         public MainWindow()
         {
             InitializeComponent();
-            PagesNavigation.Navigate(new System.Uri("Views/HomeView.xaml", UriKind.RelativeOrAbsolute));
+            PagesNavigation.Navigate(new Uri("Views/InputInfoView.xaml", UriKind.RelativeOrAbsolute));
         }
         private void CloseApp_Click(object sender, RoutedEventArgs e)
         {
@@ -67,22 +67,22 @@ namespace ConvenienceStore
 
         private void rdProfile_Click(object sender, RoutedEventArgs e)
         {
-            PagesNavigation.Navigate(new System.Uri("Views/Staff/ProfileWindow.xaml", UriKind.RelativeOrAbsolute));
+            PagesNavigation.Navigate(new System.Uri("Views/ProfileView.xaml", UriKind.RelativeOrAbsolute));
         }
 
-        private void rdProduct_Click(object sender, RoutedEventArgs e)
+        private void rdSupplier_Click(object sender, RoutedEventArgs e)
         {
-            PagesNavigation.Navigate(new System.Uri("Views/Staff/ProductWindow/ProductPage.xaml", UriKind.RelativeOrAbsolute));
+            PagesNavigation.Navigate(new System.Uri("Views/SupplierView.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void rdVoucher_Click(object sender, RoutedEventArgs e)
         {
-            PagesNavigation.Navigate(new System.Uri("Views/Staff/VoucherWindow/VoucherPage.xaml", UriKind.RelativeOrAbsolute));
+            PagesNavigation.Navigate(new System.Uri("Views/VoucherView.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void rdReport_Click(object sender, RoutedEventArgs e)
         {
-            PagesNavigation.Navigate(new System.Uri("Views/Staff/TroubleWindow/TroublePage.xaml", UriKind.RelativeOrAbsolute));
+            PagesNavigation.Navigate(new System.Uri("Views/ReportView.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }

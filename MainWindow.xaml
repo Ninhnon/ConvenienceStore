@@ -88,7 +88,7 @@
                         <RadioButton x:Name="rdInputInfo" Content="InputInfo" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource history}" Margin="0 5 0 5" Click="rdInputInfo_Click" FontWeight="SemiBold"/>
                         <RadioButton x:Name="rdProfile" Content="Profile" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource profile}" Margin="0 5 0 5" Click="rdProfile_Click" FontWeight="SemiBold"/>
                         <RadioButton x:Name="rdReport" Content="Report" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource report}" Margin="0 5 0 5" Click="rdReport_Click" FontWeight="SemiBold"/>
-                        <RadioButton x:Name="rdProduct" Content="Product" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource product}" Margin="0 5 0 5" Click="rdProduct_Click" FontWeight="SemiBold"/>
+                        <RadioButton x:Name="rdSupplier" Content="Supplier" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource product}" Margin="0 5 0 5" Click="rdSupplier_Click" FontWeight="SemiBold"/>
                         <RadioButton x:Name="rdVoucher" Content="Voucher" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource voucher}" Margin="0 5 0 5" Click="rdVoucher_Click" FontWeight="SemiBold"/>
                     </StackPanel>
 
