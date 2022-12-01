@@ -97,20 +97,13 @@
                                 FontWeight="SemiBold"/>
 
                         <ComboBox Grid.Column="1"
-                              materialDesign:HintAssist.Hint="Select"
-                              materialDesign:HintAssist.HintOpacity=".26"
-                              materialDesign:ComboBoxAssist.MaxLength="2"
-                              IsEditable="True"
-                              VerticalAlignment="Top"
-                              Margin="0 4.6 0 0">
-                            <ComboBoxItem
-                              Content="Apple" />
-                            <ComboBoxItem
-                              Content="Banana" />
-                            <ComboBoxItem
-                              Content="Pear" />
-                            <ComboBoxItem
-                              Content="Orange" />
+                                  materialDesign:HintAssist.Hint="Select"
+                                  materialDesign:HintAssist.HintOpacity=".26"
+                                  materialDesign:ComboBoxAssist.MaxLength="2"
+                                  IsEditable="True"
+                                  VerticalAlignment="Top"
+                                  Margin="0 4.6 0 0"
+                                  ItemsSource="{Binding suppliers}">
                         </ComboBox>
                     </Grid>
 
