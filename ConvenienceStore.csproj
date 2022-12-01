@@ -8,6 +8,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\IconForInputInfo\box.png" />
+    <None Remove="Assets\Images\IconForInputInfo\calendar.png" />
+    <None Remove="Assets\Images\IconForInputInfo\calendar_color.png" />
+    <None Remove="Assets\Images\IconForInputInfo\delivery-courier.png" />
+    <None Remove="Assets\Images\IconForInputInfo\gmail.png" />
+    <None Remove="Assets\Images\IconForInputInfo\info_32.png" />
+    <None Remove="Assets\Images\IconForInputInfo\telephone.png" />
+    <None Remove="Assets\Images\IconForInputInfo\truck_64.png" />
+    <None Remove="Assets\Images\IconForInputInfo\user_64.png" />
+    <None Remove="Assets\Images\IconForInputInfo\user_color.png" />
+    <None Remove="Assets\Images\IconForProduct\arrow.png" />
+    <None Remove="Assets\Images\IconForProduct\box.png" />
+    <None Remove="Assets\Images\IconForProduct\calendar.png" />
+    <None Remove="Assets\Images\IconForProduct\image.png" />
+    <None Remove="Assets\Images\IconForProduct\location.png" />
+    <None Remove="Assets\Images\IconForProduct\money.png" />
+    <None Remove="Assets\Images\IconForProduct\package.png" />
+    <None Remove="Assets\Images\IconForProduct\salary.png" />
+    <None Remove="Assets\Images\IconForProduct\schedule.png" />
+    <None Remove="Assets\Images\IconForProduct\tag.png" />
     <None Remove="Assets\Images\OverallApp\caret-arrow-up.png" />
     <None Remove="Assets\Images\OverallApp\caret-down.png" />
     <None Remove="Assets\Images\OverallApp\normal_shutdown button.png" />
@@ -72,6 +92,26 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Images\IconForInputInfo\box.png" />
+    <Resource Include="Assets\Images\IconForInputInfo\calendar.png" />
+    <Resource Include="Assets\Images\IconForInputInfo\calendar_color.png" />
+    <Resource Include="Assets\Images\IconForInputInfo\delivery-courier.png" />
+    <Resource Include="Assets\Images\IconForInputInfo\gmail.png" />
+    <Resource Include="Assets\Images\IconForInputInfo\info_32.png" />
+    <Resource Include="Assets\Images\IconForInputInfo\telephone.png" />
+    <Resource Include="Assets\Images\IconForInputInfo\truck_64.png" />
+    <Resource Include="Assets\Images\IconForInputInfo\user_64.png" />
+    <Resource Include="Assets\Images\IconForInputInfo\user_color.png" />
+    <Resource Include="Assets\Images\IconForProduct\arrow.png" />
+    <Resource Include="Assets\Images\IconForProduct\box.png" />
+    <Resource Include="Assets\Images\IconForProduct\calendar.png" />
+    <Resource Include="Assets\Images\IconForProduct\image.png" />
+    <Resource Include="Assets\Images\IconForProduct\location.png" />
+    <Resource Include="Assets\Images\IconForProduct\money.png" />
+    <Resource Include="Assets\Images\IconForProduct\package.png" />
+    <Resource Include="Assets\Images\IconForProduct\salary.png" />
+    <Resource Include="Assets\Images\IconForProduct\schedule.png" />
+    <Resource Include="Assets\Images\IconForProduct\tag.png" />
     <Resource Include="Assets\Images\OverallApp\caret-arrow-up.png" />
     <Resource Include="Assets\Images\OverallApp\caret-down.png" />
     <Resource Include="Assets\Images\OverallApp\normal_shutdown button.png" />

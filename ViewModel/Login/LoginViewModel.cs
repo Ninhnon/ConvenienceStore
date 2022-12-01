@@ -32,7 +32,7 @@ namespace ConvenienceStore.ViewModel.Login
         public ICommand CloseCommand { get; set; }
         public ICommand LoginCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
-        readonly SqlConnection connection = new("Data Source=LAPTOP-O791JS0J\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True");
+        readonly SqlConnection connection = new("Data Source=LAPTOP-JF6O07NR\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True");
 
         private ObservableCollection<User> _List;
         public ObservableCollection<User> List { get => _List; set { _List = value; OnPropertyChanged(); } }
