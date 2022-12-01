@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="ConvenienceStore.Views.EmployeeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ConvenienceStore.Views"
+             mc:Ignorable="d" 
+             xmlns:uc="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
+             x:Name="wdEmployee"
+             Style="{StaticResource Page_Style}"
+           
+             d:DesignHeight="660" d:DesignWidth="1200">
+    <Grid Background="Wheat" x:Name="gridname"
+          Width="{Binding wdWidth}"
+          Height="{Binding wdHeight}"
+           DataContext="{StaticResource MainWindowVM}"
+          >
+
+        <Button 
+            DataContext="{StaticResource EmployeeVM}"
+            Width="80" Height="50"
+                Command="{Binding AddEmployeeCommand}"
+                 Margin="357,32,358,368"
+                
+                >
+
+        </Button>
+    </Grid>
+</UserControl>

@@ -1,0 +1,116 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Images\OverallApp\caret-arrow-up.png" />
+    <None Remove="Assets\Images\OverallApp\caret-down.png" />
+    <None Remove="Assets\Images\OverallApp\normal_shutdown button.png" />
+    <None Remove="Assets\Images\OverallApp\trigger_shutdown_button.png" />
+    <None Remove="Resources\Images\cute\1.png" />
+    <None Remove="Resources\Images\cute\2.png" />
+    <None Remove="Resources\Images\cute\3.png" />
+    <None Remove="Resources\Images\cute\4.png" />
+    <None Remove="Resources\Images\cute\5.png" />
+    <None Remove="Resources\Images\cute\6.png" />
+    <None Remove="Resources\Images\cute\7.png" />
+    <None Remove="Resources\Images\cute\8.png" />
+    <None Remove="Resources\Images\employee.png" />
+    <None Remove="Resources\Images\Food1.jpg" />
+    <None Remove="Resources\Images\menu_def.png" />
+    <None Remove="Resources\Images\menu_default.png" />
+    <None Remove="Resources\Images\menu_mo.png" />
+    <None Remove="Resources\Images\Messageicon\error.png" />
+    <None Remove="Resources\Images\Messageicon\info.png" />
+    <None Remove="Resources\Images\Messageicon\success.png" />
+    <None Remove="Resources\Images\Messageicon\warning.png" />
+    <None Remove="Resources\Images\pencil.png" />
+    <None Remove="Resources\Images\product.png" />
+    <None Remove="Resources\Images\qr.png" />
+    <None Remove="Resources\Images\Tincute.jpg" />
+    <None Remove="Resources\Images\trash_can.png" />
+    <None Remove="Resources\Images\troubles.png" />
+    <None Remove="Resources\Images\voucher.png" />
+    <None Remove="Resources\UserControlCustom\employee.png" />
+    <None Remove="Resources\UserControlCustom\home.png" />
+    <None Remove="Resources\UserControlCustom\product.png" />
+    <None Remove="Resources\UserControlCustom\profile.png" />
+    <None Remove="Resources\UserControlCustom\report.png" />
+    <None Remove="Styles\close_def.png" />
+    <None Remove="Styles\close_mo.png" />
+    <None Remove="Styles\menu_def.png" />
+    <None Remove="Styles\menu_mo.png" />
+    <None Remove="Styles\shutdown_def.png" />
+    <None Remove="Styles\shutdown_mo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Emgu.CV" Version="4.6.0.5131" />
+    <PackageReference Include="Emgu.CV.Bitmap" Version="4.6.0.5131" />
+    <PackageReference Include="Emgu.CV.runtime.windows" Version="4.6.0.5131" />
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="FluentValidation" Version="11.4.0" />
+    <PackageReference Include="FontAwesome.Sharp" Version="6.1.1" />
+    <PackageReference Include="LiveCharts" Version="0.9.7" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="MaterialDesignColors" Version="2.0.9" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="ZXing.Net" Version="0.16.8" />
+    <PackageReference Include="ZXing.Net.Bindings.Windows.Compatibility" Version="0.16.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Images\OverallApp\caret-arrow-up.png" />
+    <Resource Include="Assets\Images\OverallApp\caret-down.png" />
+    <Resource Include="Assets\Images\OverallApp\normal_shutdown button.png" />
+    <Resource Include="Assets\Images\OverallApp\trigger_shutdown_button.png" />
+    <Resource Include="Resources\Images\cute\1.png" />
+    <Resource Include="Resources\Images\cute\2.png" />
+    <Resource Include="Resources\Images\cute\3.png" />
+    <Resource Include="Resources\Images\cute\4.png" />
+    <Resource Include="Resources\Images\cute\5.png" />
+    <Resource Include="Resources\Images\cute\6.png" />
+    <Resource Include="Resources\Images\cute\7.png" />
+    <Resource Include="Resources\Images\cute\8.png" />
+    <Resource Include="Resources\Images\employee.png" />
+    <Resource Include="Resources\Images\Food1.jpg" />
+    <Resource Include="Resources\Images\menu_def.png" />
+    <Resource Include="Resources\Images\menu_default.png" />
+    <Resource Include="Resources\Images\menu_mo.png" />
+    <Resource Include="Resources\Images\Messageicon\error.png" />
+    <Resource Include="Resources\Images\Messageicon\info.png" />
+    <Resource Include="Resources\Images\Messageicon\success.png" />
+    <Resource Include="Resources\Images\Messageicon\warning.png" />
+    <Resource Include="Resources\Images\pencil.png" />
+    <Resource Include="Resources\Images\product.png" />
+    <Resource Include="Resources\Images\qr.png" />
+    <Resource Include="Resources\Images\Tincute.jpg" />
+    <Resource Include="Resources\Images\trash_can.png" />
+    <Resource Include="Resources\Images\troubles.png" />
+    <Resource Include="Resources\Images\voucher.png" />
+    <Resource Include="Resources\UserControlCustom\employee.png" />
+    <Resource Include="Resources\UserControlCustom\home.png" />
+    <Resource Include="Resources\UserControlCustom\product.png" />
+    <Resource Include="Resources\UserControlCustom\profile.png" />
+    <Resource Include="Resources\UserControlCustom\report.png" />
+    <Resource Include="Styles\close_def.png" />
+    <Resource Include="Styles\close_mo.png" />
+    <Resource Include="Styles\menu_def.png" />
+    <Resource Include="Styles\menu_mo.png" />
+    <Resource Include="Styles\shutdown_def.png" />
+    <Resource Include="Styles\shutdown_mo.png" />
+  </ItemGroup>
+
+</Project>

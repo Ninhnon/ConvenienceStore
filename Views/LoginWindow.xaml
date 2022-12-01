@@ -1,0 +1,96 @@
+﻿<Window x:Class="ConvenienceStore.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConvenienceStore"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:ConvenienceStore.ViewModel"
+        x:Name="wdLogin"
+        Title="MainWindow" Height="660" Width="1200">
+    <Grid>
+        <Grid.DataContext>
+            <vm:LoginViewModel>
+
+            </vm:LoginViewModel>
+        </Grid.DataContext>
+        <StackPanel HorizontalAlignment="Center"
+                    Margin="0,100,0,0">
+            <TextBox  x:Name="txtUsername"
+                    Text="{Binding UserName}"
+                    Background="Chocolate"
+                    Margin="0" 
+                    Width="220"
+                    Height="50" 
+                    HorizontalAlignment="Right" >
+
+            </TextBox>
+            <PasswordBox
+                    x:Name="txtPassword"
+                   
+                    Margin="0" 
+                    Width="220" 
+                    Height="50" 
+                    HorizontalAlignment="Right" 
+    
+                    FontSize="18" 
+                    TabIndex="2" 
+                    VerticalAlignment="Center" 
+                    
+                    FontWeight="SemiBold" 
+                    Padding="2,0,0,0" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PasswordChanged">
+                        <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
+                                                   CommandParameter="{Binding ElementName=txtPassword}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </PasswordBox>
+
+            <Button 
+                x:Name="btnLogin"
+                IsDefault="True"
+                Command="{Binding LogInCommand}"
+                CommandParameter="{Binding ElementName=wdLogin}"
+               
+                Content="Đăng nhập"
+                Height="40" 
+                Width="220"
+              
+                ToolTip="Đăng nhập" 
+                VerticalAlignment="Top" 
+               
+                HorizontalAlignment="Center"
+                TabIndex="3" 
+                FontSize="20" 
+                FontWeight="Bold"
+                Padding="0" >
+            </Button>
+
+            <Button 
+                x:Name="btnSignUp" 
+                FocusVisualStyle="{x:Null}"
+                Command="{Binding OpenSignUpWindowCommand}"
+                CommandParameter="{Binding ElementName=wdLogin}"
+                Content="Đăng ký" 
+                ToolTip="Chưa có tài khoản? Hãy đăng ký"
+                HorizontalAlignment="Center" 
+                Height="24" 
+                Width="120" 
+                VerticalAlignment="Top" 
+                Padding="0" 
+                HorizontalContentAlignment="Center" 
+                VerticalContentAlignment="Center" 
+                FontSize="18" 
+                
+              
+                FontWeight="Medium" 
+                Cursor="Hand"
+               
+                
+                IsTabStop="False"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

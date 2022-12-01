@@ -1,0 +1,62 @@
+﻿<Window x:Class="ConvenienceStore.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConvenienceStore"
+        xmlns:MenuUc="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
+        mc:Ignorable="d"
+        x:Name="wdMain"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        DataContext="{StaticResource MainWindowVM}"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterOwner"
+        Title="MainWindow" Height="660" Width="1200" MouseDown="ok"
+        
+        >
+    <i:Interaction.Triggers>
+
+        <i:EventTrigger EventName="SizeChanged">
+            <i:InvokeCommandAction Command="{Binding SizeChangedCommand}"
+                               CommandParameter="{Binding ElementName=wdMain}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+    </Window.Resources>
+    <Grid >
+
+        <Border Background="#f4f4f4" 
+                 CornerRadius="25">
+            <i:Interaction.Triggers>
+
+                <i:EventTrigger EventName="MouseUp">
+                    <i:InvokeCommandAction Command="{Binding HidePanelCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            
+        </Border>
+        <ContentControl x:Name="Pages" Height="{Binding wdHeight}"
+                            Opacity="{Binding OpacityChange}"
+                                Content="{Binding CurrentView}" VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="75,0,0,0"  >
+            <i:Interaction.Triggers>
+
+                <i:EventTrigger EventName="MouseUp">
+                    <i:InvokeCommandAction Command="{Binding HidePanelCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ContentControl>
+
+
+
+        <!--<Button x:Name="CloseApp"
+                Style="{StaticResource ExitApp}"
+                Click="CloseApp_Click" Margin="0,15,5,0" Height="40" Width="40" />-->
+
+        <MenuUc:MenuUserControl x:Name="uc" Margin="0,0,0,0" HorizontalAlignment="Left" Width="220" Height="{Binding wdHeight}"/>
+    </Grid>
+
+</Window>

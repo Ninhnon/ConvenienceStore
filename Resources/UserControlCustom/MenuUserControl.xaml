@@ -1,0 +1,137 @@
+﻿<UserControl x:Class="ConvenienceStore.Resources.UserControlCustom.MenuUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ConvenienceStore"
+             xmlns:view="clr-namespace:ConvenienceStore.Views"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             DataContext="{StaticResource MainWindowVM}"
+             mc:Ignorable="d" 
+             d:DesignHeight="660" d:DesignWidth="225"
+             Width="225">
+
+    <UserControl.Resources>
+        <local:BoolToVisibilityConverter x:Key="BoolToVis"/>
+
+    </UserControl.Resources>
+    <Grid DataContext="{StaticResource MainWindowVM}"
+          
+        >
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="LostMouseCapture">
+                <i:InvokeCommandAction Command="{Binding HidePanelCommand}"/>
+            </i:EventTrigger>
+            <i:EventTrigger EventName="TouchLeave">
+                <i:InvokeCommandAction Command="{Binding HidePanelCommand}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+
+        <Button 
+            x:Name="openButton"
+            Command="{Binding ShowPanelCommand}"
+           
+                            Style="{StaticResource MenuBtnStyle}" 
+                
+                            />
+        <Border Height="660" Style="{StaticResource PanelStyle}"
+            Visibility="{Binding IsPanelVisible, Converter={StaticResource BoolToVis}}">
+
+            <StackPanel>
+
+                <Button Command="{Binding HidePanelCommand}"
+                    Style="{StaticResource ClosePanelStyle}" />
+                <RadioButton Style="{StaticResource BtnStyle}"
+                              Command="{Binding HomeCommand}"
+                              
+                              IsChecked="True"
+                              Margin="0,100,0,0"
+                                 >
+
+                    <Grid>
+
+                        <Image Source="/Resources/UserControlCustom/home.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                        <TextBlock Text="Home"
+                                       Style="{StaticResource Text_Style}" />
+
+                    </Grid>
+
+                </RadioButton>
+
+                <!--// Employee //-->
+
+                <RadioButton Style="{StaticResource BtnStyle}"
+                              Command="{Binding EmployeeCommand}"
+                              >
+
+                    <Grid>
+
+                        <Image Source="/Resources/UserControlCustom/employee.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                        <TextBlock Text="Employee"
+                                       Style="{StaticResource Text_Style}" />
+
+                    </Grid>
+
+                </RadioButton>
+
+                <!--// Products //-->
+
+                <RadioButton Style="{StaticResource BtnStyle}"
+                              Command="{Binding ProductCommand}">
+
+                    <Grid>
+
+                        <Image Source="/Resources/UserControlCustom/product.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                        <TextBlock Text="Products"
+                                       Style="{StaticResource Text_Style}" />
+
+                    </Grid>
+
+                </RadioButton>
+
+                <!--// Profile //-->
+
+                <RadioButton Style="{StaticResource BtnStyle}"
+                              Command="{Binding ProfileCommand}">
+
+                    <Grid>
+
+                        <Image Source="/Resources/UserControlCustom/profile.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                        <TextBlock Text="Profile"
+                                       Style="{StaticResource Text_Style}" />
+
+                    </Grid>
+
+                </RadioButton>
+
+                <!--// Report //-->
+
+                <RadioButton Style="{StaticResource BtnStyle}"
+                              Command="{Binding ReportCommand}">
+
+                    <Grid>
+
+                        <Image Source="/Resources/UserControlCustom/report.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                        <TextBlock Text="Report"
+                                       Style="{StaticResource Text_Style}" />
+
+                    </Grid>
+
+                </RadioButton>
+
+
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</UserControl>
