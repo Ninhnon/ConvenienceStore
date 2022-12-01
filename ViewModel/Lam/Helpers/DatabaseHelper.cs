@@ -15,6 +15,8 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
         public static SqlConnection sqlCon = new SqlConnection(strCon);
 
         static readonly string queryInputInfo = @"select InputInfo.Id, InputDate, InputInfo.UserId, Users.Name, Users.Email, Users.Phone, Avatar, Supplier.Id, Supplier.Name
+
+        static readonly string queryInputInfo = @"select InputInfo.Id, InputDate, InputInfo.UserId, Users.Name, Supplier.Id, Supplier.Name
                                                   from InputInfo, Users, Supplier
                                                   where InputInfo.UserId = Users.Id and InputInfo.SupplierId = Supplier.Id
                                                   order by InputDate asc";
@@ -85,6 +87,8 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
                         // Còn Avatar nữa nè
                         SupplerId = reader.GetInt32(7),
                         SupplierName = reader.GetString(8),
+                        SupplerId = reader.GetInt32(4),
+                        SupplierName = reader.GetString(5),
                     }
                 );
             }
