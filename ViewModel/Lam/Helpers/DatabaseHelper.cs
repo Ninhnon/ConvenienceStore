@@ -79,8 +79,6 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
                         InputDate = reader.GetDateTime(1),
                         UserId = reader.GetInt32(2),
                         UserName = reader.GetString(3),
-                        Email = reader.GetString(4),
-                        Phone = reader.GetString(5),
                         // Còn Avatar nữa nè
                         SupplerId = reader.GetInt32(7),
                         SupplierName = reader.GetString(8),
