@@ -328,12 +328,12 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                    Cursor="Hand"
                                    VerticalAlignment="Center"
                                    d:Text="Công Ty CP Hàng Tiêu Dùng Masan">
-                        <i:Interaction.Triggers>
+                        <!--<i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseEnter">
                         <i:InvokeCommandAction Command="{Binding SupplierCommand}"
                                                    CommandParameter="{Binding ElementName=PagesNavigation}" />
                     </i:EventTrigger>
-                </i:Interaction.Triggers>
+                </i:Interaction.Triggers>-->
                         </TextBlock>
                     </Grid>
 
