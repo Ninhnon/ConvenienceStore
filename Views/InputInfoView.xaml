@@ -159,7 +159,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 
                                 <Grid x:Name="OperateButtons"
                                       VerticalAlignment="Top"
-                                      Visibility="Visible">
+                                      Visibility="Hidden">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="40"/>
                                         <ColumnDefinition Width="*"/>
