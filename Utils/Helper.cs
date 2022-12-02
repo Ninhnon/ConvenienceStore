@@ -14,7 +14,7 @@ namespace CinemaManagement.Utils
 {
     public class Helper
     {
-        public SqlConnection connection = new("Data Source=LAPTOP-JF6O07NR\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True");
+        public SqlConnection connection = new("Data Source=DESKTOP-RTH9F0I;Initial Catalog=ConvenienceStore;Integrated Security=True");
 
         public static (string, List<string>) GetListCode(int quantity, int length, string firstChars, string lastChars)
         {

@@ -14,7 +14,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
 {
     public class ProductVM : BaseViewModel
     {
-        readonly SqlConnection connection = new("Data Source=LAPTOP-JF6O07NR\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True");
+        readonly SqlConnection connection = new("Data Source=DESKTOP-RTH9F0I;Initial Catalog=ConvenienceStore;Integrated Security=True");
 
         private ObservableCollection<Products>? _List;
         public ObservableCollection<Products>? List { get => _List; set { _List = value; OnPropertyChanged(); } }

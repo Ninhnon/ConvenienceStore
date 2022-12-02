@@ -103,7 +103,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
         //        OnPropertyChanged();
         //    }
         //}
-        readonly SqlConnection connection = new("Data Source=LAPTOP-JF6O07NR\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True");
+        readonly SqlConnection connection = new("Data Source=DESKTOP-RTH9F0I;Initial Catalog=ConvenienceStore;Integrated Security=True");
 
         private ObservableCollection<Vouchers>? _List;
         public ObservableCollection<Vouchers>? List { get => _List; set { _List = value; OnPropertyChanged(); } }
