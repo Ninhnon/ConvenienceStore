@@ -140,12 +140,12 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
             return Products;
         }
 
-        public static ObservableCollection<Supplier> FetchingSupplier()
+        public static List<Supplier> FetchingSupplier()
         {
             sqlCon.Open();
             var cmd = new SqlCommand(querySupllier, sqlCon);
 
-            ObservableCollection<Supplier> suppliers = new ObservableCollection<Supplier>();
+            List<Supplier> suppliers = new List<Supplier>();
 
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -182,9 +182,9 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
                     Id = reader.GetInt32(0),
                     Name = reader.GetString(2),
 
-                    Address = reader.IsDBNull(3)?null:reader.GetString(3),
-                    Phone = reader.IsDBNull(4) ? null:reader.GetString(4),
-                    Email = reader.IsDBNull(5) ? null:reader.GetString(5),
+                    Address = reader.IsDBNull(3) ? null : reader.GetString(3),
+                    Phone = reader.IsDBNull(4) ? null : reader.GetString(4),
+                    Email = reader.IsDBNull(5) ? null : reader.GetString(5),
                 });
             }
 

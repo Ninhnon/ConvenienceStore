@@ -13,7 +13,9 @@ namespace ConvenienceStore.ViewModel.Lam
 {
     public class SupplierVM : INotifyPropertyChanged
     {
-        public ObservableCollection<Supplier> suppliers { get; set; }
+        public List<Supplier> suppliers { get; set; }
+
+        public ObservableCollection<Supplier> ObservableSupplier { get; set; }
 
         private Supplier selectedSupplier;
 
@@ -45,6 +47,11 @@ namespace ConvenienceStore.ViewModel.Lam
         public SupplierVM()
         {
             suppliers = DatabaseHelper.FetchingSupplier();
+            ObservableSupplier = new ObservableCollection<Supplier>();
+            for (int i = 0; i < suppliers.Count; i++)
+            {
+                ObservableSupplier.Add(suppliers[i]);
+            }
 
             AddSupplierButtonCommand = new AddSupplierButtonCommand(this);
         }
