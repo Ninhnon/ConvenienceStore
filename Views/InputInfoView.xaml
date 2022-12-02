@@ -111,8 +111,12 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 <ListBox x:Name="InputInfoCards"
                          ItemsSource="{Binding ObservableInputInfos}"
                          SelectedValue="{Binding SelectedInputInfo}"
-                         Margin="25 130 25 27"
-                         VerticalAlignment="Top">
+                         Margin="25 130 3 30"
+                         VerticalAlignment="Top"
+                         ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                         ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                         ScrollViewer.CanContentScroll="False"
+                         VirtualizingPanel.IsVirtualizing="True">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="{x:Type ListBoxItem}">
                             <Setter Property="Template">
