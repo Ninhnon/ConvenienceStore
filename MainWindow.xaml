@@ -32,8 +32,7 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
     </Window.Resources>
-    <Border CornerRadius="8" 
-            Background="{DynamicResource PrimaryBackgroundColor}">
+    <Border  CornerRadius="8" Background="{DynamicResource PrimaryBackgroundColor}">
         <i:Interaction.Triggers>
 
             <i:EventTrigger EventName="MouseUp">
@@ -43,6 +42,7 @@
         <Grid>
 
             <!-- Start: GridColumn Right -->
+            
             <Grid >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>
@@ -50,6 +50,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Start: Button Close | Restore | Minimize -->
+                
                 <StackPanel Grid.Row="0" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft">
                     <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="btnClose_Click" Tag="IsCloseButton"/>
                     <Button x:Name="btnRestore" Margin="5,0" Click="btnRestore_Click">
@@ -78,10 +79,11 @@
                         </i:Interaction.Triggers>-->
                 </Frame>
             </Grid>
-            <!-- Start: GridColumn Right -->
+
+                <!-- Start: GridColumn Right -->
 
         <!-- Start: GridColum Left-->
-            <Grid x:Name="gridMenu" Width="60"  HorizontalAlignment="Left" Background="{DynamicResource SecondaryBackgroundColor}">
+            <Grid x:Name="gridMenu"  Width="60" Height="644"  HorizontalAlignment="Left" Background="{DynamicResource SecondaryBackgroundColor}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="80"/>
@@ -137,9 +139,10 @@
                         <Label Content="ngoctin0809@gmail.com" Foreground="{DynamicResource PrimaryGrayColor}" FontSize="11" FontWeight="Regular" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0 -10 0 0"/>
                     </StackPanel>
                 </StackPanel>
-            </Grid>
-            <!-- End: GridColum Left-->
-
+                    
+                </Grid>
+          
+                <!-- End: GridColum Left-->
         </Grid>
     </Border>
 </Window>
