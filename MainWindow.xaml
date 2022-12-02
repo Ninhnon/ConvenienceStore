@@ -10,7 +10,7 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="660" Width="1200" MouseDown="ok"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -41,74 +41,9 @@
             </i:EventTrigger>
         </i:Interaction.Triggers>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <!-- Start: GridColum Left-->
-            <Border CornerRadius="8 0 0 8" Background="{DynamicResource SecondaryBackgroundColor}">
-                <Grid x:Name="gridMenu" Width="60">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="80"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-
-                    <!-- Logo -->
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
-                        <Path Data="{DynamicResource logo}" Margin="16 0 0 0" Stretch="Fill" Fill="{DynamicResource PrimaryBlueColor}" Width="25" Height="25" HorizontalAlignment="Left"/>
-                        <Label Content="Store" Foreground="{DynamicResource PrimaryBlueColor}" FontWeight="Bold" FontSize="20" VerticalAlignment="Center" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="14 0 0 0"/>
-                    </StackPanel>
-
-                    <!-- Menu -->
-                    <ToggleButton x:Name="btnMenu"  HorizontalAlignment="Right" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Style="{StaticResource MenuIconStyle}" Margin="0 0 15 0">
-                        <ToggleButton.Triggers>
-                            <EventTrigger RoutedEvent="ToggleButton.Unchecked">
-                                <BeginStoryboard>
-                                    <Storyboard x:Name="HideStackPanel">
-                                        <DoubleAnimation Storyboard.TargetName="gridMenu" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="200" To="60" Duration="0:0:0.3">
-                                        </DoubleAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                            <EventTrigger RoutedEvent="ToggleButton.Checked">
-                                <BeginStoryboard>
-                                    <Storyboard x:Name="ShowStackPanel">
-                                        <DoubleAnimation Storyboard.TargetName="gridMenu" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="60" To="200" Duration="0:0:0.3">
-                                        </DoubleAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </ToggleButton.Triggers>
-                    </ToggleButton>
-
-                    <StackPanel Grid.Row="3">
-                        <RadioButton x:Name="rdHome" IsChecked="True" Content="Home" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource payment}" Click="rdHome_Click" FontWeight="SemiBold"/>
-                        <RadioButton x:Name="rdInputInfo" Content="InputInfo" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource history}" Margin="0 5 0 5" Click="rdInputInfo_Click" FontWeight="SemiBold"/>
-                        <RadioButton x:Name="rdProfile" Content="Profile" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource profile}" Margin="0 5 0 5" Click="rdProfile_Click" FontWeight="SemiBold"/>
-                        <RadioButton x:Name="rdReport" Content="Report" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource report}" Margin="0 5 0 5" Click="rdReport_Click" FontWeight="SemiBold"/>
-                        <RadioButton x:Name="rdSupplier" Content="Supplier" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource product}" Margin="0 5 0 5" Click="rdSupplier_Click" FontWeight="SemiBold"/>
-                        <RadioButton x:Name="rdVoucher" Content="Voucher" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource voucher}" Margin="0 5 0 5" Click="rdVoucher_Click" FontWeight="SemiBold"/>
-                    </StackPanel>
-
-                    <StackPanel Grid.Row="3" VerticalAlignment="Bottom" Orientation="Horizontal" Width="200" Margin="0 0 0 20">
-                        <Ellipse Width="40" Height="40" Margin="10 0 0 0">
-                            <Ellipse.Fill>
-                                <ImageBrush ImageSource="\Resources\Images\Food1.jpg"/>
-                            </Ellipse.Fill>
-                        </Ellipse>
-                        <StackPanel Orientation="Vertical" Margin="8 0 0 0">
-                            <Label Content="Tín Nguyễn" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="SemiBold" HorizontalContentAlignment="Center" HorizontalAlignment="Left"/>
-                            <Label Content="ngoctin0809@gmail.com" Foreground="{DynamicResource PrimaryGrayColor}" FontSize="11" FontWeight="Regular" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0 -10 0 0"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Grid>
-            </Border>
-            <!-- End: GridColum Left-->
 
             <!-- Start: GridColumn Right -->
-            <Grid Grid.Column="1">
+            <Grid >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>
                     <RowDefinition/>
@@ -133,45 +68,79 @@
                 </StackPanel>
                 <!-- End: Button Close | Restore | Minimize -->
 
-                <Border Grid.Row="1" Margin="10">
-                    <Frame x:Name="PagesNavigation" NavigationUIVisibility="Hidden">
-                        <!-- Page Content -->
-                        <i:Interaction.Triggers>
+                <Frame Grid.Row="1" Margin="60 0 0 0" x:Name="PagesNavigation" NavigationUIVisibility="Hidden">
+                    <!-- Page Content -->
+                    <!--<i:Interaction.Triggers>
 
                             <i:EventTrigger EventName="MouseUp">
                                 <i:InvokeCommandAction Command="{Binding HidePanelCommand}"/>
                             </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Frame>
-                </Border>
+                        </i:Interaction.Triggers>-->
+                </Frame>
             </Grid>
             <!-- Start: GridColumn Right -->
+
+        <!-- Start: GridColum Left-->
+            <Grid x:Name="gridMenu" Width="60"  HorizontalAlignment="Left" Background="{DynamicResource SecondaryBackgroundColor}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <!-- Logo -->
+                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
+                    <Path Data="{DynamicResource logo}" Margin="16 0 0 0" Stretch="Fill" Fill="{DynamicResource PrimaryBlueColor}" Width="25" Height="25" HorizontalAlignment="Left"/>
+                    <Label Content="Store" Foreground="{DynamicResource PrimaryBlueColor}" FontWeight="Bold" FontSize="20" VerticalAlignment="Center" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="14 0 0 0"/>
+                </StackPanel>
+
+                <!-- Menu -->
+                <ToggleButton x:Name="btnMenu"  HorizontalAlignment="Right" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Style="{StaticResource MenuIconStyle}" Margin="0 0 15 0">
+                    <ToggleButton.Triggers>
+                        <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                            <BeginStoryboard>
+                                <Storyboard x:Name="HideStackPanel">
+                                    <DoubleAnimation Storyboard.TargetName="gridMenu" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="200" To="60" Duration="0:0:0.3">
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="ToggleButton.Checked">
+                            <BeginStoryboard>
+                                <Storyboard x:Name="ShowStackPanel">
+                                    <DoubleAnimation Storyboard.TargetName="gridMenu" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="60" To="200" Duration="0:0:0.3">
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ToggleButton.Triggers>
+                </ToggleButton>
+
+                <StackPanel Grid.Row="3">
+                    <!--<RadioButton x:Name="rdHome" IsChecked="True" Content="Home" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource payment}" Click="rdHome_Click" FontWeight="SemiBold"/>-->
+                    <RadioButton x:Name="rdInputInfo" Content="InputInfo" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource history}" Margin="0 5 0 5" Click="rdInputInfo_Click" FontWeight="SemiBold"/>
+                    <RadioButton x:Name="rdProfile" Content="Profile" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource profile}" Margin="0 5 0 5" Click="rdProfile_Click" FontWeight="SemiBold"/>
+                    <!--<RadioButton x:Name="rdReport" Content="Report" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource report}" Margin="0 5 0 5" Click="rdReport_Click" FontWeight="SemiBold"/>-->
+                    <RadioButton x:Name="rdSupplier" Content="Supplier" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource product}" Margin="0 5 0 5" Click="rdSupplier_Click" FontWeight="SemiBold"/>
+                    <!--<RadioButton x:Name="rdVoucher" Content="Voucher" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource voucher}" Margin="0 5 0 5" Click="rdVoucher_Click" FontWeight="SemiBold"/>-->
+                </StackPanel>
+
+                <StackPanel Grid.Row="3" VerticalAlignment="Bottom" Orientation="Horizontal" Width="200" Margin="0 0 0 20">
+                    <Ellipse Width="40" Height="40" Margin="10 0 0 0">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="\Resources\Images\Food1.jpg"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <StackPanel Orientation="Vertical" Margin="8 0 0 0">
+                        <Label Content="Tín Nguyễn" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="SemiBold" HorizontalContentAlignment="Center" HorizontalAlignment="Left"/>
+                        <Label Content="ngoctin0809@gmail.com" Foreground="{DynamicResource PrimaryGrayColor}" FontSize="11" FontWeight="Regular" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0 -10 0 0"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            <!-- End: GridColum Left-->
+
         </Grid>
     </Border>
 </Window>
 
-<!-->
-    
-    <Grid >
-
-        <Border Background="#f4f4f4" 
-                 CornerRadius="25">
-            
-            
-            
-        </Border>
-        <ContentControl x:Name="Pages" Height="{Binding wdHeight}"
-                            Opacity="{Binding OpacityChange}"
-                                Content="{Binding CurrentView}" VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="75,0,0,0"  >
-            
-        </ContentControl>-->
-
-
-
-        <!--<Button x:Name="CloseApp"
-                Style="{StaticResource ExitApp}"
-                Click="CloseApp_Click" Margin="0,15,5,0" Height="40" Width="40" />
-
-    </Grid>
-
-</Window>-->

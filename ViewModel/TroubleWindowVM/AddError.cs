@@ -1,5 +1,6 @@
 ﻿using ConvenienceStore.Model;
 using ConvenienceStore.Utils;
+using ConvenienceStore.ViewModel.Lam.Helpers;
 using ConvenienceStore.ViewModel.MainBase;
 using ConvenienceStore.ViewModel.StaffVM;
 using ConvenienceStore.Views;
@@ -61,7 +62,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         {
             var strCmd = string.Format(insertErorrs, t.Id, t.Title, t.Description, t.RepairCost, t.SubmittedAt, t.StaffId, t.Level, filepath);
 
-            SqlCommand cmd = new(strCmd, connection);
+            SqlCommand cmd = new(strCmd, DatabaseHelper.sqlCon);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
         }

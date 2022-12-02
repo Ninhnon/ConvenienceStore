@@ -1,5 +1,6 @@
 ﻿
 using ConvenienceStore.Model;
+using ConvenienceStore.ViewModel.Lam.Helpers;
 using ConvenienceStore.ViewModel.MainBase;
 using ConvenienceStore.Views.Staff.TroubleWindow;
 using System;
@@ -104,39 +105,13 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         string? filepath;
         bool IsImageChanged = false;
         public static Grid MaskName { get; set; }
-        readonly SqlConnection connection = new("Data Source=LAPTOP-JF6O07NR\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True");
 
         public List<Report> danhsach = new();
-        readonly string DanhSachReport = @"select * from Report";
-        //string insertReport = "insert Report values ('{0}', '{1}', '{2}', {3}, {4}, '{5}' )";
-        public void FetchData()
-        {
-            SqlCommand cmd = new(DanhSachReport, connection);
 
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                danhsach.Add(new Report()
-                {
-                    Id = reader.GetString(0),
-                    Title = reader.GetString(1),
-                    Description = reader.GetString(2),
-                    Status = reader.GetString(3),
-                    SubmittedAt = reader.GetDateTime(4),
-                    RepairCost = reader.IsDBNull(5) ? null : reader.GetDecimal(5),
-                    StartDate = reader.IsDBNull(6) ? null : reader.GetDateTime(6),
-                    FinishDate = reader.IsDBNull(7) ? null : reader.GetDateTime(6),
-                    StaffId = reader.GetInt32(8),
-                    Level = reader.GetString(9),
-                    Image = (byte[])reader["Image"],
-                }); ;
-            }
-            reader.Close();
-        }
         public TroublePageViewModel()
         {
-            connection.Open();
-            FetchData();
+            danhsach = DatabaseHelper.FetchingReportData();
+
             ListError = new ObservableCollection<Report>(danhsach);
             GetCurrentDate = System.DateTime.Today;
             //FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
@@ -225,7 +200,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         }
         public async Task GetData()
         {
-            FetchData();
+            danhsach = DatabaseHelper.FetchingReportData();
             ListError = new ObservableCollection<Report>(await Task.Run(() => danhsach));
         }
 

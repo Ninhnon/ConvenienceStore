@@ -9,12 +9,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace ConvenienceStore.ViewModel.Lam
 {
-    public class InputInfoVM : INotifyPropertyChanged
+    public class InputInfoVM : MainBase.BaseViewModel,INotifyPropertyChanged
     {
         public ObservableCollection<Manager> managers { get; set; }
         public List<InputInfo> inputInfos { get; set; }
@@ -24,6 +25,7 @@ namespace ConvenienceStore.ViewModel.Lam
 
         public int IsDesc
         {
+
             get { return isDesc; }
             set 
             { 
@@ -38,6 +40,7 @@ namespace ConvenienceStore.ViewModel.Lam
         private Manager selectedManager;
         public Manager SelectedManager
         {
+
             get { return selectedManager; }
             set
             {
@@ -106,6 +109,7 @@ namespace ConvenienceStore.ViewModel.Lam
         public SaveNewProductCommand SaveNewProductCommand { get; set; }
         public EditProductButton EditProductButton { get; set; }
 
+        public ICommand SupplierCommand { get; set; }
         public InputInfoVM()
         {
             inputInfos = DatabaseHelper.FetchingInputInfo();
@@ -136,6 +140,13 @@ namespace ConvenienceStore.ViewModel.Lam
             SaveNewProductCommand = new SaveNewProductCommand(this);
 
             EditProductButton = new EditProductButton(this);
+            SupplierCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                MainWindow n = new MainWindow();
+                n.PagesNavigation.Navigate(new Uri("Views/SupplierView.xaml", UriKind.RelativeOrAbsolute));
+                p.Close();
+                n.ShowDialog();
+            });
 
         }
 

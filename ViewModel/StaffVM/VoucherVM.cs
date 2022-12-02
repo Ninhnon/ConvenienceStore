@@ -9,6 +9,7 @@ using ConvenienceStore.Model;
 using ConvenienceStore.Views;
 using System.Data.SqlClient;
 using ConvenienceStore.ViewModel.MainBase;
+using ConvenienceStore.ViewModel.Lam.Helpers;
 
 namespace ConvenienceStore.ViewModel.StaffVM
 {
@@ -103,41 +104,21 @@ namespace ConvenienceStore.ViewModel.StaffVM
         //        OnPropertyChanged();
         //    }
         //}
-        readonly SqlConnection connection = new("Data Source=LAPTOP-JF6O07NR\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True");
 
         private ObservableCollection<Vouchers>? _List;
         public ObservableCollection<Vouchers>? List { get => _List; set { _List = value; OnPropertyChanged(); } }
         public List<Vouchers> danhsach = new();
-        readonly string DanhSachSanPham = @"select * from [Voucher]";
-        public void FetchData()
-        {
-            SqlCommand cmd = new(DanhSachSanPham, connection);
-            SqlDataReader read = cmd.ExecuteReader();
-            while (read.Read())
-            {
-                danhsach.Add(new Vouchers()
-                {
-                    ReleaseId = read.GetString(0),
-                    ReleaseName = read.GetString(1),
-                    StartDate = read.GetDateTime(2),
-                    FinishDate = read.GetDateTime(3),
-                    ParValue = read.GetInt32(4),
-                    Status = read.GetBoolean(5),
-                });
-            }
-            read.Close();
-        }
-
+        
+        
         public VoucherVM()
         {
-            connection.Open();
-            FetchData();
+            danhsach = DatabaseHelper.FetchingVoucherData();
             List = new ObservableCollection<Vouchers>(danhsach);
 
             FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 GetCurrentDate = DateTime.Today;
-                FetchData();
+                danhsach = DatabaseHelper.FetchingVoucherData();
                 List = new ObservableCollection<Vouchers>(danhsach);
             });
             SelectedCM = new RelayCommand<object>((p) => { return true; }, (p) =>

@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:ConvenienceStore"
              StartupUri="MainWindow.xaml"
     xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
+
     <Application.Resources>
         <ResourceDictionary>
 
@@ -20,8 +21,7 @@
                 <ResourceDictionary Source="Styles/ButtonStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/MenuButtonStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/faStyle.xaml"/>
-                <ResourceDictionary Source="/Resources/Icons/Icons.xaml"></ResourceDictionary>
-
+                <ResourceDictionary Source="/Resources/Icons/Icons.xaml"/>
                 <ResourceDictionary Source="Styles/MenuButtonStyle.xaml"/>
                 <ResourceDictionary Source="Styles/Lam/Color.xaml"/>
                 <ResourceDictionary Source="Styles/Lam/CustomComboBox.xaml"/>
@@ -31,8 +31,6 @@
                 <ResourceDictionary Source="Styles/Lam/ShutdownButton.xaml"/>
                 <ResourceDictionary Source="Styles/Lam/InteractiveTextBlock.xaml"/>
                 <ResourceDictionary Source="/Resources/DataTemplate.xaml"/>
-
-
             </ResourceDictionary.MergedDictionaries>
             <SolidColorBrush x:Key="PrimaryHueLightBrush"
                              Color="#00AF91" />

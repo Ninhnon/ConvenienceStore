@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace ConvenienceStore.ViewModel.Lam.Helpers
 {
-    public class DatabaseHelper
+    public partial class DatabaseHelper
     {
         /* strCon của Lâm
          * static readonly string strCon = @"Data Source=LAPTOP-JF6O07NR\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True"; */
