@@ -31,7 +31,7 @@
                 CornerRadius="25">
         </Border>
 
-        <Grid Width="550"
+        <Grid Width="600"
               VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

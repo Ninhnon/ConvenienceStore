@@ -16,7 +16,6 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              Background="Transparent">
 
     <Page.Resources>
-        <Command:CloseAppCommand x:Key="CloseAppCommand"/>
         <InputInfoCommand:HideOperateButtonsCommand x:Key="HideOperateButtonsCommand"/>
         <Converters:StringToVisibility x:Key="StringToVisibility"/>
         <Converters:IndexToVisibility x:Key="IndexToVisibility"/>
@@ -60,16 +59,12 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                        VerticalAlignment="Center"/>
 
                             <ComboBox Style="{StaticResource CustomComboBox}"
-                                      SelectedIndex="0"
-                                      Width="100"
-                                      SelectionChanged="ComboBox_SelectionChanged">
+                                      SelectedIndex="{Binding IsDesc, Mode=TwoWay}"
+                                      Width="100">
                                 <TextBlock Text="Tăng dần"
                                            FontSize="16"/>
                                 <TextBlock Text="Giảm dần"
                                            FontSize="16"/>
-                                <!--<i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="SelectionChanged"
-                                </i:Interaction.Triggers>-->
                             </ComboBox>
 
                         </StackPanel>
@@ -116,9 +111,13 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 
                 <ListBox x:Name="InputInfoCards"
                          ItemsSource="{Binding ObservableInputInfos}"
-                         SelectedItem="{Binding SelectedInputInfo, Mode=OneWayToSource}"
-                         Margin="25 130 25 27"
-                         VerticalAlignment="Top">
+                         SelectedValue="{Binding SelectedInputInfo}"
+                         Margin="25 130 3 30"
+                         VerticalAlignment="Top"
+                         ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                         ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                         ScrollViewer.CanContentScroll="False"
+                         VirtualizingPanel.IsVirtualizing="True">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="{x:Type ListBoxItem}">
                             <Setter Property="Template">
@@ -151,6 +150,10 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                             <i:InvokeCommandAction Command="{StaticResource HideOperateButtonsCommand}"
                                                                    CommandParameter="{Binding ElementName=OperateButtons}"/>
                                         </i:EventTrigger>
+                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                            <i:InvokeCommandAction Command="{Binding Source={StaticResource InputInfoVM}, Path=OpenInputInfoCommand}"
+                                                                   CommandParameter="{Binding}"/>
+                                        </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </UserControls:InputInfoCard>
 
@@ -158,9 +161,9 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                       VerticalAlignment="Top"
                                       Visibility="Hidden">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="40"/>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="40"/>
                                     </Grid.ColumnDefinitions>
 
                                     <Border x:Name="DetailButton"
@@ -168,7 +171,8 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                             CornerRadius="2"
                                             Cursor="Hand">
                                         <Image Source="../Assets/Images/IconForInputInfo/info_32.png"
-                                               Height="20"/>
+                                               Height="20"
+                                               Width="20"/>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseEnter">
                                                 <i:ChangePropertyAction PropertyName="Background"
@@ -219,7 +223,6 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 CornerRadius="0 25 25 0">
             <StackPanel DataContext="{Binding SelectedInputInfo}"
                         VerticalAlignment="Center"
-
                         Margin="30 0"
                         Visibility="{Binding ElementName=InputInfoCards, Path=SelectedItem, Converter={StaticResource HasOjectConverter}}">
 
@@ -232,11 +235,10 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                          Grid.RowSpan="2"
                          Fill="#E9E9E9"
                          Margin="0 0 0 30">
-                    
+
                 </Ellipse>
 
                 <StackPanel Margin="0 0 0 15">
-
                     <Grid Margin="0 0 0 5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"/>
@@ -249,7 +251,6 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                            HorizontalAlignment="Left"/>
                         <TextBlock Grid.Column="2"
                                Text="{Binding UserName}"
-
                                FontSize="18"
                                FontWeight="SemiBold"
                                    VerticalAlignment="Center"
@@ -295,7 +296,6 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 
                 <Separator Margin="0 0 0 15"
                            Background="#D9D9D9">
-
                     <Separator.RenderTransform>
                         <ScaleTransform ScaleY="3" />
                     </Separator.RenderTransform>
@@ -304,7 +304,6 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 <StackPanel>
 
                     <Grid Margin="0 0 0 5">
-
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="15"/>
@@ -320,6 +319,8 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                    VerticalAlignment="Center"
                                d:Text="01-12-2022"/>
                     </Grid>
+
+
 
                     <Grid Margin="0 0 0 5">
                         <Grid.ColumnDefinitions>
@@ -363,7 +364,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 </StackPanel>
             </StackPanel>
 
-            
+
         </Border>
 
         <!--Products Screen-->
@@ -646,7 +647,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                             <ColumnDefinition Width="30"/>
                             <ColumnDefinition Width="15"/>
                             <ColumnDefinition Width="90"/>
-                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="110"/>
                         </Grid.ColumnDefinitions>
 
                         <Image Grid.Column="0"
@@ -672,7 +673,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                             <ColumnDefinition Width="30"/>
                             <ColumnDefinition Width="15"/>
                             <ColumnDefinition Width="90"/>
-                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="110"/>
                         </Grid.ColumnDefinitions>
 
                         <Image Grid.Column="0"
