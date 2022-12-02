@@ -17,7 +17,11 @@
     <ViewModel:EmployeeViewModel x:Key="EmployeeVM"/>
     <ViewModel:MainWindowViewModel x:Key="MainWindowVM"></ViewModel:MainWindowViewModel>
     <local:BoolToVisibilityConverter x:Key="BoolToVis"/>
+    
+    <!-- VM của Lâm đẹp troai -->
     <vmLam:InputInfoVM x:Key="InputInfoVM"/>
+    <vmLam:SupplierVM x:Key="SupplierVM"/>
+
     <subViewModel:AddEmployeeViewModel x:Key="AddEmployeeVM"/>
     <vm:VoucherVM x:Key="VoucherVM"/>
     <vm:ProductVM x:Key="ProductVM"/>
