@@ -8,12 +8,12 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
 {
     public class DatabaseHelper
     {
-        //static readonly string strCon = @"Data Source=LAPTOP-JF6O07NR\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True";
-        static readonly string strCon = @"Data Source=LAPTOP-O791JS0J\SQLEXPRESS;Initial Catalog = ConvenienceStore; Integrated Security = True";
+        /* strCon của Lâm
+         * static readonly string strCon = @"Data Source=LAPTOP-JF6O07NR\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True"; */
+        static readonly string strCon = @"Data Source=LAPTOP-JF6O07NR\SQLEXPRESS;Initial Catalog = ConvenienceStore; Integrated Security = True";
         public static SqlConnection sqlCon = new SqlConnection(strCon);
 
         static readonly string queryInputInfo = @"select InputInfo.Id, InputDate, InputInfo.UserId, Users.Name, Users.Email, Users.Phone, Avatar, Supplier.Id, Supplier.Name
-
                                                   from InputInfo, Users, Supplier
                                                   where InputInfo.UserId = Users.Id and InputInfo.SupplierId = Supplier.Id
                                                   order by InputDate asc";
@@ -79,10 +79,11 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
                         InputDate = reader.GetDateTime(1),
                         UserId = reader.GetInt32(2),
                         UserName = reader.GetString(3),
+                        Email = reader.GetString(4),
+                        Phone = reader.GetString(5),
                         // Còn Avatar nữa nè
                         SupplerId = reader.GetInt32(7),
                         SupplierName = reader.GetString(8),
-
                     }
                 );
             }

@@ -25,8 +25,8 @@ namespace ConvenienceStore.ViewModel.Lam
         public Manager SelectedManager
         {
             get { return selectedManager; }
-            set 
-            { 
+            set
+            {
                 selectedManager = value;
                 OnPropertyChanged("SelectedManager");
 
@@ -49,43 +49,8 @@ namespace ConvenienceStore.ViewModel.Lam
             {
                 selectedInputInfo = value;
                 OnPropertyChanged("SelectedInputInfo");
-
-                if (value != null)
-                {
-                    OpenDetail(selectedInputInfo.Id);
-
-                    DisplayManager = managers.FirstOrDefault(e => e.Id == selectedInputInfo.UserId);
-                    DisplaySupplier = suppliers.FirstOrDefault(e => e.Id == selectedInputInfo.SupplerId);
-                }
-
             }
         }
-
-        private Manager displayManager;
-
-        public Manager DisplayManager
-        {
-            get { return displayManager; }
-            set 
-            { 
-                displayManager = value;
-                OnPropertyChanged("DisplayManager");
-            }
-        }
-
-
-        private Supplier displaySupplier;
-
-        public Supplier DisplaySupplier
-        {
-            get { return displaySupplier; }
-            set
-            {
-                displaySupplier = value;
-                OnPropertyChanged("DisplaySupplier");
-            }
-        }
-
 
         public List<Product> products;
 
@@ -117,6 +82,7 @@ namespace ConvenienceStore.ViewModel.Lam
 
         // Command
 
+        public OpenInputInfoCommand OpenInputInfoCommand { get; set; }
         public AddInputInfoButtonCommand AddInputInfoButtonCommand { get; set; }
         public CreateInputInfoButtonCommand CreateInputInfoButtonCommand { get; set; }
         public DeleteInputInfoCommand DeleteInputInfoCommand { get; set; }
@@ -143,6 +109,7 @@ namespace ConvenienceStore.ViewModel.Lam
             products = new List<Product>();
             ObservableProducts = new ObservableCollection<Product>();
 
+            OpenInputInfoCommand = new OpenInputInfoCommand(this);
             AddInputInfoButtonCommand = new AddInputInfoButtonCommand(this);
             CreateInputInfoButtonCommand = new CreateInputInfoButtonCommand(this);
             DeleteInputInfoCommand = new DeleteInputInfoCommand(this);
@@ -156,7 +123,7 @@ namespace ConvenienceStore.ViewModel.Lam
 
         }
 
-        void OpenDetail(int InputInfoId)
+        public void LoadProducts()
         {
             products = selectedInputInfo.products;
 

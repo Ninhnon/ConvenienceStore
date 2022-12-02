@@ -9,6 +9,7 @@
 
 namespace ConvenienceStore.Model
 {
+    using ConvenienceStore.Model.Lam;
     using System;
     using System.Collections.Generic;
     
