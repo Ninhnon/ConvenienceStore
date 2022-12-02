@@ -24,5 +24,15 @@ namespace ConvenienceStore.Views
         {
             InitializeComponent();
         }
+
+        private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

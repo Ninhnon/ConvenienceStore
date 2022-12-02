@@ -20,8 +20,22 @@ namespace ConvenienceStore.ViewModel.Lam
         public List<InputInfo> inputInfos { get; set; }
         public ObservableCollection<InputInfo> ObservableInputInfos { get; set; }
 
-        private Manager selectedManager;
+        private int isDesc;
 
+        public int IsDesc
+        {
+            get { return isDesc; }
+            set 
+            { 
+                isDesc = value;
+                OnPropertyChanged("IsDesc");
+
+                OrderByInputDate();
+            }
+        }
+
+
+        private Manager selectedManager;
         public Manager SelectedManager
         {
             get { return selectedManager; }
@@ -38,7 +52,7 @@ namespace ConvenienceStore.ViewModel.Lam
         }
 
 
-        public ObservableCollection<Supplier> suppliers { get; set; }
+        public List<Supplier> suppliers { get; set; }
 
         private InputInfo selectedInputInfo;
 
@@ -97,6 +111,8 @@ namespace ConvenienceStore.ViewModel.Lam
             inputInfos = DatabaseHelper.FetchingInputInfo();
             ObservableInputInfos = new ObservableCollection<InputInfo>();
 
+            IsDesc = 0;
+
             managers = DatabaseHelper.FetchingManagers();
             managers.Insert(0, new Manager()
             {
@@ -135,13 +151,50 @@ namespace ConvenienceStore.ViewModel.Lam
         {
             ObservableInputInfos.Clear();
 
-            for (int i = 0; i < inputInfos.Count; ++i)
+            if (isDesc == 1)
             {
-                if (inputInfos[i].UserId == selectedManager.Id || selectedManager.Name == "All")
+                for (int i = inputInfos.Count - 1; i >= 0; --i)
                 {
-                    ObservableInputInfos.Add(inputInfos[i]);
+                    if (inputInfos[i].UserId == selectedManager.Id || selectedManager.Name == "All")
+                    {
+                        ObservableInputInfos.Add(inputInfos[i]);
+                    }
                 }
             }
+            else
+            {
+                for (int i = 0; i < inputInfos.Count; ++i)
+                {
+                    if (inputInfos[i].UserId == selectedManager.Id || selectedManager.Name == "All")
+                    {
+                        ObservableInputInfos.Add(inputInfos[i]);
+                    }
+                }
+            }
+            
+        }
+
+        public void OrderByInputDate()
+        {
+            if (isDesc == 1)
+            {
+                var descInputInfos = ObservableInputInfos.OrderByDescending(e => e.InputDate).ToList();
+                ObservableInputInfos.Clear();
+                for (int i = 0; i < descInputInfos.Count; ++i)
+                {
+                    ObservableInputInfos.Add(descInputInfos[i]);
+                }
+            }
+            else
+            {
+                var ascInputInfos = ObservableInputInfos.OrderBy(e => e.InputDate).ToList();
+                ObservableInputInfos.Clear();
+                for (int i = 0; i < ascInputInfos.Count; ++i)
+                {
+                    ObservableInputInfos.Add(ascInputInfos[i]);
+                }
+            }
+
         }
 
         public void SetProductsCorrespondSearch()

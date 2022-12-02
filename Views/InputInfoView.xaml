@@ -15,7 +15,6 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              Background="Transparent">
 
     <Page.Resources>
-        <Command:CloseAppCommand x:Key="CloseAppCommand"/>
         <InputInfoCommand:HideOperateButtonsCommand x:Key="HideOperateButtonsCommand"/>
         <Converters:StringToVisibility x:Key="StringToVisibility"/>
         <Converters:IndexToVisibility x:Key="IndexToVisibility"/>
@@ -59,16 +58,12 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                        VerticalAlignment="Center"/>
 
                             <ComboBox Style="{StaticResource CustomComboBox}"
-                                      SelectedIndex="0"
-                                      Width="100"
-                                      SelectionChanged="ComboBox_SelectionChanged">
+                                      SelectedIndex="{Binding IsDesc, Mode=TwoWay}"
+                                      Width="100">
                                 <TextBlock Text="Tăng dần"
                                            FontSize="16"/>
                                 <TextBlock Text="Giảm dần"
                                            FontSize="16"/>
-                                <!--<i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="SelectionChanged"
-                                </i:Interaction.Triggers>-->
                             </ComboBox>
 
                         </StackPanel>
