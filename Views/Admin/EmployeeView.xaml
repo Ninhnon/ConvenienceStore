@@ -8,8 +8,8 @@
              xmlns:uc="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
              x:Name="wdEmployee"
              Style="{StaticResource Page_Style}"
-           
-             d:DesignHeight="660" d:DesignWidth="1200">
+             d:DesignHeight="600"
+             d:DesignWidth="1100">
     <Grid Background="Wheat" x:Name="gridname"
           Width="{Binding wdWidth}"
           Height="{Binding wdHeight}"

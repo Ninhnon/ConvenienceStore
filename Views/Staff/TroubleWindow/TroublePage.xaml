@@ -15,6 +15,8 @@
       TextElement.FontSize="13"
       xmlns:vm="clr-namespace:ConvenienceStore.ViewModel.StaffVM.TroubleWindowVM"
       x:Name="Trouble_Page"
+      d:DesignHeight="600"
+      d:DesignWidth="1100"
       DataContext="{StaticResource TroubleVM}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">

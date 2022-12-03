@@ -9,7 +9,7 @@
       xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
       xmlns:AddNewSupplierCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.AddNewSupplierCommand"
       mc:Ignorable="d" 
-      d:DesignHeight="660" d:DesignWidth="1200"
+      d:DesignHeight="600" d:DesignWidth="1100"
       Title="SupplierView"
       Background="#EFF2F7">
     <Page.Resources>

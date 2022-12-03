@@ -9,7 +9,8 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
       xmlns:Uc="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
-             
+        d:DesignHeight="600"
+        d:DesignWidth="1100"
         mc:Ignorable="d"
         x:Name="wdHome" Background="Beige"
                       Width="{Binding wdWidth}"
