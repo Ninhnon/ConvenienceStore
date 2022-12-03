@@ -8,7 +8,6 @@ namespace ConvenienceStore.Model
 {
     public class Bill
     {
-
         private int id;
         public int IdBill { get => id; set => id = value; }
 
@@ -24,8 +23,5 @@ namespace ConvenienceStore.Model
 
         private long price;
         public long Price { get => price; set => price = value; }
-
-       
-
     }
 }

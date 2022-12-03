@@ -8,10 +8,6 @@ namespace ConvenienceStore.Views.Staff
     /// </summary>
     public partial class StaffMainWindow : Window
     {
-        private Uri paymentPage = new Uri("Views/Staff/PaymentWindow.xaml", UriKind.RelativeOrAbsolute);
-        private Uri historyPage = new Uri("Views/Staff/HistoryWindow.xaml", UriKind.RelativeOrAbsolute);
-        private Uri profilePage = new Uri("Views/Staff/ProfileWindow.xaml", UriKind.RelativeOrAbsolute);
-
         public StaffMainWindow()
         {
             InitializeComponent();
