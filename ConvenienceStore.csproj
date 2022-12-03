@@ -42,6 +42,7 @@
     <None Remove="Resources\Images\cute\8.png" />
     <None Remove="Resources\Images\employee.png" />
     <None Remove="Resources\Images\Food1.jpg" />
+    <None Remove="Resources\Images\key-icon.png" />
     <None Remove="Resources\Images\menu_def.png" />
     <None Remove="Resources\Images\menu_default.png" />
     <None Remove="Resources\Images\menu_mo.png" />
@@ -52,9 +53,11 @@
     <None Remove="Resources\Images\pencil.png" />
     <None Remove="Resources\Images\product.png" />
     <None Remove="Resources\Images\qr.png" />
+    <None Remove="Resources\Images\Thuong1.png" />
     <None Remove="Resources\Images\Tincute.jpg" />
     <None Remove="Resources\Images\trash_can.png" />
     <None Remove="Resources\Images\troubles.png" />
+    <None Remove="Resources\Images\user-icon.png" />
     <None Remove="Resources\Images\voucher.png" />
     <None Remove="Resources\UserControlCustom\employee.png" />
     <None Remove="Resources\UserControlCustom\home.png" />
@@ -126,6 +129,7 @@
     <Resource Include="Resources\Images\cute\8.png" />
     <Resource Include="Resources\Images\employee.png" />
     <Resource Include="Resources\Images\Food1.jpg" />
+    <Resource Include="Resources\Images\key-icon.png" />
     <Resource Include="Resources\Images\menu_def.png" />
     <Resource Include="Resources\Images\menu_default.png" />
     <Resource Include="Resources\Images\menu_mo.png" />
@@ -136,9 +140,11 @@
     <Resource Include="Resources\Images\pencil.png" />
     <Resource Include="Resources\Images\product.png" />
     <Resource Include="Resources\Images\qr.png" />
+    <Resource Include="Resources\Images\Thuong1.png" />
     <Resource Include="Resources\Images\Tincute.jpg" />
     <Resource Include="Resources\Images\trash_can.png" />
     <Resource Include="Resources\Images\troubles.png" />
+    <Resource Include="Resources\Images\user-icon.png" />
     <Resource Include="Resources\Images\voucher.png" />
     <Resource Include="Resources\UserControlCustom\employee.png" />
     <Resource Include="Resources\UserControlCustom\home.png" />
