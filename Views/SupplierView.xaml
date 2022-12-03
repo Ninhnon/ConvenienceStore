@@ -28,31 +28,10 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel>
-                    <TextBlock Text="Nhà cung cấp"
-                               FontSize="32"
-                               FontWeight="SemiBold"
-                               Margin="0 0 0 5"/>
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Left">
-
-                        <TextBlock Text="Sắp xếp theo ngày: "
-                                   FontSize="16"
-                                   Foreground="Gray"
-                                   VerticalAlignment="Center"/>
-
-                        <ComboBox Style="{StaticResource CustomComboBox}"
-                                  SelectedIndex="0"
-                                  Width="100"
-                                  SelectionChanged="ComboBox_SelectionChanged">
-                            <TextBlock Text="A tới Z"
-                                           FontSize="16"/>
-                            <TextBlock Text="Z tới A"
-                                           FontSize="16"/>
-                        </ComboBox>
-
-                    </StackPanel>
-                </StackPanel>
+                <TextBlock Text="Nhà cung cấp"
+                           FontSize="32"
+                           FontWeight="SemiBold"
+                           Margin="0 0 0 5"/>
 
                 <Button Grid.Column="2"
                         Height="40"
@@ -60,7 +39,7 @@
                         VerticalAlignment="Top">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="BoxAdd"
+                            <materialDesign:PackIcon Kind="AccountsAdd"
                                                      VerticalAlignment="Center"/>
                             <TextBlock Text="  Thêm"/>
                         </StackPanel>
@@ -165,42 +144,43 @@
                       AutoGenerateColumns="False">
                 
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn CanUserResize="False" Width="Auto">
-                        <DataGridCheckBoxColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <CheckBox/>
-                            </DataTemplate>
-                        </DataGridCheckBoxColumn.HeaderTemplate>
-                    </DataGridCheckBoxColumn>
                     <DataGridTextColumn Header="#" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
                                         Width="Auto"
-                                        Binding="{Binding Id}"/>
-                    <DataGridTemplateColumn Header="Nhà cung cấp"
+                                        Binding="{Binding Number}"/>
+                    <DataGridTemplateColumn x:Name="NameSupplier"
+                                            Header="Nhà cung cấp"
                                             IsReadOnly="True"
                                             CanUserResize="False"
                                             Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Name}"
+                                           ToolTip="{Binding Name}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Address" 
+                    <DataGridTemplateColumn Header="Address" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
-                                        Width="*"
-                                        Binding="{Binding Address}"/>
+                                        Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Address}"
+                                           ToolTip="{Binding Address}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Phone" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
-                                        Width="150"
+                                        Width="140"
                                         Binding="{Binding Phone}"/>
                     <DataGridTextColumn Header="Email" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
-                                        Width="*"
+                                        Width="200"
                                         Binding="{Binding Email}"/>
                     
                     <DataGridTemplateColumn Header="Operations"
@@ -213,15 +193,18 @@
                                     <Button Style="{StaticResource MaterialDesignFlatLightButton}"
                                             Content="{materialDesign:PackIcon Kind=Edit, Size=24}"
                                             Foreground="#4B0082"
-                                            Height="38"
-                                            Padding="6 4"/>
+                                            Height="32"
+                                            Padding="6 4"
+                                            Command=""/>
                                     <Button Style="{StaticResource MaterialDesignFlatLightButton}"
                                             Content="{materialDesign:PackIcon Kind=Delete, Size=24}"
-                                            Height="38"
+                                            Height="32"
                                             Foreground="#CF0A0A"
                                             Padding="6 4"
-                                            Margin="0 0 30 0"
-                                            HorizontalAlignment="Right"/>
+                                            Margin="15 0 0 0"
+                                            HorizontalAlignment="Right"
+                                            Command="{Binding Source={StaticResource SupplierVM}, Path=DeleteSupplierButton}"
+                                            CommandParameter="{Binding}"/>
 
                                 </StackPanel>
                             </DataTemplate>

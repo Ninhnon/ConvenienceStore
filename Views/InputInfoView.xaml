@@ -23,7 +23,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         <Converters:HasOjectConverter x:Key="HasOjectConverter"/>
     </Page.Resources>
 
-    <Grid DataContext="{StaticResource InputInfoVM}">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="725"/>
             <ColumnDefinition Width="400"/>

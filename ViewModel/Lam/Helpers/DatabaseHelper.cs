@@ -60,7 +60,10 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
         static readonly string deleteProduct = @"delete Consignment 
                                                  where InputInfoId = {0} and ProductId = '{1}'";
 
-        static readonly string deleteSupplier = "delete Supplier where Id = {1}";
+        static readonly string countInputInfoHasSupplierId = @"select COUNT(*) from InputInfo
+                                                               where SupplierId = {0}";
+
+        static readonly string deleteSupplier = "delete Supplier where Id = {0}";
 
         public static List<InputInfo> FetchingInputInfo()
         {
@@ -159,6 +162,11 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
                         Phone = reader.GetString(3),
                         Email = reader.GetString(4),
                     });
+            }
+
+            for (int i = 0; i < suppliers.Count; ++i)
+            {
+                suppliers[i].Number = i;
             }
 
             sqlCon.Close();
@@ -362,6 +370,24 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
             cmd.ExecuteNonQuery();
 
             sqlCon.Close();
+        }
+
+        public static bool CanDeleteSupplier(int supplierId)
+        {
+            sqlCon.Open();
+
+            var strCmd = string.Format(countInputInfoHasSupplierId, supplierId);
+            var cmd = new SqlCommand(strCmd, sqlCon);
+
+            var reader = cmd.ExecuteReader();
+
+            reader.Read();
+            var count = reader.GetInt32(0);
+
+            reader.Close();
+            sqlCon.Close();
+
+            return count == 0;
         }
 
         public static void DeleteSupplier(int supplierId)

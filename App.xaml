@@ -30,6 +30,7 @@
                 <ResourceDictionary Source="Styles/Lam/SearchTextBox.xaml"/>
                 <ResourceDictionary Source="Styles/Lam/ShutdownButton.xaml"/>
                 <ResourceDictionary Source="Styles/Lam/InteractiveTextBlock.xaml"/>
+                <ResourceDictionary Source="Styles/Lam/MyTextBoxStyle.xaml"/>
                 <ResourceDictionary Source="/Resources/DataTemplate.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <SolidColorBrush x:Key="PrimaryHueLightBrush"

@@ -14,6 +14,9 @@
     <DataTemplate DataType="{x:Type vmLam:InputInfoVM}">
         <view:InputInfoView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vmLam:SupplierVM}">
+        <view:SupplierView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:ProfileViewModel}">
         <view:ProfileView/>
     </DataTemplate>
