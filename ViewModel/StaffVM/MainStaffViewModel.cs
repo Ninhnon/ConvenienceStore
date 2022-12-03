@@ -7,10 +7,14 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using ConvenienceStore.ViewModel.MainBase;
 using ConvenienceStore.Views;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using ConvenienceStore.ViewModel.Lam.Helpers;
 
 namespace ConvenienceStore.ViewModel.StaffVM
 {
-    public partial class MainStaffViewModel : BaseViewModel
+    public partial class MainStaffViewModel : MainBase.BaseViewModel
     {
         public static User? StaffCurrent { get; set; }
         public ICommand? EmployeeCommand { get; set; }
@@ -63,9 +67,34 @@ namespace ConvenienceStore.ViewModel.StaffVM
 
 
         #endregion
+        private string? _ten;
+        public string? Ten
+        {
+            get => _ten;
+            set
+            {
+                _ten = value; OnPropertyChanged();
+            }
+        }
+        private byte[]? _Anh;
+        public byte[]? Anh
+        {
+            get => _Anh;
+            set
+            {
+                _Anh = value; OnPropertyChanged();
+            }
+        }
+        private ObservableCollection<User> _List;
+        public ObservableCollection<User> List { get => _List; set { _List = value; OnPropertyChanged(); } }
+        public List<User> danhsach = new();
+
         public MainStaffViewModel()
         {
-
+            Ten = CurrentAccount.Name;
+            danhsach = DatabaseHelper.FetchingUserData();
+            List= new ObservableCollection<User>(danhsach);
+            //Anh = List.First(x => x.UserName == StaffCurrent.UserName).Image;
             //ProductCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             //{
             //    p.Content = new ProductPage();

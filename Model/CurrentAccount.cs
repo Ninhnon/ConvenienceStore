@@ -60,7 +60,12 @@ namespace ConvenienceStore.Model
             get => password_;
             set { password_ = value; }
         }
-
+        private static byte[] avatar_;
+        public static byte[] avatar
+        {
+            get => avatar_;
+            set { avatar_ = value; }
+        }
 
     }
 }

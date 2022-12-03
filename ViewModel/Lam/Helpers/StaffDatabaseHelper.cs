@@ -45,7 +45,7 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
                     Email = read.IsDBNull(5) ? null : read.GetString(5),
                     UserName = read.GetString(6),
                     Password = read.GetString(7),
-                    Image = read.IsDBNull(8) ? null : (byte[])read["Image"],
+                    Image =  (byte[])read["Avatar"],
                 });
 
             }

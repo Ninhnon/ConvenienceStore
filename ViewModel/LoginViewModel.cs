@@ -56,11 +56,13 @@ namespace ConvenienceStore.ViewModel
                 if (account.UserName == this.UserName && account.Password == this.Password)
                 {
                     CurrentAccount.UserRole = account.UserRole;
+                    CurrentAccount.Name = account.Name;
                     CurrentAccount.Email = account.Email;
                     CurrentAccount.Address = account.Address;
                     CurrentAccount.Phone = account.Phone;
                     CurrentAccount.idAccount = account.idAccount;
                     CurrentAccount.Password = account.Password;
+                    CurrentAccount.avatar = account.avatar;
                     MessageBox.Show("Dang nhap thanh cong");
                     flag = 1;
                     isLogin = true;

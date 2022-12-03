@@ -60,12 +60,17 @@ namespace ConvenienceStore.Model
             get => password_;
             set { password_ = value; }
         }
-
+        private byte[] avatar_;
+        public byte[] avatar
+        {
+            get => avatar_;
+            set { avatar_ = value; }
+        }
         public Account()
         {
 
         }
-        public Account(int accountId_, string userRole_, string name_, string address_, string phone_, string email_, string username_, string password_ )
+        public Account(int accountId_, string userRole_, string name_, string address_, string phone_, string email_, string username_, string password_, byte[] avatar_ )
         {
 this.idAccount_=accountId_;
             this.userRole_=userRole_;
@@ -75,7 +80,7 @@ this.idAccount_=accountId_;
             this.email_=email_;
             this.username_=username_;
             this.password_=password_;
-
+            this.avatar_=avatar_;
            
         }
     }

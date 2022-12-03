@@ -80,7 +80,7 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
                         UserName = reader.GetString(3),
                         Email = reader.IsDBNull(4) ? null : reader.GetString(4),
                         Phone = reader.IsDBNull(5) ? null : reader.GetString(5),
-                        Avatar = reader.IsDBNull(6) ? null : (byte[])reader["Image"],
+                        //Avatar =  (byte[])reader["Image"],
                         SupplerId = reader.GetInt32(7),
                         SupplierName = reader.GetString(8),
 
