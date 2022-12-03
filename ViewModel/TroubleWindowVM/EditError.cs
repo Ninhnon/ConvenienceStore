@@ -12,10 +12,11 @@ using System.IO;
 using System;
 using ConvenienceStore.ViewModel.StaffVM;
 using ConvenienceStore.ViewModel.MainBase;
+using ConvenienceStore.ViewModel.Lam.Helpers;
 
 namespace ConvenienceStore.ViewModel.TroubleWindowVM
 {
-    public partial class TroublePageViewModel : BaseViewModel
+    public partial class TroublePageViewModel : MainBase.BaseViewModel
     {
         public ICommand LoadEditErrorCM { get; set; }
         public ICommand UpdateErrorCM { get; set; }
@@ -89,7 +90,8 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 //    isSaving = false;
 
                 MessageBoxCustom mb = new MessageBoxCustom("", "Cập nhật thành công!", MessageType.Success, MessageButtons.OK);
-                FetchData();
+                danhsach = DatabaseHelper.FetchingReportData();
+
                 ListError = new ObservableCollection<Report>(danhsach);
                 mb.ShowDialog();
                 MaskName.Visibility = Visibility.Collapsed;

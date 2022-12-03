@@ -6,8 +6,9 @@
              xmlns:local="clr-namespace:ConvenienceStore.Views"
              mc:Ignorable="d" 
              x:Name="wdReport"
-              Style="{StaticResource Page_Style}"
+              
              d:DesignHeight="450" d:DesignWidth="800">
+    <!--Style="{StaticResource Page_Style}"-->
     <Grid Background="AliceBlue">
 
     </Grid>
