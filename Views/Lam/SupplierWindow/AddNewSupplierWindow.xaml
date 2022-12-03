@@ -5,8 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConvenienceStore.Views.Lam.SupplierWindow"
         mc:Ignorable="d"
-        Title="AddNewSupplierWindow" Height="450" Width="800">
+        x:Name="AddNewSupplierScreen"
+        Height="660" Width="1200"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
     <Grid>
-        
+        <Border Background="Black"
+                Opacity="0.4"
+                CornerRadius="25"/>
+
+        <Grid Width="650"
+              VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Background="{StaticResource PrimaryColor}"
+                    CornerRadius="25 25 0 0">
+                <TextBlock Text="Thêm nhà cung cấp"
+                           Foreground="White"
+                           FontSize="35"
+                           FontWeight="SemiBold"
+                           Margin="30 20"
+                           HorizontalAlignment="Center"/>
+            </Border>
+            <Border Grid.Row="1"
+                    Background="White"
+                    CornerRadius="0 0 25 25"
+                    Height="400">
+                <StackPanel Orientation="Vertical"
+                            Margin="30 20 30 30">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </Window>

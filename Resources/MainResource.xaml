@@ -12,5 +12,6 @@
     <ViewModel:MainWindowViewModel x:Key="MainWindowVM"></ViewModel:MainWindowViewModel>
     <local:BoolToVisibilityConverter x:Key="BoolToVis"/>
     <vmLam:InputInfoVM x:Key="InputInfoVM"/>
+    <vmLam:SupplierVM x:Key="SupplierVM"/>
     <subViewModel:AddEmployeeViewModel x:Key="AddEmployeeVM"/>
 </ResourceDictionary>

@@ -13,7 +13,7 @@ namespace ConvenienceStore.DataLayerAccess
         {
             try
             {
-                strConn = DatabaseHelper.sqlCon.ConnectionString;
+                strConn = "Data Source=LAPTOP-JF6O07NR\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True";
             }
             catch
             {
