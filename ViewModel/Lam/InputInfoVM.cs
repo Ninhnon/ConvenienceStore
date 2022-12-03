@@ -4,12 +4,14 @@ using ConvenienceStore.ViewModel.Lam.Command.ProductCommand;
 using ConvenienceStore.ViewModel.Lam.Command.ProductCommand.AddNewProductCommand;
 using ConvenienceStore.ViewModel.Lam.Command.ProductCommand.ProductCardCommand;
 using ConvenienceStore.ViewModel.Lam.Helpers;
+using ConvenienceStore.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
@@ -140,14 +142,7 @@ namespace ConvenienceStore.ViewModel.Lam
             SaveNewProductCommand = new SaveNewProductCommand(this);
 
             EditProductButton = new EditProductButton(this);
-            SupplierCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
-            {
-                MainWindow n = new MainWindow();
-                n.PagesNavigation.Navigate(new Uri("Views/SupplierView.xaml", UriKind.RelativeOrAbsolute));
-                p.Close();
-                n.ShowDialog();
-            });
-
+            
         }
 
         public void LoadProducts()

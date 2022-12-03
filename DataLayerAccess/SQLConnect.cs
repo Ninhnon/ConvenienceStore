@@ -1,11 +1,6 @@
-﻿using System;
-using System.Configuration;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using ConvenienceStore.ViewModel.Lam.Helpers;
+using System;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ConvenienceStore.DataLayerAccess
@@ -18,7 +13,7 @@ namespace ConvenienceStore.DataLayerAccess
         {
             try
             {
-                strConn = "Data Source=LAPTOP-JF6O07NR\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True";
+                strConn = DatabaseHelper.sqlCon.ConnectionString;
             }
             catch
             {
@@ -31,13 +26,13 @@ namespace ConvenienceStore.DataLayerAccess
         {
             try
             {
-                if(conn.State!=System.Data.ConnectionState.Open)
+                if (conn.State != System.Data.ConnectionState.Open)
                 {
-                    conn.ConnectionString = "Data Source=LAPTOP-JF6O07NR\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True";
+                    conn.ConnectionString = DatabaseHelper.sqlCon.ConnectionString;
                     conn.Open();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Mat ket noi CSDL");
                 throw ex;
