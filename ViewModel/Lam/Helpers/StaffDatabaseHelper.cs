@@ -1,10 +1,12 @@
 ﻿using ConvenienceStore.Model;
+using ConvenienceStore.Model.Lam;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZXing;
 
 namespace ConvenienceStore.ViewModel.Lam.Helpers
 {
@@ -23,7 +25,36 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
         static readonly string queryVoucher = @"select * from [Voucher]";
         static readonly string queryReport = @"select * from [Report]";
         static readonly string queryUser = @"select * from [Users]";
+        static readonly string queryConsingment = @"select * from [Consignment]";
 
+        public static List<Consignment> FetchingConsignmentData()
+        {
+            sqlCon.Open();
+            var cmd = new SqlCommand(queryConsingment, sqlCon);
+
+            List<Consignment> reports = new List<Consignment>();
+         
+            SqlDataReader read = cmd.ExecuteReader();
+            while (read.Read())
+            {
+                reports.Add(new Consignment()
+                {
+                    InputInfoId=read.GetInt32(0),
+                    ProductId = read.GetString(1),
+                    Stock = read.GetInt32(2),
+                    ManufacturingDate = read.GetDateTime(3),
+                    ExpiryDate = read.GetDateTime(4),
+                    InputPrice = read.GetInt32(5),
+                    OutputPrice = read.GetInt32(6),
+                    Discount = read.GetInt32(7),
+    });
+
+            }
+            read.Close();
+
+            sqlCon.Close();
+            return reports;
+        }
         public static List<User> FetchingUserData()
         {
             sqlCon.Open();

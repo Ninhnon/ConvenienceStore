@@ -1,4 +1,5 @@
 ﻿using ConvenienceStore.Model;
+using ConvenienceStore.ViewModel.Lam.Helpers;
 using ConvenienceStore.ViewModel.MainBase;
 using ConvenienceStore.Views.Staff;
 using MaterialDesignThemes.Wpf;
@@ -72,6 +73,8 @@ namespace ConvenienceStore.ViewModel.StaffVM
         private int _TotalBill;
         public int TotalBill { get { return _TotalBill; } set { _TotalBill = value; OnPropertyChanged(); } }
 
+
+        public List<Consignment> danhsach = new();
         public PaymentViewModel()
         {
             // Load tất cả sản phẩm trong danh sách lên List
@@ -90,6 +93,9 @@ namespace ConvenienceStore.ViewModel.StaffVM
 
 
             //List = new ObservableCollection<Consignment>(DataProvider.Ins.DB.Consignments.OrderByDescending(x => x.ExpiryDate).Distinct().ToList());
+            danhsach = DatabaseHelper.FetchingConsignmentData();
+            List = new ObservableCollection<Consignment>(danhsach);
+
             FilteredList = List;
             ShoppingCart = new ObservableCollection<BillDetail>();
 
