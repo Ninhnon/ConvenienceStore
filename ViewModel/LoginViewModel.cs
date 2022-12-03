@@ -9,6 +9,7 @@ using System.Windows.Input;
 using ConvenienceStore.Views;
 using ConvenienceStore.DataLayerAccess;
 using ConvenienceStore.Model;
+using ConvenienceStore.Views.Staff;
 
 namespace ConvenienceStore.ViewModel
 {
@@ -82,9 +83,13 @@ namespace ConvenienceStore.ViewModel
 
                 parameter.Show();
             }
-            else
+            else if (isLogin == true && CurrentAccount.UserRole == "0")
             {
-                MessageBox.Show("staff");
+                StaffMainWindow home = new StaffMainWindow();
+                // parameter.Hide();
+                home.ShowDialog();
+
+                parameter.Show();
             }
         }
 
