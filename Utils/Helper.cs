@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConvenienceStore.ViewModel.Lam.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Globalization;
@@ -14,7 +15,7 @@ namespace CinemaManagement.Utils
 {
     public class Helper
     {
-        public SqlConnection connection = new("Data Source=DESKTOP-RTH9F0I;Initial Catalog=ConvenienceStore;Integrated Security=True");
+        public SqlConnection connection = DatabaseHelper.sqlCon;
 
         public static (string, List<string>) GetListCode(int quantity, int length, string firstChars, string lastChars)
         {

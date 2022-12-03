@@ -33,44 +33,61 @@ namespace ConvenienceStore.ViewModel
         }
         public void Login(LoginWindow parameter)
         {
-            
+
             List<Account> accounts = AccountDAL.Instance.ConvertDataTableToList();
             if (string.IsNullOrEmpty(parameter.txtUsername.Text))
             {
                 MessageBox.Show("Hay nhap ten dang nhap");
+                parameter.txtUsername.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(parameter.txtPassword.Password.ToString()))
 
             {
                 MessageBox.Show("hay nhap mat khau");
+                parameter.txtPassword.Focus();
                 return;
             }
             int flag = 0;
-            foreach( var account in accounts)
+            foreach (var account in accounts)
             {
-               
-                if (account.UserName == this.UserName && account.Password ==this.Password)
+                isLogin = false;
+                if (account.UserName == this.UserName && account.Password == this.Password)
                 {
+                    CurrentAccount.UserRole = account.UserRole;
+                    CurrentAccount.Email = account.Email;
+                    CurrentAccount.Address = account.Address;
+                    CurrentAccount.Phone = account.Phone;
+                    CurrentAccount.idAccount = account.idAccount;
+                    CurrentAccount.Password = account.Password;
                     MessageBox.Show("Dang nhap thanh cong");
                     flag = 1;
                     isLogin = true;
                     break;
 
                 }
-                
+
             }
             if (flag == 0)
+            {
                 MessageBox.Show("tai khoan hoac mat khau khong dung");
-            if(isLogin)
+                parameter.txtUsername.Focus();
+                parameter.txtPassword.Focus();
+            }
+            if (isLogin == true && CurrentAccount.UserRole == "1")
             {
                 MainWindow home = new MainWindow();
-               // parameter.Hide();
+                // parameter.Hide();
                 home.ShowDialog();
-               
+
                 parameter.Show();
             }
+            else
+            {
+                MessageBox.Show("staff");
+            }
         }
+
         public void EncodingPassword(PasswordBox parameter)
         {
             this.password = parameter.Password;

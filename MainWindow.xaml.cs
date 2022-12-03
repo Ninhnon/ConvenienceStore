@@ -22,7 +22,8 @@ namespace ConvenienceStore
         public MainWindow()
         {
             InitializeComponent();
-            PagesNavigation.Navigate(new Uri("Views/InputInfoView.xaml", UriKind.RelativeOrAbsolute));
+            //PagesNavigation.Navigate(new Uri("Views/InputInfoView.xaml", UriKind.RelativeOrAbsolute));
+            PagesNavigation.Navigate(new System.Uri("Views/HomeView.xaml", UriKind.RelativeOrAbsolute));
         }
         private void CloseApp_Click(object sender, RoutedEventArgs e)
         {
@@ -77,7 +78,7 @@ namespace ConvenienceStore
 
         private void rdVoucher_Click(object sender, RoutedEventArgs e)
         {
-            PagesNavigation.Navigate(new System.Uri("Views/VoucherView.xaml", UriKind.RelativeOrAbsolute));
+            PagesNavigation.Navigate(new System.Uri("Views/Staff/VoucherWindow/VoucherPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void rdReport_Click(object sender, RoutedEventArgs e)

@@ -17,6 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ZXing;
+using ConvenienceStore.ViewModel.Lam.Helpers;
 
 namespace ConvenienceStore.ViewModel.Login
 {
@@ -31,38 +32,14 @@ namespace ConvenienceStore.ViewModel.Login
         public ICommand CloseCommand { get; set; }
         public ICommand LoginCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
-        readonly SqlConnection connection = new("Data Source=DESKTOP-RTH9F0I;Initial Catalog=ConvenienceStore;Integrated Security=True");
-
         private ObservableCollection<User> _List;
         public ObservableCollection<User> List { get => _List; set { _List = value; OnPropertyChanged(); } }
         public List<User> danhsach = new();
-        readonly string DanhSachSanPham = @"select * from Users";
-        public void FetchData()
-        {
-            SqlCommand cmd = new(DanhSachSanPham, connection);
-            SqlDataReader read = cmd.ExecuteReader();
-            while (read.Read())
-            {
-                danhsach.Add(new User()
-                {
-                    Id = read.GetInt32(0),
-                    UserRole = read.GetString(1),
-                    Name = read.GetString(2),
-                    Address = read.IsDBNull(3) ? null : read.GetString(3),
-                    Phone = read.IsDBNull(4) ? null : read.GetString(4),
-                    Email = read.IsDBNull(5) ? null : read.GetString(5),
-                    UserName = read.GetString(6),
-                    Password = read.GetString(7),
-                    Image = read.IsDBNull(8) ? null : (byte[])read["Image"],
-                });
-            }
-            read.Close();
-        }
 
         public LoginViewModel()
         {
-            connection.Open();
-            FetchData();
+
+            danhsach = DatabaseHelper.FetchingUserData();
             List = new ObservableCollection<User>(danhsach);
             IsLogin = false;
             Password = "";

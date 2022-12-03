@@ -9,6 +9,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:InputInfoCommand="clr-namespace:ConvenienceStore.ViewModel.Lam.Command.InputInfoCommand"
              xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Lam.Converters"
              xmlns:UserControls="clr-namespace:ConvenienceStore.Views.Lam.UserControls"
+             DataContext="{StaticResource InputInfoVM}"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              Height="660"
@@ -111,8 +112,12 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 <ListBox x:Name="InputInfoCards"
                          ItemsSource="{Binding ObservableInputInfos}"
                          SelectedValue="{Binding SelectedInputInfo}"
-                         Margin="25 130 25 27"
-                         VerticalAlignment="Top">
+                         Margin="25 130 3 30"
+                         VerticalAlignment="Top"
+                         ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                         ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                         ScrollViewer.CanContentScroll="False"
+                         VirtualizingPanel.IsVirtualizing="True">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="{x:Type ListBoxItem}">
                             <Setter Property="Template">
@@ -327,17 +332,33 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                Width="30"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"/>
-                        <TextBlock Grid.Column="2"
+                        <Button Grid.Column="2"
+                                BorderBrush="Transparent"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Style="{StaticResource InteractiveButton}"
+                                Height="50"
+                                Width="275"
+                                HorizontalAlignment="Left"
+                                Command="{Binding SupplierCommand,Source={StaticResource MainStaffVM}}"
+                                >
+                            <TextBlock
+                                   Foreground="{Binding Path=Foreground,  RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}}"
                                    Text="{Binding SupplierName}"
-                                   Style="{StaticResource InteractiveTextBlock}"
+                                   Width="275"
                                    FontSize="18"
+                                   FontStretch="ExtraExpanded"
                                    FontWeight="SemiBold"
                                    TextWrapping="Wrap"
                                    Cursor="Hand"
+                                   HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
-                                   d:Text="Công Ty CP Hàng Tiêu Dùng Masan">
+                                   d:Text="Công Ty CP Hàng Tiêu Dùng Masan"
+                                    >
 
                         </TextBlock>
+                        </Button>
+                        
                     </Grid>
 
                 </StackPanel>

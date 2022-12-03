@@ -1,14 +1,12 @@
 ﻿
 using ConvenienceStore.Model;
-using ConvenienceStore.ViewModel.MainBase;
+using ConvenienceStore.ViewModel.Lam.Helpers;
+using ConvenienceStore.ViewModel.StaffVM;
 using ConvenienceStore.Views.Staff.TroubleWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
-using System.Data.SqlClient;
 using System.IO;
-using System.Net.Cache;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,7 +18,7 @@ using System.Windows.Media.Imaging;
 #nullable enable
 namespace ConvenienceStore.ViewModel.TroubleWindowVM
 {
-    public partial class TroublePageViewModel : BaseViewModel
+    public partial class TroublePageViewModel : MainBase.BaseViewModel
     {
 
         private ObservableCollection<Report>? _ListError;
@@ -70,7 +68,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             set { _ImageSource = value; OnPropertyChanged(); }
         }
 
-        private ComboBoxItem? _Level ;
+        private ComboBoxItem? _Level;
         public ComboBoxItem? Level
         {
             get => _Level;
@@ -104,41 +102,15 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         string? filepath;
         bool IsImageChanged = false;
         public static Grid MaskName { get; set; }
-        readonly SqlConnection connection = new("Data Source=DESKTOP-RTH9F0I;Initial Catalog=ConvenienceStore;Integrated Security=True");
 
         public List<Report> danhsach = new();
-        readonly string DanhSachReport = @"select * from Report";
-        //string insertReport = "insert Report values ('{0}', '{1}', '{2}', {3}, {4}, '{5}' )";
-        public void FetchData()
-        {
-            SqlCommand cmd = new(DanhSachReport, connection);
 
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                danhsach.Add(new Report()
-                {
-                    Id = reader.GetString(0),
-                    Title = reader.GetString(1),
-                    Description = reader.GetString(2),
-                    Status = reader.GetString(3),
-                    SubmittedAt = reader.GetDateTime(4),
-                    RepairCost = reader.IsDBNull(5) ? null : reader.GetDecimal(5),
-                    StartDate = reader.IsDBNull(6) ? null : reader.GetDateTime(6),
-                    FinishDate = reader.IsDBNull(7) ? null : reader.GetDateTime(6),
-                    StaffId = reader.GetInt32(8),
-                    Level = reader.GetString(9),
-                    Image = (byte[])reader["Image"],
-                }); ;
-            }
-            reader.Close();
-        }
         public TroublePageViewModel()
         {
-            connection.Open();
-            FetchData();
+            danhsach = DatabaseHelper.FetchingReportData();
+
             ListError = new ObservableCollection<Report>(danhsach);
-            GetCurrentDate = System.DateTime.Today;
+            GetCurrentDate = DateTime.Today;
             //FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             //{
             //    IsLoading = true;
@@ -150,7 +122,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             //});
             CancelCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
                 {
-                        p.Close();
+                    p.Close();
                 });
             FilterListErrorCommand = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, (p) =>
             {
@@ -159,7 +131,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             LoadDetailWindowCM = new RelayCommand<System.Windows.Controls.ListView>((p) => { return true; }, (p) =>
             {
                 MaskName.Visibility = Visibility.Visible;
-                ViewError w = new ();
+                ViewError w = new();
                 w.ShowDialog();
                 return;
             });
@@ -168,7 +140,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 RenewWindowData();
                 AddError w1 = new();
                 MaskName.Visibility = Visibility.Visible;
-                w1.StaffName.Text = "LiuWuyn";
+                w1.StaffName.Text = MainStaffViewModel.StaffCurrent.Id.ToString();
                 w1.ShowDialog();
             });
             SaveErrorCM = new RelayCommand<AddError>((p) => { if (IsSaving) return false; return true; }, (p) =>
@@ -225,7 +197,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         }
         public async Task GetData()
         {
-            FetchData();
+            danhsach = DatabaseHelper.FetchingReportData();
             ListError = new ObservableCollection<Report>(await Task.Run(() => danhsach));
         }
 

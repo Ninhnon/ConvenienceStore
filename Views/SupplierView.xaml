@@ -12,7 +12,6 @@
       d:DesignHeight="660" d:DesignWidth="1200"
       Title="SupplierView"
       Background="#EFF2F7">
-
     <Page.Resources>
         <Converters:StringToVisibility x:Key="StringToVisibility"/>
         <!--<Converters:IndexToVisibility x:Key="IndexToVisibility"/>
@@ -231,7 +230,5 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        
-        
     </Grid>
 </Page>

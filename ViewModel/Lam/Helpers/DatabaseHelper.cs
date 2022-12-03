@@ -2,15 +2,14 @@ using ConvenienceStore.Model.Lam;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Data.SqlClient;
 
 namespace ConvenienceStore.ViewModel.Lam.Helpers
 {
-    public class DatabaseHelper
+    public partial class DatabaseHelper
     {
-        /* strCon của Lâm
-         * static readonly string strCon = @"Data Source=DESKTOP-RTH9F0I\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True"; */
-        static readonly string strCon = @"Data Source=DESKTOP-RTH9F0I;Initial Catalog=ConvenienceStore;Integrated Security=True";
+        static readonly string strCon = @ConfigurationManager.ConnectionStrings["Default"].ToString();
         public static SqlConnection sqlCon = new SqlConnection(strCon);
 
         static readonly string queryInputInfo = @"select InputInfo.Id, InputDate, InputInfo.UserId, Users.Name, Users.Email, Users.Phone, Avatar, Supplier.Id, Supplier.Name
@@ -79,11 +78,13 @@ namespace ConvenienceStore.ViewModel.Lam.Helpers
                         InputDate = reader.GetDateTime(1),
                         UserId = reader.GetInt32(2),
                         UserName = reader.GetString(3),
-                        Email = reader.GetString(4),
-                        Phone = reader.GetString(5),
-                        // Còn Avatar nữa nè
+                        Email = reader.IsDBNull(4) ? null : reader.GetString(4),
+                        Phone = reader.IsDBNull(5) ? null : reader.GetString(5),
+                        Avatar = reader.IsDBNull(6) ? null : (byte[])reader["Image"],
                         SupplerId = reader.GetInt32(7),
                         SupplierName = reader.GetString(8),
+
+                        
                     }
                 );
             }
