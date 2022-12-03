@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConvenienceStore.Model.Staff;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,7 +37,7 @@ namespace ConvenienceStore.Views.Staff.VoucherWindow
             if (String.IsNullOrEmpty(FilterBox.Text))
                 return true;
             else
-                return ((Model.Vouchers)item).ReleaseId.Contains(FilterBox.Text, StringComparison.OrdinalIgnoreCase);
+                return ((Vouchers)item).ReleaseId.Contains(FilterBox.Text, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

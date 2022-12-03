@@ -1,15 +1,10 @@
-﻿using System;
+﻿using ConvenienceStore.Model.Staff;
+using ConvenienceStore.Utils.Helpers;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Input;
-using MaterialDesignThemes.Wpf;
-using ConvenienceStore.Model;
-using ConvenienceStore.Views;
-using System.Data.SqlClient;
-using ConvenienceStore.ViewModel.MainBase;
-using ConvenienceStore.ViewModel.Lam.Helpers;
 
 namespace ConvenienceStore.ViewModel.StaffVM
 {
@@ -108,8 +103,8 @@ namespace ConvenienceStore.ViewModel.StaffVM
         private ObservableCollection<Vouchers>? _List;
         public ObservableCollection<Vouchers>? List { get => _List; set { _List = value; OnPropertyChanged(); } }
         public List<Vouchers> danhsach = new();
-        
-        
+
+
         public VoucherVM()
         {
             danhsach = DatabaseHelper.FetchingVoucherData();

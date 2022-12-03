@@ -4,20 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ConvenienceStore"
+             xmlns:vm="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
              xmlns:view="clr-namespace:ConvenienceStore.Views"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             DataContext="{StaticResource MainWindowVM}"
+             DataContext="{StaticResource AdminMainWindowVM}"
              mc:Ignorable="d" 
              d:DesignHeight="660" d:DesignWidth="225"
              Width="225">
 
     <UserControl.Resources>
-        <local:BoolToVisibilityConverter x:Key="BoolToVis"/>
+        <vm:BoolToVisibilityConverter x:Key="BoolToVis"/>
 
     </UserControl.Resources>
-    <Grid DataContext="{StaticResource MainWindowVM}"
-          
-        >
+    <Grid>
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="LostMouseCapture">
                 <i:InvokeCommandAction Command="{Binding HidePanelCommand}"/>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ConvenienceStore.Model.Staff;
 
 namespace ConvenienceStore.Views.Staff.ProductWindow
 {
@@ -35,7 +36,7 @@ namespace ConvenienceStore.Views.Staff.ProductWindow
             if (String.IsNullOrEmpty(FilterBox.Text))
                 return true;
             else
-                return ((Model.Products)item).Title.Contains(FilterBox.Text, StringComparison.OrdinalIgnoreCase);
+                return ((Products)item).Title.Contains(FilterBox.Text, StringComparison.OrdinalIgnoreCase);
         }
         private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {

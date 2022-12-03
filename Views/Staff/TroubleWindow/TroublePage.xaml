@@ -13,12 +13,12 @@
       Background="{DynamicResource MaterialDesignPaper}"
       FontFamily="{DynamicResource MaterialDesignFont}"
       TextElement.FontSize="13"
-      xmlns:vm="clr-namespace:ConvenienceStore.ViewModel.TroubleWindowVM"
+      xmlns:vm="clr-namespace:ConvenienceStore.ViewModel.StaffVM.TroubleWindowVM"
       x:Name="Trouble_Page"
       DataContext="{StaticResource TroubleVM}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" />
+            <!--<i:InvokeCommandAction Command="{Binding FirstLoadCM}" />-->
             <i:InvokeCommandAction Command="{Binding MaskNameCM}"
                                    CommandParameter="{Binding ElementName=ShadowMask}" />
         </i:EventTrigger>

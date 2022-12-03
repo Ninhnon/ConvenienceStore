@@ -1,23 +1,14 @@
-﻿using CinemaManagement.Utils;
-using ConvenienceStore.Model;
-using ConvenienceStore.ViewModel.MainBase;
+﻿using ConvenienceStore.Model;
+using ConvenienceStore.Model.Staff;
+using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Views.Staff;
-using ConvenienceStore.ViewModel.MainBase;
-using MaterialDesignThemes.Wpf;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Navigation;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace ConvenienceStore.ViewModel.StaffVM
 {
@@ -75,78 +66,20 @@ namespace ConvenienceStore.ViewModel.StaffVM
 
         public List<Products> products = new List<Products>();
         public List<ConvenienceStore.Model.Staff.Bill> bill = new List<ConvenienceStore.Model.Staff.Bill>();
-        public SqlConnection connection = new("Data Source=DESKTOP-RTH9F0I;Initial Catalog=ConvenienceStore;Integrated Security=True");
 
         public byte[] Image;
-
-        string productQuery = @"select Barcode,Title,ProductionSite,Image,InputPrice,OutputPrice,Stock,ManufacturingDate,ExpiryDate,Discount,Type
-        from Consignment c,Product p,
-        ( 
-        select ProductId, min([ExpiryDate]) e
-        from Consignment
-        where Stock>0
-        group by ProductId
-        ) h
-        where c.ProductId=p.Barcode and h.ProductId=c.ProductId and h.e = c.ExpiryDate
-        order by ExpiryDate";
-
-        string billQuery = @"select * from Bill";
-
-        //string insertBill = @"insert into "
-
-        public void FetchProductData()
-        {
-            SqlCommand cmd = new(productQuery, connection);
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                products.Add(new Products()
-                {
-                    BarCode = reader.GetString(0),
-                    Title = reader.GetString(1),
-                    ProductionSite = reader.GetString(2),
-                    Image = (byte[])reader["Image"],
-                    Cost = reader.GetInt32(4),
-                    Price = reader.GetInt32(5),
-                    Stock = reader.GetInt32(6),
-                    ManufacturingDate = reader.GetDateTime(7),
-                    ExpiryDate = reader.GetDateTime(8),
-                    Discount = reader.IsDBNull(9) ? null : reader.GetInt32(9),
-                    Type = reader.IsDBNull(10) ? null : reader.GetString(10),
-                });
-            }
-            reader.Close();
-        }
-
-        public void FetchBillData()
-        {
-            SqlCommand cmd = new(billQuery, connection);
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                bill.Add(new ConvenienceStore.Model.Staff.Bill()
-                {
-                    Id = reader.GetInt32(0),
-                    BillDate = reader.GetDateTime(1),
-                    CustomerId = reader.GetInt32(2),
-                    UserId = reader.GetInt32(3),
-                    Price = reader.GetInt32(3),
-                });
-            }
-        }
+        List<Products> danhsach = new List<Products>();
 
         public PaymentViewModel()
         {
-            connection.Open();
-            FetchProductData();
-
+            danhsach = DatabaseHelper.FetchingProductData();
+            List = new ObservableCollection<Products>(danhsach);
 
             //List = new ObservableCollection<Consignment>(DataProvider.Ins.DB.Consignments.OrderByDescending(x => x.ExpiryDate).Distinct().ToList());
             FilteredList = List;
             ShoppingCart = new ObservableCollection<BillDetails>();
 
             Image = List.FirstOrDefault().Image;
-            connection.Close();
 
             // Thêm sản phẩm vào giỏ hàng
             AddToCart = new RelayCommand<BillDetail>((p) =>

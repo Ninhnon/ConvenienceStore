@@ -1,6 +1,56 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="topBtnStyle"
+  
+           TargetType="RadioButton">
 
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="#9EABE2" />
+        <Setter Property="Width" Value="80" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Margin" Value="5 0 0 0" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+
+                    <Border Background="{TemplateBinding Background}" CornerRadius="15">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <!--Khi chuột lướt ngang-->
+                            <Setter Property="Background" Value="#9e10C4" />
+                            <Setter Property="Foreground" Value="#ffffff" />
+                        </Trigger>
+
+
+
+                        <!--Khi nhấn vào-->
+                        <Trigger Property="IsChecked"
+                                 Value="True">
+                            <!--Set màu background của border và thanh dọc indicator-->
+                            <Setter Property="Background" Value="#5B60C4" />
+                            <Setter Property="Foreground" Value="#ffffff" />
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <!--Chinh margin khi luot chuot ngang qua-->
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+
+                <Setter Property="Margin" Value="8,0,0,5"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
     <!--RADIO BUTTON STYLE-->
     <Style x:Key="BtnStyle"
   
@@ -11,7 +61,7 @@
         <Setter Property="VerticalAlignment"
                 Value="Center" />
         <Setter Property="Margin"
-                Value="0,5,0,0" />
+                Value="0,0,0,0" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -24,7 +74,7 @@
 
                         <Border.Background>
                             <SolidColorBrush x:Name="BorderBackground"
-                                             Color="#00AF91" />
+                                             Color="#272B2F" />
                             <!--Màu gốc của thanh menu-->
                         </Border.Background>
 
@@ -35,13 +85,15 @@
                                     Width="4"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    Background="#5CE1E6"          
+                                    Background="#78A3FC"           
                             Visibility="Collapsed"
                                     CornerRadius="2" />
 
                             <ContentPresenter/>
                             <!--control presenter để hiện các content, nếu không có nó thì nó chỉ hiện mỗi thanh dọc-->
+
                         </Grid>
+
                     </Border>
 
                     <ControlTemplate.Triggers>
@@ -73,8 +125,8 @@
                                 <Storyboard>
                                     <ColorAnimation Storyboard.TargetName="BorderBackground"
                                                     Storyboard.TargetProperty="Color"
-                                                    From="#00AF91"
-                                                    To="#86F0F4"
+                                                    From="#272B2F"
+                                                    To="#281269"
                                                     Duration="0:0:0.3" />
                                 </Storyboard>
                             </BeginStoryboard>
@@ -88,8 +140,9 @@
                                 <Storyboard>
                                     <ColorAnimation Storyboard.TargetName="BorderBackground"
                                                     Storyboard.TargetProperty="Color"
-                                                    From="#86F0F4"
-                                                    To="#00AF91"
+                                             
+                                                    From="#281269"
+                                                    To="#272B2F"
                                                     Duration="0:0:0.3" />
                                 </Storyboard>
                             </BeginStoryboard>
@@ -101,7 +154,7 @@
                             <!--Set màu background của border và thanh dọc indicator-->
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="#5CE1E6" />
+                                    Value="#2B1372" />
 
                             <Setter Property="Visibility"
                                     TargetName="Indicator"
@@ -118,84 +171,63 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
 
-                <Setter Property="Margin" Value="5,0,0,5"></Setter>
+                <Setter Property="Margin" Value="8,0,0,5"></Setter>
             </Trigger>
         </Style.Triggers>
     </Style>
     <!--END OF RADIOBUTTON STYLE-->
 
-    <!--Minimize button style-->
-    <Style TargetType="Button" x:Key="btnMinimize">
-        <Setter Property="Background" Value="#28AEED"/>
+
+
+    <!--EXIT BUTTON-->
+    <!--2 image of shutdown, dùng image brush vì cái này mới bỏ vô back ground dc-->
+
+
+    <Style x:Key="saveEmployeeButton" TargetType="Button">
+        <Setter Property="Background" Value="#4880FF" />
+        <Setter Property="Foreground" Value="#ffffff" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontWeight" Value="Light" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Width" Value="180" />
+        <Setter Property="Height" Value="40" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Width="18" Height="18"
-                                        CornerRadius="9"
-                                        Background="{TemplateBinding Background}">
-                        <ContentPresenter VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center"/>
+                    <Border Background="{TemplateBinding Background}" CornerRadius="7">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 1"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
-
-
         </Setter>
+
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#278BEF"/>
+                <Setter Property="Background" Value="#3b6bd9" />
             </Trigger>
         </Style.Triggers>
-
-
     </Style>
-
-
-    <Style TargetType="Button" x:Key="btnClose">
-        <Setter Property="Background" Value="#DA34AE"/>
+    <Style x:Key="backEmployeeButton" TargetType="Button" BasedOn="{StaticResource saveEmployeeButton}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="#979797" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Width="18" Height="18"
-                                        CornerRadius="9"
-                                        Background="{TemplateBinding Background}">
-                        <ContentPresenter VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center"/>
+                    <Border Background="{TemplateBinding Background}" CornerRadius="7" BorderThickness="0.8" BorderBrush="#b9b9b9">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 1"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
-
-
         </Setter>
+
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#C62DAE"/>
+                <Setter Property="Background" Value="#d0d0d0" />
+                <Setter Property="Foreground" Value="#ffffff" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="Button" x:Key="loginBtnStyle">
-        <Setter Property="Background" Value="#462AD8"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border Width="150" Height="40"
-                                        CornerRadius="20"
-                                        Background="{TemplateBinding Background}">
-                        <ContentPresenter VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-
-        </Setter>
 
 
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#28AEED"/>
-            </Trigger>
-        </Style.Triggers>
-
-    </Style>
 </ResourceDictionary>

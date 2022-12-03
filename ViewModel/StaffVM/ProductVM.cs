@@ -1,6 +1,6 @@
-﻿using ConvenienceStore.Model;
-using ConvenienceStore.ViewModel.Lam.Helpers;
-using ConvenienceStore.ViewModel.MainBase;
+﻿using ConvenienceStore.Model.Staff;
+using ConvenienceStore.Utils.Helpers;
+using ConvenienceStore.ViewModel.StaffVM;
 using ConvenienceStore.Views.Staff.ProductWindow;
 using System;
 using System.Collections.Generic;

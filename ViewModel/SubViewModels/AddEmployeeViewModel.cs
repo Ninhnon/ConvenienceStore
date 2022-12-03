@@ -1,9 +1,5 @@
-﻿using ConvenienceStore.Views.SubViews;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ConvenienceStore.ViewModel.Admin;
+using ConvenienceStore.Views.Admin.SubViews;
 using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.SubViewModel

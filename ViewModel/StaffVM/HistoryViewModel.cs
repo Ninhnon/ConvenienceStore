@@ -1,5 +1,4 @@
-﻿using ConvenienceStore.Model;
-using ConvenienceStore.ViewModel.MainBase;
+﻿using ConvenienceStore.Model.Admin;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

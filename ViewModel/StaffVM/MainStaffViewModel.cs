@@ -5,16 +5,17 @@ using ConvenienceStore.Model;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ConvenienceStore.ViewModel.MainBase;
 using ConvenienceStore.Views;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using ConvenienceStore.ViewModel.Lam.Helpers;
+using ConvenienceStore.Utils.Helpers;
+using ConvenienceStore.Model.Staff;
+using ConvenienceStore.Views.Admin;
 
 namespace ConvenienceStore.ViewModel.StaffVM
 {
-    public partial class MainStaffViewModel : MainBase.BaseViewModel
+    public partial class MainStaffViewModel : BaseViewModel
     {
         public static User? StaffCurrent { get; set; }
         public ICommand? EmployeeCommand { get; set; }

@@ -42,11 +42,11 @@
                         <Button.Style>
                             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonsStyle}">
                                 <Setter Property="Content" Value="{DynamicResource maximize}"/>
-                                <Style.Triggers>
+                                <!--<Style.Triggers>
                                     <DataTrigger Binding="{Binding ElementName=home, Path=WindowState}" Value="Maximized">
                                         <Setter Property="Content" Value="{DynamicResource restore}"/>
                                     </DataTrigger>
-                                </Style.Triggers>
+                                </Style.Triggers>-->
                             </Style>
                         </Button.Style>
                     </Button>
