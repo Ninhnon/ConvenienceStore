@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.TroubleWindowVM
 {
-    public partial class TroublePageViewModel : BaseViewModel
+    public partial class TroublePageViewModel : MainBase.BaseViewModel
     {
         private DateTime getCurrentDate;
         public DateTime GetCurrentDate
@@ -60,11 +60,13 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         readonly string insertErorrs = "insert into Report(Id, Title, Description, Status, RepairCost, SubmittedAt, StaffId, Level, Image) select N'{0}',N'{1}',N'{2}',N'Chờ tiếp nhận',{3},N'{4}',N'{5}',N'{6}', BulkColumn FROM Openrowset(Bulk N'{7}', Single_Blob) as img";
         public void ThemErorr(Report t)
         {
+            
             var strCmd = string.Format(insertErorrs, t.Id, t.Title, t.Description, t.RepairCost, t.SubmittedAt, t.StaffId, t.Level, filepath);
-
+            DatabaseHelper.sqlCon.Open();
             SqlCommand cmd = new(strCmd, DatabaseHelper.sqlCon);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
+            DatabaseHelper.sqlCon.Close();
         }
     }
 }

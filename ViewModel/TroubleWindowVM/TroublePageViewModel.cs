@@ -1,15 +1,12 @@
 ﻿
 using ConvenienceStore.Model;
 using ConvenienceStore.ViewModel.Lam.Helpers;
-using ConvenienceStore.ViewModel.MainBase;
+using ConvenienceStore.ViewModel.StaffVM;
 using ConvenienceStore.Views.Staff.TroubleWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
-using System.Data.SqlClient;
 using System.IO;
-using System.Net.Cache;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,7 +18,7 @@ using System.Windows.Media.Imaging;
 #nullable enable
 namespace ConvenienceStore.ViewModel.TroubleWindowVM
 {
-    public partial class TroublePageViewModel : BaseViewModel
+    public partial class TroublePageViewModel : MainBase.BaseViewModel
     {
 
         private ObservableCollection<Report>? _ListError;
@@ -71,7 +68,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             set { _ImageSource = value; OnPropertyChanged(); }
         }
 
-        private ComboBoxItem? _Level ;
+        private ComboBoxItem? _Level;
         public ComboBoxItem? Level
         {
             get => _Level;
@@ -113,7 +110,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             danhsach = DatabaseHelper.FetchingReportData();
 
             ListError = new ObservableCollection<Report>(danhsach);
-            GetCurrentDate = System.DateTime.Today;
+            GetCurrentDate = DateTime.Today;
             //FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             //{
             //    IsLoading = true;
@@ -125,7 +122,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             //});
             CancelCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
                 {
-                        p.Close();
+                    p.Close();
                 });
             FilterListErrorCommand = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, (p) =>
             {
@@ -134,7 +131,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             LoadDetailWindowCM = new RelayCommand<System.Windows.Controls.ListView>((p) => { return true; }, (p) =>
             {
                 MaskName.Visibility = Visibility.Visible;
-                ViewError w = new ();
+                ViewError w = new();
                 w.ShowDialog();
                 return;
             });
@@ -143,7 +140,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 RenewWindowData();
                 AddError w1 = new();
                 MaskName.Visibility = Visibility.Visible;
-                w1.StaffName.Text = "LiuWuyn";
+                w1.StaffName.Text = MainStaffViewModel.StaffCurrent.Id.ToString();
                 w1.ShowDialog();
             });
             SaveErrorCM = new RelayCommand<AddError>((p) => { if (IsSaving) return false; return true; }, (p) =>

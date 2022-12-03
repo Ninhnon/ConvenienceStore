@@ -83,7 +83,7 @@
                 <!-- Start: GridColumn Right -->
 
         <!-- Start: GridColum Left-->
-            <Grid x:Name="gridMenu"  Width="60" Height="644"  HorizontalAlignment="Left" Background="{DynamicResource SecondaryBackgroundColor}">
+            <Grid x:Name="gridMenu"  Width="60"  HorizontalAlignment="Left" Background="{DynamicResource SecondaryBackgroundColor}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="80"/>

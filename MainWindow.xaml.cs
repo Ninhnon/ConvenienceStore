@@ -23,6 +23,7 @@ namespace ConvenienceStore
         {
             InitializeComponent();
             PagesNavigation.Navigate(new Uri("Views/InputInfoView.xaml", UriKind.RelativeOrAbsolute));
+            //PagesNavigation.Navigate(new System.Uri("Views/HomeView.xaml", UriKind.RelativeOrAbsolute));
         }
         private void CloseApp_Click(object sender, RoutedEventArgs e)
         {

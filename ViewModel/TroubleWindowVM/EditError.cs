@@ -16,7 +16,7 @@ using ConvenienceStore.ViewModel.Lam.Helpers;
 
 namespace ConvenienceStore.ViewModel.TroubleWindowVM
 {
-    public partial class TroublePageViewModel : BaseViewModel
+    public partial class TroublePageViewModel : MainBase.BaseViewModel
     {
         public ICommand LoadEditErrorCM { get; set; }
         public ICommand UpdateErrorCM { get; set; }
