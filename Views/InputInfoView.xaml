@@ -340,7 +340,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                 Height="50"
                                 Width="275"
                                 HorizontalAlignment="Left"
-                                Command="{Binding SupplierCommand}"
+                                Command="{Binding SupplierCommand,Source={StaticResource MainStaffVM}}"
                                 >
                             <TextBlock
                                    Foreground="{Binding Path=Foreground,  RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}}"
@@ -351,7 +351,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                    FontWeight="SemiBold"
                                    TextWrapping="Wrap"
                                    Cursor="Hand"
-                                    HorizontalAlignment="Left"
+                                   HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
                                    d:Text="Công Ty CP Hàng Tiêu Dùng Masan"
                                     >

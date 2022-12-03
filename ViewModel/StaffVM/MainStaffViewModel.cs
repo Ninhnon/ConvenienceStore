@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ConvenienceStore.ViewModel.MainBase;
+using ConvenienceStore.Views;
 
 namespace ConvenienceStore.ViewModel.StaffVM
 {
@@ -22,7 +23,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public ICommand? MinimizeWindowCommand { get; set; }
         public ICommand? MouseMoveWindowCommand { get; set; }
         public ICommand? MaximizeWindowCommand { get; set; }
-
+        public ICommand? SupplierCommand { get; set; }
         public static Grid MaskName { get; set; }
 
         #region commands
@@ -79,7 +80,10 @@ namespace ConvenienceStore.ViewModel.StaffVM
             //    p.Content = new TroublePage();
 
             //});
-
+            SupplierCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new SupplierView();
+            });
             CloseWindowCommand = new RelayCommand<Grid>((p) => { return p == null ? false : true; }, (p) =>
             {
                 Window w = Window.GetWindow(p);

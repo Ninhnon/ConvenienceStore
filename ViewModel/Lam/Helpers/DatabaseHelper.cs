@@ -2,15 +2,14 @@ using ConvenienceStore.Model.Lam;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Data.SqlClient;
 
 namespace ConvenienceStore.ViewModel.Lam.Helpers
 {
     public partial class DatabaseHelper
     {
-        /* strCon của Lâm
-         * static readonly string strCon = @"Data Source=LAPTOP-JF6O07NR\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True"; */
-        static readonly string strCon = @"Data Source=LAPTOP-O791JS0J\SQLEXPRESS;Initial Catalog = ConvenienceStore; Integrated Security = True";
+        static readonly string strCon = @ConfigurationManager.ConnectionStrings["Default"].ToString();
         public static SqlConnection sqlCon = new SqlConnection(strCon);
 
         static readonly string queryInputInfo = @"select InputInfo.Id, InputDate, InputInfo.UserId, Users.Name, Users.Email, Users.Phone, Avatar, Supplier.Id, Supplier.Name
