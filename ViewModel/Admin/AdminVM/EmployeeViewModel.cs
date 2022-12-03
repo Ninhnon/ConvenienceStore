@@ -14,6 +14,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public void AddEmployee(AddEmployeeView parameter)
         {
             AddEmployeeView addView = new AddEmployeeView();
+           
             addView.ShowDialog();
         }
     }

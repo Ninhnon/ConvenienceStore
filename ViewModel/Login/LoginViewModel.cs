@@ -63,7 +63,7 @@ namespace ConvenienceStore.ViewModel.Login
                     CurrentAccount.Email = account.Email;
                     CurrentAccount.Address = account.Address;
                     CurrentAccount.Phone = account.Phone;
-                    CurrentAccount.idAccount = account.idAccount;
+                    CurrentAccount.idAccount = account.IdAccount;
                     CurrentAccount.Password = account.Password;
                     CurrentAccount.avatar = account.avatar;
                     MessageBox.Show("Dang nhap thanh cong");

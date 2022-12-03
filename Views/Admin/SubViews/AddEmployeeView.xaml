@@ -5,57 +5,69 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConvenienceStore.Views.Admin.SubViews"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         xmlns:uc="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
-        Title="AddEmployeeView" Height="900" Width="1300"
+        Title="AddEmployeeView" Height="660" Width="1200"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Background="Transparent"
         DataContext="{StaticResource AddEmployeeVM}"
         x:Name="addEmployeeWd"
         >
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="149*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid VerticalAlignment="Center " Grid.ColumnSpan="2">
-            <!--Background Layers-->
-            <Border CornerRadius="7 0 0 0" Background="#F7F8FB" Height="50" Margin="30 -30 60 0" VerticalAlignment="Top"/>
-            <Border CornerRadius="7 0 0 0" Background="#FDFDFD" Height="50" Margin="10 -15 60 0" VerticalAlignment="Top"/>
-            <StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="20 20 0 0">
-                    <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="#EFEFEF">
-                        <Ellipse Width="40" Height="40">
+    <Grid Background="Transparent">
+        <Border Background="Black"
+                Opacity="0.4"
+                CornerRadius="25">
+        </Border>
+        <Grid Width="650"
+              
+              VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="149*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid VerticalAlignment="Center " Grid.ColumnSpan="2">
+                    <!--Background Layers-->
+                  
+                    <StackPanel>
+                        
 
-                        </Ellipse>
-                    </Border>
+                        <Border CornerRadius="7" Background="#ffffff" Margin="0,0,60,0" Height="657" >
+                            <Border.Effect>
+                                <DropShadowEffect Direction="-130" BlurRadius="30" ShadowDepth="5" Opacity="0.1"/>
+                            </Border.Effect>
 
-                    <TextBlock Text="Thêm nhân viên" Foreground="#374655" FontSize="18" Margin="15 0 0 0" VerticalAlignment="Center"/>
-                </StackPanel>
+                            <Grid Margin="20 0">
 
-                <Border CornerRadius="7" Background="#ffffff" Margin="0,0,60,0" Height="657" >
-                    <Border.Effect>
-                        <DropShadowEffect Direction="-130" BlurRadius="30" ShadowDepth="5" Opacity="0.1"/>
-                    </Border.Effect>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
 
-                    <Grid Margin="20 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
+                                <!--Form Title-->
+                            <StackPanel  Grid.ColumnSpan="2">
+                                <StackPanel Orientation="Horizontal" Margin="20 20 0 0">
+                                    <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="#EFEFEF">
+                                        <Ellipse Width="40" Height="40">
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                                        </Ellipse>
+                                    </Border>
 
-                        <!--Form Title-->
-                        <Rectangle 
+                                    <TextBlock Text="Thêm nhân viên" Foreground="#374655" FontSize="18" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Rectangle 
                             HorizontalAlignment="Center"
-                            Grid.ColumnSpan="2"
+                           
                 x:Name="recImage"
                 StrokeDashArray="4 2" 
                 Fill="Aqua"
@@ -66,55 +78,54 @@
                 Height="150" 
                
                 VerticalAlignment="Top"/>
-
-                        <!--Form Percentage-->
-                        <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Margin="0 20 20 0">
-                            <Border Width="30" Height="30" CornerRadius="50" BorderThickness="3" ClipToBounds="True">
-                                <Border.BorderBrush>
-                                    <LinearGradientBrush>
-                                        <GradientStop Color="#4880FF" Offset="0"/>
-                                        <GradientStop Color="#EFEFEF" Offset="0.4"/>
-                                    </LinearGradientBrush>
-                                </Border.BorderBrush>
-                            </Border>
-
-                            <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
-                                <TextBlock Text="10%" Foreground="#4880FF" FontSize="14" FontWeight="SemiBold" />
-                                <TextBlock Text="Profile Completion" Foreground="#97A5B4" Margin="0 2 0 0"/>
                             </StackPanel>
-                        </StackPanel>
+                                
 
-                        <Separator Grid.Row="1" Grid.ColumnSpan="2" Height="0.7" Margin="-20 20 -20 20" Background="#E1E6EB"/>
+                                <!--Form Percentage-->
+                               
+                                <Separator Grid.Row="1" Grid.ColumnSpan="2" Height="0.7" Margin="-20 20 -20 20" Background="#E1E6EB"/>
 
-                        <!--Inputs-->
-                        <uc:TextBoxUC  Grid.Column="0" Grid.Row="2" Caption="Họ Tên" Hint="Nhập họ tên"/>
-                        <uc:TextBoxUC Grid.Column="0" Grid.Row="3" Caption="Notification Email" Hint="Nhập email"/>
-                        <uc:TextBoxUC Grid.Column="0" Grid.Row="4" Caption="Phone" Hint="Nhập số điện thoại"/>
-                        <uc:TextBoxUC Grid.Column="0" Grid.Row="5" Caption="Address (Line 1)" Hint="Nhập địa chỉ"/>
-                        <uc:TextBoxUC Grid.Column="1" Grid.Row="2" Caption="Business Name" Hint="Nhập tài khoản"/>
-                        <uc:TextBoxUC Grid.Column="1" Grid.Row="3" Caption="Account Email" Hint="Nhập mật khẩu"/>
-                        <uc:TextBoxUC Grid.Column="1" Grid.Row="4" Caption="Currency" Hint="Xác nhận mật khẩu"/>
+                                <!--Inputs-->
+                                <uc:TextBoxUC x:Name="nameTxtbox"  Grid.Column="0" Grid.Row="2" Caption="Họ Tên" Hint="Nhập họ tên"/>
+                            <uc:TextBoxUC x:Name="emailTxtbox" Grid.Column="0" Grid.Row="3" Caption="Email" Hint="Nhập email"/>
+                            <uc:TextBoxUC x:Name="phoneTxtbox"  Grid.Row="4" Caption="Điện thoại" Hint="Nhập số điện thoại"/>
+                            <uc:TextBoxUC x:Name="addressTxtbox"  Grid.Row="5" Caption="Địa Chỉ" Hint="Nhập địa chỉ"/>
+                            <uc:TextBoxUC x:Name="usernameTxtbox" Grid.Column="1" Grid.Row="2" Caption="Tên đăng nhập" Hint="Nhập tên đăng nhập"/>
+                            <uc:TextBoxUC x:Name="passwordTxtbox" Grid.Column="1"  Grid.Row="3" Caption="Mật khẩu" Hint="Nhập mật khẩu"/>
+                            <uc:TextBoxUC x:Name="confirmPasswordTxtbox" Grid.Column="1" Grid.Row="4" Caption="Xác nhận mật khẩu" Hint="Xác nhận mật khẩu"/>
 
-                        <!--Form Bottom Background-->
-                        <Border Grid.Row="6" Grid.ColumnSpan="2" Height="80" Background="#f6f6f6" CornerRadius="0 0 10 10" Margin="-20 40 -20 0"/>
-
-                        <!--Main Button-->
-                        <Button Grid.Column="1" Grid.Row="6" Content="Save Next" HorizontalAlignment="Left" Margin="5,54,0,26" Style="{StaticResource saveEmployeeButton}">
-                            <Button.Effect>
-                                <DropShadowEffect Direction="-120" BlurRadius="10" Opacity="0.3" ShadowDepth="5" Color="#4880FF"/>
-                            </Button.Effect>
-                        </Button>
-                        <Button Command="{Binding BackCommand}" HorizontalAlignment="Left"
+                                <!--Form Bottom Background-->
+                                <Border Grid.Row="6" Grid.ColumnSpan="2" Height="80" Background="#f6f6f6" CornerRadius="0 0 10 10" Margin="-20 40 -20 0"/>
+                            <Button Grid.Row="6" Content="Back"
+                                    Command="{Binding BackCommand}" 
                             CommandParameter="{Binding ElementName=addEmployeeWd}"
-                        Grid.Row="6" Content="Back" 
-                        Margin="450,54,0,26" 
-                        Style="{StaticResource backEmployeeButton}" Width="150"/>
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right"
+                                    Margin="5,54,0,26"
+                                    Style="{StaticResource backButton}" Width="150"/>
+                            <!--Main Button-->
+                                <Button Grid.Column="1" Grid.Row="6" 
+                                        Command="{Binding SaveCommand}"
+                                        CommandParameter="{Binding ElementName=addEmployeeWd}"
+                                        Content="Save Next" 
+                                        HorizontalAlignment="Left" 
+                                        Margin="5,54,0,26" 
+                                        Style="{StaticResource saveEmployeeButton}"
+                                        >
+                                    <Button.Effect>
+                                        <DropShadowEffect Direction="-120" BlurRadius="10" Opacity="0.3" ShadowDepth="5" Color="#4880FF"/>
+                                    </Button.Effect>
+                                </Button>
+                              
+                           
+
+       
                     </Grid>
                 </Border>
             </StackPanel>
             <!--Main Layer-->
-
-        </Grid>
-
+                </Grid>
+                 </Grid>
+       
     </Grid>
 </Window>

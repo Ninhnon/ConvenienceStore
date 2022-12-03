@@ -80,7 +80,16 @@ namespace ConvenienceStore.Views.Admin
         //    PagesNavigation.Navigate(new System.Uri("Views/Staff/VoucherWindow/VoucherPage.xaml", UriKind.RelativeOrAbsolute));
         //}
 
-        private void rdReport_Click(object sender, RoutedEventArgs e)
+ 
+
+     
+
+        private void rdEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            PagesNavigation.Navigate(new System.Uri("Views/Admin/EmployeeView.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void rdChart_Click(object sender, RoutedEventArgs e)
         {
             PagesNavigation.Navigate(new System.Uri("Views/Admin/ReportView.xaml", UriKind.RelativeOrAbsolute));
         }

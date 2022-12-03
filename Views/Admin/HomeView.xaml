@@ -9,8 +9,8 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
       xmlns:Uc="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
-        d:DesignHeight="600"
-        d:DesignWidth="1100"
+        d:DesignHeight="660"
+        d:DesignWidth="1200"
         mc:Ignorable="d"
         x:Name="wdHome" Background="Beige"
                       Width="{Binding wdWidth}"
@@ -39,7 +39,7 @@
                     Width="1559"
                     
                     Margin="40,30,0,0">
-                <TextBlock FontSize="26" Foreground="#CCD7FF" Margin="50 35 0 20" Text="Good Afternoon, Perman" HorizontalAlignment="Left"/>
+                <TextBlock FontSize="26" Foreground="#CCD7FF" Margin="50 35 0 20" Text="{Binding Hello}" HorizontalAlignment="Left"/>
                 <Border Margin="15" CornerRadius="5" Width="295" Height="150">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
@@ -167,7 +167,7 @@
             <Border CornerRadius="20"  Background="#243771"
                     BorderThickness="1"
                     HorizontalAlignment="Center"
-                    Height="410" 
+                    Height="300" 
                  
                     
                    
@@ -184,7 +184,7 @@
                         Margin="0" 
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Height="460" 
+                        Height="300" 
                         Width="580">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="39*"/>
@@ -201,7 +201,7 @@
                             Series="{Binding ColumnSeriesCollection, UpdateSourceTrigger=PropertyChanged}" 
                             LegendLocation="Bottom"
                             Width="540" 
-                            Height="430" 
+                            Height="300" 
                             HorizontalAlignment="Left" 
                             VerticalAlignment="Bottom"
                             Margin="20,0,0,5" Grid.ColumnSpan="2" >

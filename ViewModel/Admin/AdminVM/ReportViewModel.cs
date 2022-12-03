@@ -9,12 +9,14 @@ using ConvenienceStore.Views;
 using System.Windows;
 using ConvenienceStore.Utils.DataLayerAccess;
 using ConvenienceStore.Views.Admin;
+using ConvenienceStore.Model;
 
 namespace ConvenienceStore.ViewModel.Admin.AdminVM
 {
     public class ReportViewModel : BaseViewModel
     {
-
+        private string _hello;
+        public string Hello { get => _hello; set { _hello = value; OnPropertyChanged(); } }
         // Doanh thu tháng này 
         private string thisMonth;
         public string ThisMonth { get => thisMonth; set { thisMonth = value; OnPropertyChanged(); } }
@@ -48,7 +50,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         //Constructor
         public ReportViewModel()
         {
-
+            Hello = "Hello, " + CurrentAccount.Name;
             InitColumnChartTodayCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartToday(parameter));
             InitColumnChartMonthCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartMonth(parameter));
             InitColumnChartYearCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartYear(parameter));
