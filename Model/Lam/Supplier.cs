@@ -9,6 +9,7 @@ namespace ConvenienceStore.Model.Lam
     public class Supplier
     {
         public int Id { get; set; }
+        public int Number { get; set; } 
         public string Name { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }

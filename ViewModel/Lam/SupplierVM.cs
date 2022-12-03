@@ -1,5 +1,6 @@
 ﻿using ConvenienceStore.Model.Lam;
 using ConvenienceStore.ViewModel.Lam.Command.SupplierCommand.AddNewSupplierCommand;
+using ConvenienceStore.ViewModel.Lam.Command.SupplierCommand.SupplierCard;
 using ConvenienceStore.ViewModel.Lam.Helpers;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace ConvenienceStore.ViewModel.Lam
         }
 
         public AddSupplierButtonCommand AddSupplierButtonCommand { get; set; }
-
+        public DeleteSupplierButton DeleteSupplierButton { get; set; }
         public SupplierVM()
         {
             suppliers = DatabaseHelper.FetchingSupplier();
@@ -54,6 +55,7 @@ namespace ConvenienceStore.ViewModel.Lam
             }
 
             AddSupplierButtonCommand = new AddSupplierButtonCommand(this);
+            DeleteSupplierButton = new DeleteSupplierButton(this);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
