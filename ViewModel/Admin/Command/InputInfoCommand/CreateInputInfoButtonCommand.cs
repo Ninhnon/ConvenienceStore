@@ -46,6 +46,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand
             };
 
             VM.inputInfos.Add(newInputInfo);
+            VM.ObservableInputInfos.Add(newInputInfo);
             DatabaseHelper.InsertInputInfo(newInputInfo.InputDate, 2, 1);
 
             window.Close();
