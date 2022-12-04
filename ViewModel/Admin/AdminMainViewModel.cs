@@ -1,10 +1,15 @@
-﻿using ConvenienceStore.ViewModel.Admin.AdminVM;
+﻿
 using ConvenienceStore.Views.Admin;
+using ConvenienceStore.Views.Staff.ProductWindow;
+using ConvenienceStore.Views.Staff.TroubleWindow;
+using ConvenienceStore.Views.Staff.VoucherWindow;
+using ConvenienceStore.Views.Staff;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.Admin
 {
-    public class AdminMainViewModel : BaseViewModel
+    public class AdminMainViewModel : StaffVM.BaseViewModel
     {
         private double wdHeight_ = 660;
         private double wdWidth_ = 1200;
@@ -47,6 +52,8 @@ namespace ConvenienceStore.ViewModel.Admin
         public ICommand ProductCommand { get; set; }
         public ICommand ProfileCommand { get; set; }
         public ICommand ReportCommand { get; set; }
+        public ICommand SupplierCommand { get; set; }
+        public ICommand InputInfoCommand { get; set; }
         public ICommand ShowPanelCommand { get; set; }
         public ICommand HidePanelCommand { get; set; }
         public ICommand SizeChangedCommand { get; set; }
@@ -56,7 +63,35 @@ namespace ConvenienceStore.ViewModel.Admin
             IsPanelVisible = 0;  //moi vo la no ko mo menu =hidden
             OpacityChange = 1;
             OpacityChange1 = 0.9;
-            CurrentView = new InputInfoVM();
+
+            HomeCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new HomeView();
+            });
+            InputInfoCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new InputInfoView();
+
+            });
+            EmployeeCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new EmployeeView();
+
+            });
+            ProfileCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new ProfileView();
+            });
+            SupplierCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new SupplierView();
+
+            });
+            ReportCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new TroublePage();
+
+            });
             ShowPanelCommand = new RelayCommand<AdminMainWindow>(parameter => true, parameter => Show(parameter));
             HidePanelCommand = new RelayCommand<AdminMainWindow>(parameter => true, parameter => Hide(parameter));
             SizeChangedCommand = new RelayCommand<AdminMainWindow>(parameter => true, parameter => SizeChanged(parameter));
@@ -64,7 +99,6 @@ namespace ConvenienceStore.ViewModel.Admin
 
         public void Show(AdminMainWindow parameter)
         {
-
             IsPanelVisible = 1;
             OpacityChange = 0.6;
             OpacityChange1 = 0.2;
@@ -81,9 +115,6 @@ namespace ConvenienceStore.ViewModel.Admin
         {
             wdHeight = parameter.ActualHeight;
             wdWidth = parameter.ActualWidth;
-
-
-
         }
 
     }

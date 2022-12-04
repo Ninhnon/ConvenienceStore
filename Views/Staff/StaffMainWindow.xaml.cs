@@ -11,7 +11,6 @@ namespace ConvenienceStore.Views.Staff
         public StaffMainWindow()
         {
             InitializeComponent();
-            PagesNavigation.Navigate(new System.Uri("Views/Staff/PaymentWindow.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
@@ -32,35 +31,5 @@ namespace ConvenienceStore.Views.Staff
             WindowState = WindowState.Minimized;
         }
 
-        private void rdPayment_Click(object sender, RoutedEventArgs e)
-        {
-            PagesNavigation.Navigate(new Uri("Views/Staff/PaymentWindow.xaml", UriKind.RelativeOrAbsolute));
-        }
-
-        private void rdHistory_Click(object sender, RoutedEventArgs e)
-        {
-            PagesNavigation.Navigate(new Uri("Views/Staff/HistoryWindow.xaml", UriKind.RelativeOrAbsolute));
-        }
-
-        private void rdProfile_Click(object sender, RoutedEventArgs e)
-        {
-            // PagesNavigation.Navigate(new HomePage());
-            PagesNavigation.Navigate(new System.Uri("Views/Staff/ProfileWindow.xaml", UriKind.RelativeOrAbsolute));
-        }
-
-        private void rdProduct_Click(object sender, RoutedEventArgs e)
-        {
-            PagesNavigation.Navigate(new System.Uri("Views/Staff/ProductWindow/ProductPage.xaml", UriKind.RelativeOrAbsolute));
-        }
-
-        private void rdVoucher_Click(object sender, RoutedEventArgs e)
-        {
-            PagesNavigation.Navigate(new System.Uri("Views/Staff/VoucherWindow/VoucherPage.xaml", UriKind.RelativeOrAbsolute));
-        }
-
-        private void rdReport_Click(object sender, RoutedEventArgs e)
-        {
-            PagesNavigation.Navigate(new System.Uri("Views/Staff/TroubleWindow/TroublePage.xaml", UriKind.RelativeOrAbsolute));
-        }
     }
 }

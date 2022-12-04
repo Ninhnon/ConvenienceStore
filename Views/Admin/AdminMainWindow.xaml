@@ -71,6 +71,12 @@
                 <!-- End: Button Close | Restore | Minimize -->
 
                 <Frame Grid.Row="1" Margin="60 0 0 0" x:Name="PagesNavigation" NavigationUIVisibility="Hidden">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding HomeCommand}"
+                                                   CommandParameter="{Binding ElementName=PagesNavigation}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <!-- Page Content -->
                     <!--<i:Interaction.Triggers>
 
@@ -124,32 +130,43 @@
                     <RadioButton 
                         x:Name="rdHome" IsChecked="True" 
                         Content="Home" Style="{DynamicResource MenuRadioButtonStyle}" 
-                        
                         Tag="{DynamicResource home}"
-                        Click="rdHome_Click" FontWeight="SemiBold"/>
+                        Command="{Binding HomeCommand}"
+                        CommandParameter="{Binding ElementName=PagesNavigation}"
+                        FontWeight="SemiBold"/>
                     <RadioButton
                         x:Name="rdInputInfo" 
                         Content="InputInfo" Style="{DynamicResource MenuRadioButtonStyle}"
                         Tag="{DynamicResource product}"
-                        Margin="0 5 0 5" Click="rdInputInfo_Click" FontWeight="SemiBold"/>
+                        Command="{Binding InputInfoCommand}"
+                        CommandParameter="{Binding ElementName=PagesNavigation}"
+                        Margin="0 5 0 5" FontWeight="SemiBold"/>
                     <RadioButton
                         x:Name="rdEmployee" 
                         Content="Employee" Style="{DynamicResource MenuRadioButtonStyle}"
                         Tag="{DynamicResource employee}"
-                        Margin="0 5 0 5"  FontWeight="SemiBold" Click="rdEmployee_Click"/>
+                        Command="{Binding EmployeeCommand}"
+                        CommandParameter="{Binding ElementName=PagesNavigation}"
+                        Margin="0 5 0 5"  FontWeight="SemiBold"/>
                     <RadioButton x:Name="rdProfile" Content="Profile" 
                                  Style="{DynamicResource MenuRadioButtonStyle}" 
                                  Tag="{DynamicResource profile}"
-                                 Margin="0 5 0 5" Click="rdProfile_Click"
+                                 Command="{Binding ProfileCommand}"
+                                 CommandParameter="{Binding ElementName=PagesNavigation}"
+                                 Margin="0 5 0 5"
                                  FontWeight="SemiBold"/>
                     <RadioButton x:Name="rdChart" Content="Chart"
                                  Style="{DynamicResource MenuRadioButtonStyle}"
-                                    Tag="{DynamicResource chart}" 
-                                 Margin="0 5 0 5" Click="rdChart_Click" 
+                                 Tag="{DynamicResource chart}" 
+                                 Margin="0 5 0 5" 
+                                 Command="{Binding ReportCommand}"
+                        CommandParameter="{Binding ElementName=PagesNavigation}"
                                     FontWeight="SemiBold"/>
                         <RadioButton x:Name="rdSupplier" Content="Supplier" 
                                  Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource product}" Margin="0 5 0 5" 
-                                 Click="rdSupplier_Click" FontWeight="SemiBold"/>
+                                 Command="{Binding SupplierCommand}"
+                        CommandParameter="{Binding ElementName=PagesNavigation}"
+                                     FontWeight="SemiBold"/>
                     <!--<RadioButton x:Name="rdVoucher" Content="Voucher" Style
                     ="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource voucher}" Margin="0 5 0 5" Click="rdVoucher_Click" FontWeight="SemiBold"/>-->
                 </StackPanel>
