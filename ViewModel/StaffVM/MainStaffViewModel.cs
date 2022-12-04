@@ -12,6 +12,11 @@ using System.Linq;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Views.Admin;
+using System.Windows.Media.Imaging;
+using System.IO;
+using System;
+using static Emgu.CV.ML.KNearest;
+using System.Windows.Automation;
 
 namespace ConvenienceStore.ViewModel.StaffVM
 {
@@ -77,8 +82,8 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 _ten = value; OnPropertyChanged();
             }
         }
-        private byte[]? _Anh;
-        public byte[]? Anh
+        private byte[] _Anh;
+        public byte[] Anh
         {
             get => _Anh;
             set
@@ -95,7 +100,9 @@ namespace ConvenienceStore.ViewModel.StaffVM
             Ten = CurrentAccount.Name;
             danhsach = DatabaseHelper.FetchingUserData();
             List= new ObservableCollection<User>(danhsach);
-            //Anh = List.First(x => x.UserName == StaffCurrent.UserName).Image;
+
+            
+
             //ProductCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             //{
             //    p.Content = new ProductPage();

@@ -23,6 +23,6 @@ namespace ConvenienceStore.Model.Staff
         public string? _Email; public string? Email { get => _Email; set { _Email = value; OnPropertyChanged(); } }
         public string _UserName; public string UserName { get => _UserName; set { _UserName = value; OnPropertyChanged(); } }
         public string _Password; public string Password { get => _Password; set { _Password = value; OnPropertyChanged(); } }
-        private Byte[] _Image; public Byte[] Image { get => _Image; set { _Image = value; OnPropertyChanged(); } }
+        private byte[] _Image; public byte[] Image { get => _Image; set { _Image = value; OnPropertyChanged(); } }
     }
 }

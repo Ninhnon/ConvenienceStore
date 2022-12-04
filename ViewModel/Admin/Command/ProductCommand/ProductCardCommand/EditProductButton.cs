@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using static Emgu.CV.BarcodeDetector;
+using System.Diagnostics;
 
 namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCommand
 {
@@ -35,6 +37,18 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCom
         {
             var currentProduct = (Product)parameter;
 
+            var coppyCurProduct = new Product()
+            {
+                Title = currentProduct.Title,
+                Image = currentProduct.Image,
+                Cost = currentProduct.Cost,
+                Price = currentProduct.Price,
+                Stock = currentProduct.Stock,
+                ManufacturingDate = currentProduct.ManufacturingDate,
+                ExpiryDate = currentProduct.ExpiryDate,
+                Discount = currentProduct.Discount
+            };
+
             // currentProduct là 1 biến tham thiếu tới product thật nằm trong "products" ở ProductsVM.
             // sửa giá trị trên currentProduct thì giá trị Product thật cũng thay đổi theo !!
             // Nên copy ra 1 biến mới để không ảnh hướng đến Product thậ
@@ -45,12 +59,22 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCom
 
 
             editProductWindow.ShowDialog();
-            // Sau khi cửa sổ Edit đóng thì "currentProduct" đã được update
-            VM.SetProductsCorrespondSearch();
 
+            if (currentProduct.Title != coppyCurProduct.Title ||
+                currentProduct.Image != coppyCurProduct.Image ||
+                currentProduct.Cost != coppyCurProduct.Cost ||
+                currentProduct.Price != coppyCurProduct.Price ||
+                currentProduct.Stock != coppyCurProduct.Stock ||
+                currentProduct.ManufacturingDate != coppyCurProduct.ManufacturingDate ||
+                currentProduct.ExpiryDate != coppyCurProduct.ExpiryDate ||
+                currentProduct.Discount != coppyCurProduct.Discount)
+            {
+                // Sau khi cửa sổ Edit đóng thì "currentProduct" đã được update
+                VM.SetProductsCorrespondSearch();
 
-            // Update to Database
-            DatabaseHelper.Update(currentProduct);
+                // Update to Database
+                DatabaseHelper.UpdateProduct(currentProduct);
+            }
         }
     }
 }

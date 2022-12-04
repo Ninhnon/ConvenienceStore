@@ -42,7 +42,15 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
                 bi.EndInit();
             }
             var imageBrush = (ImageBrush)parameter;
-            imageBrush.ImageSource = bi;
+            try
+            {
+                imageBrush.ImageSource = bi;
+            }
+            catch
+            {
+                /* Chỗ này phải xài try catch để bắt lỗi
+                 * Người dùng mở File Exploer nhưng không chọn ảnh mà nhấn nút "Cancle" */
+            }
         }
     }
 }

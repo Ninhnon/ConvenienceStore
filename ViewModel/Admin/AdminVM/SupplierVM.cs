@@ -36,10 +36,16 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 searchContent = value;
                 OnPropertyChanged("SearchContent");
 
+                if (searchContent == "")
+                {
+                    SetSupplierCorespondSearch();
+                }
             }
         }
 
         public AddSupplierButtonCommand AddSupplierButtonCommand { get; set; }
+        public SaveNewSupplierCommand SaveNewSupplierCommand { get; set; }
+        public EditSupplierButton EditSupplierButton { get; set; }
         public DeleteSupplierButton DeleteSupplierButton { get; set; }
         public SupplierVM()
         {
@@ -51,7 +57,22 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             }
 
             AddSupplierButtonCommand = new AddSupplierButtonCommand(this);
+            SaveNewSupplierCommand = new SaveNewSupplierCommand(this);
+            EditSupplierButton = new EditSupplierButton(this);
             DeleteSupplierButton = new DeleteSupplierButton(this);
+        }
+
+        public void SetSupplierCorespondSearch()
+        {
+            ObservableSupplier.Clear();
+
+            for (int i = 0; i < suppliers.Count; ++i)
+            {
+                if (suppliers[i].Name.ToLower().Contains(searchContent.ToLower()))
+                {
+                    ObservableSupplier.Add(suppliers[i]);
+                }
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

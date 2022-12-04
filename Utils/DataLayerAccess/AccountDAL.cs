@@ -52,11 +52,10 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                                           dt.Rows[i].ItemArray[3].ToString(),
                                           dt.Rows[i].ItemArray[4].ToString(),
                                           dt.Rows[i].ItemArray[5].ToString(),
-                                           dt.Rows[i].ItemArray[6].ToString(),
-                                            dt.Rows[i].ItemArray[7].ToString(),
-                                            (byte[])dt.Rows[i].ItemArray[8]
-
-                                          );
+                                          dt.Rows[i].ItemArray[6].ToString(),
+                                          dt.Rows[i].ItemArray[7].ToString(),
+                                          (byte[])dt.Rows[i].ItemArray[8]
+                );
                 accounts.Add(acc);
             }
             return accounts;
