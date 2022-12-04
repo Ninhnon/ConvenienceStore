@@ -3,11 +3,14 @@
     <Style x:Key="MyTextBoxStyle" TargetType="{x:Type TextBox}">
         <Setter Property="Background" Value="White"/>
         <Setter Property="BorderThickness" Value="2"/>
-        <Setter Property="BorderBrush" Value="#004BFF"/>
-        <Setter Property="Padding" Value="6 3"/>
+        <Setter Property="BorderBrush" Value="#D9D9D9"/>
         <Setter Property="Cursor" Value="IBeam"/>
         <Setter Property="Foreground" Value="#9295A5"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="AllowDrop" Value="True"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="FontSize" Value="15"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
@@ -18,7 +21,7 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             SnapsToDevicePixels="True">
 
-                        <Grid Margin="{TemplateBinding Margin}">
+                        <Grid Margin="8 10">
                             <ScrollViewer x:Name="PART_ContentHost"
                                           Focusable="False"
                                           HorizontalScrollBarVisibility="Hidden"
@@ -26,12 +29,25 @@
                             <Label x:Name="WaterMarkerLable"
                                    Content="{TemplateBinding Tag}"
                                    FontWeight="{TemplateBinding FontWeight}"
-                                   VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                                   HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                                   Padding="{TemplateBinding Padding}"/>
+                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   Padding="{TemplateBinding Padding}"
+                                   Visibility="Hidden"
+                                   Margin="1 0 0 0"
+                                   FontSize="{TemplateBinding FontSize}"/>
                         </Grid>
 
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Text" Value=""/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Visible"
+                                    TargetName="WaterMarkerLable"/>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

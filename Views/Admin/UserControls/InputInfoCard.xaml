@@ -45,7 +45,21 @@
                 <StackPanel Orientation="Vertical"
                         Margin="10 0 10 0"
                         VerticalAlignment="Center">
-
+                    
+                    <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Left"
+                            Margin="0 0 0 4">
+                        <Image Source="/Resources/Images/IconForInputInfo/calendar.png"
+                               Width="18"
+                               Opacity="0.6"/>
+                        <Border Width="15"/>
+                        <TextBlock Text="{Binding InputDate, StringFormat=dd-MM-yyyy}"
+                                   VerticalAlignment="Center"
+                                   FontSize="14"
+                                   d:Text="26-11-2022"
+                                   FontWeight="SemiBold"/>
+                    </StackPanel>
+                    
                     <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Left"
                             Margin="0 0 0 6">
@@ -57,19 +71,6 @@
                                VerticalAlignment="Center"
                                FontSize="14"
                                d:Text="Trần Lê Hoàng Lâm"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Left"
-                            Margin="0 0 0 4">
-                        <Image Source="/Resources/Images/IconForInputInfo/calendar.png"
-                           Width="18"
-                           Opacity="0.6"/>
-                        <Border Width="15"/>
-                        <TextBlock Text="{Binding InputDate, StringFormat=dd-MM-yyyy}"
-                               VerticalAlignment="Center"
-                               FontSize="14"
-                               d:Text="26-11-2022"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal"

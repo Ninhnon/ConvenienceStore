@@ -54,9 +54,10 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                                           dt.Rows[i].ItemArray[5].ToString(),
                                            dt.Rows[i].ItemArray[6].ToString(),
                                             dt.Rows[i].ItemArray[7].ToString(),
-                                            (byte[])dt.Rows[i].ItemArray[8]
+                                            Convert.FromBase64String(dt.Rows[i].ItemArray[8].ToString())
 
                                           );
+
                 accounts.Add(acc);
             }
             return accounts;
@@ -64,9 +65,13 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         public void AddIntoDataBase(Account account)
         {
             OpenConnection();
-            string query = "INSERT INTO Account(idAccount, username, password, type) VALUES (@id, @username, @pass, @type)";
+            string query = "INSERT INTO Users(UserRole,Name,Address,Phone,Email,UserName,Password) VALUES (@userrole, @name,@address,@phone,@email,@username,@pass)";
             SqlCommand cmd = new SqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@id", account.idAccount.ToString());
+            cmd.Parameters.AddWithValue("@userrole", account.UserRole.ToString());
+            cmd.Parameters.AddWithValue("@name", account.Name);
+            cmd.Parameters.AddWithValue("@address", account.Address);
+            cmd.Parameters.AddWithValue("@phone", account.Phone);
+            cmd.Parameters.AddWithValue("@email", account.Email);
             cmd.Parameters.AddWithValue("@username", account.UserName);
             cmd.Parameters.AddWithValue("@pass", account.Password);
 

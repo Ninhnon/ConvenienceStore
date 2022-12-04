@@ -14,9 +14,6 @@
       Background="#EFF2F7">
     <Page.Resources>
         <Converters:StringToVisibility x:Key="StringToVisibility"/>
-        <!--<Converters:IndexToVisibility x:Key="IndexToVisibility"/>
-        <Converters:IntToVNDCurrency x:Key="IntToVNDCurrency"/>
-        <Converters:HasOjectConverter x:Key="HasOjectConverter"/>-->
     </Page.Resources>
 
     <Grid DataContext="{StaticResource SupplierVM}">
@@ -110,20 +107,17 @@
                         </Grid>
 
                         <Border Grid.Column="1"
-                                    Background="{StaticResource PrimaryColor}"
-                                    CornerRadius="0 20 20 0"
-                                    Cursor="Hand">
+                                Background="{StaticResource PrimaryColor}"
+                                CornerRadius="0 20 20 0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="Border_MouseLeftButtonDown">
                             <materialDesign:PackIcon Kind="Search"
-                                                         Foreground="White"
-                                                         VerticalAlignment="Center"
-                                                         HorizontalAlignment="Center"
-                                                         Height="20" 
-                                                         Width="20"/>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                    <i:InvokeCommandAction Command="{Binding AddSupplierButtonCommand}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                                                     Foreground="White"
+                                                     VerticalAlignment="Center"
+                                                     HorizontalAlignment="Center"
+                                                     Height="20" 
+                                                     Width="20"/>
+
                         </Border>
                     </Grid>
                 </Border>
@@ -195,7 +189,8 @@
                                             Foreground="#4B0082"
                                             Height="32"
                                             Padding="6 4"
-                                            Command=""/>
+                                            Command="{Binding Source={StaticResource SupplierVM}, Path=EditSupplierButton}"
+                                            CommandParameter="{Binding}"/>
                                     <Button Style="{StaticResource MaterialDesignFlatLightButton}"
                                             Content="{materialDesign:PackIcon Kind=Delete, Size=24}"
                                             Height="32"

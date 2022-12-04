@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ConvenienceStore.Model;
 
 namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand
 {
@@ -34,20 +35,36 @@ namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand
         public void Execute(object parameter)
         {
             var window = parameter as AddNewInputInfoWindow;
+            window.ComboBoxSupplierErrorMessage.Text = string.Empty;
 
-            var maxId = VM.inputInfos.Max(p => p.Id);
+            var supplier = (Supplier)window.SupplierComboBox.SelectedItem;
+
+            if (supplier == null)
+            {
+                window.ComboBoxSupplierErrorMessage.Text = "Chưa chọn nhà cung cấp";
+                return;
+            }
 
             var newInputInfo = new InputInfo()
             {
-                Id = maxId + 1,
                 InputDate = (DateTime)window.DatePicker.SelectedDate,
+                UserId = 2,
                 UserName = "Trần Lê Hoàng Lâm",
-                SupplierName = "Công ty HCT",
+                SupplierName = supplier.Name,
             };
 
-            VM.inputInfos.Add(newInputInfo);
-            DatabaseHelper.InsertInputInfo(newInputInfo.InputDate, 2, 1);
+            DatabaseHelper.InsertInputInfo(newInputInfo.InputDate, 2, supplier.Id);
 
+            newInputInfo.Id = DatabaseHelper.NewestInputInfoId();
+
+            VM.inputInfos.Add(newInputInfo);
+
+            if (VM.SelectedManager.Id == newInputInfo.UserId || VM.SelectedManager.Name == "All")
+            {
+                VM.ObservableInputInfos.Add(newInputInfo);
+            }
+            
+            
             window.Close();
         }
     }

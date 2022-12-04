@@ -118,20 +118,19 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 CloseConnection();
             }
         }
-        public long QueryRevenueInMonth(string month, string year)
+        public int QueryRevenueInMonth(string month, string year)
         {
-            long res = 0;
+            int res = 0;
             try
             {
                 OpenConnection();
-                string queryString = string.Format("select sum(Price) as revenue from Bill " +
-                    "where year(BillDate) = {0} and month(BillDate) = {1}", year, month);
+                string queryString = string.Format("select sum(Price) as revenue from Bill where year(BillDate) = {0} and month(BillDate) = {1}", int.Parse(year), int.Parse(month));
                 SqlCommand command = new SqlCommand(queryString, conn);
 
                 SqlDataReader rdr = command.ExecuteReader();
                 while (rdr.Read())
                 {
-                    res = long.Parse(rdr["revenue"].ToString());
+                    res = int.Parse(rdr["revenue"].ToString());
                 }
                 return res;
             }
@@ -144,20 +143,20 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 CloseConnection();
             }
         }
-        public long QueryRevenueNumOfSoldBillInMonth(string month, string year)
+        public int QueryRevenueNumOfSoldBillInMonth(string month, string year)
         {
-            long res = 0;
+            int res = 0;
             try
             {
                 OpenConnection();
                 string queryString = string.Format("select count(Id) as numOfSoldBill from Bill " +
-                    "where year(BillDate) = {0} and month(BillDate) = {1}", year, month);
+                    "where year(BillDate) = {0} and month(BillDate) = {1}", int.Parse(year), int.Parse(month));
                 SqlCommand command = new SqlCommand(queryString, conn);
 
                 SqlDataReader rdr = command.ExecuteReader();
                 while (rdr.Read())
                 {
-                    res = long.Parse(rdr["numOfSoldBill"].ToString());
+                    res = int.Parse(rdr["numOfSoldBill"].ToString());
                 }
                 return res;
             }

@@ -22,7 +22,6 @@ namespace ConvenienceStore.Views.Admin
         public AdminMainWindow()
         {
             InitializeComponent();
-            PagesNavigation.Navigate(new System.Uri("Views/Admin/HomeView.xaml", UriKind.RelativeOrAbsolute));
         }
         private void CloseApp_Click(object sender, RoutedEventArgs e)
         {
@@ -55,34 +54,5 @@ namespace ConvenienceStore.Views.Admin
             WindowState = WindowState.Minimized;
         }
 
-        private void rdHome_Click(object sender, RoutedEventArgs e)
-        {
-            PagesNavigation.Navigate(new System.Uri("Views/Admin/HomeView.xaml", UriKind.RelativeOrAbsolute));
-        }
-
-        private void rdInputInfo_Click(object sender, RoutedEventArgs e)
-        {
-            PagesNavigation.Navigate(new Uri("Views/Admin/InputInfoView.xaml", UriKind.RelativeOrAbsolute));
-        }
-
-        private void rdProfile_Click(object sender, RoutedEventArgs e)
-        {
-            PagesNavigation.Navigate(new System.Uri("Views/Admin/ProfileView.xaml", UriKind.RelativeOrAbsolute));
-        }
-
-        private void rdSupplier_Click(object sender, RoutedEventArgs e)
-        {
-            PagesNavigation.Navigate(new System.Uri("Views/Admin/SupplierView.xaml", UriKind.RelativeOrAbsolute));
-        }
-
-        //private void rdVoucher_Click(object sender, RoutedEventArgs e)
-        //{
-        //    PagesNavigation.Navigate(new System.Uri("Views/Staff/VoucherWindow/VoucherPage.xaml", UriKind.RelativeOrAbsolute));
-        //}
-
-        private void rdReport_Click(object sender, RoutedEventArgs e)
-        {
-            PagesNavigation.Navigate(new System.Uri("Views/Admin/ReportView.xaml", UriKind.RelativeOrAbsolute));
-        }
     }
 }

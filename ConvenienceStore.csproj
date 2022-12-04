@@ -28,6 +28,7 @@
     <None Remove="Resources\Images\IconForProduct\salary.png" />
     <None Remove="Resources\Images\IconForProduct\schedule.png" />
     <None Remove="Resources\Images\IconForProduct\tag.png" />
+    <None Remove="Resources\Images\Menu\home.png" />
     <None Remove="Resources\Images\OverallApp\caret-arrow-up.png" />
     <None Remove="Resources\Images\OverallApp\caret-down.png" />
     <None Remove="Resources\Images\OverallApp\normal_shutdown button.png" />
@@ -109,6 +110,7 @@
     <Resource Include="Resources\Images\IconForProduct\salary.png" />
     <Resource Include="Resources\Images\IconForProduct\schedule.png" />
     <Resource Include="Resources\Images\IconForProduct\tag.png" />
+    <Resource Include="Resources\Images\Menu\home.png" />
     <Resource Include="Resources\Images\OverallApp\caret-arrow-up.png" />
     <Resource Include="Resources\Images\OverallApp\caret-down.png" />
     <Resource Include="Resources\Images\OverallApp\normal_shutdown button.png" />

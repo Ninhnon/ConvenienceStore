@@ -32,6 +32,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand
         public void Execute(object parameter)
         {
             var inputInfo = (InputInfo)parameter;
+            VM.ObservableInputInfos.Remove(inputInfo);
             VM.inputInfos.Remove(inputInfo);
             DatabaseHelper.DeleteInputInfo(inputInfo.Id);
         }

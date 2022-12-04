@@ -11,7 +11,7 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
-        DataContext="{StaticResource MainStaffVM}"
+        DataContext="{StaticResource AdminMainWindowVM}"
         Title="MainWindow" Height="660" Width="1200" MouseDown="ok"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -71,6 +71,12 @@
                 <!-- End: Button Close | Restore | Minimize -->
 
                 <Frame Grid.Row="1" Margin="60 0 0 0" x:Name="PagesNavigation" NavigationUIVisibility="Hidden">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding HomeCommand}"
+                                                   CommandParameter="{Binding ElementName=PagesNavigation}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <!-- Page Content -->
                     <!--<i:Interaction.Triggers>
 
@@ -121,16 +127,53 @@
                 </ToggleButton>
 
                 <StackPanel Grid.Row="3">
-                    <RadioButton x:Name="rdHome" IsChecked="True" Content="Home" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource payment}" Click="rdHome_Click" FontWeight="SemiBold"/>
-                    <RadioButton x:Name="rdInputInfo" Content="InputInfo" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource history}" Margin="0 5 0 5" Click="rdInputInfo_Click" FontWeight="SemiBold"/>
-                    <RadioButton x:Name="rdProfile" Content="Profile" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource profile}" Margin="0 5 0 5" Click="rdProfile_Click" FontWeight="SemiBold"/>
-                    <!--<RadioButton x:Name="rdReport" Content="Report" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource report}" Margin="0 5 0 5" Click="rdReport_Click" FontWeight="SemiBold"/>-->
-                    <RadioButton x:Name="rdSupplier" Content="Supplier" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource product}" Margin="0 5 0 5" Click="rdSupplier_Click" FontWeight="SemiBold"/>
-                    <!--<RadioButton x:Name="rdVoucher" Content="Voucher" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource voucher}" Margin="0 5 0 5" Click="rdVoucher_Click" FontWeight="SemiBold"/>-->
+                    <RadioButton 
+                        x:Name="rdHome" IsChecked="True" 
+                        Content="Home" Style="{DynamicResource MenuRadioButtonStyle}" 
+                        Tag="{DynamicResource home}"
+                        Command="{Binding HomeCommand}"
+                        CommandParameter="{Binding ElementName=PagesNavigation}"
+                        FontWeight="SemiBold"/>
+                    <RadioButton
+                        x:Name="rdInputInfo" 
+                        Content="InputInfo" Style="{DynamicResource MenuRadioButtonStyle}"
+                        Tag="{DynamicResource product}"
+                        Command="{Binding InputInfoCommand}"
+                        CommandParameter="{Binding ElementName=PagesNavigation}"
+                        Margin="0 5 0 5" FontWeight="SemiBold"/>
+                    <RadioButton
+                        x:Name="rdEmployee" 
+                        Content="Employee" Style="{DynamicResource MenuRadioButtonStyle}"
+                        Tag="{DynamicResource employee}"
+                        Command="{Binding EmployeeCommand}"
+                        CommandParameter="{Binding ElementName=PagesNavigation}"
+                        Margin="0 5 0 5"  FontWeight="SemiBold"/>
+                    <RadioButton x:Name="rdProfile" Content="Profile" 
+                                 Style="{DynamicResource MenuRadioButtonStyle}" 
+                                 Tag="{DynamicResource profile}"
+                                 Command="{Binding ProfileCommand}"
+                                 CommandParameter="{Binding ElementName=PagesNavigation}"
+                                 Margin="0 5 0 5"
+                                 FontWeight="SemiBold"/>
+                    <RadioButton x:Name="rdChart" Content="Chart"
+                                 Style="{DynamicResource MenuRadioButtonStyle}"
+                                 Tag="{DynamicResource chart}" 
+                                 Margin="0 5 0 5" 
+                                 Command="{Binding ReportCommand}"
+                        CommandParameter="{Binding ElementName=PagesNavigation}"
+                                    FontWeight="SemiBold"/>
+                        <RadioButton x:Name="rdSupplier" Content="Supplier" 
+                                 Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource product}" Margin="0 5 0 5" 
+                                 Command="{Binding SupplierCommand}"
+                        CommandParameter="{Binding ElementName=PagesNavigation}"
+                                     FontWeight="SemiBold"/>
+                    <!--<RadioButton x:Name="rdVoucher" Content="Voucher" Style
+                    ="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource voucher}" Margin="0 5 0 5" Click="rdVoucher_Click" FontWeight="SemiBold"/>-->
                 </StackPanel>
 
                 <StackPanel Grid.Row="3" VerticalAlignment="Bottom" Orientation="Horizontal" Width="200" Margin="0 0 0 20">
-                    <Ellipse Width="40" Height="40" Margin="10 0 0 0">
+                    <Ellipse  x:Name="avatarMain"
+                        Width="40" Height="40" Margin="10 0 0 0">
                         <Ellipse.Fill>
                             <ImageBrush ImageSource="\Resources\Images\Logo\Food1.jpg"/>
                         </Ellipse.Fill>
