@@ -59,7 +59,7 @@
                             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonsStyle}">
                                 <Setter Property="Content" Value="{DynamicResource maximize}"/>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=home, Path=WindowState}" Value="Maximized">
+                                    <DataTrigger Binding="{Binding ElementName=wdMain, Path=WindowState}" Value="Maximized">
                                         <Setter Property="Content" Value="{DynamicResource restore}"/>
                                     </DataTrigger>
                                 </Style.Triggers>

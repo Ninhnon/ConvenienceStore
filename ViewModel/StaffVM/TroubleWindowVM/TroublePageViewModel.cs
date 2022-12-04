@@ -1,4 +1,5 @@
-﻿using ConvenienceStore.Model.Staff;
+﻿using ConvenienceStore.Model;
+using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.StaffVM;
 using ConvenienceStore.Views.Staff.TroubleWindow;
@@ -17,7 +18,7 @@ using System.Windows.Media.Imaging;
 #nullable enable
 namespace ConvenienceStore.ViewModel.TroubleWindowVM
 {
-    public partial class TroublePageViewModel : StaffVM.BaseViewModel
+    public partial class TroublePageViewModel : BaseViewModel
     {
 
         private ObservableCollection<Report>? _ListError;
@@ -139,7 +140,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 RenewWindowData();
                 AddError w1 = new();
                 MaskName.Visibility = Visibility.Visible;
-                w1.StaffName.Text = MainStaffViewModel.StaffCurrent.Id.ToString();
+                w1.StaffName.Text = CurrentAccount.Name.ToString();
                 w1.ShowDialog();
             });
             SaveErrorCM = new RelayCommand<AddError>((p) => { if (IsSaving) return false; return true; }, (p) =>

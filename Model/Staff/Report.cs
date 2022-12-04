@@ -6,7 +6,6 @@
 
     public partial class Report : BaseViewModel
     {
-        private string _Id; public string Id { get => _Id; set { _Id = value; OnPropertyChanged(); } }
         private string _Title; public string Title { get => _Title; set { _Title = value; OnPropertyChanged(); } }
         private string _Description; public string Description { get => _Description; set { _Description = value; OnPropertyChanged(); } }
         private string _Status; public string Status { get => _Status; set { _Status = value; OnPropertyChanged(); } }
