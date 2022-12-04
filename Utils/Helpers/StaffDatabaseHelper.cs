@@ -29,6 +29,7 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryConsingment = @"select * from [Consignment]";
         static readonly string queryCustomerData = @"select * from [Customer]";
         static readonly string queryBillData = @"select * from [Bill]";
+        static readonly string insertErorrs = "insert into Report(Title, Description, Status, RepairCost, SubmittedAt, StaffId, Level, Image) select N'{0}',N'{1}',N'Chờ tiếp nhận',{2},N'{3}',N'{4}',N'{5}', BulkColumn FROM Openrowset(Bulk N'{6}', Single_Blob) as img";
         static readonly string insertBillData = @"insert into Bill(BillDate, CustomerId, UserId, Price) Values (@billDate, @cusId, @userId, @price)";
 
         public static List<Model.Staff.Bill> FetchingBillData()
@@ -126,7 +127,6 @@ namespace ConvenienceStore.Utils.Helpers
             {
                 reports.Add(new Report()
                 {
-                    Id = reader.GetString(0),
                     Title = reader.GetString(1),
                     Description = reader.GetString(2),
                     Status = reader.GetString(3),
@@ -204,6 +204,19 @@ namespace ConvenienceStore.Utils.Helpers
             sqlCon.Close();
             return Products;
         }
+
+        public static void ThemErorr(Report t,string filepath)
+        {
+
+            var strCmd = string.Format(insertErorrs, t.Title, t.Description, t.RepairCost, t.SubmittedAt, t.StaffId, t.Level, filepath);
+            sqlCon.Open();
+            SqlCommand cmd = new(strCmd, sqlCon);
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+            sqlCon.Close();
+        }
+    }
+
         public static List<Customer> FetchingCustomerData()
         {
             sqlCon.Open();
@@ -244,4 +257,5 @@ namespace ConvenienceStore.Utils.Helpers
             return customers;
             }
         }
+
 }

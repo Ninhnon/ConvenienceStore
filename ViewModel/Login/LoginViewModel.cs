@@ -13,6 +13,8 @@ using ConvenienceStore.Utils.DataLayerAccess;
 using ConvenienceStore.ViewModel.Admin;
 using ConvenienceStore.Views.Admin;
 using ConvenienceStore.Views.Login;
+using ConvenienceStore.Utils.Helpers;
+using ConvenienceStore.ViewModel.Admin.Command;
 
 namespace ConvenienceStore.ViewModel.Login
 {
@@ -66,7 +68,8 @@ namespace ConvenienceStore.ViewModel.Login
                     CurrentAccount.idAccount = account.IdAccount;
                     CurrentAccount.Password = account.Password;
                     CurrentAccount.avatar = account.avatar;
-                    MessageBox.Show("Dang nhap thanh cong");
+                    MessageBoxCustom mb = new("Thông báo", "Đăng nhập thành công", MessageType.Success, MessageButtons.OK);
+                    mb.ShowDialog();
                     flag = 1;
                     isLogin = true;
                     break;
@@ -76,22 +79,24 @@ namespace ConvenienceStore.ViewModel.Login
             }
             if (flag == 0)
             {
-                MessageBox.Show("tai khoan hoac mat khau khong dung");
+                MessageBoxCustom mb = new("Cảnh báo", "Tên đăng nhập hoặc mật khẩu không đúng", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
                 parameter.txtUsername.Focus();
                 parameter.txtPassword.Focus();
             }
             if (isLogin == true && CurrentAccount.UserRole == "1")
             {
                 AdminMainWindow home = new AdminMainWindow();
-                // parameter.Hide();
+                parameter.Close();
+                
                 home.ShowDialog();
 
-                parameter.Show();
+                //parameter.Show();
             }
             else if (isLogin == true && CurrentAccount.UserRole == "0")
             {
                 StaffMainWindow home = new StaffMainWindow();
-                // parameter.Hide();
+                parameter.Close();
                 home.ShowDialog();
 
                 parameter.Show();

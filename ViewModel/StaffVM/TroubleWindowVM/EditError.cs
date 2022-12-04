@@ -36,7 +36,6 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             w1.submitdate.Text = SelectedItem.SubmittedAt.ToShortDateString();
             Level.Content = SelectedItem.Level;
             Description = SelectedItem.Description;
-            TroubleID = SelectedItem.Id;
             BitmapImage image = new BitmapImage();
             image.BeginInit();
             image.StreamSource = new MemoryStream(SelectedItem.Image);
@@ -52,7 +51,6 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
 
                 Report tb = new Report
                 {
-                    Id = TroubleID,
                     Title = Title,
                     Level = Level.Content.ToString(),
                     Description = Description,
