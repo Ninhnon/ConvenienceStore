@@ -13,7 +13,7 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string strCon = @ConfigurationManager.ConnectionStrings["Default"].ToString();
         public static SqlConnection sqlCon = new SqlConnection(strCon);
 
-        static readonly string queryInputInfo = @"select InputInfo.Id, InputDate, InputInfo.UserId, Users.Name, Users.Email, Users.Phone, Avatar, Supplier.Id, Supplier.Name
+        static readonly string queryInputInfo = @"select InputInfo.Id, InputDate, InputInfo.UserId, Users.Name, Users.Email, Users.Phone, Avatar, Supplier.Name
                                                   from InputInfo, Users, Supplier
                                                   where InputInfo.UserId = Users.Id and InputInfo.SupplierId = Supplier.Id
                                                   order by InputDate asc";
@@ -87,8 +87,8 @@ namespace ConvenienceStore.Utils.Helpers
                         Email = reader.GetString(4),
                         Phone = reader.GetString(5),
                         //Avatar =  (byte[])reader["Image"],
-                        SupplerId = reader.GetInt32(7),
-                        SupplierName = reader.GetString(8),
+                        //SupplerId = reader.GetInt32(7),
+                        SupplierName = reader.GetString(7),
 
                         
                     }

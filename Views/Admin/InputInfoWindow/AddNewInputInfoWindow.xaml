@@ -63,7 +63,7 @@
                                 FontWeight="SemiBold"/>
 
                         <TextBlock Grid.Column="1"
-                                   Text="currentAccount"
+                                   Text="{Binding CurAccountName}"
                                    Foreground="Gray"
                                    FontSize="20"
                                    FontWeight="SemiBold"/>
@@ -102,7 +102,6 @@
                                       materialDesign:HintAssist.Hint="Select"
                                       materialDesign:HintAssist.HintOpacity=".26"
                                       materialDesign:ComboBoxAssist.MaxLength="2"
-                                      IsEditable="True"
                                       VerticalAlignment="Top"
                                       Margin="0 4.6 0 0"
                                       ItemsSource="{Binding suppliers}">

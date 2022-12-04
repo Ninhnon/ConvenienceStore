@@ -39,7 +39,7 @@
                            FontSize="35"
                            FontWeight="SemiBold"
                            Margin="30 20"
-                           HorizontalAlignment="Center"/>
+                           HorizontalAlignment="Left"/>
             </Border>
             <Border Grid.Row="1"
                     Background="White"

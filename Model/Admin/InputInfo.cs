@@ -16,7 +16,6 @@ namespace ConvenienceStore.Model.Admin
         public string Email { get; set; }
         public string Phone { get; set; }
         public byte[] Avatar { get; set; }
-        public int SupplerId { get; set; }
         public string SupplierName { get; set; }
         public List<Product> products { get; set; }
 
