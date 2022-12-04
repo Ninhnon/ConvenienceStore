@@ -63,10 +63,10 @@
                                 FontWeight="SemiBold"/>
 
                         <TextBlock Grid.Column="1"
-                               Text="Trần Lê Hoàng Lâm"
-                               Foreground="Gray"
-                               FontSize="20"
-                               FontWeight="SemiBold"/>
+                                   Text="currentAccount"
+                                   Foreground="Gray"
+                                   FontSize="20"
+                                   FontWeight="SemiBold"/>
                     </Grid>
 
                     <Grid Margin="0 0 0 20">
@@ -93,18 +93,25 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Text="Nhà cung cấp:"
-                                FontSize="20"
-                                FontWeight="SemiBold"/>
+                                   FontSize="20"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Top"/>
 
-                        <ComboBox Grid.Column="1"
-                                  materialDesign:HintAssist.Hint="Select"
-                                  materialDesign:HintAssist.HintOpacity=".26"
-                                  materialDesign:ComboBoxAssist.MaxLength="2"
-                                  IsEditable="True"
-                                  VerticalAlignment="Top"
-                                  Margin="0 4.6 0 0"
-                                  ItemsSource="{Binding suppliers}">
-                        </ComboBox>
+                        <StackPanel Grid.Column="1">
+                            <ComboBox x:Name="SupplierComboBox"
+                                      materialDesign:HintAssist.Hint="Select"
+                                      materialDesign:HintAssist.HintOpacity=".26"
+                                      materialDesign:ComboBoxAssist.MaxLength="2"
+                                      IsEditable="True"
+                                      VerticalAlignment="Top"
+                                      Margin="0 4.6 0 0"
+                                      ItemsSource="{Binding suppliers}">
+                            </ComboBox>
+                            <TextBlock x:Name="ComboBoxSupplierErrorMessage"
+                                       Height="16"
+                                       Foreground="Red"/>
+                        </StackPanel>
+                        
                     </Grid>
 
                     <StackPanel Orientation="Horizontal"

@@ -67,8 +67,7 @@
                                Margin="0 0 0 5"/>
                     <TextBox x:Name="Address"
                              Style="{StaticResource MyTextBoxStyle}"
-                             Tag="Quận 9, Thành phố Hồ Chí Minh"
-                             Text="{Binding Address, Mode=OneTime}"/>
+                             Tag="Quận 9, Thành phố Hồ Chí Minh"/>
 
                     <TextBlock x:Name="AddressErrorMessage"
                                Foreground="Red"

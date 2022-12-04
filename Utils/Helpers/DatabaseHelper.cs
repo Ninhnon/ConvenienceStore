@@ -30,6 +30,8 @@ namespace ConvenienceStore.Utils.Helpers
 
         static readonly string queryManagers = "select * from Users where UserRole = 1";
 
+        static readonly string queryNewestInputInfoId = "select MAX(Id) from InputInfo";
+
         static readonly string queryNewestSupplierId = "select MAX(Id) from Supplier";
 
         static readonly string insertInputInfo = "insert InputInfo values ('{0}', {1}, {2})";
@@ -221,6 +223,22 @@ namespace ConvenienceStore.Utils.Helpers
             reader.Close();
             sqlCon.Close();
             return (title, image);
+        }
+
+        public static int NewestInputInfoId()
+        {
+            sqlCon.Open();
+
+            var cmd = new SqlCommand(queryNewestInputInfoId, sqlCon);
+
+            var reader = cmd.ExecuteReader();
+
+            reader.Read();
+            var newestId = reader.GetInt32(0);
+            reader.Close();
+
+            sqlCon.Close();
+            return newestId;
         }
 
         public static void InsertInputInfo(DateTime dateTime, int UserId, int SupplierId)
