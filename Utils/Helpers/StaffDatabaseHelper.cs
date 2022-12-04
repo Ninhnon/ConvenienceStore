@@ -27,7 +27,9 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryReport = @"select * from [Report]";
         static readonly string queryUser = @"select * from [Users]";
         static readonly string queryConsingment = @"select * from [Consignment]";
+        static readonly string queryCustomerData = @"select * from [Customer]";
         static readonly string queryBillData = @"select * from [Bill]";
+        static readonly string insertBillData = @"insert into Bill(BillDate, CustomerId, UserId, Price) Values (@billDate, @cusId, @userId, @price)";
 
         public static List<Model.Staff.Bill> FetchingBillData()
         {
@@ -186,7 +188,8 @@ namespace ConvenienceStore.Utils.Helpers
                     BarCode = reader.GetString(0),
                     Title = reader.GetString(1),
                     ProductionSite = reader.GetString(2),
-                    Image = Convert.FromBase64String(reader["Image"].ToString()),
+                    //Image = Convert.FromBase64String(reader["Image"].ToString()),
+                    Image = (Byte[])reader["Image"],
                     Cost = reader.GetInt32(4),
                     Price = reader.GetInt32(5),
                     Stock = reader.GetInt32(6),
@@ -202,6 +205,44 @@ namespace ConvenienceStore.Utils.Helpers
             sqlCon.Close();
             return Products;
         }
-        
-    }
+        public static List<Customer> FetchingCustomerData()
+        {
+            sqlCon.Open();
+            var cmd = new SqlCommand(queryProduct, sqlCon);
+
+            List<Customer> customers = new List<Customer>();
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                customers.Add(new Customer()
+                {
+                    //BarCode = reader.GetString(0),
+                    //Title = reader.GetString(1),
+                    //ProductionSite = reader.GetString(2),
+                    //Image = Convert.FromBase64String(reader["Image"].ToString()),
+                    //Image = (Byte[])reader["Image"],
+                    //Cost = reader.GetInt32(4),
+                    //Price = reader.GetInt32(5),
+                    //Stock = reader.GetInt32(6),
+                    //ManufacturingDate = reader.GetDateTime(7),
+                    //ExpiryDate = reader.GetDateTime(8),
+                    //Discount = reader.IsDBNull(9) ? null : reader.GetInt32(9),
+                    //Type = reader.IsDBNull(10) ? null : reader.GetString(10),
+                    Id = reader.GetInt32(0),
+                    Name = reader.IsDBNull(1) ? null : reader.GetString(1),
+                    Address = reader.IsDBNull(2) ? null : reader.GetString(2),
+                    Phone = reader.IsDBNull(3) ? null : reader.GetString(3),
+                    Email = reader.IsDBNull(4) ? null : reader.GetString(4),
+                    Point = reader.IsDBNull(5) ? null : reader.GetInt32(5),
+                });
+
+            }
+            reader.Close();
+
+            sqlCon.Close();
+            return customers;
+            }
+        }
 }

@@ -30,6 +30,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public ICommand LoadReceiptPage { get; set; }
         public ICommand CancelReceiptCM { get; set; }
         public ICommand PrintBillCM { get; set; }
+        public ICommand SearchCustomerIdCM { get; set; }
         public ICommand CompleteReceiptCM { get; set; }
         #endregion
 
@@ -65,21 +66,16 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public int TotalBill { get { return _TotalBill; } set { _TotalBill = value; OnPropertyChanged(); } }
 
         public List<Products> products = new List<Products>();
+        public List<Customer> customers = new List<Customer>();
         public List<ConvenienceStore.Model.Staff.Bill> bill = new List<ConvenienceStore.Model.Staff.Bill>();
-
-        public byte[] Image;
-        List<Products> danhsach = new List<Products>();
 
         public PaymentViewModel()
         {
-            danhsach = DatabaseHelper.FetchingProductData();
-            List = new ObservableCollection<Products>(danhsach);
+            products = DatabaseHelper.FetchingProductData();
+            List = new ObservableCollection<Products>(products);
 
-            //List = new ObservableCollection<Consignment>(DataProvider.Ins.DB.Consignments.OrderByDescending(x => x.ExpiryDate).Distinct().ToList());
             FilteredList = List;
             ShoppingCart = new ObservableCollection<BillDetails>();
-
-            Image = List.FirstOrDefault().Image;
 
             // Thêm sản phẩm vào giỏ hàng
             AddToCart = new RelayCommand<BillDetail>((p) =>
@@ -174,15 +170,10 @@ namespace ConvenienceStore.ViewModel.StaffVM
             {
                 //Lọc sản phẩm theo loại
                 if (ComboBoxCategory.Content.ToString() == "Tất cả")
-                {
-                    //FilteredList = new ObservableCollection<Products>(DataProvider.Ins.DB.Consignments.OrderByDescending(x => x.ExpiryDate).Distinct().ToList());
                     FilteredList = new ObservableCollection<Products>(products);
-                }
                 else
-                {
-                    //FilteredList = new ObservableCollection<Consignment>(DataProvider.Ins.DB.Consignments.Where(x => x.Product.Type == ComboBoxCategory.Content.ToString()).OrderByDescending(x => x.ExpiryDate).Distinct().ToList());
                     FilteredList = new ObservableCollection<Products>((products).Where(x => x.Type == ComboBoxCategory.Content.ToString()).ToList());
-                }
+
                 //Lưu lại danh sách các sản phẩm, hỗ trợ việc tìm kiếm của SearchProductName
                 List = FilteredList;
             });
@@ -234,12 +225,21 @@ namespace ConvenienceStore.ViewModel.StaffVM
 
             });
 
+            SearchCustomerIdCM = new RelayCommand<TextBox>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                customers = DatabaseHelper.FetchingCustomerData();
+                MessageBox.Show("Mã khách hàng hợp lệ");
+            });
+
             CompleteReceiptCM = new RelayCommand<object>((p) =>
             {
                 return true;
             }, (p) =>
             {
-                ConvenienceStore.Model.Staff.Bill bill = new ConvenienceStore.Model.Staff.Bill();
+                bill = DatabaseHelper.FetchingBillData();
             });
         }
     }
