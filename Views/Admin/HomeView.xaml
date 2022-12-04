@@ -197,7 +197,7 @@
                             Margin="60,20,0,0" Grid.ColumnSpan="2"/>
                     <lvc:CartesianChart
                             x:Name="lvcColumnChart" 
-                           DataContext="{StaticResource ReportVM}"
+                            DataContext="{StaticResource ReportVM}"
                             Series="{Binding ColumnSeriesCollection, UpdateSourceTrigger=PropertyChanged}" 
                             LegendLocation="Bottom"
                             Width="540" 

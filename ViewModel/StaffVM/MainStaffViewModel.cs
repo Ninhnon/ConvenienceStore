@@ -12,6 +12,7 @@ using System.Linq;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Views.Admin;
+using ConvenienceStore.Views.Staff;
 
 namespace ConvenienceStore.ViewModel.StaffVM
 {
@@ -19,6 +20,9 @@ namespace ConvenienceStore.ViewModel.StaffVM
     {
         public static User? StaffCurrent { get; set; }
         public ICommand? EmployeeCommand { get; set; }
+        public ICommand? PaymentCommand { get; set; }
+        public ICommand? HistoryCommand { get; set; }
+        public ICommand? ProfileCommand { get; set; }
         public ICommand? ProductCommand { get; set; }
         public ICommand? VoucherCommand { get; set; }
         public ICommand? ReportCommand { get; set; }
@@ -77,8 +81,8 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 _ten = value; OnPropertyChanged();
             }
         }
-        private byte[]? _Anh;
-        public byte[]? Anh
+        private byte[] _Anh;
+        public byte[] Anh
         {
             get => _Anh;
             set
@@ -95,24 +99,36 @@ namespace ConvenienceStore.ViewModel.StaffVM
             Ten = CurrentAccount.Name;
             danhsach = DatabaseHelper.FetchingUserData();
             List= new ObservableCollection<User>(danhsach);
+
             //Anh = List.First(x => x.UserName == StaffCurrent.UserName).Image;
-            //ProductCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
-            //{
-            //    p.Content = new ProductPage();
-            //});
-            //VoucherCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
-            //{
-            //    p.Content = new VoucherPage();
-
-            //});
-            //ReportCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
-            //{
-            //    p.Content = new TroublePage();
-
-            //});
-            SupplierCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            PaymentCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                p.Content = new SupplierView();
+                p.Content = new PaymentWindow();
+            });
+            HistoryCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new HistoryWindow();
+
+            });
+            ProfileCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new ProfileWindow();
+
+
+            });
+            ProductCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new ProductPage();
+            });
+            VoucherCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new VoucherPage();
+
+            });
+            ReportCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new TroublePage();
+
             });
             CloseWindowCommand = new RelayCommand<Grid>((p) => { return p == null ? false : true; }, (p) =>
             {

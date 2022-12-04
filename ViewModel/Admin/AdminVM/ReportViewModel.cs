@@ -70,7 +70,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             string currentMonth = DateTime.Now.Month.ToString();
             string lastMonth = (int.Parse(currentMonth) - 1).ToString();
             string currentYear = DateTime.Now.Year.ToString();
-            ThisMonthRevenue = string.Format("{0:N0}", ReportDAL.Instance.QueryRevenueInMonth(currentMonth, currentYear)).ToString() + " đồng";
+            ThisMonthRevenue = string.Format("{0:n0}", ReportDAL.Instance.QueryRevenueInMonth(currentMonth, currentYear)).ToString() + " đồng";
             try
             {
                 double res = 0;

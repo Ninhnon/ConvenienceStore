@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConvenienceStore.ViewModel.Admin.AdminVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,12 +28,19 @@ namespace ConvenienceStore.Views.Admin
 
         private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-
+            var searchTextBox = (TextBox)sender;
+            if (e.Key == Key.Enter)
+            {
+                var VM = searchTextBox.DataContext as SupplierVM;
+                VM.SetSupplierCorespondSearch();
+            }
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            var button = (Border)sender;
+            var VM = button.DataContext as SupplierVM;
+            VM.SetSupplierCorespondSearch();
         }
     }
 }

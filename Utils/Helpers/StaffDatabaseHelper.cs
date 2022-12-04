@@ -136,7 +136,7 @@ namespace ConvenienceStore.Utils.Helpers
                     FinishDate = reader.IsDBNull(7) ? null : reader.GetDateTime(6),
                     StaffId = reader.GetInt32(8),
                     Level = reader.GetString(9),
-                    Image = Convert.FromBase64String(reader["Image"].ToString()),
+                    Image = (byte[])(reader["Image"]),
                 });
 
             }
@@ -188,8 +188,7 @@ namespace ConvenienceStore.Utils.Helpers
                     BarCode = reader.GetString(0),
                     Title = reader.GetString(1),
                     ProductionSite = reader.GetString(2),
-                    //Image = Convert.FromBase64String(reader["Image"].ToString()),
-                    Image = (Byte[])reader["Image"],
+                    Image = (byte[])(reader["Image"]),
                     Cost = reader.GetInt32(4),
                     Price = reader.GetInt32(5),
                     Stock = reader.GetInt32(6),
