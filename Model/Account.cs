@@ -8,11 +8,11 @@ namespace ConvenienceStore.Model
 {
     public class Account
     {
-        private int idAccount_;
-        public int idAccount
+        private int _idAccount;
+        public int IdAccount
         {
-            get => idAccount_;
-            set { idAccount_ = value; }
+            get { return _idAccount; }
+             set { _idAccount = value; }
         }
         private string userRole_;
         public string UserRole
@@ -70,9 +70,9 @@ namespace ConvenienceStore.Model
         {
 
         }
-        public Account(int accountId_, string userRole_, string name_, string address_, string phone_, string email_, string username_, string password_, byte[] avatar_ )
+        public Account( string userRole_, string name_, string address_, string phone_, string email_, string username_, string password_, byte[] avatar_ )
         {
-this.idAccount_=accountId_;
+
             this.userRole_=userRole_;
             this.name_=name_;
             this.address_=address_;
@@ -82,6 +82,32 @@ this.idAccount_=accountId_;
             this.password_=password_;
             this.avatar_=avatar_;
            
+        }
+        public Account(int idAccount_,string userRole_, string name_, string address_, string phone_, string email_, string username_, string password_, byte[] avatar_)
+        {
+            this._idAccount = idAccount_;
+            this.userRole_ = userRole_;
+            this.name_ = name_;
+            this.address_ = address_;
+            this.phone_ = phone_;
+            this.email_ = email_;
+            this.username_ = username_;
+            this.password_ = password_;
+            this.avatar_ = avatar_;
+
+        }
+        public Account(string userRole_, string name_, string address_, string phone_, string email_, string username_, string password_)
+        {
+
+            this.userRole_ = userRole_;
+            this.name_ = name_;
+            this.address_ = address_;
+            this.phone_ = phone_;
+            this.email_ = email_;
+            this.username_ = username_;
+            this.password_ = password_;
+            
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using ConvenienceStore.Utils.Helpers;
 using System;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Windows;
 
@@ -13,7 +14,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         {
             try
             {
-                strConn = "Data Source=LAPTOP-JF6O07NR\\SQLEXPRESS;Initial Catalog=ConvenienceStore;Integrated Security=True";
+                strConn = @ConfigurationManager.ConnectionStrings["Default"].ToString(); ;
             }
             catch
             {

@@ -192,7 +192,7 @@
                
                 HorizontalAlignment="Center"
                 TabIndex="3" 
-               
+               Style="{StaticResource loginBtnStyle}"
                 FontWeight="Bold"
                 Padding="0" >
                     </Button>
