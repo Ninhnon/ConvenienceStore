@@ -2,6 +2,8 @@
 using ConvenienceStore.Utils.DataLayerAccess;
 using ConvenienceStore.ViewModel.Admin;
 using ConvenienceStore.Views.Admin.SubViews;
+using System.IO.Packaging;
+using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -20,25 +22,89 @@ namespace ConvenienceStore.ViewModel.SubViewModel
 
         public void Save(AddEmployeeView parameter)
         {
-            if(string.IsNullOrEmpty(parameter.nameTxtbox.textBox.Text))
+            bool isValid = true;
+            parameter.nameTxtbox.ErrorMessage.Text = "";
+            parameter.emailTxtbox.ErrorMessage.Text = "";
+            parameter.phoneTxtbox.ErrorMessage.Text = "";
+            parameter.addressTxtbox.ErrorMessage.Text = "";
+            parameter.usernameTxtbox.ErrorMessage.Text = "";
+            parameter.passwordTxtbox.ErrorMessage.Text = "";
+            parameter.confirmPasswordTxtbox.ErrorMessage.Text = "";
+            
+            if (string.IsNullOrEmpty(parameter.nameTxtbox.textBox.Text))
             {
-                parameter.nameTxtbox.textBox.Text = "";
-                parameter.nameTxtbox.textBox.Focus();
-                return;
+                parameter.nameTxtbox.ErrorMessage.Text = "Xin nhập họ tên";
+                isValid = false;
             }
-            Account acc = new Account("0",
-                                     parameter.nameTxtbox.textBox.Text.ToString(),
-                                     parameter.addressTxtbox.textBox.Text.ToString(),
-                                     parameter.phoneTxtbox.textBox.Text.ToString(),
-                                     parameter.emailTxtbox.textBox.Text.ToString(),
-                                     parameter.usernameTxtbox.textBox.Text.ToString(),
-                                     parameter.passwordTxtbox.textBox.Text.ToString());
-            AccountDAL.Instance.AddIntoDataBase(acc);
-            MessageBox.Show("them thanh cong");
+            else
+            {
+                if(parameter.nameTxtbox.textBox.Text.Any(char.IsDigit))
+                {
+                    parameter.nameTxtbox.ErrorMessage.Text = "Tên không hợp lệ";
+                    isValid = false;
+                }
+            }
+            if (string.IsNullOrEmpty(parameter.emailTxtbox.textBox.Text))
+            {
+                parameter.emailTxtbox.ErrorMessage.Text = "Xin nhập email";
+                isValid = false;
+            }
+            if (string.IsNullOrEmpty(parameter.phoneTxtbox.textBox.Text))
+            {
+                parameter.phoneTxtbox.ErrorMessage.Text = "Xin nhập số điện thoại";
+                isValid = false;
+            }
+            else
+            {
+                if(!parameter.phoneTxtbox.textBox.Text.All(char.IsDigit))
+                {
+                    parameter.phoneTxtbox.ErrorMessage.Text = "Số điện thoại không hợp lệ";
+                }
+            }
+            if (string.IsNullOrEmpty(parameter.addressTxtbox.textBox.Text))
+            {
+                parameter.addressTxtbox.ErrorMessage.Text = "Xin nhập Địa Chỉ";
+                isValid = false;
+            }
+            if(string.IsNullOrEmpty(parameter.usernameTxtbox.textBox.Text))
+            {
+                parameter.usernameTxtbox.ErrorMessage.Text = "Xin nhập tên đăng nhập";
+                isValid = false;
+            }
+            if(string.IsNullOrEmpty(parameter.passwordTxtbox.passwordBox.Password))
+            {
+                parameter.passwordTxtbox.ErrorMessage.Text = "Xin nhập mật khẩu";
+                isValid = false;
+            }
+            if(string.IsNullOrEmpty(parameter.confirmPasswordTxtbox.passwordBox.Password))
+            {
+                parameter.confirmPasswordTxtbox.ErrorMessage.Text = "Xin xác nhận mật khẩu";
+                isValid = false;
+            }
+            else
+            {
+                if(parameter.confirmPasswordTxtbox.passwordBox.Password !=parameter.passwordTxtbox.passwordBox.Password)
+                {
+                    parameter.confirmPasswordTxtbox.ErrorMessage.Text = "Mật khẩu xác nhận không đúng, thử lại";
+                    isValid = false;
+                }    
+            }
+            if (isValid)
+            {
+                Account acc = new Account("0",
+                                   parameter.nameTxtbox.textBox.Text.ToString(),
+                                   parameter.addressTxtbox.textBox.Text.ToString(),
+                                   parameter.phoneTxtbox.textBox.Text.ToString(),
+                                   parameter.emailTxtbox.textBox.Text.ToString(),
+                                   parameter.usernameTxtbox.textBox.Text.ToString(),
+                                   parameter.passwordTxtbox.passwordBox.Password.ToString());
+                AccountDAL.Instance.AddIntoDataBase(acc);
+                MessageBox.Show("them thanh cong");
+            }
 
 
 
-        }
+            }
         public void Back(AddEmployeeView parameter)
         {
             parameter.Close();
