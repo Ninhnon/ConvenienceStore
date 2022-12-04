@@ -11,24 +11,27 @@ namespace ConvenienceStore.Model
 {
     using System;
     using System.Collections.Generic;
+    using System.Windows.Navigation;
     using ConvenienceStore.Model.Admin;
+    using ConvenienceStore.ViewModel.StaffVM;
 
-    public partial class Customer
+    public class Customer : BaseViewModel
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Customer()
-        {
-            this.Bills = new HashSet<Bill>();
-        }
-    
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public Nullable<int> Point { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bill> Bills { get; set; }
+        #nullable enable
+
+        public int _Id;
+        public int Id { get { return _Id; } set { _Id = value; OnPropertyChanged(); } }
+        private string? _Name;
+        public string? Name { get { return _Name; } set { _Name = value; OnPropertyChanged(); } }
+        private string? _Address;
+        public string? Address { get { return _Address; } set { _Address = value; OnPropertyChanged(); } }
+        private string? _Phone;
+        public string? Phone { get { return _Phone; } set { _Phone = value; OnPropertyChanged(); } }
+        private string? _Email;
+        public string? Email { get { return _Email; } set { _Email = value; OnPropertyChanged(); } }
+        private int? _Point;
+        public int? Point { get { return _Point; } set { _Point = value; OnPropertyChanged(); } }
+
+        #nullable disable
     }
 }

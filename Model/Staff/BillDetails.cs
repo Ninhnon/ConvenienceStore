@@ -9,6 +9,8 @@ namespace ConvenienceStore.Model.Staff
 {
     public partial class BillDetails : BaseViewModel
     {
+        #nullable enable
+
         private int? _BillId;
         public int? BillId { get { return _BillId; } set { _BillId = value; OnPropertyChanged(); } }
         private string? _ProductId;
@@ -21,5 +23,7 @@ namespace ConvenienceStore.Model.Staff
         public string? Title { get { return _Title; } set { _Title = value; OnPropertyChanged(); } }
         private byte[]? _Image;
         public byte[]? Image { get { return _Image; } set { _Image = value; OnPropertyChanged(); } }
+
+        #nullable disable
     }
 }
