@@ -81,8 +81,8 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 _ten = value; OnPropertyChanged();
             }
         }
-        private byte[]? _Anh;
-        public byte[]? Anh
+        private byte[] _Anh;
+        public byte[] Anh
         {
             get => _Anh;
             set
@@ -99,6 +99,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
             Ten = CurrentAccount.Name;
             danhsach = DatabaseHelper.FetchingUserData();
             List= new ObservableCollection<User>(danhsach);
+
             //Anh = List.First(x => x.UserName == StaffCurrent.UserName).Image;
             PaymentCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
@@ -112,6 +113,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
             ProfileCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 p.Content = new ProfileWindow();
+
 
             });
             ProductCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>

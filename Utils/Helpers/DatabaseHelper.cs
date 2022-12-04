@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data.SqlClient;
+using static Emgu.CV.BarcodeDetector;
 
 namespace ConvenienceStore.Utils.Helpers
 {
@@ -29,6 +30,8 @@ namespace ConvenienceStore.Utils.Helpers
 
         static readonly string queryManagers = "select * from Users where UserRole = 1";
 
+        static readonly string queryNewestSupplierId = "select MAX(Id) from Supplier";
+
         static readonly string insertInputInfo = "insert InputInfo values ('{0}', {1}, {2})";
 
         static readonly string insertProduct = "insert Product values (@Barcode, @Title, @Image, @Type, @ProductionSite)";
@@ -36,8 +39,6 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string insertConsignment = "insert Consignment values ({0}, '{1}', {2}, '{3}', '{4}', {5}, {6}, {7})";
 
         static readonly string insertSupplier = "insert Supplier values (N'{0}', N'{1}', '{2}', '{3}')";
-
-        static readonly string insertUser = "insert Users values (@Role, @Name, @Addres, @Phone, @Email, @UserName, @Password, @Image)";
 
         static readonly string updateProduct = @"update Product set Title = @Title, Image = @Image
                                                  where BarCode = @Barcode";
@@ -47,9 +48,9 @@ namespace ConvenienceStore.Utils.Helpers
                                                          InputPrice = {3}, OutputPrice = {4}, Discount = {5}
                                                      where InputInfoId = {6} and ProductId = '{7}'";
 
-        static readonly string updateUser = @"update Users
-                                              set UserRole = @UserRole, Name = @Name, Address = @Addres, Phone = @Phone, Email = @Email, Password = @Password, Image = @Image
-                                              where Id = @Id";
+        static readonly string updateSupplier = @"update Supplier
+                                                  set Name = N'{0}', Address = N'{1}', Phone = '{2}', Email = '{3}'
+                                                  where Id = {4}";
 
         /* Delete toàn bộ Consignment liên trong InputInfo trước
          * Xong Delete InputInfo */
@@ -81,8 +82,8 @@ namespace ConvenienceStore.Utils.Helpers
                         InputDate = reader.GetDateTime(1),
                         UserId = reader.GetInt32(2),
                         UserName = reader.GetString(3),
-                        Email = reader.IsDBNull(4) ? null : reader.GetString(4),
-                        Phone = reader.IsDBNull(5) ? null : reader.GetString(5),
+                        Email = reader.GetString(4),
+                        Phone = reader.GetString(5),
                         //Avatar =  (byte[])reader["Image"],
                         SupplerId = reader.GetInt32(7),
                         SupplierName = reader.GetString(8),
@@ -167,7 +168,7 @@ namespace ConvenienceStore.Utils.Helpers
 
             for (int i = 0; i < suppliers.Count; ++i)
             {
-                suppliers[i].Number = i;
+                suppliers[i].Number = i + 1;
             }
 
             sqlCon.Close();
@@ -190,10 +191,9 @@ namespace ConvenienceStore.Utils.Helpers
                 {
                     Id = reader.GetInt32(0),
                     Name = reader.GetString(2),
-
-                    Address = reader.IsDBNull(3) ? null : reader.GetString(3),
-                    Phone = reader.IsDBNull(4) ? null : reader.GetString(4),
-                    Email = reader.IsDBNull(5) ? null : reader.GetString(5),
+                    Address = reader.GetString(3),
+                    Phone = reader.GetString(4),
+                    Email = reader.GetString(5),
                 });
             }
 
@@ -310,7 +310,35 @@ namespace ConvenienceStore.Utils.Helpers
             sqlCon.Close();
         }
 
-        public static void Update(Product editedProduct)
+        public static int NewestSupplierId()
+        {
+            sqlCon.Open();
+
+            var cmd = new SqlCommand(queryNewestSupplierId, sqlCon);
+
+            var reader = cmd.ExecuteReader();
+
+            reader.Read();
+            var newestId = reader.GetInt32(0);
+
+            reader.Close();
+            sqlCon.Close();
+            return newestId;
+
+        }
+
+        public static void InsertSupplier(Supplier supplier)
+        {
+            sqlCon.Open();
+
+            var strCmd = string.Format(insertSupplier, supplier.Name, supplier.Address, supplier.Phone, supplier.Email);
+            var cmd = new SqlCommand(strCmd, sqlCon);
+            cmd.ExecuteNonQuery();
+
+            sqlCon.Close();
+        }
+
+        public static void UpdateProduct(Product editedProduct)
         {
             sqlCon.Open();
 
@@ -340,11 +368,15 @@ namespace ConvenienceStore.Utils.Helpers
             sqlCon.Close();
         }
 
-        public static void InsertSupplier(Supplier supplier)
+        public static void UpdateSupplier(Supplier editedSupplier)
         {
             sqlCon.Open();
-
-            var strCmd = string.Format(insertSupplier, supplier.Name, supplier.Address, supplier.Phone, supplier.Email);
+            var strCmd = string.Format(updateSupplier, 
+                editedSupplier.Name, 
+                editedSupplier.Address, 
+                editedSupplier.Phone, 
+                editedSupplier.Email,
+                editedSupplier.Id);
             var cmd = new SqlCommand(strCmd, sqlCon);
             cmd.ExecuteNonQuery();
 

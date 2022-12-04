@@ -77,6 +77,11 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             {
                 searchContent = value;
                 OnPropertyChanged("SearchContent");
+
+                if (searchContent == "")
+                {
+                    SetProductsCorrespondSearch();
+                }
             }
         }
 
