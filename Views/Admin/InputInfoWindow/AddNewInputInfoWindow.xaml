@@ -30,13 +30,13 @@
         </Border>
 
         <StackPanel Orientation="Vertical"
-                    Width="400"
+                    Width="450"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
 
             <Border Background="{StaticResource PrimaryColor}"
                     CornerRadius="25 25 0 0">
-                <TextBlock Text="Lô hàng"
+                <TextBlock Text="Nhập kho"
                            Foreground="White"
                            FontSize="35"
                            FontWeight="SemiBold"
@@ -54,7 +54,7 @@
 
                     <Grid Margin="0 0 0 20">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="170"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
@@ -71,7 +71,7 @@
 
                     <Grid Margin="0 0 0 20">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="170"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
@@ -88,7 +88,7 @@
 
                     <Grid Margin="0 0 0 20">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="170"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 

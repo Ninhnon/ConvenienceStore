@@ -2,6 +2,7 @@
 using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand;
+using ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand.DeleteInputInfoCommand;
 using ConvenienceStore.ViewModel.Admin.Command.ProductCommand;
 using ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductCommand;
 using ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCommand;
@@ -118,7 +119,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public OpenInputInfoCommand OpenInputInfoCommand { get; set; }
         public AddInputInfoButtonCommand AddInputInfoButtonCommand { get; set; }
         public CreateInputInfoButtonCommand CreateInputInfoButtonCommand { get; set; }
-        public DeleteInputInfoCommand DeleteInputInfoCommand { get; set; }
+        public OpenAlertDialog OpenAlertDialog { get; set; }
+        public DeleteInputInfo DeleteInputInfo { get; set; }
         public SearchButtonCommand SearchButtonCommand { get; set; }
         public AddProductButtonCommand AddProductButtonCommand { get; set; }
         public DeleteProductCommand DeleteProductCommand { get; set; }
@@ -150,7 +152,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             OpenInputInfoCommand = new OpenInputInfoCommand(this);
             AddInputInfoButtonCommand = new AddInputInfoButtonCommand(this);
             CreateInputInfoButtonCommand = new CreateInputInfoButtonCommand(this);
-            DeleteInputInfoCommand = new DeleteInputInfoCommand(this);
+            OpenAlertDialog = new OpenAlertDialog(this);
+            DeleteInputInfo = new DeleteInputInfo(this);
 
             SearchButtonCommand = new SearchButtonCommand(this);
             AddProductButtonCommand = new AddProductButtonCommand(this);
@@ -158,7 +161,6 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             SaveNewProductCommand = new SaveNewProductCommand(this);
 
             EditProductButton = new EditProductButton(this);
-
         }
 
         public void LoadProducts()

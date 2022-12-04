@@ -11,6 +11,7 @@
     <None Remove="Resources\Images\IconForInputInfo\box.png" />
     <None Remove="Resources\Images\IconForInputInfo\calendar.png" />
     <None Remove="Resources\Images\IconForInputInfo\calendar_color.png" />
+    <None Remove="Resources\Images\IconForInputInfo\close_box.png" />
     <None Remove="Resources\Images\IconForInputInfo\delivery-courier.png" />
     <None Remove="Resources\Images\IconForInputInfo\gmail.png" />
     <None Remove="Resources\Images\IconForInputInfo\info_32.png" />
@@ -93,6 +94,7 @@
     <Resource Include="Resources\Images\IconForInputInfo\box.png" />
     <Resource Include="Resources\Images\IconForInputInfo\calendar.png" />
     <Resource Include="Resources\Images\IconForInputInfo\calendar_color.png" />
+    <Resource Include="Resources\Images\IconForInputInfo\close_box.png" />
     <Resource Include="Resources\Images\IconForInputInfo\delivery-courier.png" />
     <Resource Include="Resources\Images\IconForInputInfo\gmail.png" />
     <Resource Include="Resources\Images\IconForInputInfo\info_32.png" />
