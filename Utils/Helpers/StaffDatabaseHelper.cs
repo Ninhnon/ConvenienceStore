@@ -215,7 +215,6 @@ namespace ConvenienceStore.Utils.Helpers
             cmd.Dispose();
             sqlCon.Close();
         }
-    }
 
         public static List<Customer> FetchingCustomerData()
         {

@@ -99,7 +99,7 @@ namespace ConvenienceStore.ViewModel.Login
                 parameter.Close();
                 home.ShowDialog();
 
-                parameter.Show();
+                //parameter.Show();
             }
         }
 
