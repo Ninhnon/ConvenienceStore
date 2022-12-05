@@ -2,10 +2,15 @@
 using ConvenienceStore.Utils.DataLayerAccess;
 using ConvenienceStore.ViewModel.Admin;
 using ConvenienceStore.Views.Admin.SubViews;
+using System;
 using System.IO.Packaging;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
+using System.IO;
 
 namespace ConvenienceStore.ViewModel.SubViewModel
 {
@@ -13,10 +18,12 @@ namespace ConvenienceStore.ViewModel.SubViewModel
     {
         public ICommand BackCommand { get; set; }
         public ICommand SaveCommand { get; set; }
+        public ICommand UploadImageCommand { get; set; }
         public AddEmployeeViewModel()
         {
             BackCommand = new RelayCommand<AddEmployeeView>(parameter => true, parameter => Back(parameter));
             SaveCommand = new RelayCommand<AddEmployeeView>(parameter => true, parameter => Save(parameter));
+            UploadImageCommand=new RelayCommand<AddEmployeeView>(parameter => true, parameter => UploadImage(parameter));
         }
 
 
@@ -108,6 +115,38 @@ namespace ConvenienceStore.ViewModel.SubViewModel
         public void Back(AddEmployeeView parameter)
         {
             parameter.Close();
+        }
+       
+        public void UploadImage(AddEmployeeView parameter)
+        {
+            OpenFileDialog openDialog = new OpenFileDialog();
+            openDialog.Filter = "Image files|*.jpeg;*.jpg;*.png";
+            openDialog.FilterIndex = -1;
+
+            BitmapImage bi = new BitmapImage();
+          
+                
+
+            if (openDialog.ShowDialog()== DialogResult.OK)
+            {
+                var bytes = System.IO.File.ReadAllBytes(openDialog.FileName);
+        string s = Convert.ToBase64String(bytes);
+
+        bi.BeginInit();
+                bi.StreamSource = new MemoryStream(System.Convert.FromBase64String(s));
+        bi.EndInit();
+            }
+            var imageBrush = (ImageBrush)parameter.ImageProduct;
+            try
+            {
+                imageBrush.ImageSource = bi;
+            }
+            catch
+{
+    /* Chỗ này phải xài try catch để bắt lỗi
+     * Người dùng mở File Exploer nhưng không chọn ảnh mà nhấn nút "Cancle" */
+}
+            
         }
     }
 }

@@ -52,6 +52,7 @@ namespace ConvenienceStore.ViewModel.Admin
         public ICommand ProductCommand { get; set; }
         public ICommand ProfileCommand { get; set; }
         public ICommand ReportCommand { get; set; }
+        public ICommand ChartCommand { get; set; }
         public ICommand SupplierCommand { get; set; }
         public ICommand InputInfoCommand { get; set; }
         public ICommand ShowPanelCommand { get; set; }
@@ -91,6 +92,10 @@ namespace ConvenienceStore.ViewModel.Admin
             {
                 p.Content = new TroublePage();
 
+            });
+            ChartCommand = new RelayCommand<Frame>(parameter => true, (parameter) =>
+            {
+                parameter.Content = new ReportView();
             });
             ShowPanelCommand = new RelayCommand<AdminMainWindow>(parameter => true, parameter => Show(parameter));
             HidePanelCommand = new RelayCommand<AdminMainWindow>(parameter => true, parameter => Hide(parameter));
