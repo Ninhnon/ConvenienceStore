@@ -29,6 +29,33 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         {
 
         }
+        public List<string> ConvertDBToListString()
+        {
+
+            List<string> accounts = new List<string>();
+            DataTable dt = new DataTable();
+            CloseConnection();
+            try
+            {
+                OpenConnection();
+                string sql = "SELECT name FROM Users where userrole=1";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                adapter.Fill(dt);
+                CloseConnection();
+
+            }
+            catch
+            {
+
+            }
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                string acc = dt.Rows[i].ItemArray[0].ToString();
+                accounts.Add(acc);
+            }
+            return accounts;
+        }
         public List<Account> ConvertDataTableToList()
         {
             DataTable dt = new DataTable();
@@ -54,7 +81,9 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                                           dt.Rows[i].ItemArray[5].ToString(),
                                            dt.Rows[i].ItemArray[6].ToString(),
                                             dt.Rows[i].ItemArray[7].ToString(),
-                                            Convert.FromBase64String(dt.Rows[i].ItemArray[8].ToString())
+                                            Convert.FromBase64String(dt.Rows[i].ItemArray[8].ToString()),
+                                           int.Parse( dt.Rows[i].ItemArray[9].ToString())
+
 
                                           );
 
@@ -65,7 +94,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         public void AddIntoDataBase(Account account)
         {
             OpenConnection();
-            string query = "INSERT INTO Users(UserRole,Name,Address,Phone,Email,UserName,Password) VALUES (@userrole, @name,@address,@phone,@email,@username,@pass)";
+            string query = "INSERT INTO Users(UserRole,Name,Address,Phone,Email,UserName,Password,Avatar,ManagerId) VALUES (@userrole, @name,@address,@phone,@email,@username,@pass,@avatar,@managerid)";
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@userrole", account.UserRole.ToString());
             cmd.Parameters.AddWithValue("@name", account.Name);
@@ -74,7 +103,8 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             cmd.Parameters.AddWithValue("@email", account.Email);
             cmd.Parameters.AddWithValue("@username", account.UserName);
             cmd.Parameters.AddWithValue("@pass", account.Password);
-
+            cmd.Parameters.AddWithValue("@avatar", account.avatar);
+            cmd.Parameters.AddWithValue("@managerid", account.ManagerId);
             cmd.ExecuteNonQuery();
             CloseConnection();
         }
