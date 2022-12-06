@@ -138,7 +138,7 @@ namespace ConvenienceStore.ViewModel.SubViewModel
                                    parameter.usernameTxtbox.textBox.Text.ToString(),
                                    parameter.passwordTxtbox.passwordBox.Password.ToString()
                                    ,ConvertImageToBytes(openDialog.FileName).ToArray(),
-                                  i
+                                  1
                                    );
                 AccountDAL.Instance.AddIntoDataBase(acc);
                 MessageBox.Show("them thanh cong");

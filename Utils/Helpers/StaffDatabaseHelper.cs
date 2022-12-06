@@ -261,7 +261,7 @@ namespace ConvenienceStore.Utils.Helpers
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                Avatar = (Byte[])reader["Avatar"];
+                Avatar = reader.IsDBNull(0)?null:(Byte[])reader["Avatar"];
             }
             reader.Close();
             sqlCon.Close();

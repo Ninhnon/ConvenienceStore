@@ -68,7 +68,7 @@ namespace ConvenienceStore.Model
         }
         private int managerId_;
         public int ManagerId
-            { get { return managerId_; } set { managerId_ = value; } }
+        { get { return managerId_; } set { managerId_ = value; } }
         public Account()
         {
 
