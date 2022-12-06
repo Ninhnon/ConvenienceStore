@@ -1,5 +1,6 @@
 ﻿using ConvenienceStore.Utils.DataLayerAccess;
 using ConvenienceStore.ViewModel.Admin;
+using ConvenienceStore.Views.Admin.SubViews;
 using ConvenienceStore.Views.Login;
 using System;
 using System.Collections.Generic;
@@ -19,15 +20,16 @@ namespace ConvenienceStore.ViewModel.Login
     public class ForgotPasswordViewModel:BaseViewModel
     {
         public ICommand ForgotPasswordCommand { get; set; }
-
+        public ICommand BackCommand { get; set; }
         public ForgotPasswordViewModel()
         {
+            BackCommand = new RelayCommand<ForgotPasswordWindow>(parameter => true, parameter => Back(parameter));
             ForgotPasswordCommand = new RelayCommand<ForgotPasswordWindow>(parameter => true,parameter=> Forgot(parameter));
         }
         public void Forgot(ForgotPasswordWindow parameter)
         {
             string cs = @ConfigurationManager.ConnectionStrings["Default"].ToString();
-            string query = "select* from Users where Email=" + "\'"+parameter.textEmail.Text.ToString() + "\'";
+            string query = "select* from Users where Email=" + "\'"+parameter.textEmail.textBox.Text.ToString() + "\'";
             
             SqlConnection con = new SqlConnection(cs);
             con.Close(); 
@@ -56,6 +58,10 @@ namespace ConvenienceStore.ViewModel.Login
             {
                 MessageBox.Show("email khong ton tai");
             }
+        }
+        public void Back(ForgotPasswordWindow parameter)
+        {
+            parameter.Close();
         }
 
     }

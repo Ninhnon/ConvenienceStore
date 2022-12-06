@@ -111,10 +111,10 @@ namespace ConvenienceStore.ViewModel.Login
         {
             ForgotPasswordWindow forgot=new ForgotPasswordWindow();
             
-            parameter.Opacity = 0.5;
+            
             parameter.WindowStyle = WindowStyle.None;
             forgot.ShowDialog();
-            parameter.WindowStyle = WindowStyle.SingleBorderWindow;
+           
             parameter.Opacity = 1;
             parameter.Show();
         }

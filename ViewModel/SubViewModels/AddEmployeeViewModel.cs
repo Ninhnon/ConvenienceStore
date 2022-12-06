@@ -83,6 +83,7 @@ namespace ConvenienceStore.ViewModel.SubViewModel
                 if(!parameter.phoneTxtbox.textBox.Text.All(char.IsDigit))
                 {
                     parameter.phoneTxtbox.ErrorMessage.Text = "Số điện thoại không hợp lệ";
+                    isValid=false;
                 }
             }
             if (string.IsNullOrEmpty(parameter.addressTxtbox.textBox.Text))

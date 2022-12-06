@@ -25,7 +25,7 @@
         Background="Transparent">
     <!--xmlns:uc="clr-namespace:ConvenienceStore.UserControlWPF"-->
 
-    <Border CornerRadius="8" 
+    <Border CornerRadius="20" 
             Background="{DynamicResource PrimaryBackgroundColor}">
         <Grid>
             <!-- Start: GridColumn Right -->
@@ -73,7 +73,7 @@
             <!-- Start: GridColumn Right -->
 
             <!-- Start: GridColum Left-->
-            <Border CornerRadius="8"
+            <Border CornerRadius="20"
                      Background="{DynamicResource SecondaryBackgroundColor}"
                     HorizontalAlignment="Left">
                 <Grid x:Name="gridMenu" Width="60"  HorizontalAlignment="Left">
