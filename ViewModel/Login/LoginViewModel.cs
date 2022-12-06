@@ -21,7 +21,7 @@ namespace ConvenienceStore.ViewModel.Login
     public class LoginViewModel : BaseViewModel
     {
         public ICommand PasswordChangedCommand { get; set; }
-        public ICommand OpenSignUpWindowCommand { get; set; }
+        public ICommand OpenForgotPasswordWindowCommand { get; set; }
         public ICommand LogInCommand { get; set; }
         private string password;
         public string Password { get => password; set { password = value; OnPropertyChanged(); } }
@@ -34,7 +34,7 @@ namespace ConvenienceStore.ViewModel.Login
         {
             LogInCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => Login(parameter));
             PasswordChangedCommand = new RelayCommand<PasswordBox>((parameter) => true, (parameter) => EncodingPassword(parameter));
-            OpenSignUpWindowCommand = new RelayCommand<Window>((parameter) => true, (parameter) => OpenSignUpWindow(parameter));
+            OpenForgotPasswordWindowCommand = new RelayCommand<Window>((parameter) => true, (parameter) => OpenForgotPasswordWindow(parameter));
         }
         public void Login(LoginWindow parameter)
         {
@@ -107,16 +107,17 @@ namespace ConvenienceStore.ViewModel.Login
             password = parameter.Password;
             //  this.password = MD5Hash(this.password);
         }
-        public void OpenSignUpWindow(Window parameter)
+        public void OpenForgotPasswordWindow(Window parameter)
         {
-            SignUpWindow signUp = new SignUpWindow();
-            signUp.txtUsername.Text = null;
+            ForgotPasswordWindow forgot=new ForgotPasswordWindow();
+            
             parameter.Opacity = 0.5;
             parameter.WindowStyle = WindowStyle.None;
-            signUp.ShowDialog();
+            forgot.ShowDialog();
             parameter.WindowStyle = WindowStyle.SingleBorderWindow;
             parameter.Opacity = 1;
             parameter.Show();
         }
+        
     }
 }
