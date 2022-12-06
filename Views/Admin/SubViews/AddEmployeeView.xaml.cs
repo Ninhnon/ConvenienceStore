@@ -23,5 +23,15 @@ namespace ConvenienceStore.Views.Admin.SubViews
         {
             InitializeComponent();
         }
+        private void ImagePreview_MouseEnter(object sender, MouseEventArgs e)
+        {
+            MarkUploadImage.Visibility = Visibility.Visible;
+        }
+
+        private void MarkUploadImage_MouseLeave(object sender, MouseEventArgs e)
+        {
+            MarkUploadImage.Visibility = Visibility.Hidden;
+        }
+       
     }
 }

@@ -38,12 +38,12 @@
                     VerticalAlignment="Top" 
                     Width="1559"
                     
-                    Margin="40,30,0,0">
+                    Margin="40,0,0,0">
                 <TextBlock FontSize="26" Foreground="#CCD7FF" Margin="50 35 0 20" Text="{Binding Hello}" HorizontalAlignment="Left"/>
                 <Border Margin="15" CornerRadius="5" Width="295" Height="150">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                            <GradientStop Offset="0" Color="#FFD700"/>
+                            <GradientStop Offset="0" Color="#BA5370"/>
                             <GradientStop Offset="1" Color="#FFC100"/>
                         </LinearGradientBrush>
                     </Border.Background>
@@ -69,60 +69,39 @@
                     </Grid>
 
                 </Border>
-
-                <materialDesign:Card
-                        Width="320"
-                    Height="150"
-                        HorizontalAlignment="Right" 
-                        
-                        Background="#FFF34336" 
-                        Margin="0">
+                <Border Margin="15" CornerRadius="5" Width="295" Height="150">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                            <GradientStop Offset="0" Color="#ff9068"/>
+                            <GradientStop Offset="1" Color="#CFDEF3"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="2*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
-                        <TextBlock
-                                Text="Số đơn bán được "
-                                HorizontalAlignment="Left"
-                                Margin="20,20,0,0" 
-                                TextWrapping="Wrap" 
-                                VerticalAlignment="Top" 
-                                FontSize="22" 
-                                
-                                FontWeight="Medium"/>
-                        <TextBlock 
-                                x:Name="txbNumOfHiredField"
-                                Grid.Row="1"
-                                Text="{Binding NumOfSoldBill}"
-                                HorizontalAlignment="Left"
-                                Margin="20,0,0,0" 
-                                TextWrapping="Wrap" 
-                                VerticalAlignment="Center" 
-                                FontSize="24" 
-                                FontWeight="Bold" 
-                                 />
-                        <TextBlock
-                                Grid.Row="2"
-                                Text="{Binding ThisMonth1}"
-                                HorizontalAlignment="Left"
-                                Margin="20,0,0,0" 
-                                TextWrapping="Wrap" 
-                                VerticalAlignment="Center" 
-                                FontSize="16" 
-                                FontWeight="Medium" 
-                                 />
-                        <Grid 
-                                Width="50"
-                                Height="50" 
-                                HorizontalAlignment="Right" 
-                                VerticalAlignment="Top" 
-                                Margin="0,20,20,0">
+                        <TextBlock Text="Số đơn bán được" 
+                                    FontWeight="Bold" VerticalAlignment="Center"  FontSize="22" 
+                                   Margin="10 0 0 0" Foreground="White"
+                                   Grid.Row="2"></TextBlock>
+                        <TextBlock Text="&#xe602;"  FontSize="35" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>
+                        <TextBlock Text="{Binding ThisMonth1}" Grid.Row="1" VerticalAlignment="Center" FontSize="16" Margin="10 0 0 0" Foreground="White"/>
+                        <TextBlock Text="{Binding NumOfSoldBill}" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="3" FontSize="22" Margin="10 0 0 0" Foreground="White"/>
+                        
 
-                        </Grid>
+
+                        <Canvas ClipToBounds="True" Grid.RowSpan="4">
+                            <Border Canvas.Right="-40" Canvas.Top="10" Grid.RowSpan="4" Width="110" Height="110"  CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Top"  HorizontalAlignment="Right"/>
+                            <Border Canvas.Right="-10" Canvas.Top="100" Grid.RowSpan="4" Width="110" Height="110" CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Bottom"  HorizontalAlignment="Right"/>
+                        </Canvas>
+
                     </Grid>
-                </materialDesign:Card>
+
+                </Border>
+                
 
             </StackPanel>
             <StackPanel Margin="20,0,0,0"
@@ -164,7 +143,7 @@
                     </i:Interaction.Triggers>
                 </RadioButton>
             </StackPanel>
-            <Border CornerRadius="20"  Background="#243771"
+            <Border CornerRadius="20"  Background="#BA5370"
                     BorderThickness="1"
                     HorizontalAlignment="Center"
                     Height="300" 
@@ -207,8 +186,8 @@
                             Margin="20,0,0,5" Grid.ColumnSpan="2" >
                         <lvc:CartesianChart.Background>
                             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                <GradientStop Color="#b92b27" Offset="0"/>
-                                <GradientStop Color="#19547b" Offset="1.5"/>
+                                <GradientStop Color="#CB3066" Offset="0"/>
+                                <GradientStop Color="#A43931" Offset="1.5"/>
                             </LinearGradientBrush>
                         </lvc:CartesianChart.Background>
 

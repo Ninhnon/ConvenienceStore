@@ -30,8 +30,8 @@
 
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                    <GradientStop Color='#283c86' Offset="0"/>
-                    <GradientStop Color='#cbb4d4' Offset="1"/>
+                    <GradientStop Color='#2F7336' Offset="0"/>
+                    <GradientStop Color='#1e3c72' Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
             <Grid>
@@ -80,29 +80,31 @@
                             Grid.Row="1"
                             Orientation="Vertical"
                             Margin="288,34.6,288.8,0.2">
-
-                    <Image Source="/Resources/Images/Login/Thuong1.png"
-                           Width="200" Height="110"
+                    <Border CornerRadius="30"
+                              Width="220" Height="155">
+                        <Border.Background>
+                            <ImageBrush
+                        ImageSource="/Resources/Images/Login/logo.jpg"
+                         
                            
                            >
-                        <Image.OpacityMask>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#cbb4d4" Offset="0"/>
-                                <GradientStop Color="#FF732E2E" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Image.OpacityMask>
-                    </Image>
+                              
+                            </ImageBrush>
+                        </Border.Background>
+                       
+                    </Border>
+                    
                     <TextBlock Text="Visual project"
                                FontSize="25"
                                FontFamily="Montserrat"
                                HorizontalAlignment="Center"
                                FontWeight="Bold"
-                               FontStyle="Italic"
+                              Margin="0,10,0,0"
                                >
                         <TextBlock.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#cbb4d4" Offset="0"/>
-                                <GradientStop Color="#FF7DD2F1" Offset="1"/>
+                                <GradientStop Color="#fd746c" Offset="0"/>
+                                <GradientStop Color="#F29492" Offset="1"/>
                             </LinearGradientBrush>
                         </TextBlock.Foreground>
                     </TextBlock>
