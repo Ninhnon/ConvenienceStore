@@ -18,7 +18,8 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
      Background="{DynamicResource MaterialDesignPaper}"
      DataContext="{StaticResource ProductVM}"
       d:DesignHeight="600"
-      d:DesignWidth="1100"
+      d:DesignWidth="1090"
+      Margin="10 0 0 0"
       >
     <!--Style="{StaticResource Page_Style}"-->
 
@@ -51,8 +52,8 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 
         <Grid.RowDefinitions>
             <RowDefinition Height="10*" />
-            <RowDefinition Height="84*" />
-            <RowDefinition Height="6*" />
+            <RowDefinition Height="89*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <!--cong cu va cac button-->
         <StackPanel Grid.Row="0"

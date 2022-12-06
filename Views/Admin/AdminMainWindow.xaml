@@ -70,7 +70,7 @@
                 </StackPanel>
                 <!-- End: Button Close | Restore | Minimize -->
 
-                <Frame Grid.Row="1" Margin="60 0 0 0" x:Name="PagesNavigation" NavigationUIVisibility="Hidden">
+                <Frame Grid.Row="1" Margin="60 0 0 0" x:Name="PagesNavigation" NavigationUIVisibility="Hidden" >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Loaded">
                             <i:InvokeCommandAction Command="{Binding HomeCommand}"
@@ -172,19 +172,18 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="3" VerticalAlignment="Bottom" Orientation="Horizontal" Width="200" Margin="0 0 0 20">
-                    <Ellipse  x:Name="avatarMain"
-                        Width="40" Height="40" Margin="10 0 0 0">
+                    <Ellipse Width="40" Height="40" Margin="10 0 0 0">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="\Resources\Images\Logo\Food1.jpg"/>
+                            <ImageBrush ImageSource="{Binding Anh}"/>
                         </Ellipse.Fill>
                     </Ellipse>
                     <StackPanel Orientation="Vertical" Margin="8 0 0 0">
-                        <Label Content="Tín Nguyễn" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="SemiBold" HorizontalContentAlignment="Center" HorizontalAlignment="Left"/>
-                        <Label Content="ngoctin0809@gmail.com" Foreground="{DynamicResource PrimaryGrayColor}" FontSize="11" FontWeight="Regular" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0 -10 0 0"/>
+                        <Label Content="{Binding Ten}" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="SemiBold" HorizontalContentAlignment="Center" HorizontalAlignment="Left"/>
+                        <Label Content="{Binding Email}" Foreground="{DynamicResource PrimaryGrayColor}" FontSize="11" FontWeight="Regular" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0 -10 0 0"/>
                     </StackPanel>
                 </StackPanel>
-                    
-                </Grid>
+
+            </Grid>
           
                 <!-- End: GridColum Left-->
         </Grid>

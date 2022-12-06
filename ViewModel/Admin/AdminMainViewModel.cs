@@ -6,6 +6,10 @@ using ConvenienceStore.Views.Staff.VoucherWindow;
 using ConvenienceStore.Views.Staff;
 using System.Windows.Controls;
 using System.Windows.Input;
+using ConvenienceStore.Model;
+using ConvenienceStore.Utils.Helpers;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace ConvenienceStore.ViewModel.Admin
 {
@@ -58,8 +62,38 @@ namespace ConvenienceStore.ViewModel.Admin
         public ICommand HidePanelCommand { get; set; }
         public ICommand SizeChangedCommand { get; set; }
 
+        private string? _ten;
+        public string? Ten
+        {
+            get => _ten;
+            set
+            {
+                _ten = value; OnPropertyChanged();
+            }
+        }
+        private string? _Email;
+        public string? Email
+        {
+            get => _Email;
+            set
+            {
+                _Email = value; OnPropertyChanged();
+            }
+        }
+        private byte[] _Anh;
+        public byte[] Anh
+        {
+            get => _Anh;
+            set
+            {
+                _Anh = value; OnPropertyChanged();
+            }
+        }
         public AdminMainViewModel()
         {
+            Ten = CurrentAccount.Name;
+            Anh = DatabaseHelper.LoadAvatar(CurrentAccount.idAccount);
+            Email = CurrentAccount.Email;
             IsPanelVisible = 0;  //moi vo la no ko mo menu =hidden
             OpacityChange = 1;
             OpacityChange1 = 0.9;

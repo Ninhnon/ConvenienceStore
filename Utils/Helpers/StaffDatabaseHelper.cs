@@ -1,13 +1,8 @@
 ﻿using ConvenienceStore.Model;
-using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Model.Staff;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZXing;
 
 namespace ConvenienceStore.Utils.Helpers
 {
@@ -29,6 +24,7 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryConsingment = @"select * from [Consignment]";
         static readonly string queryCustomerData = @"select * from [Customer]";
         static readonly string queryBillData = @"select * from [Bill]";
+        static readonly string queryAvatar = @"select Avatar from [Users] where Id={0}";
         static readonly string insertErorrs = "insert into Report(Title, Description, Status, RepairCost, SubmittedAt, StaffId, Level, Image) select N'{0}',N'{1}',N'Chờ tiếp nhận',{2},N'{3}',N'{4}',N'{5}', BulkColumn FROM Openrowset(Bulk N'{6}', Single_Blob) as img";
         static readonly string insertBillData = @"insert into Bill(BillDate, CustomerId, UserId, Price) Values (@billDate, @cusId, @userId, @price)";
 
@@ -55,7 +51,7 @@ namespace ConvenienceStore.Utils.Helpers
             reader.Close();
             sqlCon.Close();
             return reports;
-        } 
+        }
         public static List<Consignment> FetchingConsignmentData()
         {
             sqlCon.Open();
@@ -105,7 +101,7 @@ namespace ConvenienceStore.Utils.Helpers
                     Email = read.IsDBNull(5) ? null : read.GetString(5),
                     UserName = read.GetString(6),
                     Password = read.GetString(7),
-                    Image = Convert.FromBase64String(read["Avatar"].ToString())
+                    Image = (byte[])(read["Avatar"])
                 });
 
             }
@@ -158,12 +154,13 @@ namespace ConvenienceStore.Utils.Helpers
             {
                 vouchers.Add(new Vouchers()
                 {
-                    ReleaseId = reader.GetString(0),
-                    ReleaseName = reader.GetString(1),
-                    StartDate = reader.GetDateTime(2),
-                    FinishDate = reader.GetDateTime(3),
-                    ParValue = reader.GetInt32(4),
-                    Status = reader.GetBoolean(5),
+                    Id=reader.GetInt32(0),
+                    ReleaseId = reader.GetString(1),
+                    ReleaseName = reader.GetString(2),
+                    StartDate = reader.GetDateTime(3),
+                    FinishDate = reader.GetDateTime(4),
+                    ParValue = reader.GetInt32(5),
+                    Status = reader.GetBoolean(6),
                 });
 
             }
@@ -205,9 +202,8 @@ namespace ConvenienceStore.Utils.Helpers
             return Products;
         }
 
-        public static void ThemErorr(Report t,string filepath)
+        public static void ThemErorr(Report t, string filepath)
         {
-
             var strCmd = string.Format(insertErorrs, t.Title, t.Description, t.RepairCost, t.SubmittedAt, t.StaffId, t.Level, filepath);
             sqlCon.Open();
             SqlCommand cmd = new(strCmd, sqlCon);
@@ -254,7 +250,24 @@ namespace ConvenienceStore.Utils.Helpers
 
             sqlCon.Close();
             return customers;
-            }
         }
+
+        public static byte[] LoadAvatar(int id)
+        {
+            var strCmd = string.Format(queryAvatar, id);
+            sqlCon.Open();
+            byte[] Avatar = new byte[byte.MaxValue];
+            SqlCommand cmd = new(strCmd, sqlCon);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                Avatar = (Byte[])reader["Avatar"];
+            }
+            reader.Close();
+            sqlCon.Close();
+            return Avatar;
+        }
+    }
+
 
 }

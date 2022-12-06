@@ -20,7 +20,6 @@ namespace ConvenienceStore.ViewModel.Login
 {
     public class LoginViewModel : BaseViewModel
     {
-
         public ICommand PasswordChangedCommand { get; set; }
         public ICommand OpenSignUpWindowCommand { get; set; }
         public ICommand LogInCommand { get; set; }
@@ -69,9 +68,9 @@ namespace ConvenienceStore.ViewModel.Login
                     CurrentAccount.Password = account.Password;
                     CurrentAccount.Avatar = account.avatar;
                     MessageBoxCustom mb = new("Thông báo", "Đăng nhập thành công", MessageType.Success, MessageButtons.OK);
-                    mb.ShowDialog();
                     flag = 1;
                     isLogin = true;
+                    mb.ShowDialog();
                     break;
 
                 }

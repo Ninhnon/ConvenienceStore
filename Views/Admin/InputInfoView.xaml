@@ -13,6 +13,7 @@
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
       DataContext="{StaticResource InputInfoVM}"
+      d:DesignHeight="600" d:DesignWidth="1100"
       Background="Transparent">
 
     <Page.Resources>

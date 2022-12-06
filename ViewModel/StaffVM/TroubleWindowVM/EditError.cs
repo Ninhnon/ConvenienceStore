@@ -12,6 +12,7 @@ using System;
 using ConvenienceStore.ViewModel.StaffVM;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Model.Staff;
+using ConvenienceStore.Model;
 
 namespace ConvenienceStore.ViewModel.TroubleWindowVM
 {
@@ -31,7 +32,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         {
             IsImageChanged = false;
             Title = SelectedItem.Title.ToString();
-            w1.staffname.Text = MainStaffViewModel.StaffCurrent.Name;
+            w1.staffname.Text = CurrentAccount.Name;
             w1.cbxStatusError.Text = SelectedItem.Status;
             w1.submitdate.Text = SelectedItem.SubmittedAt.ToShortDateString();
             Level.Content = SelectedItem.Level;
@@ -41,7 +42,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             image.StreamSource = new MemoryStream(SelectedItem.Image);
             image.EndInit();
             ImageSource = image;
-
+            
             //ImageSource = new BitmapImage(new System.Uri(filepath)) ;
         }
         public void UpdateErrorFunc(EditError p)
@@ -54,7 +55,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                     Title = Title,
                     Level = Level.Content.ToString(),
                     Description = Description,
-                    StaffId = MainStaffViewModel.StaffCurrent.Id,
+                    StaffId = CurrentAccount.idAccount,
 
                 };
 

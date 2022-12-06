@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -24,7 +26,7 @@ namespace ConvenienceStore.Views
             txtTitle.Text = Title;
             switch (Type)
             {
-               
+
                 case MessageType.Info:
                     System.Media.SystemSounds.Beep.Play();
                     ChangeBackGround((Color)ColorConverter.ConvertFromString("#FF2196F3"));
@@ -71,33 +73,34 @@ namespace ConvenienceStore.Views
 
         private void BtnYes_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
-            this.Close();
+            DialogResult = true;
+            Close();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
-            this.Close();
+            DialogResult = false;
+            Close();
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
-            this.Close();
+            DialogResult = true;
+            Close();
         }
 
         private void btnNo_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
-            this.Close();
+            DialogResult = false;
+            Close();
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
-            this.Close();
+            DialogResult = false;
+            Close();
         }
+
     }
     public enum MessageButtons
     {
