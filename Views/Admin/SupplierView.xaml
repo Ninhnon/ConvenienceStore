@@ -9,7 +9,8 @@
       xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
       xmlns:AddNewSupplierCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.AddNewSupplierCommand"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="1100"
+      Height="600"
+      Width="1125"
       Title="SupplierView"
       Background="#EFF2F7">
     <Page.Resources>
@@ -133,7 +134,7 @@
                       ScrollViewer.VerticalScrollBarVisibility="Hidden"
                       ScrollViewer.CanContentScroll="False"
                       VirtualizingPanel.IsVirtualizing="True"
-                      Height="450"
+                      Height="434"
                       CanUserAddRows="False"
                       AutoGenerateColumns="False">
                 

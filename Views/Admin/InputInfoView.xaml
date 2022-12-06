@@ -13,7 +13,8 @@
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
       DataContext="{StaticResource InputInfoVM}"
-      Background="Transparent">
+      Background="Transparent"
+      Height="600">
 
     <Page.Resources>
         <InputInfoCommand:HideOperateButtonsCommand x:Key="HideOperateButtonsCommand"/>
