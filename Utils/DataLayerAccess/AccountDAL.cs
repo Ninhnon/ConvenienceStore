@@ -81,7 +81,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                                           dt.Rows[i].ItemArray[5].ToString(),
                                            dt.Rows[i].ItemArray[6].ToString(),
                                             dt.Rows[i].ItemArray[7].ToString(),
-                                            Convert.FromBase64String(dt.Rows[i].ItemArray[8].ToString()),
+                                            Encoding.ASCII.GetBytes(dt.Rows[i].ItemArray[8].ToString()),
                                            int.Parse( dt.Rows[i].ItemArray[9].ToString())
 
 
