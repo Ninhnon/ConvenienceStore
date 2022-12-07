@@ -30,8 +30,8 @@
 
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                    <GradientStop Color='#2F7336' Offset="0"/>
-                    <GradientStop Color='#1e3c72' Offset="1"/>
+                    <GradientStop Color='#E9E4F0' Offset="0"/>
+                    <GradientStop Color='#D3CCE3' Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
             <Grid>
@@ -203,11 +203,7 @@
                                 HorizontalAlignment="Center"
                                 Margin="0,15,0,0">
 
-                        <TextBlock Text="Chưa có tài khoản?"
-                               Foreground="DarkGray"
-                               FontSize="12"
-                               FontWeight="Medium"
-                               FontFamily="Montserrat"/>
+                        
 
 
                         <Button 
@@ -215,10 +211,10 @@
                 x:Name="btnSignUp" 
                             BorderThickness="0"
                 FocusVisualStyle="{x:Null}"
-                Command="{Binding OpenSignUpWindowCommand}"
+                Command="{Binding OpenForgotPasswordWindowCommand}"
                 CommandParameter="{Binding ElementName=wdLogin}"
-                Content="Đăng ký" 
-                ToolTip="Chưa có tài khoản? Hãy đăng ký"
+                Content="Quên mật khẩu" 
+                ToolTip="Quên mật khẩu? Hãy nhấn"
                
              
                 Padding="0" 

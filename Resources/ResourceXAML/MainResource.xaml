@@ -10,7 +10,10 @@
     <!-- VM của Lâm đẹp troai -->
     <vmAdminVM:InputInfoVM x:Key="InputInfoVM"/>
     <vmAdminVM:SupplierVM x:Key="SupplierVM"/>
+    <vmAdminVM:ProfileVM x:Key="AdminProfileVM"/>
     
+    <vmLogin:ForgotPasswordViewModel x:Key="ForgotVM"/>
+
     <vmAdminVM:ReportViewModel x:Key="ReportVM"/>
     <vmAdminVM:EmployeeViewModel x:Key="EmployeeVM"/>
     <vmAdmin:AdminMainViewModel x:Key="AdminMainWindowVM"/>

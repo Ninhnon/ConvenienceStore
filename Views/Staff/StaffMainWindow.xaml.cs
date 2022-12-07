@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConvenienceStore.Views.Login;
+using System;
 using System.Windows;
 
 namespace ConvenienceStore.Views.Staff
@@ -15,7 +16,10 @@ namespace ConvenienceStore.Views.Staff
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            this.Hide();
+            LoginWindow login = new LoginWindow();
+            login.ShowDialog();
+            this.Close();
         }
 
         private void btnRestore_Click(object sender, RoutedEventArgs e)

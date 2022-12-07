@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace ConvenienceStore.Views.Login
 {
     /// <summary>
-    /// Interaction logic for SignUpWindow.xaml
+    /// Interaction logic for ForgotPasswordWindow.xaml
     /// </summary>
-    public partial class SignUpWindow : Window
+    public partial class ForgotPasswordWindow : Window
     {
-        public SignUpWindow()
+        public ForgotPasswordWindow()
         {
             InitializeComponent();
         }

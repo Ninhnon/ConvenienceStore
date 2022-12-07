@@ -5,34 +5,47 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ConvenienceStore.Views.Admin"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:Command="clr-namespace:ConvenienceStore.ViewModel.Admin.Command"
       xmlns:InputInfoCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand"
-      xmlns:DeleteInputInfoCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand.DeleteInputInfoCommand"
+      xmlns:ProductCardCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCommand"
       xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
       xmlns:UserControls="clr-namespace:ConvenienceStore.Views.Admin.UserControls"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
       DataContext="{StaticResource InputInfoVM}"
-      d:DesignHeight="600" d:DesignWidth="1100"
+
+      Style="{StaticResource Page_Style}"
+      Height="600"
+      Width="1125"
+
       Background="Transparent">
 
     <Page.Resources>
         <InputInfoCommand:HideOperateButtonsCommand x:Key="HideOperateButtonsCommand"/>
+        <ProductCardCommand:EditProductButton x:Key="EditProductButton"/>
         <Converters:StringToVisibility x:Key="StringToVisibility"/>
         <Converters:IndexToVisibility x:Key="IndexToVisibility"/>
         <Converters:IntToVNDCurrency x:Key="IntToVNDCurrency"/>
         <Converters:HasOjectConverter x:Key="HasOjectConverter"/>
     </Page.Resources>
-
-    <Grid>
+    <Border CornerRadius="0,0,20,0">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color='#E9E4F0' Offset="0"/>
+                <GradientStop Color='#D3CCE3' Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        
+  
+    <Grid Height="660">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="725"/>
-            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Border 
                 Grid.Column="0"
-                Background="{StaticResource Gray91}">
+               >
+           
             <Grid>
 
                 <Grid VerticalAlignment="Top"
@@ -197,9 +210,9 @@
                                     <Border x:Name="DeleteButton"
                                             Grid.Column="2"
                                             Margin="0 14 14 0"
-                                            Background="Transparent"
                                             CornerRadius="2"
                                             Cursor="Hand">
+                                        
                                         <Image Source="/Resources/Images/IconForInputInfo/close_box.png"
                                                Opacity="0.4"
                                                Height="24"/>
@@ -238,8 +251,14 @@
 
         <Border x:Name="InputInfoS2"
                 Grid.Column="1"
-                Background="{StaticResource FloralWhite}"
+               
                 CornerRadius="0 25 25 0">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color='#E9E4F0' Offset="0"/>
+                    <GradientStop Color='#D3CCE3' Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
             <StackPanel DataContext="{Binding SelectedInputInfo}"
                         VerticalAlignment="Center"
                         Margin="30 0"
@@ -248,13 +267,14 @@
                 <Ellipse Stroke="Transparent"
                          Width="200"
                          Height="200"
-                         Panel.ZIndex="2"
                          VerticalAlignment="Top"
                          Grid.Row="0"
                          Grid.RowSpan="2"
-                         Fill="#E9E9E9"
                          Margin="0 0 0 30">
-
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding Avatar}"
+                                        Stretch="UniformToFill"/>
+                        </Ellipse.Fill>
                 </Ellipse>
 
                 <StackPanel Margin="0 0 0 15">
@@ -389,10 +409,17 @@
 
         <!--Products Screen-->
         <Border x:Name="ProductS1"
+                
                 Grid.Column="0"
-                Background="{StaticResource Gray91}"
+             
                 CornerRadius="25"
                 Visibility="Hidden">
+             <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color='#E9E4F0' Offset="0"/>
+                <GradientStop Color='#D3CCE3' Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
 
             <Grid>
 
@@ -571,7 +598,7 @@
                                             Foreground="#4B0082"
                                             Height="38"
                                             Padding="6 4"
-                                            Command="{Binding Source={StaticResource InputInfoVM}, Path=EditProductButton}"
+                                            Command="{StaticResource EditProductButton}"
                                             CommandParameter="{Binding}"/>
 
                                     <Button Style="{StaticResource MaterialDesignFlatLightButton}"
@@ -750,4 +777,5 @@
 
         </Border>
     </Grid>
+    </Border>
 </Page>

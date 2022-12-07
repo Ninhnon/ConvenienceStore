@@ -7,87 +7,96 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
-      xmlns:AddNewSupplierCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.AddNewSupplierCommand"
+      xmlns:SupplierCard="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.SupplierCard"
       mc:Ignorable="d" 
-      Height="600"
-      Width="1125"
+      Height="660"
+     Width="1100"
+       Style="{StaticResource Page_Style}"
       Title="SupplierView"
-      Background="#EFF2F7">
+      >
     <Page.Resources>
         <Converters:StringToVisibility x:Key="StringToVisibility"/>
+        <SupplierCard:EditSupplierButton x:Key="EditSupplierButton"/>
     </Page.Resources>
+    <Border CornerRadius="0,0,20,0">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color='#E9E4F0' Offset="0"/>
+                <GradientStop Color='#D3CCE3' Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid DataContext="{StaticResource SupplierVM}" HorizontalAlignment="Right" Width="1125"
+              >
 
-    <Grid DataContext="{StaticResource SupplierVM}">
-
-        <StackPanel Margin="30 20">
-            <Grid Margin="0 0 0 20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="Nhà cung cấp"
+            <StackPanel Margin="30 20">
+                <Grid Margin="0 0 0 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Nhà cung cấp"
                            FontSize="32"
                            FontWeight="SemiBold"
                            Margin="0 0 0 5"/>
 
-                <Button Grid.Column="2"
+                    <Button Grid.Column="2"
                         Height="40"
                         Command="{Binding AddSupplierButtonCommand}"
                         VerticalAlignment="Top">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="AccountsAdd"
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="AccountsAdd"
                                                      VerticalAlignment="Center"/>
-                            <TextBlock Text="  Thêm"/>
-                        </StackPanel>
+                                <TextBlock Text="  Thêm"/>
+                            </StackPanel>
 
-                    </Button.Content>
-                </Button>
-            </Grid>
-            
-            <Grid Margin="0 0 0 15">
+                        </Button.Content>
+                    </Button>
+                </Grid>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+                <Grid Margin="0 0 0 15">
 
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Số lượng:  "
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Số lượng:  "
                            FontSize="24"
                            FontWeight="DemiBold"
                            VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding ObservableSupplier.Count}"
+                        <TextBlock Text="{Binding ObservableSupplier.Count}"
                            d:Text="10"
                            FontSize="24"
                            FontWeight="DemiBold"
                            VerticalAlignment="Center"/>
-                    
-                </StackPanel>
 
-                <Border Grid.Column="2"
+                    </StackPanel>
+
+                    <Border Grid.Column="2"
                             Background="White"
                             Height="40"
                             Width="300"
                             CornerRadius="20">
-                    <Border.Effect>
-                        <DropShadowEffect BlurRadius="5"
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="5"
                                             Direction="270"
                                             Opacity="0.45"
                                             RenderingBias="Performance"
                                             ShadowDepth="1.5"/>
-                    </Border.Effect>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="60"/>
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="60"/>
 
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
 
-                            <TextBlock Text="Search here ..."
+                                <TextBlock Text="Search here ..."
                                     FontSize="14"
                                     Foreground="#9ea4ad"
                                     Margin="22 0 15 0"
@@ -95,7 +104,7 @@
                                     IsHitTestVisible="False"
                                     Visibility="{Binding ElementName=SearchTextBox, Path=Text, Converter={StaticResource StringToVisibility}}"/>
 
-                            <TextBox x:Name="SearchTextBox"
+                                <TextBox x:Name="SearchTextBox"
                                          Text="{Binding SearchContent, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                                          FontSize="14"
                                          Margin="20 0 10 0"
@@ -103,29 +112,29 @@
                                          Height="30"
                                          VerticalContentAlignment="Center"
                                          KeyDown="SearchTextBox_KeyDown">
-                            </TextBox>
+                                </TextBox>
 
-                        </Grid>
+                            </Grid>
 
-                        <Border Grid.Column="1"
+                            <Border Grid.Column="1"
                                 Background="{StaticResource PrimaryColor}"
                                 CornerRadius="0 20 20 0"
                                 Cursor="Hand"
                                 MouseLeftButtonDown="Border_MouseLeftButtonDown">
-                            <materialDesign:PackIcon Kind="Search"
+                                <materialDesign:PackIcon Kind="Search"
                                                      Foreground="White"
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Center"
                                                      Height="20" 
                                                      Width="20"/>
 
-                        </Border>
-                    </Grid>
-                </Border>
+                            </Border>
+                        </Grid>
+                    </Border>
 
-            </Grid>
+                </Grid>
 
-            <DataGrid x:Name="SuppliersDataGrid"
+                <DataGrid x:Name="SuppliersDataGrid" Background="Transparent"
                       CellStyle="{DynamicResource DataGridCellStyle1}" 
                       ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
                       RowStyle="{DynamicResource DataGridRowStyle1}"
@@ -137,62 +146,62 @@
                       Height="434"
                       CanUserAddRows="False"
                       AutoGenerateColumns="False">
-                
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="#" 
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="#" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
                                         Width="Auto"
                                         Binding="{Binding Number}"/>
-                    <DataGridTemplateColumn x:Name="NameSupplier"
+                        <DataGridTemplateColumn x:Name="NameSupplier"
                                             Header="Nhà cung cấp"
                                             IsReadOnly="True"
                                             CanUserResize="False"
                                             Width="*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}"
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"
                                            ToolTip="{Binding Name}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Address" 
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Address" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
                                         Width="*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Address}"
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Address}"
                                            ToolTip="{Binding Address}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Phone" 
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Phone" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
                                         Width="140"
                                         Binding="{Binding Phone}"/>
-                    <DataGridTextColumn Header="Email" 
+                        <DataGridTextColumn Header="Email" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
                                         Width="200"
                                         Binding="{Binding Email}"/>
-                    
-                    <DataGridTemplateColumn Header="Operations"
+
+                        <DataGridTemplateColumn Header="Operations"
                                             IsReadOnly="True"
                                             CanUserResize="False"
                                             Width="Auto">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Style="{StaticResource MaterialDesignFlatLightButton}"
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Style="{StaticResource MaterialDesignFlatLightButton}"
                                             Content="{materialDesign:PackIcon Kind=Edit, Size=24}"
                                             Foreground="#4B0082"
                                             Height="32"
                                             Padding="6 4"
-                                            Command="{Binding Source={StaticResource SupplierVM}, Path=EditSupplierButton}"
+                                            Command="{StaticResource EditSupplierButton}"
                                             CommandParameter="{Binding}"/>
-                                    <Button Style="{StaticResource MaterialDesignFlatLightButton}"
+                                        <Button Style="{StaticResource MaterialDesignFlatLightButton}"
                                             Content="{materialDesign:PackIcon Kind=Delete, Size=24}"
                                             Height="32"
                                             Foreground="#CF0A0A"
@@ -202,12 +211,14 @@
                                             Command="{Binding Source={StaticResource SupplierVM}, Path=DeleteSupplierButton}"
                                             CommandParameter="{Binding}"/>
 
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
-    </Grid>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </Grid>
+    </Border>
+   
 </Page>
