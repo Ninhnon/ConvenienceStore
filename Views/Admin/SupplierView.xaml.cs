@@ -41,6 +41,7 @@ namespace ConvenienceStore.Views.Admin
             var button = (Border)sender;
             var VM = button.DataContext as SupplierVM;
             VM.SetSupplierCorespondSearch();
+           
         }
     }
 }

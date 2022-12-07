@@ -81,28 +81,16 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             cmd.ExecuteNonQuery();
             CloseConnection();
         }
-        public bool DeleteAccount(string idAccount)
+        public void DeleteAccount(int idAccount)
         {
-            try
-            {
+         
                 OpenConnection();
-                string query = "delete from Account where IdAccount = " + idAccount;
+                string query = "delete from Users where Id = " + idAccount;
                 SqlCommand command = new SqlCommand(query, conn);
-                if (command.ExecuteNonQuery() > 0)
-                    return true;
-                else
-                {
-                    return false;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-            finally
-            {
+            command.ExecuteNonQuery();
+                   
                 CloseConnection();
-            }
+            
         }
         public int SetNewID()
         {

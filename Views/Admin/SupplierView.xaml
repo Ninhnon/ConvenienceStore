@@ -116,7 +116,8 @@
 
                             </Grid>
 
-                            <Border Grid.Column="1"
+                            <Border 
+                                Grid.Column="1"
                                 Background="{StaticResource PrimaryColor}"
                                 CornerRadius="0 20 20 0"
                                 Cursor="Hand"

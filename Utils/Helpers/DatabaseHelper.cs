@@ -255,7 +255,7 @@ namespace ConvenienceStore.Utils.Helpers
             sqlCon.Open();
             var cmd = new SqlCommand(queryAccountUsers, sqlCon);
             List<Account> accounts = new List<Account>();
-
+            int i = 1;
             SqlDataReader read = cmd.ExecuteReader();
 
             while (read.Read())
@@ -272,7 +272,8 @@ namespace ConvenienceStore.Utils.Helpers
                     Password = read.GetString(7),
                     Avatar = (byte[])(read["Avatar"])
                 });
-
+                accounts[i - 1].Number = i;
+                i++;
             }
 
             sqlCon.Close();

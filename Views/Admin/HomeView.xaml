@@ -68,7 +68,7 @@
                                           Width="41"
                                           Margin="10,0,0,19" Foreground="AliceBlue" Grid.RowSpan="2"/>
                             <TextBlock Text="{Binding ThisMonth}" Grid.Row="1" VerticalAlignment="Center" FontSize="16" Margin="10 0 0 0" Foreground="White"/>
-                            <TextBlock Text="{Binding ThisMonthRevenue}" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="2" FontSize="22" Margin="10 0 0 0" Foreground="White"/>
+                            <TextBlock Text="{Binding ThisMonthRevenue}" FontWeight="Bold" VerticalAlignment="Bottom" Grid.Row="1" FontSize="22" Margin="10,0,0,43" Foreground="White" Grid.RowSpan="3" Height="34"/>
                             <TextBlock Text="{Binding IncreasingPercent}" Grid.Row="3" FontSize="20" Foreground="White" Margin="10 0 0 0" VerticalAlignment="Center"/>
 
 
@@ -95,9 +95,9 @@
                                 <RowDefinition Height="2*"/>
                             </Grid.RowDefinitions>
                             <TextBlock Text="Số đơn bán được" 
-                                    FontWeight="Bold" VerticalAlignment="Center"  FontSize="22" 
-                                   Margin="10 0 0 0" Foreground="White"
-                                   Grid.Row="2"></TextBlock>
+                                    FontWeight="Bold" VerticalAlignment="Bottom"  FontSize="22" 
+                                   Margin="10,0,0,45" Foreground="White"
+                                   Grid.Row="1" Grid.RowSpan="3" Height="32"></TextBlock>
                             <fa:IconImage HorizontalAlignment="Left"
                                           Width="41"
                                           Margin="10,0,0,19" Foreground="AliceBlue" Grid.RowSpan="2"

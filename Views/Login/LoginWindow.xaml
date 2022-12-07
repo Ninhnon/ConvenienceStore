@@ -130,7 +130,7 @@
                              Height="28"
                              VerticalContentAlignment="Center"
                              Margin="0,5,0,0"
-                             Padding="20,0,0,0" >
+                             Padding="10,0,0,0" >
                         <TextBox.Background>
                             <ImageBrush ImageSource="/Resources/Images/Login/user-icon.png"
                                         Stretch="None"
@@ -157,7 +157,7 @@
                              
                              VerticalContentAlignment="Center"
                              
-                             Padding="20,0,0,0" >
+                             Padding="10,0,0,0" >
                         <PasswordBox.Background>
                             <ImageBrush ImageSource="/Resources/Images/Login/key-icon.png"
                                         Stretch="None"
