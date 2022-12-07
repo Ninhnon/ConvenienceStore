@@ -7,7 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
-      xmlns:AddNewSupplierCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.AddNewSupplierCommand"
+      xmlns:SupplierCard="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.SupplierCard"
       mc:Ignorable="d" 
       Height="660"
      Width="1100"
@@ -16,6 +16,7 @@
       >
     <Page.Resources>
         <Converters:StringToVisibility x:Key="StringToVisibility"/>
+        <SupplierCard:EditSupplierButton x:Key="EditSupplierButton"/>
     </Page.Resources>
     <Border CornerRadius="0,0,20,0">
         <Border.Background>
@@ -198,7 +199,7 @@
                                             Foreground="#4B0082"
                                             Height="32"
                                             Padding="6 4"
-                                            Command="{Binding Source={StaticResource SupplierVM}, Path=EditSupplierButton}"
+                                            Command="{StaticResource EditSupplierButton}"
                                             CommandParameter="{Binding}"/>
                                         <Button Style="{StaticResource MaterialDesignFlatLightButton}"
                                             Content="{materialDesign:PackIcon Kind=Delete, Size=24}"

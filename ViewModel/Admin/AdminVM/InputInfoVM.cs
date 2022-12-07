@@ -125,8 +125,6 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public AddProductButtonCommand AddProductButtonCommand { get; set; }
         public DeleteProductCommand DeleteProductCommand { get; set; }
         public SaveNewProductCommand SaveNewProductCommand { get; set; }
-        public EditProductButton EditProductButton { get; set; }
-
         public ICommand SupplierCommand { get; set; }
         public InputInfoVM()
         {
@@ -159,8 +157,6 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             AddProductButtonCommand = new AddProductButtonCommand(this);
             DeleteProductCommand = new DeleteProductCommand(this);
             SaveNewProductCommand = new SaveNewProductCommand(this);
-
-            EditProductButton = new EditProductButton(this);
         }
 
         public void LoadProducts()
