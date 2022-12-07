@@ -35,7 +35,6 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             w1.staffname.Text = CurrentAccount.Name;
             w1.cbxStatusError.Text = SelectedItem.Status;
             w1.submitdate.Text = SelectedItem.SubmittedAt.ToShortDateString();
-            Level.Content = SelectedItem.Level;
             Description = SelectedItem.Description;
             BitmapImage image = new BitmapImage();
             image.BeginInit();
@@ -53,7 +52,6 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 Report tb = new Report
                 {
                     Title = Title,
-                    Level = Level.Content.ToString(),
                     Description = Description,
                     StaffId = CurrentAccount.idAccount,
 

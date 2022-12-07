@@ -96,9 +96,11 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         public ICommand OpenAddErrorCommand { get; set; }
         public ICommand MaskNameCM { get; set; }
         public ICommand UploadImageCM { get; set; }
+        public ICommand UploadImageCommand { get; set; }
         public ICommand CloseCM { get; set; }
         public ICommand MouseMoveCommand { get; set; }
 
+        public ICommand SaveNewTroubleCommand { get; set; }
         string? filepath;
         bool IsImageChanged = false;
         public static Grid MaskName { get; set; }
@@ -138,9 +140,10 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             OpenAddErrorCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 RenewWindowData();
-                AddError w1 = new();
+                AddTrouble w1 = new();
                 MaskName.Visibility = Visibility.Visible;
                 w1.StaffName.Text = CurrentAccount.Name.ToString();
+                w1.cbxStatus.Text = "Chờ tiếp nhận";
                 w1.ShowDialog();
             });
             SaveErrorCM = new RelayCommand<AddError>((p) => { if (IsSaving) return false; return true; }, (p) =>
@@ -165,6 +168,26 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 }
                 IsImageChanged = false;
 
+            });
+            UploadImageCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+            OpenFileDialog openfile = new()
+            {
+                Title = "Select an image",
+                Filter = "Image File (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg; *.png"
+            };
+                if (openfile.ShowDialog() == DialogResult.OK)
+                {
+                    filepath = openfile.FileName;
+                    ImageSource = new BitmapImage(new Uri(filepath));
+                }
+            });
+            SaveNewTroubleCommand = new RelayCommand<AddTrouble>((p) => { return true; }, (p) =>
+            {
+                IsSaving = true;
+                Save(p);
+                MaskName.Visibility = Visibility.Collapsed;
+                IsSaving = false;
             });
             LoadEditErrorCM = new RelayCommand<EditError>((p) => { return true; }, (p) =>
             {

@@ -1,4 +1,5 @@
 ﻿using ConvenienceStore.Model.Admin;
+using ConvenienceStore.Model.Staff;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -48,5 +49,24 @@ namespace ConvenienceStore.Utils.Validation
         {
             return Stock > 0;
         }
+    }
+    public class ReportValidator : AbstractValidator<Report>
+    {
+        public ReportValidator()
+        {
+            RuleFor(p => p.Title)
+                .NotEmpty().WithMessage("Chưa nhập Tên vấn đề");
+
+
+            RuleFor(p => p.RepairCost)
+                .Must(NonNegativeInteger).WithMessage("Chi phí dự kiến phải >= 0");
+
+        }
+
+        protected bool NonNegativeInteger(int Number)
+        {
+            return Number >= 0;
+        }
+
     }
 }
