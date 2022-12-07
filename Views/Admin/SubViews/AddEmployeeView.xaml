@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConvenienceStore.Views.Admin.SubViews"
         mc:Ignorable="d"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         WindowStartupLocation="CenterScreen"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:uc="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
@@ -109,10 +110,10 @@
                                             HorizontalAlignment="Center"
                                             Visibility="{Binding ElementName=ImageProduct, Path=ImageSource, Converter={StaticResource HasImageConverter}}">
 
-                                                    <Image x:Name="IconPicture" 
-                                            Source="/Resources/Images/IconForProduct/avatar.png"
-                                            Width="75"
-                                            Margin="0 0 0 5"/>
+                                                    <fa:IconImage Width="75"
+                                            Margin="0 0 0 5" Icon="User">
+                                                        
+                                                    </fa:IconImage>
 
                                                     <TextBlock Text="Image Preview"
                                                Foreground="#808080"
