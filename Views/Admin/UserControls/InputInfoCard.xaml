@@ -27,7 +27,7 @@
                               Opacity="0.45"
                               RenderingBias="Performance"
                               ShadowDepth="1.5"/>
-        </Border.Effect>
+            </Border.Effect>
 
         <Grid>
 
