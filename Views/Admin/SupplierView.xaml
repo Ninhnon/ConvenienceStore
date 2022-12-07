@@ -165,7 +165,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Address" 
+                        <DataGridTemplateColumn Header="Địa chỉ" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
                                         Width="*">
@@ -176,7 +176,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Phone" 
+                        <DataGridTextColumn Header="Số điện thoại" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
                                         Width="140"
@@ -187,7 +187,7 @@
                                         Width="200"
                                         Binding="{Binding Email}"/>
 
-                        <DataGridTemplateColumn Header="Operations"
+                        <DataGridTemplateColumn Header="Thao tác"
                                             IsReadOnly="True"
                                             CanUserResize="False"
                                             Width="Auto">

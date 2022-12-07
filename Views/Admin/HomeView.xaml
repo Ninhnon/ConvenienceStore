@@ -5,7 +5,8 @@
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ConvenienceStore.Views.Admin"
+       xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+      xmlns:local="clr-namespace:ConvenienceStore.Views.Admin"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
       xmlns:Uc="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
@@ -63,7 +64,9 @@
                                 <RowDefinition Height="2*"/>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Text="&#xe602;"  FontSize="35" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>
+                            <fa:IconImage Icon="SackDollar" HorizontalAlignment="Left"
+                                          Width="41"
+                                          Margin="10,0,0,19" Foreground="AliceBlue" Grid.RowSpan="2"/>
                             <TextBlock Text="{Binding ThisMonth}" Grid.Row="1" VerticalAlignment="Center" FontSize="16" Margin="10 0 0 0" Foreground="White"/>
                             <TextBlock Text="{Binding ThisMonthRevenue}" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="2" FontSize="22" Margin="10 0 0 0" Foreground="White"/>
                             <TextBlock Text="{Binding IncreasingPercent}" Grid.Row="3" FontSize="20" Foreground="White" Margin="10 0 0 0" VerticalAlignment="Center"/>
@@ -95,7 +98,11 @@
                                     FontWeight="Bold" VerticalAlignment="Center"  FontSize="22" 
                                    Margin="10 0 0 0" Foreground="White"
                                    Grid.Row="2"></TextBlock>
-                            <TextBlock Text="&#xe602;"  FontSize="35" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>
+                            <fa:IconImage HorizontalAlignment="Left"
+                                          Width="41"
+                                          Margin="10,0,0,19" Foreground="AliceBlue" Grid.RowSpan="2"
+                                Icon="MoneyCheckDollar" />
+
                             <TextBlock Text="{Binding ThisMonth1}" Grid.Row="1" VerticalAlignment="Center" FontSize="16" Margin="10 0 0 0" Foreground="White"/>
                             <TextBlock Text="{Binding NumOfSoldBill}" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="3" FontSize="22" Margin="10 0 0 0" Foreground="White"/>
 
