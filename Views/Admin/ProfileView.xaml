@@ -9,12 +9,11 @@
       xmlns:ProfileCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.ProfileCommand"
       DataContext="{StaticResource AdminProfileVM}"
       mc:Ignorable="d" 
-
       Style="{StaticResource Page_Style}"
-      Title="ProfileView">
-
+      Title="ProfileView"
       Height="600"
-      Width="1125">
+      Width="1125"
+      >
 
 
     <Page.Resources>
@@ -178,16 +177,16 @@
             <Border Height="60"
                     VerticalAlignment="Top"
                     Margin="0 15 0 0"
-                    Width="{Binding ElementName=a, Path=ActualWidth}"
+                    Width="300"
                     Background="White"
                     CornerRadius="10">
                 <Border.Effect>
                     <DropShadowEffect 
-                                    BlurRadius="13"
+                                    BlurRadius="5"
                                     Direction="270"
                                     Opacity="0.45"
                                     RenderingBias="Performance"
-                                    ShadowDepth="3.5"
+                                    ShadowDepth="1.5"
                                     Color="{StaticResource MaterialDesignShadow}"/>
                 </Border.Effect>
                 <TextBlock Text="Nhóm của tôi"
@@ -237,11 +236,11 @@
                                 Background="White">
                             <Border.Effect>
                                 <DropShadowEffect 
-                                    BlurRadius="13"
+                                   BlurRadius="5"
                                     Direction="270"
                                     Opacity="0.45"
                                     RenderingBias="Performance"
-                                    ShadowDepth="3.5"
+                                    ShadowDepth="1.5"
                                     Color="{StaticResource MaterialDesignShadow}"/>
                             </Border.Effect>
 
@@ -252,7 +251,8 @@
                                          VerticalAlignment="Top"
                                          Margin="0 0 0 10">
                                     <Ellipse.Fill>
-                                        <ImageBrush ImageSource="{Binding Avatar}"/>
+                                        <ImageBrush ImageSource="{Binding Avatar}"
+                                                    Stretch="UniformToFill"/>
                                     </Ellipse.Fill>
                                 </Ellipse>
 

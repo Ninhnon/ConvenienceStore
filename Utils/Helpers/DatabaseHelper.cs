@@ -1,5 +1,6 @@
 using ConvenienceStore.Model;
 using ConvenienceStore.Model.Admin;
+using ConvenienceStore.Model.Staff;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -38,6 +39,8 @@ namespace ConvenienceStore.Utils.Helpers
 
         static readonly string queryStaffOnTeam = @"select Name, Avatar from Users
                                                     where ManagerId = {0}";
+
+        static readonly string queryAccountUsers = "select * from Users";
 
         static readonly string insertInputInfo = "insert InputInfo values ('{0}', {1}, {2})";
 
@@ -95,11 +98,8 @@ namespace ConvenienceStore.Utils.Helpers
                         UserName = reader.GetString(3),
                         Email = reader.GetString(4),
                         Phone = reader.GetString(5),
-                        //Avatar =  (byte[])reader["Image"],
-                        //SupplerId = reader.GetInt32(7),
+                        Avatar =  (byte[])reader["Avatar"],
                         SupplierName = reader.GetString(7),
-
-                        
                     }
                 );
             }
@@ -248,6 +248,35 @@ namespace ConvenienceStore.Utils.Helpers
 
             sqlCon.Close();
             return newestId;
+        }
+
+        public static List<Account> FetchingAccountData()
+        {
+            sqlCon.Open();
+            var cmd = new SqlCommand(queryUser, sqlCon);
+            List<Account> accounts = new List<Account>();
+
+            SqlDataReader read = cmd.ExecuteReader();
+
+            while (read.Read())
+            {
+                accounts.Add(new Account()
+                {
+                    IdAccount = read.GetInt32(0),
+                    UserRole = read.GetString(1),
+                    Name = read.GetString(2),
+                    Address = read.GetString(3),
+                    Phone = read.GetString(4),
+                    Email = read.GetString(5),
+                    UserName = read.GetString(6),
+                    Password = read.GetString(7),
+                    Avatar = (byte[])(read["Avatar"])
+                });
+
+            }
+
+            sqlCon.Close();
+            return accounts;
         }
 
         public static void InsertInputInfo(DateTime dateTime, int UserId, int SupplierId)
@@ -493,6 +522,15 @@ namespace ConvenienceStore.Utils.Helpers
             var strCmd = string.Format(deleteSupplier, supplierId);
             var cmd = new SqlCommand(strCmd, sqlCon);
             cmd.ExecuteNonQuery();
+
+            sqlCon.Close();
+        }
+    
+        public static void GetAvatarViaId(int Id)
+        {
+            sqlCon.Open();
+
+            
 
             sqlCon.Close();
         }

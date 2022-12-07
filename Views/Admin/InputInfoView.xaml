@@ -270,9 +270,11 @@
                          VerticalAlignment="Top"
                          Grid.Row="0"
                          Grid.RowSpan="2"
-                         Fill="#E9E9E9"
                          Margin="0 0 0 30">
-
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding Avatar}"
+                                        Stretch="UniformToFill"/>
+                        </Ellipse.Fill>
                 </Ellipse>
 
                 <StackPanel Margin="0 0 0 15">
