@@ -21,7 +21,7 @@
                 <GradientStop Color='#D3CCE3' Offset="1"/>
             </LinearGradientBrush>
         </Border.Background>
-        <Grid DataContext="{StaticResource SupplierVM}" HorizontalAlignment="Right" Width="1125"
+        <Grid DataContext="{StaticResource EmployeeVM}" HorizontalAlignment="Right" Width="1125"
               >
 
 
@@ -69,7 +69,7 @@
                            FontSize="24"
                            FontWeight="DemiBold"
                            VerticalAlignment="Center"/>
-                        <TextBlock Text="{Binding ObservableSupplier.Count}"
+                        <TextBlock Text="{Binding ObservableEmployee.Count}"
                            d:Text="10"
                            FontSize="24"
                            FontWeight="DemiBold"
@@ -118,7 +118,7 @@
                             </Grid>
 
                             <Border Grid.Column="1"
-                                Background="{StaticResource PrimaryColor}"
+                                Background="#B06AB3"
                                 CornerRadius="0 20 20 0"
                                 Cursor="Hand"
                                 >
@@ -139,7 +139,7 @@
                       CellStyle="{DynamicResource DataGridCellStyle1}" 
                       ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
                       RowStyle="{DynamicResource DataGridRowStyle1}"
-                      ItemsSource="{Binding ObservableSupplier}"
+                      ItemsSource="{Binding ObservableEmployee}"
                       ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                       ScrollViewer.VerticalScrollBarVisibility="Hidden"
                       ScrollViewer.CanContentScroll="False"
@@ -153,9 +153,9 @@
                                         IsReadOnly="True"
                                         CanUserResize="False"
                                         Width="Auto"
-                                        Binding="{Binding Number}"/>
+                                        Binding="{Binding IdAccount}"/>
                         <DataGridTemplateColumn x:Name="NameSupplier"
-                                            Header="Nhà cung cấp"
+                                            Header="Tên nhân viên"
                                             IsReadOnly="True"
                                             CanUserResize="False"
                                             Width="*">
@@ -166,7 +166,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Address" 
+                        <DataGridTemplateColumn Header="Địa Chỉ" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
                                         Width="*">
@@ -177,7 +177,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Phone" 
+                        <DataGridTextColumn Header="Số điện thoại" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
                                         Width="140"
@@ -188,7 +188,7 @@
                                         Width="200"
                                         Binding="{Binding Email}"/>
 
-                        <DataGridTemplateColumn Header="Operations"
+                        <DataGridTemplateColumn Header="Thao tác"
                                             IsReadOnly="True"
                                             CanUserResize="False"
                                             Width="Auto">

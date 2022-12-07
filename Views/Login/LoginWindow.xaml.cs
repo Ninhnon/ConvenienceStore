@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using ConvenienceStore.Utils.DataLayerAccess;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ConvenienceStore.Views.Login
@@ -26,6 +27,7 @@ namespace ConvenienceStore.Views.Login
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
+           
             Application.Current.Shutdown();
         }
     }

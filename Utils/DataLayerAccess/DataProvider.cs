@@ -25,9 +25,9 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 CloseConnection();
                 return dt;
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("Mat ket noi den CSDL");
+                throw ex;
 
             }
             return dt;
