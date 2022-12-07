@@ -6,6 +6,7 @@
         mc:Ignorable="d"
         Title="QR" 
         Height="380" 
+    
         Width="370"
         Background="#566895" DataContext="{StaticResource ProductVM}" Closed="Window_Closed" >
     <StackPanel>

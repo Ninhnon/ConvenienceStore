@@ -1,6 +1,5 @@
-﻿using ConvenienceStore.Model.Admin;
-using ConvenienceStore.ViewModel.Admin.AdminVM;
-using ConvenienceStore.Utils.Helpers;
+﻿using ConvenienceStore.ViewModel.Admin.AdminVM;
+using ConvenienceStore.Views.Admin.InputInfoWindow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand
+namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand.DeleteInputInfoCommand
 {
-    public class DeleteInputInfoCommand : ICommand
+    public class OpenAlertDialog : ICommand
     {
         InputInfoVM VM;
-        public DeleteInputInfoCommand(InputInfoVM VM)
+        public OpenAlertDialog(InputInfoVM VM)
         {
             this.VM = VM;
         }
@@ -31,10 +30,11 @@ namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand
 
         public void Execute(object parameter)
         {
-            var inputInfo = (InputInfo)parameter;
-            VM.ObservableInputInfos.Remove(inputInfo);
-            VM.inputInfos.Remove(inputInfo);
-            DatabaseHelper.DeleteInputInfo(inputInfo.Id);
+            var alertDialog = new AlertDialogDeleteInputInfo()
+            {
+                DataContext = VM,
+            };
+            alertDialog.ShowDialog();
         }
     }
 }

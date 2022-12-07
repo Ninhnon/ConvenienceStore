@@ -61,11 +61,15 @@ namespace ConvenienceStore.Model
             set { password_ = value; }
         }
         private static byte[] avatar_;
-        public static byte[] avatar
+        public static byte[] Avatar
         {
             get => avatar_;
             set { avatar_ = value; }
         }
+      
+        private static int managerId_;
+        public static int ManagerId
+        { get { return managerId_; } set { managerId_ = value; } }
 
     }
 }

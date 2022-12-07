@@ -20,9 +20,8 @@ namespace ConvenienceStore.ViewModel.Login
 {
     public class LoginViewModel : BaseViewModel
     {
-
         public ICommand PasswordChangedCommand { get; set; }
-        public ICommand OpenSignUpWindowCommand { get; set; }
+        public ICommand OpenForgotPasswordWindowCommand { get; set; }
         public ICommand LogInCommand { get; set; }
         private string password;
         public string Password { get => password; set { password = value; OnPropertyChanged(); } }
@@ -35,7 +34,7 @@ namespace ConvenienceStore.ViewModel.Login
         {
             LogInCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => Login(parameter));
             PasswordChangedCommand = new RelayCommand<PasswordBox>((parameter) => true, (parameter) => EncodingPassword(parameter));
-            OpenSignUpWindowCommand = new RelayCommand<Window>((parameter) => true, (parameter) => OpenSignUpWindow(parameter));
+            OpenForgotPasswordWindowCommand = new RelayCommand<Window>((parameter) => true, (parameter) => OpenForgotPasswordWindow(parameter));
         }
         public void Login(LoginWindow parameter)
         {
@@ -67,11 +66,11 @@ namespace ConvenienceStore.ViewModel.Login
                     CurrentAccount.Phone = account.Phone;
                     CurrentAccount.idAccount = account.IdAccount;
                     CurrentAccount.Password = account.Password;
-                    CurrentAccount.avatar = account.avatar;
+                    CurrentAccount.Avatar = account.Avatar;
                     MessageBoxCustom mb = new("Thông báo", "Đăng nhập thành công", MessageType.Success, MessageButtons.OK);
-                    mb.ShowDialog();
                     flag = 1;
                     isLogin = true;
+                    mb.ShowDialog();
                     break;
 
                 }
@@ -99,7 +98,7 @@ namespace ConvenienceStore.ViewModel.Login
                 parameter.Close();
                 home.ShowDialog();
 
-                parameter.Show();
+                //parameter.Show();
             }
         }
 
@@ -108,16 +107,17 @@ namespace ConvenienceStore.ViewModel.Login
             password = parameter.Password;
             //  this.password = MD5Hash(this.password);
         }
-        public void OpenSignUpWindow(Window parameter)
+        public void OpenForgotPasswordWindow(Window parameter)
         {
-            SignUpWindow signUp = new SignUpWindow();
-            signUp.txtUsername.Text = null;
-            parameter.Opacity = 0.5;
+            ForgotPasswordWindow forgot=new ForgotPasswordWindow();
+            
+            
             parameter.WindowStyle = WindowStyle.None;
-            signUp.ShowDialog();
-            parameter.WindowStyle = WindowStyle.SingleBorderWindow;
+            forgot.ShowDialog();
+           
             parameter.Opacity = 1;
             parameter.Show();
         }
+        
     }
 }

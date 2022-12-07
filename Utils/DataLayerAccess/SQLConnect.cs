@@ -16,9 +16,9 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             {
                 strConn = @ConfigurationManager.ConnectionStrings["Default"].ToString(); ;
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("Mat ket noi CSDL");
+                throw ex;
                 return;
             }
             conn = new SqlConnection(strConn);
@@ -35,7 +35,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Mat ket noi CSDL");
+                
                 throw ex;
             }
         }

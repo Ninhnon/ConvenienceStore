@@ -20,7 +20,7 @@ namespace ConvenienceStore.Views.Admin
     /// <summary>
     /// Interaction logic for EmployeeView.xaml
     /// </summary>
-    public partial class EmployeeView : UserControl
+    public partial class EmployeeView : System.Windows.Controls.Page
     {
         public EmployeeView()
         {

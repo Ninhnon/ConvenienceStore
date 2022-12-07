@@ -11,6 +11,7 @@
     <None Remove="Resources\Images\IconForInputInfo\box.png" />
     <None Remove="Resources\Images\IconForInputInfo\calendar.png" />
     <None Remove="Resources\Images\IconForInputInfo\calendar_color.png" />
+    <None Remove="Resources\Images\IconForInputInfo\close_box.png" />
     <None Remove="Resources\Images\IconForInputInfo\delivery-courier.png" />
     <None Remove="Resources\Images\IconForInputInfo\gmail.png" />
     <None Remove="Resources\Images\IconForInputInfo\info_32.png" />
@@ -18,7 +19,9 @@
     <None Remove="Resources\Images\IconForInputInfo\truck_64.png" />
     <None Remove="Resources\Images\IconForInputInfo\user_64.png" />
     <None Remove="Resources\Images\IconForInputInfo\user_color.png" />
+    <None Remove="Resources\Images\IconForProduct\addEmployee.png" />
     <None Remove="Resources\Images\IconForProduct\arrow.png" />
+    <None Remove="Resources\Images\IconForProduct\avatar.png" />
     <None Remove="Resources\Images\IconForProduct\box.png" />
     <None Remove="Resources\Images\IconForProduct\calendar.png" />
     <None Remove="Resources\Images\IconForProduct\image.png" />
@@ -28,6 +31,7 @@
     <None Remove="Resources\Images\IconForProduct\salary.png" />
     <None Remove="Resources\Images\IconForProduct\schedule.png" />
     <None Remove="Resources\Images\IconForProduct\tag.png" />
+    <None Remove="Resources\Images\Login\logo.jpg" />
     <None Remove="Resources\Images\Menu\home.png" />
     <None Remove="Resources\Images\OverallApp\caret-arrow-up.png" />
     <None Remove="Resources\Images\OverallApp\caret-down.png" />
@@ -93,6 +97,7 @@
     <Resource Include="Resources\Images\IconForInputInfo\box.png" />
     <Resource Include="Resources\Images\IconForInputInfo\calendar.png" />
     <Resource Include="Resources\Images\IconForInputInfo\calendar_color.png" />
+    <Resource Include="Resources\Images\IconForInputInfo\close_box.png" />
     <Resource Include="Resources\Images\IconForInputInfo\delivery-courier.png" />
     <Resource Include="Resources\Images\IconForInputInfo\gmail.png" />
     <Resource Include="Resources\Images\IconForInputInfo\info_32.png" />
@@ -100,7 +105,9 @@
     <Resource Include="Resources\Images\IconForInputInfo\truck_64.png" />
     <Resource Include="Resources\Images\IconForInputInfo\user_64.png" />
     <Resource Include="Resources\Images\IconForInputInfo\user_color.png" />
+    <Resource Include="Resources\Images\IconForProduct\addEmployee.png" />
     <Resource Include="Resources\Images\IconForProduct\arrow.png" />
+    <Resource Include="Resources\Images\IconForProduct\avatar.png" />
     <Resource Include="Resources\Images\IconForProduct\box.png" />
     <Resource Include="Resources\Images\IconForProduct\calendar.png" />
     <Resource Include="Resources\Images\IconForProduct\image.png" />
@@ -110,6 +117,7 @@
     <Resource Include="Resources\Images\IconForProduct\salary.png" />
     <Resource Include="Resources\Images\IconForProduct\schedule.png" />
     <Resource Include="Resources\Images\IconForProduct\tag.png" />
+    <Resource Include="Resources\Images\Login\logo.jpg" />
     <Resource Include="Resources\Images\Menu\home.png" />
     <Resource Include="Resources\Images\OverallApp\caret-arrow-up.png" />
     <Resource Include="Resources\Images\OverallApp\caret-down.png" />

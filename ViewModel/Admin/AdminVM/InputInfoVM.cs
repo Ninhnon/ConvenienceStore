@@ -1,9 +1,12 @@
-﻿using ConvenienceStore.Model.Admin;
+﻿using ConvenienceStore.Model;
+using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand;
+using ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand.DeleteInputInfoCommand;
 using ConvenienceStore.ViewModel.Admin.Command.ProductCommand;
 using ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductCommand;
 using ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCommand;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -14,6 +17,18 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 {
     public class InputInfoVM : BaseViewModel, INotifyPropertyChanged
     {
+        private string curAccountName;
+
+        public string CurAccountName
+        {
+            get { return curAccountName; }
+            set 
+            { 
+                curAccountName = value;
+                OnPropertyChanged("CurAccountName");
+            }
+        }
+
         public ObservableCollection<Manager> managers { get; set; }
         public List<InputInfo> inputInfos { get; set; }
         public ObservableCollection<InputInfo> ObservableInputInfos { get; set; }
@@ -104,16 +119,17 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public OpenInputInfoCommand OpenInputInfoCommand { get; set; }
         public AddInputInfoButtonCommand AddInputInfoButtonCommand { get; set; }
         public CreateInputInfoButtonCommand CreateInputInfoButtonCommand { get; set; }
-        public DeleteInputInfoCommand DeleteInputInfoCommand { get; set; }
+        public OpenAlertDialog OpenAlertDialog { get; set; }
+        public DeleteInputInfo DeleteInputInfo { get; set; }
         public SearchButtonCommand SearchButtonCommand { get; set; }
         public AddProductButtonCommand AddProductButtonCommand { get; set; }
         public DeleteProductCommand DeleteProductCommand { get; set; }
         public SaveNewProductCommand SaveNewProductCommand { get; set; }
-        public EditProductButton EditProductButton { get; set; }
-
         public ICommand SupplierCommand { get; set; }
         public InputInfoVM()
         {
+            CurAccountName = CurrentAccount.Name;
+
             inputInfos = DatabaseHelper.FetchingInputInfo();
             ObservableInputInfos = new ObservableCollection<InputInfo>();
 
@@ -134,15 +150,13 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             OpenInputInfoCommand = new OpenInputInfoCommand(this);
             AddInputInfoButtonCommand = new AddInputInfoButtonCommand(this);
             CreateInputInfoButtonCommand = new CreateInputInfoButtonCommand(this);
-            DeleteInputInfoCommand = new DeleteInputInfoCommand(this);
+            OpenAlertDialog = new OpenAlertDialog(this);
+            DeleteInputInfo = new DeleteInputInfo(this);
 
             SearchButtonCommand = new SearchButtonCommand(this);
             AddProductButtonCommand = new AddProductButtonCommand(this);
             DeleteProductCommand = new DeleteProductCommand(this);
             SaveNewProductCommand = new SaveNewProductCommand(this);
-
-            EditProductButton = new EditProductButton(this);
-
         }
 
         public void LoadProducts()

@@ -30,8 +30,8 @@
 
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                    <GradientStop Color='#283c86' Offset="0"/>
-                    <GradientStop Color='#cbb4d4' Offset="1"/>
+                    <GradientStop Color='#E9E4F0' Offset="0"/>
+                    <GradientStop Color='#D3CCE3' Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
             <Grid>
@@ -80,29 +80,31 @@
                             Grid.Row="1"
                             Orientation="Vertical"
                             Margin="288,34.6,288.8,0.2">
-
-                    <Image Source="/Resources/Images/Login/Thuong1.png"
-                           Width="200" Height="110"
+                    <Border CornerRadius="30"
+                              Width="220" Height="155">
+                        <Border.Background>
+                            <ImageBrush
+                        ImageSource="/Resources/Images/Login/logo.jpg"
+                         
                            
                            >
-                        <Image.OpacityMask>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#cbb4d4" Offset="0"/>
-                                <GradientStop Color="#FF732E2E" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Image.OpacityMask>
-                    </Image>
+                              
+                            </ImageBrush>
+                        </Border.Background>
+                       
+                    </Border>
+                    
                     <TextBlock Text="Visual project"
                                FontSize="25"
                                FontFamily="Montserrat"
                                HorizontalAlignment="Center"
                                FontWeight="Bold"
-                               FontStyle="Italic"
+                              Margin="0,10,0,0"
                                >
                         <TextBlock.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#cbb4d4" Offset="0"/>
-                                <GradientStop Color="#FF7DD2F1" Offset="1"/>
+                                <GradientStop Color="#fd746c" Offset="0"/>
+                                <GradientStop Color="#F29492" Offset="1"/>
                             </LinearGradientBrush>
                         </TextBlock.Foreground>
                     </TextBlock>
@@ -121,7 +123,7 @@
                             
                              FontWeight="Medium"
                              FontFamily="Montserrat"                            
-                             Foreground="White"
+                             Foreground="Black"
                              CaretBrush="LightGray"
                              BorderBrush="DarkGray"
                              BorderThickness="0,0,0,2"
@@ -148,7 +150,7 @@
                    FontSize="13"
                              FontWeight="Medium"
                              FontFamily="Montserrat"                            
-                             Foreground="White"
+                             Foreground="Black"
                              CaretBrush="LightGray"
                              BorderBrush="DarkGray"
                              BorderThickness="0,0,0,2"
@@ -201,28 +203,24 @@
                                 HorizontalAlignment="Center"
                                 Margin="0,15,0,0">
 
-                        <TextBlock Text="Chưa có tài khoản?"
-                               Foreground="DarkGray"
-                               FontSize="12"
-                               FontWeight="Medium"
-                               FontFamily="Montserrat"/>
+                        
 
 
-                        <Button 
+                        <Button Foreground="Black"
                             Background="Transparent"
                 x:Name="btnSignUp" 
                             BorderThickness="0"
                 FocusVisualStyle="{x:Null}"
-                Command="{Binding OpenSignUpWindowCommand}"
+                Command="{Binding OpenForgotPasswordWindowCommand}"
                 CommandParameter="{Binding ElementName=wdLogin}"
-                Content="Đăng ký" 
-                ToolTip="Chưa có tài khoản? Hãy đăng ký"
+                Content="Quên mật khẩu" 
+                ToolTip="Quên mật khẩu? Hãy nhấn"
                
              
                 Padding="0" 
                
                 
-                Foreground="White"
+              
                                FontSize="12"
                                FontWeight="Medium"
                                FontFamily="Montserrat"

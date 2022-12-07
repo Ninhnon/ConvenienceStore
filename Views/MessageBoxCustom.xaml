@@ -112,6 +112,7 @@
 
                         <Button x:Name="btnOk"
                                 Click="btnOk_Click"
+                                IsDefault="True"
                                 Grid.Column="1"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 BorderBrush="Black"

@@ -48,12 +48,15 @@ namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand
             var newInputInfo = new InputInfo()
             {
                 InputDate = (DateTime)window.DatePicker.SelectedDate,
-                UserId = 2,
-                UserName = "Trần Lê Hoàng Lâm",
+                UserId = CurrentAccount.idAccount,
+                UserName = CurrentAccount.Name,
+                Email = CurrentAccount.Email,
+                Phone = CurrentAccount.Phone,
+                Avatar = CurrentAccount.Avatar,
                 SupplierName = supplier.Name,
             };
 
-            DatabaseHelper.InsertInputInfo(newInputInfo.InputDate, 2, supplier.Id);
+            DatabaseHelper.InsertInputInfo(newInputInfo.InputDate, CurrentAccount.idAccount, supplier.Id);
 
             newInputInfo.Id = DatabaseHelper.NewestInputInfoId();
 
@@ -63,7 +66,6 @@ namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand
             {
                 VM.ObservableInputInfos.Add(newInputInfo);
             }
-            
             
             window.Close();
         }

@@ -6,6 +6,10 @@ using ConvenienceStore.Views.Staff.VoucherWindow;
 using ConvenienceStore.Views.Staff;
 using System.Windows.Controls;
 using System.Windows.Input;
+using ConvenienceStore.Model;
+using ConvenienceStore.Utils.Helpers;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace ConvenienceStore.ViewModel.Admin
 {
@@ -52,14 +56,48 @@ namespace ConvenienceStore.ViewModel.Admin
         public ICommand ProductCommand { get; set; }
         public ICommand ProfileCommand { get; set; }
         public ICommand ReportCommand { get; set; }
+        public ICommand ChartCommand { get; set; }
+
+        public ICommand VoucherCommand { get; set; }
         public ICommand SupplierCommand { get; set; }
         public ICommand InputInfoCommand { get; set; }
         public ICommand ShowPanelCommand { get; set; }
         public ICommand HidePanelCommand { get; set; }
         public ICommand SizeChangedCommand { get; set; }
 
+
+        private string? _ten;
+        public string? Ten
+        {
+            get => _ten;
+            set
+            {
+                _ten = value; OnPropertyChanged();
+            }
+        }
+        private string? _Email;
+        public string? Email
+        {
+            get => _Email;
+            set
+            {
+                _Email = value; OnPropertyChanged();
+            }
+        }
+        private byte[] _Anh;
+        public byte[] Anh
+        {
+            get => _Anh;
+            set
+            {
+                _Anh = value; OnPropertyChanged();
+            }
+        }
         public AdminMainViewModel()
         {
+            Ten = CurrentAccount.Name;
+            Anh = DatabaseHelper.LoadAvatar(CurrentAccount.idAccount);
+            Email = CurrentAccount.Email;
             IsPanelVisible = 0;  //moi vo la no ko mo menu =hidden
             OpacityChange = 1;
             OpacityChange1 = 0.9;
@@ -92,6 +130,16 @@ namespace ConvenienceStore.ViewModel.Admin
                 p.Content = new TroublePage();
 
             });
+            ChartCommand = new RelayCommand<Frame>(parameter => true, (parameter) =>
+            {
+                parameter.Content = new ReportView();
+            });
+            VoucherCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new VoucherView();
+
+            });
+
             ShowPanelCommand = new RelayCommand<AdminMainWindow>(parameter => true, parameter => Show(parameter));
             HidePanelCommand = new RelayCommand<AdminMainWindow>(parameter => true, parameter => Hide(parameter));
             SizeChangedCommand = new RelayCommand<AdminMainWindow>(parameter => true, parameter => SizeChanged(parameter));

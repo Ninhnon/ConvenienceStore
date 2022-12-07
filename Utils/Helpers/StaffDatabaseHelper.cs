@@ -4,10 +4,6 @@ using ConvenienceStore.Model.Staff;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZXing;
 
 namespace ConvenienceStore.Utils.Helpers
 {
@@ -29,7 +25,9 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryConsingment = @"select * from [Consignment]";
         static readonly string queryCustomerData = @"select * from [Customer]";
         static readonly string queryBillData = @"select * from [Bill]";
-        static readonly string insertErorrs = "insert into Report(Title, Description, Status, RepairCost, SubmittedAt, StaffId, Level, Image) select N'{0}',N'{1}',N'Chờ tiếp nhận',{2},N'{3}',N'{4}',N'{5}', BulkColumn FROM Openrowset(Bulk N'{6}', Single_Blob) as img";
+        static readonly string queryAvatar = @"select Avatar from [Users] where Id={0}";
+        static readonly string insertErorrs = "insert into Report(Title, Description, Status, RepairCost, SubmittedAt, StaffId, Image) select N'{0}',N'{1}',N'{2}',{3},N'{4}',N'{5}', BulkColumn FROM Openrowset(Bulk N'{6}', Single_Blob) as img";
+        static readonly string insertReport = "insert Report values (@Title, @Description, @Status, @SubmittedAt,Null,Null,@RepairCost,@StaffId, @Image)";
         static readonly string insertBillData = @"insert into Bill(BillDate, CustomerId, UserId, Price) Values (@billDate, @cusId, @userId, @price)";
 
         public static List<Model.Staff.Bill> FetchingBillData()
@@ -55,7 +53,7 @@ namespace ConvenienceStore.Utils.Helpers
             reader.Close();
             sqlCon.Close();
             return reports;
-        } 
+        }
         public static List<Consignment> FetchingConsignmentData()
         {
             sqlCon.Open();
@@ -105,7 +103,7 @@ namespace ConvenienceStore.Utils.Helpers
                     Email = read.IsDBNull(5) ? null : read.GetString(5),
                     UserName = read.GetString(6),
                     Password = read.GetString(7),
-                    Image = Convert.FromBase64String(read["Avatar"].ToString())
+                    Image = (byte[])(read["Avatar"])
                 });
 
             }
@@ -131,11 +129,10 @@ namespace ConvenienceStore.Utils.Helpers
                     Description = reader.GetString(2),
                     Status = reader.GetString(3),
                     SubmittedAt = reader.GetDateTime(4),
-                    RepairCost = reader.IsDBNull(5) ? null : reader.GetDecimal(5),
+                    RepairCost = reader.GetInt32(5),
                     StartDate = reader.IsDBNull(6) ? null : reader.GetDateTime(6),
-                    FinishDate = reader.IsDBNull(7) ? null : reader.GetDateTime(6),
-                    StaffId = reader.GetInt32(8),
-                    Level = reader.GetString(9),
+                    FinishDate = reader.IsDBNull(7) ? null : reader.GetDateTime(7),
+                    StaffId = reader.IsDBNull(8) ? 1 : reader.GetInt32(8),
                     Image = (byte[])(reader["Image"]),
                 });
 
@@ -158,12 +155,13 @@ namespace ConvenienceStore.Utils.Helpers
             {
                 vouchers.Add(new Vouchers()
                 {
-                    ReleaseId = reader.GetString(0),
-                    ReleaseName = reader.GetString(1),
-                    StartDate = reader.GetDateTime(2),
-                    FinishDate = reader.GetDateTime(3),
-                    ParValue = reader.GetInt32(4),
-                    Status = reader.GetBoolean(5),
+                    Id=reader.GetInt32(0),
+                    ReleaseId = reader.GetString(1),
+                    ReleaseName = reader.GetString(2),
+                    StartDate = reader.GetDateTime(3),
+                    FinishDate = reader.GetDateTime(4),
+                    ParValue = reader.GetInt32(5),
+                    Status = reader.GetBoolean(6),
                 });
 
             }
@@ -205,18 +203,24 @@ namespace ConvenienceStore.Utils.Helpers
             return Products;
         }
 
-        public static void ThemErorr(Report t,string filepath)
+        public static void ThemErorr(Report t, string filepath)
         {
-
-            var strCmd = string.Format(insertErorrs, t.Title, t.Description, t.RepairCost, t.SubmittedAt, t.StaffId, t.Level, filepath);
+            var strCmd = string.Format(insertErorrs, t.Title, t.Description,t.Status, t.RepairCost, t.SubmittedAt, t.StaffId, filepath);
             sqlCon.Open();
             SqlCommand cmd = new(strCmd, sqlCon);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
             sqlCon.Close();
         }
-    }
-
+        public static void ThemErorr(Report t)
+        {
+            var strCmd = string.Format(insertErorrs, t.Title, t.Description, t.RepairCost, t.SubmittedAt, t.StaffId, t.Image);
+            sqlCon.Open();
+            SqlCommand cmd = new(strCmd, sqlCon);
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+            sqlCon.Close();
+        }
         public static List<Customer> FetchingCustomerData()
         {
             sqlCon.Open();
@@ -255,7 +259,85 @@ namespace ConvenienceStore.Utils.Helpers
 
             sqlCon.Close();
             return customers;
-            }
         }
 
+        public static byte[] LoadAvatar(int id)
+        {
+            var strCmd = string.Format(queryAvatar, id);
+            sqlCon.Open();
+            byte[] Avatar = new byte[byte.MaxValue];
+            SqlCommand cmd = new(strCmd, sqlCon);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                Avatar = reader.IsDBNull(0)?null:(Byte[])reader["Avatar"];
+            }
+            reader.Close();
+            sqlCon.Close();
+            return Avatar;
+        }
+        public static void InsertReport(Report report)
+        {
+            sqlCon.Open();
+
+            // Bảng Consignment chứa khóa ngoại tham chiếu với khóa chính Barcode trong bảng Product
+
+            // Xem thử loại sản phẩm đó đã tồn tại trong bảng Product hay chưa
+            var strCmd = $"select * from Report where Title = '{report.Title}'";
+            var cmd = new SqlCommand(strCmd, sqlCon);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            bool isExisted;
+            try
+            {
+                isExisted = reader.Read();
+            }
+            catch
+            {
+                isExisted = false;
+            }
+            reader.Close();
+
+            //if (isExisted) // Nếu đã tồn tại, chỉ cần update lại 1 vài thông tin về loại sản phẩm
+            //{
+            //    cmd = new SqlCommand(updateProduct, sqlCon);
+            //    cmd.Parameters.AddWithValue("@RepairCost", report.RepairCost);
+            //    cmd.Parameters.AddWithValue("@StaffId", report.StaffId);
+            //    cmd.Parameters.AddWithValue("@Status", report.Status);
+            //    cmd.Parameters.AddWithValue("@Description", report.Description);
+            //    cmd.Parameters.AddWithValue("@Image", report.Image);
+            //    cmd.Parameters.AddWithValue("@SubmittedAt", report.SubmittedAt);
+            //    cmd.ExecuteNonQuery();
+            //}
+            //else // Nếu chưa, tạo mới loại sản phẩm
+            //{
+                cmd = new SqlCommand(insertReport, sqlCon);
+                cmd.Parameters.AddWithValue("@Title", report.Title);
+                cmd.Parameters.AddWithValue("@RepairCost", report.RepairCost);
+                cmd.Parameters.AddWithValue("@StaffId", report.StaffId);
+                cmd.Parameters.AddWithValue("@Status", report.Status);
+                cmd.Parameters.AddWithValue("@Description", report.Description);
+                cmd.Parameters.AddWithValue("@Image", report.Image);
+                cmd.Parameters.AddWithValue("@SubmittedAt", report.SubmittedAt);
+
+                cmd.ExecuteNonQuery();
+            //}
+
+            reader.Close();
+
+            // Xử lí trường hợp trong Title có dấu nháy đơn (')
+            int i = 0;
+            string title = report.Title;
+            while (i < title.Length)
+            {
+                if (title[i] == '\'')
+                {
+                    title = title.Insert(i, "'");
+                    i++;
+                }
+                i++;
+            }
+            sqlCon.Close();
+        }
+    }
 }
