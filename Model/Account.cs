@@ -8,6 +8,12 @@ namespace ConvenienceStore.Model
 {
     public class Account
     {
+        private int number_;
+        public int Number
+        {
+            get { return number_; }
+            set { number_ = value; }
+        }
         private int _idAccount;
         public int IdAccount
         {

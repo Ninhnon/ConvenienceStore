@@ -14,7 +14,7 @@
         AllowsTransparency="True"
         WindowStyle="None"
         Background="Transparent"
-        DataContext="{StaticResource AddEmployeeVM}"
+        DataContext="{StaticResource EmployeeVM}"
         x:Name="addEmployeeWd"
         >
     <i:Interaction.Triggers>
@@ -138,7 +138,7 @@
 
 
                                         <Border
-                                         DataContext="{StaticResource AddEmployeeVM}"
+                                         DataContext="{StaticResource EmployeeVM}"
                                         x:Name="MarkUploadImage"
                                     Grid.Column="2"
                                     Width="193"
@@ -175,7 +175,7 @@
                                              Grid.RowSpan="6"
                                     Orientation="Vertical">
                                     <uc:TextBoxUC x:Name="nameTxtbox"  Caption="Họ Tên" Hint="Nhập họ tên"  VerticalAlignment="Center"/>
-                                    <uc:TextBoxUC x:Name="emailTxtbox" Caption="Email" Hint="Nhập email"  />
+                                    <uc:TextBoxUC x:Name="emailTxtbox" Caption="Email" Hint="Nhập email" VerticalAlignment="Center" />
                                     <uc:TextBoxUC x:Name="phoneTxtbox"  Caption="Điện thoại" Hint="Nhập số điện thoại" />
                                     <uc:TextBoxUC x:Name="addressTxtbox"  Caption="Địa Chỉ" Hint="Nhập địa chỉ" />
 
@@ -196,8 +196,7 @@
                                         Text="Chọn người quản lý"></TextBlock>
                                             <ComboBox Margin="22,0,0,0" x:Name="ManagerCombobox"  
                                               ItemsSource="{Binding ItemSourceManager,Mode=TwoWay}"
-                                                DataContext="{StaticResource AddEmployeeVM}"
-                                              
+                                                 DataContext="{StaticResource EmployeeVM}"
                                     >
                                             </ComboBox>
                                             <TextBlock x:Name="ManagerErrorMessage" Margin="10,0,0,0"

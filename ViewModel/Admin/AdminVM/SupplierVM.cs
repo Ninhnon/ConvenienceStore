@@ -71,7 +71,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                     ObservableSupplier.Add(suppliers[i]);
                 }
             }
-        }
+            
+            }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

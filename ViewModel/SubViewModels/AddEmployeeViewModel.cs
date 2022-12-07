@@ -16,6 +16,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Runtime.CompilerServices;
+using ConvenienceStore.ViewModel.Admin.AdminVM;
 
 namespace ConvenienceStore.ViewModel.SubViewModel
 {
@@ -162,7 +163,7 @@ namespace ConvenienceStore.ViewModel.SubViewModel
                         i = account.IdAccount;
                     }    
                         }
-                        Account acc = new Account("0",
+                        Account acc = new Account(accounts[accounts.Count-1].IdAccount+1,"0",
                                    parameter.nameTxtbox.textBox.Text.ToString(),
                                    parameter.addressTxtbox.textBox.Text.ToString(),
                                    parameter.phoneTxtbox.textBox.Text.ToString(),
@@ -172,7 +173,10 @@ namespace ConvenienceStore.ViewModel.SubViewModel
                                    ,ConvertImageToBytes(openDialog.FileName).ToArray(),
                                   i
                                    );
+                acc.Number = accounts[accounts.Count - 1].Number + 1;
                 AccountDAL.Instance.AddIntoDataBase(acc);
+               EmployeeViewModel. accounts.Add(acc);
+                
                 MessageBox.Show("them thanh cong");
             }
 
