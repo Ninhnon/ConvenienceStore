@@ -123,7 +123,7 @@
                             
                              FontWeight="Medium"
                              FontFamily="Montserrat"                            
-                             Foreground="White"
+                             Foreground="Black"
                              CaretBrush="LightGray"
                              BorderBrush="DarkGray"
                              BorderThickness="0,0,0,2"
@@ -150,7 +150,7 @@
                    FontSize="13"
                              FontWeight="Medium"
                              FontFamily="Montserrat"                            
-                             Foreground="White"
+                             Foreground="Black"
                              CaretBrush="LightGray"
                              BorderBrush="DarkGray"
                              BorderThickness="0,0,0,2"
@@ -206,7 +206,7 @@
                         
 
 
-                        <Button 
+                        <Button Foreground="Black"
                             Background="Transparent"
                 x:Name="btnSignUp" 
                             BorderThickness="0"
@@ -220,7 +220,7 @@
                 Padding="0" 
                
                 
-                Foreground="White"
+              
                                FontSize="12"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
