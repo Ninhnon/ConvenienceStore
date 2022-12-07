@@ -57,7 +57,8 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProfileCommand
                  * Người dùng mở File Exploer nhưng không chọn ảnh mà nhấn nút "Cancle" */
             }
 
-            DatabaseHelper.UpdateProfileAvatar(bytes);
+            if (bytes != null)
+                DatabaseHelper.UpdateProfileAvatar(bytes);
 
         }
     }

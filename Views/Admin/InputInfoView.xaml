@@ -204,15 +204,9 @@
                                     <Border x:Name="DeleteButton"
                                             Grid.Column="2"
                                             Margin="0 14 14 0"
-                                            
                                             CornerRadius="2"
                                             Cursor="Hand">
-                                        <Border.Background>
-                                            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                                                <GradientStop Color='#E9E4F0' Offset="0"/>
-                                                <GradientStop Color='#D3CCE3' Offset="1"/>
-                                            </LinearGradientBrush>
-                                        </Border.Background>
+                                        
                                         <Image Source="/Resources/Images/IconForInputInfo/close_box.png"
                                                Opacity="0.4"
                                                Height="24"/>
