@@ -18,6 +18,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         ResizeMode="NoResize"
         WindowStyle="None"
+        
         AllowsTransparency="True"
         DataContext="{StaticResource MainStaffVM}"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"

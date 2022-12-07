@@ -7,6 +7,7 @@
       mc:Ignorable="d" 
               d:DesignHeight="600"
         d:DesignWidth="1100"
+       Style="{StaticResource Page_Style}"
       Title="ProfileView">
 
     <Grid Background="Bisque">

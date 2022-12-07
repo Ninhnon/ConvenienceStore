@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using ConvenienceStore.Model;
@@ -73,6 +75,9 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             }
             for (int i = 0; i < dt.Rows.Count; i++)
             {
+                BinaryFormatter bf = new BinaryFormatter();
+                MemoryStream ms = new MemoryStream();
+                bf.Serialize(ms, dt.Rows[i].ItemArray[8]);
                 Account acc = new Account(int.Parse(dt.Rows[i].ItemArray[0].ToString()),
                                           dt.Rows[i].ItemArray[1].ToString(),
                                           dt.Rows[i].ItemArray[2].ToString(),
@@ -80,12 +85,12 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                                           dt.Rows[i].ItemArray[4].ToString(),
                                           dt.Rows[i].ItemArray[5].ToString(),
                                            dt.Rows[i].ItemArray[6].ToString(),
-                                           dt.Rows[i].ItemArray[7].ToString(),
-                                            Encoding.ASCII.GetBytes(dt.Rows[i].ItemArray[8].ToString()),
+                                           dt.Rows[i].ItemArray[7].ToString(), ms.ToArray()
+                                            ,
                                             int.Parse(dt.Rows[i].ItemArray[9].ToString())
 
 
-                                          );
+                                          ) ;
 
                 accounts.Add(acc);
             }

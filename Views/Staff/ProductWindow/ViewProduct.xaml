@@ -10,6 +10,7 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
+        
         Height="500"
         Width="850"
         MouseLeftButtonDown="window_MouseLeftButtonDown"
