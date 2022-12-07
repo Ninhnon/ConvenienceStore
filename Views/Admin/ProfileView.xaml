@@ -9,8 +9,13 @@
       xmlns:ProfileCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.ProfileCommand"
       DataContext="{StaticResource AdminProfileVM}"
       mc:Ignorable="d" 
+
+      Style="{StaticResource Page_Style}"
+      Title="ProfileView">
+
       Height="600"
       Width="1125">
+
 
     <Page.Resources>
 

@@ -10,16 +10,21 @@
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
       xmlns:Uc="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
         d:DesignHeight="660"
-        d:DesignWidth="1200"
+        Width="1100"
         mc:Ignorable="d"
         x:Name="wdHome" 
-                      Width="{Binding wdWidth}"
-          Height="{Binding wdHeight}"
+       Style="{StaticResource Page_Style}"
+                     
            DataContext="{StaticResource AdminMainWindowVM}">
     <!--Style="{StaticResource Page_Style}"-->
-    <Border Background="Transparent"
+    <Border
         CornerRadius="0,0,20,0">
-
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color='#E9E4F0' Offset="0"/>
+                <GradientStop Color='#D3CCE3' Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
 
         <Grid 
         DataContext="{StaticResource ReportVM}">

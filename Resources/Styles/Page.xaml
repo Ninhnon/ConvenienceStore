@@ -2,14 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="Page_Style"
-           TargetType="{x:Type UserControl}">
+           TargetType="{x:Type Page}">
 
-        <Setter Property="RenderTransform">
-            <Setter.Value>
-                <TranslateTransform X="0"
-                                    Y="50" />
-            </Setter.Value>
-        </Setter>
+      
 
         <Style.Triggers>
 
@@ -18,11 +13,13 @@
 
                 <Setter Property="Opacity"
                         Value="0" />
-
+               
             </Trigger>
 
             <EventTrigger RoutedEvent="Loaded">
+             
                 <BeginStoryboard>
+                    
                     <Storyboard>
                         <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                          Duration="0:0:1"
@@ -33,6 +30,10 @@
                                          To="0"
                                          Duration="0:0:0.4"
                                          DecelerationRatio="0.6" />
+                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                         Duration="0:0:1"
+                                         From="0"
+                                         To="1" />
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>

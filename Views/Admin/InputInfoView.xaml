@@ -12,8 +12,11 @@
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
       DataContext="{StaticResource InputInfoVM}"
+
+      Style="{StaticResource Page_Style}"
       Height="600"
       Width="1125"
+
       Background="Transparent">
 
     <Page.Resources>
@@ -24,22 +27,25 @@
         <Converters:IntToVNDCurrency x:Key="IntToVNDCurrency"/>
         <Converters:HasOjectConverter x:Key="HasOjectConverter"/>
     </Page.Resources>
-
-    <Grid >
+    <Border CornerRadius="0,0,20,0">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color='#E9E4F0' Offset="0"/>
+                <GradientStop Color='#D3CCE3' Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        
+  
+    <Grid Height="660">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="725"/>
-            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Border 
                 Grid.Column="0"
                >
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                    <GradientStop Color='#E9E4F0' Offset="0"/>
-                    <GradientStop Color='#D3CCE3' Offset="1"/>
-                </LinearGradientBrush>
-            </Border.Background>
+           
             <Grid>
 
                 <Grid VerticalAlignment="Top"
@@ -401,10 +407,17 @@
 
         <!--Products Screen-->
         <Border x:Name="ProductS1"
+                
                 Grid.Column="0"
-                Background="{StaticResource Gray91}"
+             
                 CornerRadius="25"
                 Visibility="Hidden">
+             <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color='#E9E4F0' Offset="0"/>
+                <GradientStop Color='#D3CCE3' Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
 
             <Grid>
 
@@ -762,4 +775,5 @@
 
         </Border>
     </Grid>
+    </Border>
 </Page>
