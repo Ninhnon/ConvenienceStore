@@ -43,7 +43,7 @@
 
 
                 <StackPanel Orientation="Vertical"
-                        Margin="10 0 10 0"
+                        Margin="10 0"
                         VerticalAlignment="Center">
                     
                     <StackPanel Orientation="Horizontal"
