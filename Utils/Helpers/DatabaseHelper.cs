@@ -1,9 +1,11 @@
+using ConvenienceStore.Model;
 using ConvenienceStore.Model.Admin;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 using static Emgu.CV.BarcodeDetector;
 
 namespace ConvenienceStore.Utils.Helpers
@@ -34,6 +36,9 @@ namespace ConvenienceStore.Utils.Helpers
 
         static readonly string queryNewestSupplierId = "select MAX(Id) from Supplier";
 
+        static readonly string queryStaffOnTeam = @"select Name, Avatar from Users
+                                                    where ManagerId = {0}";
+
         static readonly string insertInputInfo = "insert InputInfo values ('{0}', {1}, {2})";
 
         static readonly string insertProduct = "insert Product values (@Barcode, @Title, @Image, @Type, @ProductionSite)";
@@ -53,6 +58,10 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string updateSupplier = @"update Supplier
                                                   set Name = N'{0}', Address = N'{1}', Phone = '{2}', Email = '{3}'
                                                   where Id = {4}";
+
+        static readonly string updateAvatar = @"update Users
+                                                set Avatar = @Avatar
+                                                where Id = @Id";
 
         /* Delete toàn bộ Consignment liên trong InputInfo trước
          * Xong Delete InputInfo */
@@ -252,6 +261,29 @@ namespace ConvenienceStore.Utils.Helpers
             sqlCon.Close();
         }
 
+        public static ObservableCollection<Member> QueryStaffOnTeam(int ManagerId)
+        {
+            sqlCon.Open();
+
+            var strCmd = string.Format(queryStaffOnTeam, ManagerId);
+            var cmd = new SqlCommand(strCmd, sqlCon);
+
+            ObservableCollection<Member> staffs = new ObservableCollection<Member>();
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                staffs.Add(new Member()
+                {
+                    Name = reader.GetString(0),
+                    Avatar = (byte[])reader["Avatar"],
+                });
+            }
+            reader.Close();
+            sqlCon.Close();
+            return staffs;
+        }
+
         public static void InsertProduct(Product product)
         {
             sqlCon.Open();
@@ -401,6 +433,19 @@ namespace ConvenienceStore.Utils.Helpers
             sqlCon.Close();
         }
 
+        public static void UpdateProfileAvatar(byte[] image)
+        {
+            sqlCon.Open();
+
+            var cmd = new SqlCommand(updateAvatar, sqlCon);
+
+            cmd.Parameters.AddWithValue("@Avatar", image);
+            cmd.Parameters.AddWithValue("@Id", CurrentAccount.idAccount);
+
+            cmd.ExecuteNonQuery();
+
+            sqlCon.Close();
+        }
         public static void DeleteInputInfo(int inputInfoId)
         {
             sqlCon.Open();
