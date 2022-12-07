@@ -15,13 +15,6 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCom
 {
     public class EditProductButton : ICommand
     {
-        InputInfoVM VM;
-
-        public EditProductButton(InputInfoVM VM)
-        {
-            this.VM = VM;
-        }
-
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
@@ -70,9 +63,6 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCom
                 currentProduct.Discount != coppyCurProduct.Discount)
             {
                 // Sau khi cửa sổ Edit đóng thì "currentProduct" đã được update
-                VM.SetProductsCorrespondSearch();
-
-                // Update to Database
                 DatabaseHelper.UpdateProduct(currentProduct);
             }
         }

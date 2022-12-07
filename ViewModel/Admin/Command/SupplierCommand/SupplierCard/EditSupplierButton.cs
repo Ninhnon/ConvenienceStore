@@ -14,13 +14,6 @@ namespace ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.SupplierCard
 {
     public class EditSupplierButton : ICommand
     {
-        SupplierVM VM;
-
-        public EditSupplierButton(SupplierVM VM)
-        {
-            this.VM = VM;
-        }
-
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
@@ -56,8 +49,6 @@ namespace ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.SupplierCard
                 currentSupplier.Phone != copyCurrentSupplier.Phone)
             {
                 // Sau khi cửa sổ Edit đóng thì "currentSupplier" đã được update
-                VM.SetSupplierCorespondSearch();
-
                 DatabaseHelper.UpdateSupplier(currentSupplier);
             }
         }
