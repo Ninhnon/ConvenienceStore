@@ -23,7 +23,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Window.Resources>
-       
+
         <Converters:HasImageConverter x:Key="HasImageConverter"/>
     </Window.Resources>
     <Grid Background="Transparent">
@@ -79,15 +79,21 @@
                                 <StackPanel  Grid.ColumnSpan="2">
                                     <StackPanel Orientation="Horizontal" Margin="20 20 0 0">
                                         <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="#EFEFEF">
-                                            <Ellipse Width="40" Height="40">
-
+                                            <Ellipse 
+                                                Width="40" Height="40">
+                                                <Ellipse.Fill>
+                                                    <ImageBrush 
+                                                        ImageSource="/Resources/Images/IconForProduct/addEmployee.png">
+                                                    </ImageBrush>
+                                                </Ellipse.Fill>
                                             </Ellipse>
                                         </Border>
 
                                         <TextBlock Text="Thêm nhân viên" Foreground="#374655" FontSize="18" Margin="15 0 0 0" VerticalAlignment="Center"/>
                                     </StackPanel>
                                     <Grid>
-                                        <Border 
+                                        <StackPanel Orientation="Vertical">
+                                            <Border 
                                     Grid.Column="2"
                                     Width="193"
                                     Height="193"
@@ -97,29 +103,38 @@
                                     CornerRadius="15"
                                     MouseEnter="ImagePreview_MouseEnter">
 
-                                            <StackPanel x:Name="ImagePreview"
+                                                <StackPanel x:Name="ImagePreview"
                                             Orientation="Vertical"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center"
                                             Visibility="{Binding ElementName=ImageProduct, Path=ImageSource, Converter={StaticResource HasImageConverter}}">
 
-                                                <Image x:Name="IconPicture"
-                                            Source="/Resources/Images/IconForProduct/image.png"
+                                                    <Image x:Name="IconPicture" 
+                                            Source="/Resources/Images/IconForProduct/avatar.png"
                                             Width="75"
                                             Margin="0 0 0 5"/>
 
-                                                <TextBlock Text="Image Preview"
+                                                    <TextBlock Text="Image Preview"
                                                Foreground="#808080"
                                                FontSize="16"
                                                FontWeight="DemiBold"/>
-                                            </StackPanel>
+                                                </StackPanel>
 
-                                            <Border.Background>
-                                                <ImageBrush x:Name="ImageProduct"
+                                                <Border.Background>
+                                                    <ImageBrush x:Name="ImageProduct"
                                                 Stretch="UniformToFill"/>
-                                            </Border.Background>
+                                                </Border.Background>
 
-                                        </Border>
+                                            </Border>
+
+                                            <TextBlock 
+                                                x:Name="ImageErrorMessage"
+                                                Foreground="Red"
+                                                HorizontalAlignment="Center">
+
+                                            </TextBlock>
+                                        </StackPanel>
+
 
                                         <Border
                                          DataContext="{StaticResource AddEmployeeVM}"
@@ -154,37 +169,52 @@
                                 <Separator Grid.Row="1" Grid.ColumnSpan="2" Margin="-20,20,-20,20" Background="#E1E6EB"/>
 
                                 <!--Inputs-->
+                                <StackPanel  Grid.Column="0" 
+                                              Grid.Row="1"
+                                             Grid.RowSpan="6"
+                                    Orientation="Vertical">
+                                    <uc:TextBoxUC x:Name="nameTxtbox"  Caption="Họ Tên" Hint="Nhập họ tên"  VerticalAlignment="Center"/>
+                                    <uc:TextBoxUC x:Name="emailTxtbox" Caption="Email" Hint="Nhập email"  />
+                                    <uc:TextBoxUC x:Name="phoneTxtbox"  Caption="Điện thoại" Hint="Nhập số điện thoại" />
+                                    <uc:TextBoxUC x:Name="addressTxtbox"  Caption="Địa Chỉ" Hint="Nhập địa chỉ" />
 
-                                <uc:TextBoxUC x:Name="nameTxtbox"  Grid.Column="0" 
-                                              Grid.Row="2" Caption="Họ Tên" Hint="Nhập họ tên"  VerticalAlignment="Center"/>
-                                <uc:TextBoxUC x:Name="emailTxtbox" Grid.Column="0" Grid.Row="3" Caption="Email" Hint="Nhập email"  Grid.RowSpan="2"/>
-                                <uc:TextBoxUC x:Name="phoneTxtbox"  Grid.Row="4" Caption="Điện thoại" Hint="Nhập số điện thoại" />
-                                <uc:TextBoxUC x:Name="addressTxtbox"  Grid.Row="5" Caption="Địa Chỉ" Hint="Nhập địa chỉ" />
-                                <uc:TextBoxUC x:Name="usernameTxtbox" Grid.Column="1" Grid.Row="2" Caption="Tên đăng nhập" Hint="Nhập tên đăng nhập" />
-                                <uc:PasswordBoxUC Background="Transparent" x:Name="passwordTxtbox" Grid.Column="1"  Grid.Row="3" Caption="Mật khẩu" Hint="Nhập mật khẩu"  Grid.RowSpan="2"/>
-                                <uc:PasswordBoxUC Background="Transparent" x:Name="confirmPasswordTxtbox" Grid.Column="1" Grid.Row="4" Caption="Xác nhận mật khẩu" Hint="Xác nhận mật khẩu" />
-                                <Grid Grid.Row="5" Grid.Column="1" Background="Transparent">
-                                    <StackPanel >
-                                        <TextBlock Margin="22,10,0,8" Foreground="#97A5B4"
+                                </StackPanel>
+
+                                <StackPanel 
+                                              Grid.Row="1"
+                                             Grid.RowSpan="6"
+                                    Orientation="Vertical" Grid.ColumnSpan="2" Margin="302,0,0,0">
+
+                                    <uc:TextBoxUC x:Name="usernameTxtbox" Caption="Tên đăng nhập" Hint="Nhập tên đăng nhập" />
+                                    <uc:PasswordBoxUC Background="Transparent" x:Name="passwordTxtbox"  Caption="Mật khẩu" Hint="Nhập mật khẩu" />
+                                    <uc:PasswordBoxUC Background="Transparent" x:Name="confirmPasswordTxtbox"  Caption="Xác nhận mật khẩu" Hint="Xác nhận mật khẩu" />
+                                    <Grid  Background="Transparent">
+                                        <StackPanel >
+                                            <TextBlock Margin="22,10,0,8" Foreground="#97A5B4"
                        FontSize="13"  
                                         Text="Chọn người quản lý"></TextBlock>
-                                        <ComboBox Margin="22,0,0,0" x:Name="ManagerCombobox"  
+                                            <ComboBox Margin="22,0,0,0" x:Name="ManagerCombobox"  
                                               ItemsSource="{Binding ItemSourceManager,Mode=TwoWay}"
                                                 DataContext="{StaticResource AddEmployeeVM}"
                                               
                                     >
-                                        </ComboBox>
-                                        <TextBlock x:Name="ManagerErrorMessage"
+                                            </ComboBox>
+                                            <TextBlock x:Name="ManagerErrorMessage" Margin="10,0,0,0"
                                    
-                                        Foreground="Red"/>
-                                    </StackPanel>
-                                </Grid>
-                                
-                            
-                          
-                                
+                                        Foreground="Red" Width="269"/>
+                                        </StackPanel>
+                                    </Grid>
+
+                                </StackPanel>
+
+
+
+
+
+
+
                                 <!--Form Bottom Background-->
-                               
+
                                 <Button Grid.Row="6" Content="Back"
                                     Command="{Binding BackCommand}" 
                             CommandParameter="{Binding ElementName=addEmployeeWd}"
@@ -215,8 +245,8 @@
                 </Grid>
             </Grid>
         </Border>
-        
-        
+
+
 
     </Grid>
 </Window>

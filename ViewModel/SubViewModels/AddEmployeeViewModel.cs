@@ -55,6 +55,7 @@ namespace ConvenienceStore.ViewModel.SubViewModel
             parameter.passwordTxtbox.ErrorMessage.Text = "";
             parameter.confirmPasswordTxtbox.ErrorMessage.Text = "";
             parameter.ManagerErrorMessage.Text = "";
+            parameter.ImageErrorMessage.Text = "";
             if (string.IsNullOrEmpty(parameter.nameTxtbox.textBox.Text))
             {
                 parameter.nameTxtbox.ErrorMessage.Text = "Xin nhập họ tên";
@@ -119,10 +120,40 @@ namespace ConvenienceStore.ViewModel.SubViewModel
                 parameter.ManagerErrorMessage.Text = "Xin chọn người quản lý";
                 isValid = false;
             }
+            if(parameter.ImageProduct.ImageSource==null)
+            {
+                parameter.ImageErrorMessage.Text = "Xin chọn ảnh";
+                isValid = false;
+            }
+            List<Account> accounts = AccountDAL.Instance.ConvertDataTableToList();
+            foreach(var account in accounts)
+            {
+                if(parameter.usernameTxtbox.textBox.Text== account.UserName)
+                {
+                    parameter.usernameTxtbox.ErrorMessage.Text = "Tên đăng nhập đã tồn tại";
+                    isValid = false;
+                    break;
+                }
+                if(parameter.phoneTxtbox.textBox.Text==account.Phone)
+                {
+                    parameter.phoneTxtbox.ErrorMessage.Text = "Số điện thoại đã được đăng ký";
+                    isValid = false;
+                    break;
+                }
+                if(parameter.emailTxtbox.textBox.Text==account.Email)
+                {
+                    parameter.emailTxtbox.ErrorMessage.Text = "Email đã được đăng ký";
+                    isValid = false;
+                    break;
+                }
+               
+                    
+            }
+
             if (isValid)
             {
                 int i = 0;
-                List<Account> accounts = AccountDAL.Instance.ConvertDataTableToList();
+              
                      foreach (var account in accounts)
                 {
                     
@@ -139,7 +170,7 @@ namespace ConvenienceStore.ViewModel.SubViewModel
                                    parameter.usernameTxtbox.textBox.Text.ToString(),
                                    parameter.passwordTxtbox.passwordBox.Password.ToString()
                                    ,ConvertImageToBytes(openDialog.FileName).ToArray(),
-                                  1
+                                  i
                                    );
                 AccountDAL.Instance.AddIntoDataBase(acc);
                 MessageBox.Show("them thanh cong");

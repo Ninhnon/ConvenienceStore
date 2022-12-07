@@ -19,7 +19,9 @@
     <None Remove="Resources\Images\IconForInputInfo\truck_64.png" />
     <None Remove="Resources\Images\IconForInputInfo\user_64.png" />
     <None Remove="Resources\Images\IconForInputInfo\user_color.png" />
+    <None Remove="Resources\Images\IconForProduct\addEmployee.png" />
     <None Remove="Resources\Images\IconForProduct\arrow.png" />
+    <None Remove="Resources\Images\IconForProduct\avatar.png" />
     <None Remove="Resources\Images\IconForProduct\box.png" />
     <None Remove="Resources\Images\IconForProduct\calendar.png" />
     <None Remove="Resources\Images\IconForProduct\image.png" />
@@ -103,7 +105,9 @@
     <Resource Include="Resources\Images\IconForInputInfo\truck_64.png" />
     <Resource Include="Resources\Images\IconForInputInfo\user_64.png" />
     <Resource Include="Resources\Images\IconForInputInfo\user_color.png" />
+    <Resource Include="Resources\Images\IconForProduct\addEmployee.png" />
     <Resource Include="Resources\Images\IconForProduct\arrow.png" />
+    <Resource Include="Resources\Images\IconForProduct\avatar.png" />
     <Resource Include="Resources\Images\IconForProduct\box.png" />
     <Resource Include="Resources\Images\IconForProduct\calendar.png" />
     <Resource Include="Resources\Images\IconForProduct\image.png" />
