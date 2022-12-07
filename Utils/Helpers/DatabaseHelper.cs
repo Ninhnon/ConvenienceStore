@@ -38,7 +38,7 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryNewestSupplierId = "select MAX(Id) from Supplier";
 
         static readonly string queryStaffOnTeam = @"select Name, Avatar from Users
-                                                    where ManagerId = {0}";
+                                                    where ManagerId = {0} and Id <> {0}";
 
         static readonly string queryAccountUsers = "select * from Users";
 
@@ -253,7 +253,7 @@ namespace ConvenienceStore.Utils.Helpers
         public static List<Account> FetchingAccountData()
         {
             sqlCon.Open();
-            var cmd = new SqlCommand(queryUser, sqlCon);
+            var cmd = new SqlCommand(queryAccountUsers, sqlCon);
             List<Account> accounts = new List<Account>();
 
             SqlDataReader read = cmd.ExecuteReader();
@@ -526,13 +526,5 @@ namespace ConvenienceStore.Utils.Helpers
             sqlCon.Close();
         }
     
-        public static void GetAvatarViaId(int Id)
-        {
-            sqlCon.Open();
-
-            
-
-            sqlCon.Close();
-        }
     }
 }
