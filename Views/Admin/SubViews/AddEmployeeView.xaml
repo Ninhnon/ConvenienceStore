@@ -32,7 +32,13 @@
                 CornerRadius="25">
         </Border>
         <Border CornerRadius="20" Width="650"
-                 Background="#ffffff">
+                 >
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color='#E9E4F0' Offset="0"/>
+                    <GradientStop Color='#D3CCE3' Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
             <Grid 
               
               VerticalAlignment="Center">
@@ -154,27 +160,30 @@
                                 <uc:TextBoxUC x:Name="phoneTxtbox"  Grid.Row="4" Caption="Điện thoại" Hint="Nhập số điện thoại" />
                                 <uc:TextBoxUC x:Name="addressTxtbox"  Grid.Row="5" Caption="Địa Chỉ" Hint="Nhập địa chỉ" />
                                 <uc:TextBoxUC x:Name="usernameTxtbox" Grid.Column="1" Grid.Row="2" Caption="Tên đăng nhập" Hint="Nhập tên đăng nhập" />
-                                <uc:PasswordBoxUC x:Name="passwordTxtbox" Grid.Column="1"  Grid.Row="3" Caption="Mật khẩu" Hint="Nhập mật khẩu"  Grid.RowSpan="2"/>
-                                <uc:PasswordBoxUC x:Name="confirmPasswordTxtbox" Grid.Column="1" Grid.Row="4" Caption="Xác nhận mật khẩu" Hint="Xác nhận mật khẩu" />
-                                <StackPanel Grid.Row="5" Grid.Column="1" Margin="20 10">
-                                    <TextBlock Margin="0,0,0,8" Foreground="#97A5B4"
+                                <uc:PasswordBoxUC Background="Transparent" x:Name="passwordTxtbox" Grid.Column="1"  Grid.Row="3" Caption="Mật khẩu" Hint="Nhập mật khẩu"  Grid.RowSpan="2"/>
+                                <uc:PasswordBoxUC Background="Transparent" x:Name="confirmPasswordTxtbox" Grid.Column="1" Grid.Row="4" Caption="Xác nhận mật khẩu" Hint="Xác nhận mật khẩu" />
+                                <Grid Grid.Row="5" Grid.Column="1" Background="Transparent">
+                                    <StackPanel >
+                                        <TextBlock Margin="22,10,0,8" Foreground="#97A5B4"
                        FontSize="13"  
                                         Text="Chọn người quản lý"></TextBlock>
-                                    <ComboBox x:Name="ManagerCombobox" 
+                                        <ComboBox Margin="22,0,0,0" x:Name="ManagerCombobox"  
                                               ItemsSource="{Binding ItemSourceManager,Mode=TwoWay}"
                                                 DataContext="{StaticResource AddEmployeeVM}"
                                               
                                     >
-                                    </ComboBox>
-                                    <TextBlock x:Name="ManagerErrorMessage"
+                                        </ComboBox>
+                                        <TextBlock x:Name="ManagerErrorMessage"
                                    
                                         Foreground="Red"/>
-                                </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                                
                             
                           
                                 
                                 <!--Form Bottom Background-->
-                                <Border Grid.Row="6" Grid.ColumnSpan="2" Background="#f6f6f6" CornerRadius="0 0 10 10" Margin="-20 40 -20 0"/>
+                               
                                 <Button Grid.Row="6" Content="Back"
                                     Command="{Binding BackCommand}" 
                             CommandParameter="{Binding ElementName=addEmployeeWd}"

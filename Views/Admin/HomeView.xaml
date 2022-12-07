@@ -12,200 +12,208 @@
         d:DesignHeight="660"
         d:DesignWidth="1200"
         mc:Ignorable="d"
-        x:Name="wdHome" Background="Beige"
+        x:Name="wdHome" 
                       Width="{Binding wdWidth}"
           Height="{Binding wdHeight}"
            DataContext="{StaticResource AdminMainWindowVM}">
     <!--Style="{StaticResource Page_Style}"-->
-    <Grid Background="AliceBlue"
+    <Border Background="Transparent"
+        CornerRadius="0,0,20,0">
+
+
+        <Grid 
         DataContext="{StaticResource ReportVM}">
-        <i:Interaction.Triggers>
-            <i:EventTrigger EventName="Loaded">
-                <i:InvokeCommandAction Command="{Binding LoadCommand}"
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <i:InvokeCommandAction Command="{Binding LoadCommand}"
                                                 CommandParameter="{Binding ElementName=wdHome}"/>
-                <i:InvokeCommandAction Command="{Binding InitColumnChartTodayCommand}"
+                    <i:InvokeCommandAction Command="{Binding InitColumnChartTodayCommand}"
                                                 CommandParameter="{Binding ElementName=wdHome}"/>
-            </i:EventTrigger>
-        </i:Interaction.Triggers>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
 
 
 
-        <StackPanel Orientation="Vertical" 
+            <StackPanel Orientation="Vertical" 
                     DataContext="{StaticResource ReportVM}" Margin="0,0,0,0">
-            <StackPanel Orientation="Horizontal" 
+                <StackPanel Orientation="Horizontal" 
                     DataContext="{StaticResource ReportVM}"
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Top" 
                     Width="1559"
                     
                     Margin="40,0,0,0">
-                <TextBlock FontSize="26" Foreground="#CCD7FF" Margin="50 35 0 20" Text="{Binding Hello}" HorizontalAlignment="Left"/>
-                <Border Margin="15" CornerRadius="5" Width="295" Height="150">
-                    <Border.Background>
-                        <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                            <GradientStop Offset="0" Color="#BA5370"/>
-                            <GradientStop Offset="1" Color="#FFC100"/>
-                        </LinearGradientBrush>
-                    </Border.Background>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="2*"/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition Height="2*"/>
-                        </Grid.RowDefinitions>
+                    <TextBlock FontSize="26" Foreground="#CCD7FF" Margin="50 35 0 20" Text="{Binding Hello}" HorizontalAlignment="Left"/>
+                    <Border Margin="15" CornerRadius="5" Width="295" Height="150">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                                <GradientStop Offset="0" Color="#BA5370"/>
+                                <GradientStop Offset="1" Color="#FFC100"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
 
-                        <TextBlock Text="&#xe602;"  FontSize="35" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>
-                        <TextBlock Text="{Binding ThisMonth}" Grid.Row="1" VerticalAlignment="Center" FontSize="16" Margin="10 0 0 0" Foreground="White"/>
-                        <TextBlock Text="{Binding ThisMonthRevenue}" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="2" FontSize="22" Margin="10 0 0 0" Foreground="White"/>
-                        <TextBlock Text="{Binding IncreasingPercent}" Grid.Row="3" FontSize="20" Foreground="White" Margin="10 0 0 0" VerticalAlignment="Center"/>
+                            <TextBlock Text="&#xe602;"  FontSize="35" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>
+                            <TextBlock Text="{Binding ThisMonth}" Grid.Row="1" VerticalAlignment="Center" FontSize="16" Margin="10 0 0 0" Foreground="White"/>
+                            <TextBlock Text="{Binding ThisMonthRevenue}" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="2" FontSize="22" Margin="10 0 0 0" Foreground="White"/>
+                            <TextBlock Text="{Binding IncreasingPercent}" Grid.Row="3" FontSize="20" Foreground="White" Margin="10 0 0 0" VerticalAlignment="Center"/>
 
 
-                        <Canvas ClipToBounds="True" Grid.RowSpan="4">
-                            <Border Canvas.Right="-40" Canvas.Top="10" Grid.RowSpan="4" Width="110" Height="110"  CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Top"  HorizontalAlignment="Right"/>
-                            <Border Canvas.Right="-10" Canvas.Top="100" Grid.RowSpan="4" Width="110" Height="110" CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Bottom"  HorizontalAlignment="Right"/>
-                        </Canvas>
+                            <Canvas ClipToBounds="True" Grid.RowSpan="4">
+                                <Border Canvas.Right="-40" Canvas.Top="10" Grid.RowSpan="4" Width="110" Height="110"  CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Top"  HorizontalAlignment="Right"/>
+                                <Border Canvas.Right="-10" Canvas.Top="100" Grid.RowSpan="4" Width="110" Height="110" CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Bottom"  HorizontalAlignment="Right"/>
+                            </Canvas>
 
-                    </Grid>
+                        </Grid>
 
-                </Border>
-                <Border Margin="15" CornerRadius="5" Width="295" Height="150">
-                    <Border.Background>
-                        <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                            <GradientStop Offset="0" Color="#ff9068"/>
-                            <GradientStop Offset="1" Color="#CFDEF3"/>
-                        </LinearGradientBrush>
-                    </Border.Background>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="2*"/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition Height="2*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Text="Số đơn bán được" 
+                    </Border>
+                    <Border Margin="15" CornerRadius="5" Width="295" Height="150">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                                <GradientStop Offset="0" Color="#ff9068"/>
+                                <GradientStop Offset="1" Color="#CFDEF3"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Số đơn bán được" 
                                     FontWeight="Bold" VerticalAlignment="Center"  FontSize="22" 
                                    Margin="10 0 0 0" Foreground="White"
                                    Grid.Row="2"></TextBlock>
-                        <TextBlock Text="&#xe602;"  FontSize="35" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>
-                        <TextBlock Text="{Binding ThisMonth1}" Grid.Row="1" VerticalAlignment="Center" FontSize="16" Margin="10 0 0 0" Foreground="White"/>
-                        <TextBlock Text="{Binding NumOfSoldBill}" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="3" FontSize="22" Margin="10 0 0 0" Foreground="White"/>
-                        
+                            <TextBlock Text="&#xe602;"  FontSize="35" Foreground="White" VerticalAlignment="Bottom" Margin="10 0 0 0"/>
+                            <TextBlock Text="{Binding ThisMonth1}" Grid.Row="1" VerticalAlignment="Center" FontSize="16" Margin="10 0 0 0" Foreground="White"/>
+                            <TextBlock Text="{Binding NumOfSoldBill}" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="3" FontSize="22" Margin="10 0 0 0" Foreground="White"/>
 
 
-                        <Canvas ClipToBounds="True" Grid.RowSpan="4">
-                            <Border Canvas.Right="-40" Canvas.Top="10" Grid.RowSpan="4" Width="110" Height="110"  CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Top"  HorizontalAlignment="Right"/>
-                            <Border Canvas.Right="-10" Canvas.Top="100" Grid.RowSpan="4" Width="110" Height="110" CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Bottom"  HorizontalAlignment="Right"/>
-                        </Canvas>
 
-                    </Grid>
+                            <Canvas ClipToBounds="True" Grid.RowSpan="4">
+                                <Border Canvas.Right="-40" Canvas.Top="10" Grid.RowSpan="4" Width="110" Height="110"  CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Top"  HorizontalAlignment="Right"/>
+                                <Border Canvas.Right="-10" Canvas.Top="100" Grid.RowSpan="4" Width="110" Height="110" CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Bottom"  HorizontalAlignment="Right"/>
+                            </Canvas>
 
-                </Border>
-                
+                        </Grid>
 
-            </StackPanel>
-            <StackPanel Margin="20,0,0,0"
+                    </Border>
+
+
+                </StackPanel>
+                <StackPanel Margin="20,0,0,0"
                 Orientation="Horizontal" VerticalAlignment="Bottom"
                         HorizontalAlignment="Center" >
-                <RadioButton Content="Today" 
+                    <RadioButton Content="Today" 
                         x:Name="todayButton"
                              IsChecked="True"
                         Style="{StaticResource topBtnStyle}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Click">
-                            <i:InvokeCommandAction Command="{Binding InitColumnChartTodayCommand}"
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding InitColumnChartTodayCommand}"
                                                 CommandParameter="{Binding ElementName=wdHome}"/>
-                        </i:EventTrigger>
+                            </i:EventTrigger>
 
-                    </i:Interaction.Triggers>
-                </RadioButton>
+                        </i:Interaction.Triggers>
+                    </RadioButton>
 
-                <RadioButton Content="Month" 
+                    <RadioButton Content="Month" 
                         x:Name="monthButton"
                         Style="{StaticResource topBtnStyle}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Click">
-                            <i:InvokeCommandAction Command="{Binding InitColumnChartMonthCommand}"
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding InitColumnChartMonthCommand}"
                                                 CommandParameter="{Binding ElementName=wdHome}"/>
-                        </i:EventTrigger>
+                            </i:EventTrigger>
 
-                    </i:Interaction.Triggers>
+                        </i:Interaction.Triggers>
 
-                </RadioButton>
-                <RadioButton Content="Year"
+                    </RadioButton>
+                    <RadioButton Content="Year"
                         x:Name="yearButton"
                         Style="{StaticResource topBtnStyle}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Click">
-                            <i:InvokeCommandAction Command="{Binding InitColumnChartYearCommand}"
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding InitColumnChartYearCommand}"
                                                 CommandParameter="{Binding ElementName=wdHome}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </RadioButton>
-            </StackPanel>
-            <Border CornerRadius="20"  Background="#BA5370"
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </RadioButton>
+                </StackPanel>
+                <Border CornerRadius="20"  
                     BorderThickness="1"
                     HorizontalAlignment="Center"
-                    Height="300" 
+                    Height="404" Width="884" 
                  
                     
                    
                     >
-                <Border.Effect>
-                    <DropShadowEffect 
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <GradientStop Color="#734b6d" Offset="0.2"/>
+                            <GradientStop Color="#2c3e50" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Effect>
+                        <DropShadowEffect 
                             BlurRadius="8" 
                             ShadowDepth="1.5" 
                             Direction="270"
                       
                             Opacity=".42"/>
-                </Border.Effect>
-                <Grid
-                        Margin="0" 
+                    </Border.Effect>
+                    <Grid 
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Height="300" 
-                        Width="580">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="39*"/>
-                        <ColumnDefinition Width="106*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel 
+                        Height="384" 
+                        Width="756">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="39*"/>
+                            <ColumnDefinition Width="106*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel 
                             Orientation="Horizontal"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Left" 
                             Margin="60,20,0,0" Grid.ColumnSpan="2"/>
-                    <lvc:CartesianChart
+                        <lvc:CartesianChart
                             x:Name="lvcColumnChart" 
                             DataContext="{StaticResource ReportVM}"
                             Series="{Binding ColumnSeriesCollection, UpdateSourceTrigger=PropertyChanged}" 
                             LegendLocation="Bottom"
-                            Width="540" 
-                            Height="300" 
+                            Width="756" 
+                            Height="364" 
                             HorizontalAlignment="Left" 
-                            VerticalAlignment="Bottom"
-                            Margin="20,0,0,5" Grid.ColumnSpan="2" >
-                        <lvc:CartesianChart.Background>
-                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                <GradientStop Color="#CB3066" Offset="0"/>
-                                <GradientStop Color="#A43931" Offset="1.5"/>
-                            </LinearGradientBrush>
-                        </lvc:CartesianChart.Background>
+                            VerticalAlignment="Bottom" Grid.ColumnSpan="2" >
+                            <lvc:CartesianChart.Background>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Color="#734b6d" Offset="0.2"/>
+                                    <GradientStop Color="#2c3e50" Offset="1"/>
+                                </LinearGradientBrush>
+                            </lvc:CartesianChart.Background>
 
 
-                        <lvc:CartesianChart.AxisX>
-                            <lvc:Axis 
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis 
                              x:Name="AxisXchart"
                                     Title="{Binding AxisXTitle, Mode=TwoWay}" 
                                     Labels="{Binding Labels, Mode=TwoWay}" 
                                    
                                     FontSize="14">
-                                <lvc:Axis.Separator>
-                                    <lvc:Separator Step="1"/>
-                                </lvc:Axis.Separator>
-                            </lvc:Axis>
-                        </lvc:CartesianChart.AxisX>
-                        <lvc:CartesianChart.AxisY>
-                            <lvc:Axis 
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator Step="1"/>
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis 
                            x:Name="AxisYchart"
                                     Title="{Binding AxisYTitle, Mode=TwoWay}" 
                                     LabelFormatter="{Binding Formatter}"
@@ -213,18 +221,20 @@
                                 MinValue="0"
                                     FontSize="14">
 
-                            </lvc:Axis>
-                        </lvc:CartesianChart.AxisY>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Initialized">
-                                <i:InvokeCommandAction Command="{Binding InitColumnChartTodayCommand}" 
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Initialized">
+                                    <i:InvokeCommandAction Command="{Binding InitColumnChartTodayCommand}" 
                                            CommandParameter="{Binding ElementName=wdHome}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </lvc:CartesianChart>
-                </Grid>
-            </Border>
-        </StackPanel>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </lvc:CartesianChart>
+                    </Grid>
+                </Border>
+            </StackPanel>
 
-    </Grid>
+        </Grid>
+    </Border>
+
 </Page>

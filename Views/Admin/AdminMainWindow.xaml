@@ -33,7 +33,13 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
     </Window.Resources>
-    <Border  CornerRadius="20" Background="{DynamicResource PrimaryBackgroundColor}">
+    <Border  CornerRadius="20" >
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color='#E9E4F0' Offset="0"/>
+                <GradientStop Color='#D3CCE3' Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
         <i:Interaction.Triggers>
 
             <i:EventTrigger EventName="MouseUp">
@@ -43,16 +49,16 @@
         <Grid>
 
             <!-- Start: GridColumn Right -->
-            
+
             <Grid >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="22"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
                 <!-- Start: Button Close | Restore | Minimize -->
-                
-                <StackPanel Grid.Row="0" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft">
+
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1105,0,0,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft" Width="85">
                     <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="btnClose_Click" Tag="IsCloseButton"/>
                     <Button x:Name="btnRestore" Margin="5,0" Click="btnRestore_Click">
                         <Button.Style>
@@ -70,7 +76,7 @@
                 </StackPanel>
                 <!-- End: Button Close | Restore | Minimize -->
 
-                <Frame Grid.Row="1" Margin="60 0 0 0" x:Name="PagesNavigation" NavigationUIVisibility="Hidden" >
+                <Frame Grid.Row="1" Margin="60,0,0,0" x:Name="PagesNavigation" NavigationUIVisibility="Hidden" >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Loaded">
                             <i:InvokeCommandAction Command="{Binding HomeCommand}"
@@ -87,11 +93,17 @@
                 </Frame>
             </Grid>
 
-                <!-- Start: GridColumn Right -->
-            <Border Background="{DynamicResource SecondaryBackgroundColor}"
+            <!-- Start: GridColumn Right -->
+            <Border 
                     CornerRadius="20"
                     HorizontalAlignment="Left">
-                <Grid x:Name="gridMenu"  Width="60"   >
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color='#E9E4F0' Offset="0"/>
+                        <GradientStop Color='#F5F7FA' Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid x:Name="gridMenu"  Width="58"   >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="60"/>
                         <RowDefinition Height="80"/>
@@ -111,7 +123,7 @@
                             <EventTrigger RoutedEvent="ToggleButton.Unchecked">
                                 <BeginStoryboard>
                                     <Storyboard x:Name="HideStackPanel">
-                                        <DoubleAnimation Storyboard.TargetName="gridMenu" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="200" To="60" Duration="0:0:0.3">
+                                        <DoubleAnimation Storyboard.TargetName="gridMenu" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="200" To="58" Duration="0:0:0.3">
                                         </DoubleAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -119,7 +131,7 @@
                             <EventTrigger RoutedEvent="ToggleButton.Checked">
                                 <BeginStoryboard>
                                     <Storyboard x:Name="ShowStackPanel">
-                                        <DoubleAnimation Storyboard.TargetName="gridMenu" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="60" To="200" Duration="0:0:0.3">
+                                        <DoubleAnimation Storyboard.TargetName="gridMenu" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="58" To="200" Duration="0:0:0.3">
                                         </DoubleAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -193,10 +205,10 @@
 
                 </Grid>
             </Border>
-        <!-- Start: GridColum Left-->
-           
-          
-                <!-- End: GridColum Left-->
+            <!-- Start: GridColum Left-->
+
+
+            <!-- End: GridColum Left-->
         </Grid>
     </Border>
 </Window>

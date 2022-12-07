@@ -24,7 +24,7 @@
         <Converters:HasOjectConverter x:Key="HasOjectConverter"/>
     </Page.Resources>
 
-    <Grid>
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="725"/>
             <ColumnDefinition Width="400"/>
@@ -32,7 +32,13 @@
 
         <Border 
                 Grid.Column="0"
-                Background="{StaticResource Gray91}">
+               >
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color='#E9E4F0' Offset="0"/>
+                    <GradientStop Color='#D3CCE3' Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
             <Grid>
 
                 <Grid VerticalAlignment="Top"
@@ -197,9 +203,15 @@
                                     <Border x:Name="DeleteButton"
                                             Grid.Column="2"
                                             Margin="0 14 14 0"
-                                            Background="Transparent"
+                                            
                                             CornerRadius="2"
                                             Cursor="Hand">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                                                <GradientStop Color='#E9E4F0' Offset="0"/>
+                                                <GradientStop Color='#D3CCE3' Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
                                         <Image Source="/Resources/Images/IconForInputInfo/close_box.png"
                                                Opacity="0.4"
                                                Height="24"/>
@@ -238,8 +250,14 @@
 
         <Border x:Name="InputInfoS2"
                 Grid.Column="1"
-                Background="{StaticResource FloralWhite}"
+               
                 CornerRadius="0 25 25 0">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color='#E9E4F0' Offset="0"/>
+                    <GradientStop Color='#D3CCE3' Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
             <StackPanel DataContext="{Binding SelectedInputInfo}"
                         VerticalAlignment="Center"
                         Margin="30 0"
