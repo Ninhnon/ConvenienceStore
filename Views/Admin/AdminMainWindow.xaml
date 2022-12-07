@@ -187,6 +187,11 @@
                                  Command="{Binding SupplierCommand}"
                         CommandParameter="{Binding ElementName=PagesNavigation}"
                                      FontWeight="SemiBold"/>
+                        <RadioButton x:Name="rdVoucher" Content="Voucher" Style="{DynamicResource MenuRadioButtonStyle}"
+                                 Tag="{DynamicResource voucher}" Margin="0 5 0 5"
+                                 Command="{Binding VoucherCommand}"
+                                 CommandParameter="{Binding ElementName=PagesNavigation}"
+                                 FontWeight="SemiBold"/>
                         <!--<RadioButton x:Name="rdVoucher" Content="Voucher" Style
                     ="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource voucher}" Margin="0 5 0 5" Click="rdVoucher_Click" FontWeight="SemiBold"/>-->
                     </StackPanel>

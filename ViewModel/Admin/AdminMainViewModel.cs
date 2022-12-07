@@ -57,11 +57,14 @@ namespace ConvenienceStore.ViewModel.Admin
         public ICommand ProfileCommand { get; set; }
         public ICommand ReportCommand { get; set; }
         public ICommand ChartCommand { get; set; }
+
+        public ICommand VoucherCommand { get; set; }
         public ICommand SupplierCommand { get; set; }
         public ICommand InputInfoCommand { get; set; }
         public ICommand ShowPanelCommand { get; set; }
         public ICommand HidePanelCommand { get; set; }
         public ICommand SizeChangedCommand { get; set; }
+
 
         private string? _ten;
         public string? Ten
@@ -131,6 +134,12 @@ namespace ConvenienceStore.ViewModel.Admin
             {
                 parameter.Content = new ReportView();
             });
+            VoucherCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new VoucherView();
+
+            });
+
             ShowPanelCommand = new RelayCommand<AdminMainWindow>(parameter => true, parameter => Show(parameter));
             HidePanelCommand = new RelayCommand<AdminMainWindow>(parameter => true, parameter => Hide(parameter));
             SizeChangedCommand = new RelayCommand<AdminMainWindow>(parameter => true, parameter => SizeChanged(parameter));
