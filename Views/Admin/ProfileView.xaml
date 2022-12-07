@@ -197,12 +197,88 @@
                        Foreground="Black"/>
             </Border>
 
-            <ListView Height="220"
+            <ScrollViewer Margin="30 0"
+                          HorizontalScrollBarVisibility="Visible"
+                          VerticalScrollBarVisibility="Auto" >
+                <ListView Height="220"
+                      VerticalAlignment="Bottom"
+                      HorizontalAlignment="Center"
+                      Margin="0 0 0 10"
+                      ItemsSource="{Binding MyTeam}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      ScrollViewer.CanContentScroll="False"
+                      VirtualizingPanel.IsVirtualizing="True">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"
+                                    CanHorizontallyScroll="True"
+                                    CanVerticallyScroll="False"></StackPanel>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <Border>
+                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                          Margin="17 0"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Height="195"
+                                Width="170"
+                                VerticalAlignment="Bottom"
+                                CornerRadius="10"
+                                Background="White">
+                                <Border.Effect>
+                                    <DropShadowEffect 
+                                   BlurRadius="5"
+                                    Direction="270"
+                                    Opacity="0.45"
+                                    RenderingBias="Performance"
+                                    ShadowDepth="1.5"
+                                    Color="{StaticResource MaterialDesignShadow}"/>
+                                </Border.Effect>
+
+                                <StackPanel Margin="15 20 15 15">
+                                    <Ellipse Stroke="Transparent"
+                                         Width="100"
+                                         Height="100"
+                                         VerticalAlignment="Top"
+                                         Margin="0 0 0 10">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{Binding Avatar}"
+                                                    Stretch="UniformToFill"/>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+
+                                    <TextBlock Text="{Binding Name}"
+                                           HorizontalAlignment="Center"
+                                           FontWeight="semiBold"
+                                           FontSize="18"
+                                           TextWrapping="Wrap"
+                                           TextAlignment="Center"/>
+                                </StackPanel>
+
+                            </Border>
+
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+
+            <!--<ListView Height="220"
                       VerticalAlignment="Bottom"
                       HorizontalAlignment="Center"
                       Margin="30 0 30 10"
                       ItemsSource="{Binding MyTeam}"
-                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                       ScrollViewer.VerticalScrollBarVisibility="Hidden"
                       ScrollViewer.CanContentScroll="False"
                       VirtualizingPanel.IsVirtualizing="True">
@@ -268,7 +344,7 @@
 
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </ListView>-->
         </Grid>
     </Grid>
 </Page>

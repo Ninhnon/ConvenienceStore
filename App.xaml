@@ -30,6 +30,7 @@
                 <ResourceDictionary Source="Resources/Styles/Lam/InteractiveTextBlock.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Lam/MyTextBoxStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Lam/DataGridView.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/Lam/ScrollViewStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <SolidColorBrush x:Key="PrimaryHueLightBrush"
