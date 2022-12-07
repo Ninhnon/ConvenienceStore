@@ -43,12 +43,11 @@
                     DataContext="{StaticResource ReportVM}" Margin="0,0,0,0">
                 <StackPanel Orientation="Horizontal" 
                     DataContext="{StaticResource ReportVM}"
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Top" 
-                    Width="1559"
+                    HorizontalAlignment="Center" 
+                    Width="1135"
                     
                     Margin="40,0,0,0">
-                    <TextBlock FontSize="26" Foreground="#CCD7FF" Margin="50 35 0 20" Text="{Binding Hello}" HorizontalAlignment="Left"/>
+                    <TextBlock FontSize="26" Foreground="#B06AB3" Margin="50 35 0 20" Text="{Binding Hello}" HorizontalAlignment="Left"/>
                     <Border Margin="15" CornerRadius="5" Width="295" Height="150">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">

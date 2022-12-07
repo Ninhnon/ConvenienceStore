@@ -52,7 +52,8 @@
                     <StackPanel>
 
 
-                        <Border CornerRadius="7" Margin="0,0,60,0" Height="657" >
+                        <Border HorizontalAlignment="Center" 
+                            CornerRadius="7" Margin="0,0,0,0" Height="657" Width="645" >
                             <Border.Effect>
                                 <DropShadowEffect Direction="-130" BlurRadius="30" ShadowDepth="5" Opacity="0.1"/>
                             </Border.Effect>
