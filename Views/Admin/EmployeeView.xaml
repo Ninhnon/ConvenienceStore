@@ -214,8 +214,9 @@
                                             Foreground="#4B0082"
                                             Height="32"
                                             Padding="6 4"
-                                            Command="{Binding Source={StaticResource SupplierVM}, Path=EditSupplierButton}"
-                                            CommandParameter="{Binding}"/>
+                                                 DataContext="{StaticResource EmployeeVM}"
+                                            Command="{Binding EditEmployeeCommand }"
+                                            CommandParameter="{Binding ElementName=wdEmployee}"/>
                                         <Button Style="{StaticResource MaterialDesignFlatLightButton}"
                                             Content="{materialDesign:PackIcon Kind=Delete, Size=24}"
                                             Height="32"
