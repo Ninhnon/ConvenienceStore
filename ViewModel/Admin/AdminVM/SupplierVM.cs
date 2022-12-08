@@ -45,7 +45,6 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
         public AddSupplierButtonCommand AddSupplierButtonCommand { get; set; }
         public SaveNewSupplierCommand SaveNewSupplierCommand { get; set; }
-        public EditSupplierButton EditSupplierButton { get; set; }
         public DeleteSupplierButton DeleteSupplierButton { get; set; }
         public SupplierVM()
         {
@@ -58,7 +57,6 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
             AddSupplierButtonCommand = new AddSupplierButtonCommand(this);
             SaveNewSupplierCommand = new SaveNewSupplierCommand(this);
-            EditSupplierButton = new EditSupplierButton(this);
             DeleteSupplierButton = new DeleteSupplierButton(this);
         }
 
@@ -73,7 +71,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                     ObservableSupplier.Add(suppliers[i]);
                 }
             }
-        }
+            
+            }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

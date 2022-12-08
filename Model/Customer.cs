@@ -19,7 +19,7 @@ namespace ConvenienceStore.Model
     {
         #nullable enable
 
-        private int _Id;
+        public int _Id;
         public int Id { get { return _Id; } set { _Id = value; OnPropertyChanged(); } }
         private string? _Name;
         public string? Name { get { return _Name; } set { _Name = value; OnPropertyChanged(); } }

@@ -29,8 +29,10 @@
                 <ResourceDictionary Source="Resources/Styles/Lam/ShutdownButton.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Lam/InteractiveTextBlock.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Lam/MyTextBoxStyle.xaml"/>
-                <ResourceDictionary Source="Resources/Styles/DataGridView.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/Lam/DataGridView.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/Lam/ScrollViewStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            
             <SolidColorBrush x:Key="PrimaryHueLightBrush"
                              Color="#00AF91" />
             <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush"

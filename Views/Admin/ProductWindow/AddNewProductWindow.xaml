@@ -173,7 +173,7 @@
                                             Orientation="Vertical"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center"
-                                            Visibility="{Binding ElementName=ImageProduct, Path=ImageSource, Converter={StaticResource HasImageConverter}}">
+                                            Visibility="{Binding ElementName=ImageSource, Converter={StaticResource HasImageConverter}}">
 
                                         <Image x:Name="IconPicture"
                                             Source="/Resources/Images/IconForProduct/image.png"

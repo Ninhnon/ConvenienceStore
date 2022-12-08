@@ -81,6 +81,15 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 _ten = value; OnPropertyChanged();
             }
         }
+        private string? _Email;
+        public string? Email
+        {
+            get => _Email;
+            set
+            {
+                _Email = value; OnPropertyChanged();
+            }
+        }
         private byte[] _Anh;
         public byte[] Anh
         {
@@ -97,9 +106,10 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public MainStaffViewModel()
         {
             Ten = CurrentAccount.Name;
-            danhsach = DatabaseHelper.FetchingUserData();
-            List= new ObservableCollection<User>(danhsach);
-
+            //danhsach = DatabaseHelper.FetchingUserData();
+            //List= new ObservableCollection<User>(danhsach);
+            Anh = DatabaseHelper.LoadAvatar(CurrentAccount.idAccount);
+            Email = CurrentAccount.Email;
             //Anh = List.First(x => x.UserName == StaffCurrent.UserName).Image;
             PaymentCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {

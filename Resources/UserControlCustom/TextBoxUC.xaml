@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
              mc:Ignorable="d" 
-             Background="White"
+             Background="Transparent"
              Name="myTextbox"
              d:DesignWidth="200">
     <UserControl.Resources>
@@ -15,7 +15,7 @@
         <StackPanel Margin="20 10">
             <TextBlock Text="{Binding Path=Caption,
                 ElementName=myTextbox}" Foreground="#97A5B4"
-                       FontSize="13" Margin="0 0 0 8"/>
+                       FontSize="13" Margin="0 0 0 0"/>
 
             <Grid>
                 <TextBlock x:Name="textBoxmain"

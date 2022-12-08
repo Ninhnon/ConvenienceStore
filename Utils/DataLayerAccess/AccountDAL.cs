@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using ConvenienceStore.Model;
+using ConvenienceStore.Utils.Helpers;
 
 namespace ConvenienceStore.Utils.DataLayerAccess
 {
@@ -29,43 +32,42 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         {
 
         }
-        public List<Account> ConvertDataTableToList()
+        public List<string> ConvertDBToListString()
         {
-            DataTable dt = new DataTable();
 
-            List<Account> accounts = new List<Account>();
+            List<string> accounts = new List<string>();
+            DataTable dt = new DataTable();
+            CloseConnection();
             try
             {
-                dt = LoadData("Users");
+                OpenConnection();
+                string sql = "SELECT name FROM Users where userrole=1";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                adapter.Fill(dt);
+                CloseConnection();
+
             }
             catch
             {
-                CloseConnection();
-                dt = LoadData("Users");
 
             }
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                Account acc = new Account(int.Parse(dt.Rows[i].ItemArray[0].ToString()),
-                                          dt.Rows[i].ItemArray[1].ToString(),
-                                          dt.Rows[i].ItemArray[2].ToString(),
-                                          dt.Rows[i].ItemArray[3].ToString(),
-                                          dt.Rows[i].ItemArray[4].ToString(),
-                                          dt.Rows[i].ItemArray[5].ToString(),
-                                           dt.Rows[i].ItemArray[6].ToString(),
-                                            dt.Rows[i].ItemArray[7].ToString(),
-                                            Convert.FromBase64String(dt.Rows[i].ItemArray[8].ToString())
-
-                                          );
-
+                string acc = dt.Rows[i].ItemArray[0].ToString();
                 accounts.Add(acc);
             }
+            return accounts;
+        }
+        public List<Account> ConvertDataTableToList()
+        {
+            List<Account> accounts = DatabaseHelper.FetchingAccountData();
             return accounts;
         }
         public void AddIntoDataBase(Account account)
         {
             OpenConnection();
-            string query = "INSERT INTO Users(UserRole,Name,Address,Phone,Email,UserName,Password) VALUES (@userrole, @name,@address,@phone,@email,@username,@pass)";
+            string query = "INSERT INTO Users(UserRole,Name,Address,Phone,Email,UserName,Password,Avatar,ManagerId) VALUES (@userrole, @name,@address,@phone,@email,@username,@pass,@avatar,@managerid)";
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@userrole", account.UserRole.ToString());
             cmd.Parameters.AddWithValue("@name", account.Name);
@@ -74,32 +76,21 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             cmd.Parameters.AddWithValue("@email", account.Email);
             cmd.Parameters.AddWithValue("@username", account.UserName);
             cmd.Parameters.AddWithValue("@pass", account.Password);
-
+            cmd.Parameters.AddWithValue("@avatar", account.Avatar);
+            cmd.Parameters.AddWithValue("@managerid", account.ManagerId);
             cmd.ExecuteNonQuery();
             CloseConnection();
         }
-        public bool DeleteAccount(string idAccount)
+        public void DeleteAccount(int idAccount)
         {
-            try
-            {
+         
                 OpenConnection();
-                string query = "delete from Account where IdAccount = " + idAccount;
+                string query = "delete from Users where Id = " + idAccount;
                 SqlCommand command = new SqlCommand(query, conn);
-                if (command.ExecuteNonQuery() > 0)
-                    return true;
-                else
-                {
-                    return false;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-            finally
-            {
+            command.ExecuteNonQuery();
+                   
                 CloseConnection();
-            }
+            
         }
         public int SetNewID()
         {

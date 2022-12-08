@@ -15,6 +15,8 @@ namespace ConvenienceStore.Model.Staff
     using System.Collections.Generic;
     public partial class Vouchers : BaseViewModel
     {
+        public int _Id { get; set; }
+        public int Id { get => _Id; set { _Id = value; OnPropertyChanged(); } }
         public string _ReleaseId { get; set; }
         public string ReleaseId { get => _ReleaseId; set { _ReleaseId = value; OnPropertyChanged(); } }
         public string _ReleaseName; public string ReleaseName { get => _ReleaseName; set { _ReleaseName = value; OnPropertyChanged(); } }

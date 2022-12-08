@@ -1,9 +1,7 @@
 ﻿using ConvenienceStore.Model;
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
-using ConvenienceStore.Views;
 using ConvenienceStore.Views.Staff;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
@@ -76,8 +74,8 @@ namespace ConvenienceStore.ViewModel.StaffVM
         //public Receipt ReceiptPage
 
         public List<Products> products = new List<Products>();
-
         public List<Customer> customers = new List<Customer>();
+        public List<ConvenienceStore.Model.Staff.Bill> bill = new List<ConvenienceStore.Model.Staff.Bill>();
 
         private Model.Staff.Bill _ReceiptBill;
         public Model.Staff.Bill ReceiptBill { get { return _ReceiptBill; } set { _ReceiptBill = value; OnPropertyChanged(); } }
@@ -265,27 +263,10 @@ namespace ConvenienceStore.ViewModel.StaffVM
             }, (p) =>
             {
                 customers = DatabaseHelper.FetchingCustomerData();
-                var checkCustomerId = customers.Where(x => Convert.ToString(x.Id) == p.Text);
-
-                if (p.Text == null)
-                    CustomerId = null;
-
-                if (checkCustomerId.Count() == 1)
-                {
-                    CustomerId = Convert.ToInt32(p.Text);
-                    MessageBoxCustom mbSuccess = new MessageBoxCustom("Thông báo", "Mã khách hàng hợp lệ", MessageType.Success, MessageButtons.OK);
-                    mbSuccess.ShowDialog();
-                }    
-                else
-                {
-                    p.Text = null;
-                    CustomerId = null;
-                    MessageBoxCustom mbFailed = new MessageBoxCustom("Cảnh báo", "Mã khách hàng không hợp lệ", MessageType.Error, MessageButtons.OK);
-                    mbFailed.ShowDialog();
-                }
+                MessageBox.Show("Mã khách hàng hợp lệ");
             });
 
-            CompleteReceiptCM = new RelayCommand<Button>((p) =>
+            CompleteReceiptCM = new RelayCommand<object>((p) =>
             {
                 return true;
             }, (p) =>

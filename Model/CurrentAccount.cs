@@ -66,6 +66,10 @@ namespace ConvenienceStore.Model
             get => avatar_;
             set { avatar_ = value; }
         }
+      
+        private static int managerId_;
+        public static int ManagerId
+        { get { return managerId_; } set { managerId_ = value; } }
 
     }
 }

@@ -27,7 +27,7 @@
                               Opacity="0.45"
                               RenderingBias="Performance"
                               ShadowDepth="1.5"/>
-        </Border.Effect>
+            </Border.Effect>
 
         <Grid>
 
@@ -43,7 +43,7 @@
 
 
                 <StackPanel Orientation="Vertical"
-                        Margin="10 0 10 0"
+                        Margin="10 0"
                         VerticalAlignment="Center">
                     
                     <StackPanel Orientation="Horizontal"

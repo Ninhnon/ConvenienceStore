@@ -63,19 +63,6 @@
                                              Height="24"
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Center"/>
-                    
-                    <!--Trigger style phụ thuộc vào button OK-->
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}"
-                                   BasedOn="{StaticResource ReceiptButtonStyle}">
-                            <Setter Property="IsEnabled" Value="False"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="False">
-                                    <Setter Property="IsEnabled" Value="True"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
                 </Button>
             </Grid>
 
@@ -216,7 +203,7 @@
             <materialDesign:Card Grid.Row="2"
                              Margin="5 5 5 0"
                              VerticalAlignment="Stretch"
-                                 Height="150"
+                                 Height="160"
                                  x:Name="billDetailCard">
                 
                 <ScrollViewer VerticalScrollBarVisibility="Hidden"
@@ -393,42 +380,46 @@
             <Grid Grid.Row="4">
                 <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                            x:Name="stackButtons">
+                        VerticalAlignment="Bottom">
 
+                    <StackPanel.Resources>
+
+                        <Style TargetType="Button"
+                           BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+
+                            <Setter Property="VerticalAlignment"
+                                Value="Bottom"/>
+
+                            <Setter Property="HorizontalAlignment"
+                                Value="Right"/>
+
+                            <Setter Property="Width"
+                                Value="70"/>
+
+                            <Setter Property="Height"
+                                Value="30"/>
+
+                            <Setter Property="FontSize"
+                                Value="12"/>
+
+                        </Style>
+
+                    </StackPanel.Resources>
                     <Button Content="OK"
                         x:Name="OkBtn"
-                            Style="{StaticResource ReceiptButtonStyle}"
                             Margin="0 0 10 10"
                             materialDesign:ButtonAssist.CornerRadius="8"
                             Command="{Binding CompleteReceiptCM}"
-                            CommandParameter="{Binding ElementName=OkBtn}"
                             BorderBrush="Transparent" />
 
-                    <Button 
+                    <Button Content="Hủy"
                         x:Name="CancelBtn"
                             Margin="0 0 10 10"
                             materialDesign:ButtonAssist.CornerRadius="8"
                             Command="{Binding CancelReceiptCM}"
                             CommandParameter="{Binding ElementName=CancelBtn}"
                             BorderBrush="Transparent"
-                        Background="OrangeRed">
-                        
-                        <Button.Style>
-                            <Style TargetType="{x:Type Button}"
-                                   BasedOn="{StaticResource ReceiptButtonStyle}">
-                                <Setter Property="Content" 
-                                        Value="Hủy"/>
-                                
-                                <!--Đổi nội dung phụ thuộc vào button ok-->
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false">
-                                        <Setter Property="Content" Value="Thoát"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
+                        Background="OrangeRed"/>
                 </StackPanel>
             </Grid>
         </Grid>
