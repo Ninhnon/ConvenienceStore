@@ -101,13 +101,13 @@
                     <!--Số hóa đơn-->
                     <StackPanel Orientation="Horizontal"
                             Margin="5 10 0 0">
-                        <TextBlock Text="Receipt no: " 
+                        <TextBlock Text="Số hóa đơn: " 
                          FontWeight="Light"
                          FontSize="13"
                          TextAlignment="Center"
                          HorizontalAlignment="Left"/>
 
-                        <TextBlock Text="2003" 
+                        <TextBlock Text="{Binding ReceiptBill.Id}" 
                          FontWeight="Light"
                          FontSize="13"
                          TextAlignment="Center"
@@ -118,41 +118,50 @@
                     <!--Ngày xuất hóa đơn-->
                     <StackPanel Orientation="Horizontal"
                             Margin="5 5 0 0">
-                        <TextBlock Text="Date: " 
+                        <TextBlock Text="Ngày hóa đơn: " 
                          FontWeight="Light"
                          FontSize="13"
                          TextAlignment="Center"
                          HorizontalAlignment="Left"/>
 
-                        <TextBlock Text="Oct 5, 2019 06:39 PM" 
+                        <TextBlock Text="{Binding ReceiptBill.BillDate, StringFormat={}{0:dddd, dd MMMM yyyy, hh:mm:ss}}" 
                          FontWeight="Light"
                          FontSize="13"
                          TextAlignment="Center"
                          HorizontalAlignment="Left"
-                               Margin="5 0 0 0"/>
+                               Margin="5 0 0 0"
+                                   xml:lang="vi"/>
                     </StackPanel>
 
                     <!--Nhân viên thanh toán-->
                     <StackPanel Orientation="Horizontal"
                             Margin="5 5 0 0">
-                        <TextBlock Text="Cashier: " 
+                        <TextBlock Text="Thu ngân: "
                          FontWeight="Light"
                          FontSize="13"
                          TextAlignment="Center"
                          HorizontalAlignment="Left"/>
 
-                        <TextBlock Text="5333-Nguyễn Ngọc Tín" 
+                        <TextBlock
                          FontWeight="Light"
                          FontSize="13"
                          TextAlignment="Center"
                          HorizontalAlignment="Left"
-                               Margin="5 0 0 0"/>
+                               Margin="5 0 0 0">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="StaffId"/>
+                                    <Binding Path="StaffName"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </StackPanel>
 
                     <!--Chi tiết hóa đơn-->
                     <StackPanel Orientation="Horizontal"
                             Margin="5 5 0 0">
-                        <TextBlock Text="Customer Id: " 
+                        
+                        <TextBlock Text="Mã khách hàng: " 
                          FontWeight="Light"
                          FontSize="13"
                          TextAlignment="Center"
@@ -161,15 +170,41 @@
 
                         <TextBox x:Name="customerIdTbx"
                             Margin="5 5 0 0"
-  materialDesign:HintAssist.Hint="Mã khách hàng"
-  Style="{StaticResource MaterialDesignTextBox}"
+  materialDesign:HintAssist.Hint="Nhập tại đây"
                             FontSize="13"
                                  TextAlignment="Center">
+                            
                             <TextBox.InputBindings>
                                 <KeyBinding Key="Enter"
                                             Command="{Binding SearchCustomerIdCM}"
                                             CommandParameter="{Binding ElementName=customerIdTbx}"/>
                             </TextBox.InputBindings>
+
+                            <TextBox.Style>
+                                <Style TargetType="{x:Type TextBox}"
+                                   BasedOn="{StaticResource MaterialDesignTextBox}">
+                                    <Setter Property="IsEnabled" 
+                                        Value="True"/>
+
+                                    <!--Textbox không thể nhập nội dung sau khi đã thanh toán-->
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false"/>
+                                                <Condition Binding="{Binding ElementName=customerIdTbx, Path=Text}" Value=""/>
+                                            </MultiDataTrigger.Conditions>
+
+                                            <MultiDataTrigger.Setters>
+                                                <Setter Property="Visibility" Value="Hidden"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
                         </TextBox>
                     </StackPanel>
 
@@ -199,33 +234,39 @@
                         <ListView.View>
                             
                             <GridView>
+                                <GridView.ColumnHeaderContainerStyle>
+                                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                        <Setter Property="Padding" Value="15 0 0 0"/>
+                                    </Style>
+                                </GridView.ColumnHeaderContainerStyle>
                                 
                                 <GridViewColumn Header="SL"
-                                            Width="auto">
+                                            Width="80">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Quantity}"
-                                                   Margin="16 0 0 0"/>
+                                                   HorizontalAlignment="Left"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 
                                 <GridViewColumn Header="Sản phẩm"
-                                            Width="200">
+                                            Width="220">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Title}"
-                                                   Margin="-15 0 5 0"/>
+                                                   HorizontalAlignment="Left"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 
                                 <GridViewColumn Header="Số tiền"
-                                            Width="auto">
+                                            Width="130">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding TotalPrice, Converter={StaticResource MoneyToVNDCurrency}}"
-                                                   Margin="5 0 0 0"/>
+                                                   HorizontalAlignment="Left"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -235,7 +276,90 @@
                         </ListView.View>
                         
                     </ListView>
-                    
+
+                    <!--<DataGrid x:Name="SuppliersDataGrid"
+                      CellStyle="{DynamicResource DataGridCellStyle1}" 
+                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                      RowStyle="{DynamicResource DataGridRowStyle1}"
+                      ItemsSource="{Binding ObservableSupplier}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      ScrollViewer.CanContentScroll="False"
+                      VirtualizingPanel.IsVirtualizing="True"
+                      CanUserAddRows="False"
+                      AutoGenerateColumns="False">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="#" 
+                                        IsReadOnly="True"
+                                        CanUserResize="False"
+                                        Width="Auto"
+                                        Binding="{Binding Number}"/>
+                            <DataGridTemplateColumn x:Name="NameSupplier"
+                                            Header="Nhà cung cấp"
+                                            IsReadOnly="True"
+                                            CanUserResize="False"
+                                            Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"
+                                           ToolTip="{Binding Name}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Address" 
+                                        IsReadOnly="True"
+                                        CanUserResize="False"
+                                        Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Address}"
+                                           ToolTip="{Binding Address}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Phone" 
+                                        IsReadOnly="True"
+                                        CanUserResize="False"
+                                        Width="140"
+                                        Binding="{Binding Phone}"/>
+                            <DataGridTextColumn Header="Email" 
+                                        IsReadOnly="True"
+                                        CanUserResize="False"
+                                        Width="200"
+                                        Binding="{Binding Email}"/>
+
+                            <DataGridTemplateColumn Header="Operations"
+                                            IsReadOnly="True"
+                                            CanUserResize="False"
+                                            Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Style="{StaticResource MaterialDesignFlatLightButton}"
+                                            Content="{materialDesign:PackIcon Kind=Edit, Size=24}"
+                                            Foreground="#4B0082"
+                                            Height="32"
+                                            Padding="6 4"
+                                            Command="{Binding Source={StaticResource SupplierVM}, Path=EditSupplierButton}"
+                                            CommandParameter="{Binding}"/>
+                                            <Button Style="{StaticResource MaterialDesignFlatLightButton}"
+                                            Content="{materialDesign:PackIcon Kind=Delete, Size=24}"
+                                            Height="32"
+                                            Foreground="#CF0A0A"
+                                            Padding="6 4"
+                                            Margin="15 0 0 0"
+                                            HorizontalAlignment="Right"
+                                            Command="{Binding Source={StaticResource SupplierVM}, Path=DeleteSupplierButton}"
+                                            CommandParameter="{Binding}"/>
+
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>-->
+
                 </ScrollViewer>
                 
             </materialDesign:Card>
@@ -286,7 +410,7 @@
                             Margin="0 0 10 10"
                             materialDesign:ButtonAssist.CornerRadius="8"
                             Command="{Binding CancelReceiptCM}"
-                            CommandParameter="{Binding ElementName=receiptPage}"
+                            CommandParameter="{Binding ElementName=CancelBtn}"
                             BorderBrush="Transparent"
                         Background="OrangeRed">
                         

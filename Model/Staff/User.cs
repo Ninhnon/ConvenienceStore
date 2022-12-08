@@ -14,6 +14,8 @@ namespace ConvenienceStore.Model.Staff
     using System.Collections.Generic;
     public partial class User : BaseViewModel
     {
+        #nullable enable
+
         public int _Id { get; set; } public int Id { get => _Id; set { _Id = value; OnPropertyChanged(); } }
         public string _UserRole; public string UserRole { get => _UserRole; set { _UserRole = value; OnPropertyChanged(); } }
         public string _Name; public string Name { get => _Name; set { _Name = value; OnPropertyChanged(); } }
@@ -24,5 +26,7 @@ namespace ConvenienceStore.Model.Staff
         public string _UserName; public string UserName { get => _UserName; set { _UserName = value; OnPropertyChanged(); } }
         public string _Password; public string Password { get => _Password; set { _Password = value; OnPropertyChanged(); } }
         private byte[] _Image; public byte[] Image { get => _Image; set { _Image = value; OnPropertyChanged(); } }
+
+        #nullable disable
     }
 }

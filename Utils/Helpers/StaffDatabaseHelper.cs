@@ -31,7 +31,8 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryCustomerData = @"select * from [Customer]";
         static readonly string queryBillData = @"select * from [Bill]";
         static readonly string insertErorrs = "insert into Report(Title, Description, Status, RepairCost, SubmittedAt, StaffId, Level, Image) select N'{0}',N'{1}',N'Chờ tiếp nhận',{2},N'{3}',N'{4}',N'{5}', BulkColumn FROM Openrowset(Bulk N'{6}', Single_Blob) as img";
-        static readonly string queryInsertBill = @"insert into Bill(BillDate, CustomerId, UserId, Price) Values (@billDate, @cusId, @userId, @price)";
+        static readonly string queryInsertBill = @"insert into Bill(BillDate, CustomerId, UserId, Price) values (@billDate, @cusId, @userId, @price)";
+        static readonly string queryInsertBillDetail = @"insert into BillDetail(BillId, ProductId, Quantity, TotalPrice) values (@billId, @productId, @quantity, @totalPrice)";
 
         public static List<Model.Staff.Bill> FetchingBillData()
         {
@@ -254,20 +255,32 @@ namespace ConvenienceStore.Utils.Helpers
 
             sqlCon.Close();
             return customers;
-            }
+        }
+
         public static void InsertBill(int? customerId, int price)
         {
             sqlCon.Open();
             SqlCommand cmd = new SqlCommand(queryInsertBill, sqlCon);
-            cmd.Parameters.AddWithValue("@billDate", System.DateTime.UtcNow);
+            cmd.Parameters.AddWithValue("@billDate", System.DateTime.Now);
             cmd.Parameters.AddWithValue("@cusId", (customerId == null ? DBNull.Value : customerId));
             cmd.Parameters.AddWithValue("@userId", CurrentAccount.idAccount);
             cmd.Parameters.AddWithValue("@price", price);
 
             cmd.ExecuteNonQuery();
             sqlCon.Close();
-        //(@billDate, @cusId, @userId, @price)";
+        }
 
+        public static void InsertBillDetail(BillDetails b)
+        {
+            sqlCon.Open();
+            SqlCommand cmd = new SqlCommand(queryInsertBillDetail, sqlCon);
+            cmd.Parameters.AddWithValue("@billId", b.BillId);
+            cmd.Parameters.AddWithValue("@productId", b.ProductId);
+            cmd.Parameters.AddWithValue("@quantity", b.Quantity);
+            cmd.Parameters.AddWithValue("@totalPrice", b.TotalPrice);
+
+            cmd.ExecuteNonQuery();
+            sqlCon.Close();
         }
     }
 }

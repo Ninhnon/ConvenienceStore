@@ -251,8 +251,7 @@
                                   VerticalScrollBarVisibility="Hidden"
                                   PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
                                       Grid.Row="1"
-                                          x:Name="shoppingCartScrollView"
-                                          >
+                                          x:Name="shoppingCartScrollView">
 
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="ScrollChanged">
