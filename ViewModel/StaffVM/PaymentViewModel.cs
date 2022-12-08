@@ -1,7 +1,9 @@
 ﻿using ConvenienceStore.Model;
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
+using ConvenienceStore.Views;
 using ConvenienceStore.Views.Staff;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
@@ -263,10 +265,27 @@ namespace ConvenienceStore.ViewModel.StaffVM
             }, (p) =>
             {
                 customers = DatabaseHelper.FetchingCustomerData();
-                MessageBox.Show("Mã khách hàng hợp lệ");
+                var checkCustomerId = customers.Where(x => Convert.ToString(x.Id) == p.Text);
+
+                if (p.Text == null)
+                    CustomerId = null;
+
+                if (checkCustomerId.Count() == 1)
+                {
+                    CustomerId = Convert.ToInt32(p.Text);
+                    MessageBoxCustom mbSuccess = new MessageBoxCustom("Thông báo", "Mã khách hàng hợp lệ", MessageType.Success, MessageButtons.OK);
+                    mbSuccess.ShowDialog();
+                }
+                else
+                {
+                    p.Text = null;
+                    CustomerId = null;
+                    MessageBoxCustom mbFailed = new MessageBoxCustom("Cảnh báo", "Mã khách hàng không hợp lệ", MessageType.Error, MessageButtons.OK);
+                    mbFailed.ShowDialog();
+                }
             });
 
-            CompleteReceiptCM = new RelayCommand<object>((p) =>
+            CompleteReceiptCM = new RelayCommand<Button>((p) =>
             {
                 return true;
             }, (p) =>
@@ -294,7 +313,6 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 {
                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Thanh toán gặp sự cố, vui lòng thử lại!", MessageType.Warning, MessageButtons.OK);
                     mb.ShowDialog();
-                    DateTime a;
                 }
             });
         }

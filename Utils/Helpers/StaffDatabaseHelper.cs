@@ -4,6 +4,11 @@ using ConvenienceStore.Model.Staff;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using ZXing;
 
 namespace ConvenienceStore.Utils.Helpers
 {
@@ -25,10 +30,11 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryConsingment = @"select * from [Consignment]";
         static readonly string queryCustomerData = @"select * from [Customer]";
         static readonly string queryBillData = @"select * from [Bill]";
+        static readonly string queryInsertBill = @"insert into Bill(BillDate, CustomerId, UserId, Price) Values (@billDate, @cusId, @userId, @price)";
         static readonly string queryAvatar = @"select Avatar from [Users] where Id={0}";
         static readonly string insertErorrs = "insert into Report(Title, Description, Status, RepairCost, SubmittedAt, StaffId, Image) select N'{0}',N'{1}',N'{2}',{3},N'{4}',N'{5}', BulkColumn FROM Openrowset(Bulk N'{6}', Single_Blob) as img";
         static readonly string insertReport = "insert Report values (@Title, @Description, @Status, @SubmittedAt,Null,Null,@RepairCost,@StaffId, @Image)";
-        static readonly string insertBillData = @"insert into Bill(BillDate, CustomerId, UserId, Price) Values (@billDate, @cusId, @userId, @price)";
+        static readonly string queryInsertBillDetail = @"insert into BillDetail(BillId, ProductId, Quantity, TotalPrice) values (@billId, @productId, @quantity, @totalPrice)";
 
         public static List<Model.Staff.Bill> FetchingBillData()
         {
@@ -44,7 +50,7 @@ namespace ConvenienceStore.Utils.Helpers
                 {
                     Id = reader.GetInt32(0),
                     BillDate = reader.GetDateTime(1),
-                    CustomerId = reader.GetInt32(2),
+                    CustomerId = reader.IsDBNull(2) ? null : reader.GetInt32(2),
                     UserId = reader.GetInt32(3),
                     Price = reader.GetInt32(3),
                 });
@@ -224,7 +230,7 @@ namespace ConvenienceStore.Utils.Helpers
         public static List<Customer> FetchingCustomerData()
         {
             sqlCon.Open();
-            var cmd = new SqlCommand(queryProduct, sqlCon);
+            SqlCommand cmd = new SqlCommand(queryCustomerData, sqlCon);
 
             List<Customer> customers = new List<Customer>();
 
@@ -234,18 +240,6 @@ namespace ConvenienceStore.Utils.Helpers
             {
                 customers.Add(new Customer()
                 {
-                    //BarCode = reader.GetString(0),
-                    //Title = reader.GetString(1),
-                    //ProductionSite = reader.GetString(2),
-                    //Image = Convert.FromBase64String(reader["Image"].ToString()),
-                    //Image = (Byte[])reader["Image"],
-                    //Cost = reader.GetInt32(4),
-                    //Price = reader.GetInt32(5),
-                    //Stock = reader.GetInt32(6),
-                    //ManufacturingDate = reader.GetDateTime(7),
-                    //ExpiryDate = reader.GetDateTime(8),
-                    //Discount = reader.IsDBNull(9) ? null : reader.GetInt32(9),
-                    //Type = reader.IsDBNull(10) ? null : reader.GetString(10),
                     Id = reader.GetInt32(0),
                     Name = reader.IsDBNull(1) ? null : reader.GetString(1),
                     Address = reader.IsDBNull(2) ? null : reader.GetString(2),
@@ -261,19 +255,47 @@ namespace ConvenienceStore.Utils.Helpers
             return customers;
         }
 
+        public static void InsertBill(int? customerId, int price)
+        {
+            sqlCon.Open();
+            SqlCommand cmd = new SqlCommand(queryInsertBill, sqlCon);
+            cmd.Parameters.AddWithValue("@billDate", System.DateTime.Now);
+            cmd.Parameters.AddWithValue("@cusId", (customerId == null ? DBNull.Value : customerId));
+            cmd.Parameters.AddWithValue("@userId", CurrentAccount.idAccount);
+            cmd.Parameters.AddWithValue("@price", price);
+
+            cmd.ExecuteNonQuery();
+            sqlCon.Close();
+        }
+
+        public static void InsertBillDetail(BillDetails b)
+        {
+            sqlCon.Open();
+            SqlCommand cmd = new SqlCommand(queryInsertBillDetail, sqlCon);
+            cmd.Parameters.AddWithValue("@billId", b.BillId);
+            cmd.Parameters.AddWithValue("@productId", b.ProductId);
+            cmd.Parameters.AddWithValue("@quantity", b.Quantity);
+            cmd.Parameters.AddWithValue("@totalPrice", b.TotalPrice);
+
+            cmd.ExecuteNonQuery();
+            sqlCon.Close();
+        }
+
         public static byte[] LoadAvatar(int id)
         {
-            var strCmd = string.Format(queryAvatar, id);
             sqlCon.Open();
+            var strCmd = string.Format(queryAvatar, id);
+
             byte[] Avatar = new byte[byte.MaxValue];
             SqlCommand cmd = new(strCmd, sqlCon);
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                Avatar = reader.IsDBNull(0)?null:(Byte[])reader["Avatar"];
+                Avatar = reader.IsDBNull(0) ? null : (Byte[])reader["Avatar"];
             }
             reader.Close();
             sqlCon.Close();
+
             return Avatar;
         }
         public static void InsertReport(Report report)

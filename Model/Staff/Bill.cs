@@ -3,7 +3,7 @@ namespace ConvenienceStore.Model.Staff
     using ConvenienceStore.ViewModel.StaffVM;
     using System;
     using System.Collections.Generic;
-    
+
     public class Bill : BaseViewModel
     {
         #nullable enable

@@ -16,7 +16,8 @@ namespace ConvenienceStore.Model.Staff
     {
         #nullable enable
 
-        public int _Id { get; set; } public int Id { get => _Id; set { _Id = value; OnPropertyChanged(); } }
+        public int _Id { get; set; }
+        public int Id { get => _Id; set { _Id = value; OnPropertyChanged(); } }
         public string _UserRole; public string UserRole { get => _UserRole; set { _UserRole = value; OnPropertyChanged(); } }
         public string _Name; public string Name { get => _Name; set { _Name = value; OnPropertyChanged(); } }
         public string? _Address; public string? Address { get => _Address; set { _Address = value; OnPropertyChanged(); } }

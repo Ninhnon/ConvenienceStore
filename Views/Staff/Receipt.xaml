@@ -28,7 +28,7 @@
             Background="{DynamicResource SecondaryBackgroundColor}">
         <Grid>
             <Grid.RowDefinitions>
-                
+
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -38,13 +38,13 @@
             </Grid.RowDefinitions>
 
             <i:Interaction.Triggers>
-                
+
                 <i:EventTrigger EventName="Loaded">
-                    
+
                     <i:InvokeCommandAction Command="{Binding LoadReceipt}" />
-                    
+
                 </i:EventTrigger>
-                
+
             </i:Interaction.Triggers>
 
             <!--ControlBar-->
@@ -63,6 +63,19 @@
                                              Height="24"
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Center"/>
+
+                    <!--Trigger style phụ thuộc vào button OK-->
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}"
+                                   BasedOn="{StaticResource ReceiptButtonStyle}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="False">
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                 </Button>
             </Grid>
 
@@ -146,21 +159,22 @@
 
                     <!--Chi tiết hóa đơn-->
                     <StackPanel Orientation="Horizontal"
-                            Margin="5 5 0 0">
-                        
+                            Margin="5 0 0 0">
+
                         <TextBlock Text="Mã khách hàng: " 
                          FontWeight="Light"
                          FontSize="13"
                          TextAlignment="Center"
                          HorizontalAlignment="Left"
-                                   Margin="0 10 0 0"/>
+                                   Margin="0 15 0 0"/>
 
                         <TextBox x:Name="customerIdTbx"
-                            Margin="5 5 0 0"
-  materialDesign:HintAssist.Hint="Nhập tại đây"
+                            Margin="0 5 0 0"
                             FontSize="13"
-                                 TextAlignment="Center">
-                            
+                                 TextAlignment="Center"
+                                 materialDesign:HintAssist.Hint="Nhập tại đây"
+                                 materialDesign:HintAssist.HintOpacity="0.5">
+
                             <TextBox.InputBindings>
                                 <KeyBinding Key="Enter"
                                             Command="{Binding SearchCustomerIdCM}"
@@ -193,6 +207,7 @@
                                 </Style>
                             </TextBox.Style>
                         </TextBox>
+
                     </StackPanel>
 
                     <Separator Margin="5 10 5 10"/>
@@ -203,23 +218,23 @@
             <materialDesign:Card Grid.Row="2"
                              Margin="5 5 5 0"
                              VerticalAlignment="Stretch"
-                                 Height="160"
+                                 Height="150"
                                  x:Name="billDetailCard">
-                
+
                 <ScrollViewer VerticalScrollBarVisibility="Hidden"
                               HorizontalScrollBarVisibility="Hidden"
                               PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
                               x:Name="billDetailScrollView">
-                    
+
                     <ListView ItemsSource="{Binding ShoppingCart}" 
                           SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                           VerticalAlignment="Top"
                           materialDesign:ListBoxItemAssist.ShowSelection="False"
                           materialDesign:ListBoxAssist.IsToggle="False"
                               x:Name="billDetailListView">
-                        
+
                         <ListView.View>
-                            
+
                             <GridView>
                                 <GridView.ColumnHeaderContainerStyle>
                                     <Style TargetType="{x:Type GridViewColumnHeader}">
@@ -227,7 +242,7 @@
                                         <Setter Property="Padding" Value="15 0 0 0"/>
                                     </Style>
                                 </GridView.ColumnHeaderContainerStyle>
-                                
+
                                 <GridViewColumn Header="SL"
                                             Width="80">
                                     <GridViewColumn.CellTemplate>
@@ -237,17 +252,18 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                
+
                                 <GridViewColumn Header="Sản phẩm"
                                             Width="220">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Title}"
-                                                   HorizontalAlignment="Left"/>
+                                                   HorizontalAlignment="Left"
+                                                       TextWrapping="WrapWithOverflow"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                
+
                                 <GridViewColumn Header="Số tiền"
                                             Width="130">
                                     <GridViewColumn.CellTemplate>
@@ -257,105 +273,22 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                
+
                             </GridView>
-                            
+
                         </ListView.View>
-                        
+
                     </ListView>
-
-                    <!--<DataGrid x:Name="SuppliersDataGrid"
-                      CellStyle="{DynamicResource DataGridCellStyle1}" 
-                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
-                      RowStyle="{DynamicResource DataGridRowStyle1}"
-                      ItemsSource="{Binding ObservableSupplier}"
-                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                      ScrollViewer.CanContentScroll="False"
-                      VirtualizingPanel.IsVirtualizing="True"
-                      CanUserAddRows="False"
-                      AutoGenerateColumns="False">
-
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="#" 
-                                        IsReadOnly="True"
-                                        CanUserResize="False"
-                                        Width="Auto"
-                                        Binding="{Binding Number}"/>
-                            <DataGridTemplateColumn x:Name="NameSupplier"
-                                            Header="Nhà cung cấp"
-                                            IsReadOnly="True"
-                                            CanUserResize="False"
-                                            Width="*">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}"
-                                           ToolTip="{Binding Name}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Address" 
-                                        IsReadOnly="True"
-                                        CanUserResize="False"
-                                        Width="*">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Address}"
-                                           ToolTip="{Binding Address}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Phone" 
-                                        IsReadOnly="True"
-                                        CanUserResize="False"
-                                        Width="140"
-                                        Binding="{Binding Phone}"/>
-                            <DataGridTextColumn Header="Email" 
-                                        IsReadOnly="True"
-                                        CanUserResize="False"
-                                        Width="200"
-                                        Binding="{Binding Email}"/>
-
-                            <DataGridTemplateColumn Header="Operations"
-                                            IsReadOnly="True"
-                                            CanUserResize="False"
-                                            Width="Auto">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button Style="{StaticResource MaterialDesignFlatLightButton}"
-                                            Content="{materialDesign:PackIcon Kind=Edit, Size=24}"
-                                            Foreground="#4B0082"
-                                            Height="32"
-                                            Padding="6 4"
-                                            Command="{Binding Source={StaticResource SupplierVM}, Path=EditSupplierButton}"
-                                            CommandParameter="{Binding}"/>
-                                            <Button Style="{StaticResource MaterialDesignFlatLightButton}"
-                                            Content="{materialDesign:PackIcon Kind=Delete, Size=24}"
-                                            Height="32"
-                                            Foreground="#CF0A0A"
-                                            Padding="6 4"
-                                            Margin="15 0 0 0"
-                                            HorizontalAlignment="Right"
-                                            Command="{Binding Source={StaticResource SupplierVM}, Path=DeleteSupplierButton}"
-                                            CommandParameter="{Binding}"/>
-
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>-->
-
+                    
                 </ScrollViewer>
-                
+
             </materialDesign:Card>
 
             <Grid Grid.Row="3" Margin="0 5 0 5">
                 <StackPanel Orientation="Vertical">
 
                     <Separator Margin="5 10 5 0"/>
-                    
+
                     <TextBlock FontSize="18"
                            FontWeight="Bold"
                            Margin="5 10 10 5"
@@ -380,50 +313,46 @@
             <Grid Grid.Row="4">
                 <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom">
+                        VerticalAlignment="Bottom"
+                            x:Name="stackButtons">
 
-                    <StackPanel.Resources>
-
-                        <Style TargetType="Button"
-                           BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
-
-                            <Setter Property="VerticalAlignment"
-                                Value="Bottom"/>
-
-                            <Setter Property="HorizontalAlignment"
-                                Value="Right"/>
-
-                            <Setter Property="Width"
-                                Value="70"/>
-
-                            <Setter Property="Height"
-                                Value="30"/>
-
-                            <Setter Property="FontSize"
-                                Value="12"/>
-
-                        </Style>
-
-                    </StackPanel.Resources>
                     <Button Content="OK"
                         x:Name="OkBtn"
+                            Style="{StaticResource ReceiptButtonStyle}"
                             Margin="0 0 10 10"
                             materialDesign:ButtonAssist.CornerRadius="8"
                             Command="{Binding CompleteReceiptCM}"
+                            CommandParameter="{Binding ElementName=OkBtn}"
                             BorderBrush="Transparent" />
 
-                    <Button Content="Hủy"
+                    <Button 
                         x:Name="CancelBtn"
                             Margin="0 0 10 10"
                             materialDesign:ButtonAssist.CornerRadius="8"
                             Command="{Binding CancelReceiptCM}"
                             CommandParameter="{Binding ElementName=CancelBtn}"
                             BorderBrush="Transparent"
-                        Background="OrangeRed"/>
+                        Background="OrangeRed">
+
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}"
+                                   BasedOn="{StaticResource ReceiptButtonStyle}">
+                                <Setter Property="Content" 
+                                        Value="Hủy"/>
+
+                                <!--Đổi nội dung phụ thuộc vào button ok-->
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false">
+                                        <Setter Property="Content" Value="Thoát"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
                 </StackPanel>
             </Grid>
         </Grid>
-        
+
     </Border>
-    
+
 </Window>
