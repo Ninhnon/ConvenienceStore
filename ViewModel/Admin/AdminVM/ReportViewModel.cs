@@ -91,8 +91,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 IncreasingPercent = "100%";
             }
             NumOfSoldBill = ReportDAL.Instance.QueryRevenueNumOfSoldBillInMonth(currentMonth, currentYear).ToString() + " đơn";
-
-
+            FoodRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryFoodRevenueInYear(currentYear)) ).ToString()+" VND";
+            DrinkRevenue= string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryDrinkRevenueInYear(currentYear))).ToString() + " VND";
+            OtherRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryOtherRevenueInYear(currentYear))).ToString() + " VND";
 
 
         }
@@ -233,7 +234,36 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         }
 
 
-
+        private string foodRevenue_;
+        public string FoodRevenue
+        {
+            get { return foodRevenue_; }
+            set
+            {
+                foodRevenue_ = value;
+                OnPropertyChanged();
+            }
+            }
+        private string drinkRevenue_;
+        public string DrinkRevenue
+        {
+            get { return drinkRevenue_; }
+            set
+            {
+                drinkRevenue_ = value;
+                OnPropertyChanged();
+            }
+        }
+        private string otherRevenue_;
+        public string OtherRevenue
+        {
+            get { return otherRevenue_; }
+            set
+            {
+                otherRevenue_ = value;
+                OnPropertyChanged();
+            }
+        }
         private SeriesCollection lineSeriesCollection;
         public SeriesCollection LineSeriesCollection { get => lineSeriesCollection; set { lineSeriesCollection = value; OnPropertyChanged(); } }
 
@@ -254,8 +284,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                      new LineSeries
                           {
                               Title="Đơn hàng",
-                              Values=new ChartValues<int>{5,7,12,9,10},
-                              Stroke=(Brush)new BrushConverter().ConvertFrom("#0000ffff")
+                               
+                              Values=ReportDAL.Instance.QueryRevenueNumOfSoldBillInYear(selectedYear),
+                             Stroke=(Brush)new BrushConverter().ConvertFrom("#0000ffff")
                           },
                           new LineSeries
                           {

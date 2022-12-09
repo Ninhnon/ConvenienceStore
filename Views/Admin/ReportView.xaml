@@ -11,8 +11,8 @@
              x:Name="wdReport" 
       xmlns:uc="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        Height="638"
-      Width="1140"
+        Height="600"
+      
       DataContext="{StaticResource ReportVM}"
        Style="{StaticResource Page_Style}">
     <!--Style="{StaticResource Page_Style}"-->
@@ -59,7 +59,7 @@
                                     <i:EventTrigger EventName="Loaded">
                                         <i:InvokeCommandAction Command="{Binding InitLineChartCommand}"
                                                 CommandParameter="{Binding ElementName=wdReport}"/>
-                                      
+
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
 
@@ -173,7 +173,7 @@
                             HorizontalAlignment="Left" Orientation="Horizontal"
                             Height="247" Width="1079">
                     <Border Style="{StaticResource socialCard}" VerticalAlignment="Top"
-                           Width="250"
+                           Width="200"
                             Height="200"
            >
                         <StackPanel>
@@ -183,7 +183,7 @@
                                 <TextBlock Text="Đồ ăn" Style="{StaticResource socialCardTitle}" />
                             </StackPanel>
 
-                            <TextBlock Text="6.2m" Style="{StaticResource socialCardCounterTitle}" />
+                            <TextBlock Text="{Binding FoodRevenue}" FontSize="25" Style="{StaticResource socialCardCounterTitle}" />
                             <TextBlock Text="Doanh thu đồ ăn" Style="{StaticResource socialCardCounterText}" />
 
 
@@ -198,7 +198,7 @@
                             </Grid>
                         </StackPanel>
                     </Border>
-                    <Border  Width="250"
+                    <Border  Width="200"
                             Height="200" 
                              VerticalAlignment="Top"
                         Style="{StaticResource socialCard}">
@@ -209,7 +209,9 @@
                                 <TextBlock Text="Thức uống" Style="{StaticResource socialCardTitle}" />
                             </StackPanel>
 
-                            <TextBlock Text="1.8m" Style="{StaticResource socialCardCounterTitle}" />
+                            <TextBlock Text="{Binding DrinkRevenue}" 
+                                       FontSize="25"
+                                       Style="{StaticResource socialCardCounterTitle}" />
                             <TextBlock Text="Doanh thu thức uống" Style="{StaticResource socialCardCounterText}" />
 
 
@@ -224,8 +226,36 @@
                             </Grid>
                         </StackPanel>
                     </Border>
-                    <Border VerticalAlignment="Top" HorizontalAlignment="Right"
-                        Style="{StaticResource whiteBorder}" Height="246" Margin="200,0,0,0">
+                    <Border  Width="200"
+                            Height="200" 
+                             VerticalAlignment="Top"
+                        Style="{StaticResource socialCard}">
+                        <StackPanel>
+
+                            <StackPanel Margin="0,30,0,0" Style="{StaticResource socialCardStack}">
+                                <fa1:IconImage Icon="QuestionCircle" Foreground="#999966" Style="{StaticResource socialCardIconTitle}" Height="31" Width="32" />
+                                <TextBlock Text="Khác" Style="{StaticResource socialCardTitle}" />
+                            </StackPanel>
+
+                            <TextBlock Text="{Binding OtherRevenue}" 
+                                       FontSize="25"
+                                       Style="{StaticResource socialCardCounterTitle}" />
+                            <TextBlock Text="Doanh thu thức uống" Style="{StaticResource socialCardCounterText}" />
+
+
+                            <Grid Margin="0 0 0 15">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                    <Border VerticalAlignment="Top" Margin="200,0,50,0"
+                        Style="{StaticResource whiteBorder}" Height="182"  Width="305">
                         <StackPanel Margin="0,-20,0,-19" Width="272">
                             <TextBlock Text="Sales Top List" HorizontalAlignment="Center"
                                         Height="28" FontSize="20" FontWeight="Bold"
