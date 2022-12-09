@@ -167,13 +167,13 @@
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
                                  Margin="0 5 0 5"
                                  FontWeight="SemiBold"/>
-                        <RadioButton x:Name="rdReport" Content="Report"
+                        <!--<RadioButton x:Name="rdReport" Content="Report"
                                  Style="{DynamicResource MenuRadioButtonStyle}"
                                  Tag="{DynamicResource report}" 
                                  Margin="0 5 0 5" 
                                  Command="{Binding ReportCommand}"
                         CommandParameter="{Binding ElementName=PagesNavigation}"
-                                    FontWeight="SemiBold"/>
+                                    FontWeight="SemiBold"/>-->
                         <RadioButton x:Name="rdChart" Content="Chart"
                                  Style="{DynamicResource MenuRadioButtonStyle}"
                                  Tag="{DynamicResource chart}" 
