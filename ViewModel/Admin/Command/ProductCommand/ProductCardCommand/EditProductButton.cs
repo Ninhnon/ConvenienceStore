@@ -1,15 +1,8 @@
 ﻿using ConvenienceStore.Model.Admin;
-using ConvenienceStore.ViewModel.Admin.AdminVM;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Views.Admin.ProductWindow;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using static Emgu.CV.BarcodeDetector;
-using System.Diagnostics;
 
 namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCommand
 {
@@ -44,7 +37,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCom
 
             // currentProduct là 1 biến tham thiếu tới product thật nằm trong "products" ở ProductsVM.
             // sửa giá trị trên currentProduct thì giá trị Product thật cũng thay đổi theo !!
-            // Nên copy ra 1 biến mới để không ảnh hướng đến Product thậ
+            // Nên copy ra 1 biến mới để không ảnh hướng đến Product thật
 
             EditProductWindow editProductWindow = new EditProductWindow();
 

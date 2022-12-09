@@ -104,7 +104,7 @@
                             </Button>
                         </Grid>
 
-                        <materialDesign:Card Grid.Row="1" Margin="60,10,120,20" Background="Transparent">
+                        <materialDesign:Card Grid.Row="1" Margin="60,10,60,30" Background="Transparent">
                             <ScrollViewer MouseWheel="ScrollViewer_PreviewMouseWheel"  VerticalScrollBarVisibility="Auto">
                                 <ListView ItemsSource="{Binding ListError}" 
                                   SelectedItem="{Binding SelectedItem}"

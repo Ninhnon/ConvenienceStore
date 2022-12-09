@@ -3,6 +3,7 @@ using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.StaffVM;
 using ConvenienceStore.Views.Staff.TroubleWindow;
+using Emgu.CV.ML;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -99,16 +100,26 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         public ICommand UploadImageCommand { get; set; }
         public ICommand CloseCM { get; set; }
         public ICommand MouseMoveCommand { get; set; }
-
         public ICommand SaveNewTroubleCommand { get; set; }
+        public ICommand UpdateReportButtonCommand { get; set; }
         string? filepath;
         bool IsImageChanged = false;
         public static Grid MaskName { get; set; }
 
         public List<Report> danhsach = new();
 
+        private string? _ReportName;
+        public string? ReportName
+        {
+            get => _ReportName;
+            set { _ReportName = value; OnPropertyChanged(); }
+        }
+        public string RepairCost { get; set; }
+        public Report tmpReport { get; set; }
+
         public TroublePageViewModel()
         {
+            
             danhsach = DatabaseHelper.FetchingReportData();
 
             ListError = new ObservableCollection<Report>(danhsach);
@@ -134,6 +145,44 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             {
                 MaskName.Visibility = Visibility.Visible;
                 ViewError w = new();
+                ReportName = DatabaseHelper.GetName(SelectedItem.StaffId);
+                
+                if (SelectedItem.RepairCost == null)
+                {
+                    //w._Finishday.IsEnabled = false;
+                    w._cost.IsEnabled = false;
+                    //w._Finishday.Visibility = Visibility.Collapsed;
+                    //w._startday.Visibility = Visibility.Collapsed;
+                    w._cost.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    //w._Finishday.IsEnabled = true;
+                    w._cost.IsEnabled = true;
+                    //w._Finishday.Visibility = Visibility.Visible;
+                    //w._startday.Visibility = Visibility.Visible;
+                    w._cost.Visibility = Visibility.Visible;
+                }
+                if (SelectedItem.FinishDate == null)
+                {
+                    w._Finishday.IsEnabled = false;
+                    w._Finishday.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    w._Finishday.IsEnabled = true;
+                    w._Finishday.Visibility = Visibility.Visible;
+                }
+                if (SelectedItem.StartDate == null)
+                {
+                    w._startday.IsEnabled = false;
+                    w._startday.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    w._startday.IsEnabled = true;
+                    w._startday.Visibility = Visibility.Visible;
+                }
                 w.ShowDialog();
                 return;
             });
@@ -189,9 +238,17 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 MaskName.Visibility = Visibility.Collapsed;
                 IsSaving = false;
             });
-            LoadEditErrorCM = new RelayCommand<EditError>((p) => { return true; }, (p) =>
+            UpdateReportButtonCommand = new RelayCommand<EditTrouble>((p) => { return true; }, (p) =>
             {
-                EditError w1 = new();
+                IsSaving = true;
+                tmpReport = SelectedItem;
+                Update(p);
+                MaskName.Visibility = Visibility.Collapsed;
+                IsSaving = false;
+            });
+            LoadEditErrorCM = new RelayCommand<EditTrouble>((p) => { return true; }, (p) =>
+            {
+                EditTrouble w1 = new();
                 LoadEditError(w1);
                 MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
@@ -217,11 +274,6 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 Window w = Window.GetWindow(p);
                 w?.DragMove();
             });
-        }
-        public async Task GetData()
-        {
-            danhsach = DatabaseHelper.FetchingReportData();
-            ListError = new ObservableCollection<Report>(await Task.Run(() => danhsach));
         }
 
         public void FilterListError()
