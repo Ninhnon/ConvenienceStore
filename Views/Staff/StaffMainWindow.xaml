@@ -26,7 +26,7 @@
         Background="Transparent">
     <!--xmlns:uc="clr-namespace:ConvenienceStore.UserControlWPF"-->
 
-    <Border CornerRadius="20" 
+    <Border CornerRadius="8" 
             Background="{DynamicResource PrimaryBackgroundColor}">
         <Grid>
             <!-- Start: GridColumn Right -->
@@ -37,20 +37,8 @@
                 </Grid.RowDefinitions>
 
                 <!-- Start: Button Close | Restore | Minimize -->
-                <StackPanel Grid.Row="0" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft">
+                <StackPanel Grid.Row="0" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,5,0" Orientation="Horizontal" FlowDirection="RightToLeft">
                     <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="btnClose_Click" Tag="IsCloseButton"/>
-                    <Button x:Name="btnRestore" Margin="5,0" Click="btnRestore_Click">
-                        <Button.Style>
-                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonsStyle}">
-                                <Setter Property="Content" Value="{DynamicResource maximize}"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=mainWindow, Path=WindowState}" Value="Maximized">
-                                        <Setter Property="Content" Value="{DynamicResource restore}"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
                     <Button x:Name="btnMinimize" Style="{DynamicResource IconButtonsStyle}" Content="{DynamicResource minimize}" Click="btnMinimize_Click"/>
                 </StackPanel>
                 <!-- End: Button Close | Restore | Minimize -->
@@ -74,7 +62,7 @@
             <!-- Start: GridColumn Right -->
 
             <!-- Start: GridColum Left-->
-            <Border CornerRadius="20"
+            <Border CornerRadius="8"
                      Background="{DynamicResource SecondaryBackgroundColor}"
                     HorizontalAlignment="Left">
                 <Grid x:Name="gridMenu" Width="60"  HorizontalAlignment="Left">

@@ -41,7 +41,7 @@
                     Grid.Column="0">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                        <GradientStop Color='#E9E4F0' Offset="0"/>
+                        <GradientStop Color='LightBlue' Offset="0"/>
                         <GradientStop Color='#D3CCE3' Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>

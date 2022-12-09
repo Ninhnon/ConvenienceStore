@@ -33,7 +33,7 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
     </Window.Resources>
-    <Border  CornerRadius="20" >
+    <Border  CornerRadius="8" >
         <Border.Background>
             <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                 <GradientStop Color='#E9E4F0' Offset="0"/>
@@ -52,26 +52,14 @@
 
             <Grid >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="22"/>
+                    <RowDefinition Height="60"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
                 <!-- Start: Button Close | Restore | Minimize -->
 
-                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1105,0,0,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft" Width="85">
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1110,0,0,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft" Width="85">
                     <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="btnClose_Click" Tag="IsCloseButton"/>
-                    <Button x:Name="btnRestore" Margin="5,0" Click="btnRestore_Click">
-                        <Button.Style>
-                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonsStyle}">
-                                <Setter Property="Content" Value="{DynamicResource maximize}"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=wdMain, Path=WindowState}" Value="Maximized">
-                                        <Setter Property="Content" Value="{DynamicResource restore}"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
                     <Button x:Name="btnMinimize" Style="{DynamicResource IconButtonsStyle}" Content="{DynamicResource minimize}" Click="btnMinimize_Click"/>
                 </StackPanel>
                 <!-- End: Button Close | Restore | Minimize -->
@@ -94,7 +82,7 @@
 
             <!-- Start: GridColumn Right -->
             <Border 
-                    CornerRadius="20"
+                    CornerRadius="8"
                     HorizontalAlignment="Left">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">

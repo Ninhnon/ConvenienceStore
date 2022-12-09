@@ -22,8 +22,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       ShowsNavigationUI="False">
     <Border CornerRadius="8"
-            BorderThickness="8"
-            Background="{DynamicResource PrimaryBackgroundColor}">
+            Background="LightBlue">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="Loaded">
                 <i:InvokeCommandAction Command="{Binding MaskNameCM}"
