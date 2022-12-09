@@ -50,7 +50,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Voucher"
+                        <TextBlock Text="Quản lí Voucher"
                                    FontSize="32"
                                    FontWeight="SemiBold"
                             
@@ -59,7 +59,7 @@
                         <Border Grid.Column="2"
                                 Background="White"
                                 Height="40"
-                                Width="300"
+                                Width="250"
                                 CornerRadius="20">
                             <Border.Effect>
                                 <DropShadowEffect BlurRadius="5"
@@ -71,7 +71,7 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="50"/>
 
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
@@ -115,8 +115,8 @@
                     </Grid>
 
 
-                    <ListBox x:Name="InputInfoCards"
-                        ItemsSource="{Binding observableBlockVouchers}"
+                    <ListBox x:Name="BlockVoucherCards"
+                        ItemsSource="{Binding ObservableBlockVouchers}"
                         SelectedValue="{Binding SelectedBlockVoucher}"
                         Margin="25 83 3 30"
                         VerticalAlignment="Top"
@@ -156,10 +156,10 @@
                                                 <i:InvokeCommandAction Command="{StaticResource HideDeleteButtonCommand}"
                                                                 CommandParameter="{Binding ElementName=DeleteButton}"/>
                                             </i:EventTrigger>
-                                            <!--<i:EventTrigger EventName="MouseLeftButtonDown">
-                                        <i:InvokeCommandAction Command="{Binding Source={StaticResource InputInfoVM}, Path=OpenInputInfoCommand}"
-                                                                CommandParameter="{Binding}"/>
-                                    </i:EventTrigger>-->
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding Source={StaticResource VoucherVM}, Path=OpenVoucherCommand}"
+                                                                       CommandParameter="{Binding}"/>
+                                            </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </UserControls:BlockVoucherCard>
 
@@ -419,6 +419,75 @@
                         <GradientStop Color='#D3CCE3' Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
+                <Grid>
+                    
+                    <Grid VerticalAlignment="Top"
+                          HorizontalAlignment="Stretch"
+                          Margin="30 25 30 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Background="Transparent"
+                                    Cursor="Hand"
+                                    VerticalAlignment="Center">
+                            <Image Source="/Resources/Images/IconForProduct/arrow.png"
+                                       Width="30"/>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i:ChangePropertyAction TargetObject="{Binding ElementName=Voucher}"
+                                                            PropertyName="Visibility"
+                                                            Value="Hidden"/>
+                                    <i:ChangePropertyAction TargetObject="{Binding ElementName=BlockVoucherDetail}"
+                                                            PropertyName="Visibility"
+                                                            Value="Hidden"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Border>
+
+                        <TextBlock Grid.Column="1"
+                                   Text="Voucher"
+                                   FontSize="32"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Top"
+                                   HorizontalAlignment="Center"/>
+
+                    
+                    </Grid>
+                    <ListBox x:Name="VoucherCards"
+                             Margin="25 90 25 30"
+                             ItemsSource="{Binding ObservableVouchers}"
+                             ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                             ScrollViewer.CanContentScroll="False"
+                             VirtualizingPanel.IsVirtualizing="True">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                            <Border>
+                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <UserControls:VoucherCard VoucherItem="{Binding}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                </Grid>
             </Border>
 
             <Border x:Name="BlockVoucherDetail"

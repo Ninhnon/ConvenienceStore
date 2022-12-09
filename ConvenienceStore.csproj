@@ -34,7 +34,7 @@
     <None Remove="Resources\Images\IconForVoucher\calendar.png" />
     <None Remove="Resources\Images\IconForVoucher\coupons.png" />
     <None Remove="Resources\Images\IconForVoucher\right.png" />
-    <None Remove="Resources\Images\IconForVoucher\voucher.png" />
+    <None Remove="Resources\Images\IconForVoucher\ticket_hascolor.png" />
     <None Remove="Resources\Images\Login\logo.jpg" />
     <None Remove="Resources\Images\Menu\home.png" />
     <None Remove="Resources\Images\OverallApp\caret-arrow-up.png" />
@@ -126,7 +126,7 @@
     <Resource Include="Resources\Images\IconForVoucher\calendar.png" />
     <Resource Include="Resources\Images\IconForVoucher\coupons.png" />
     <Resource Include="Resources\Images\IconForVoucher\right.png" />
-    <Resource Include="Resources\Images\IconForVoucher\voucher.png" />
+    <Resource Include="Resources\Images\IconForVoucher\ticket_hascolor.png" />
     <Resource Include="Resources\Images\Login\logo.jpg" />
     <Resource Include="Resources\Images\Menu\home.png" />
     <Resource Include="Resources\Images\OverallApp\caret-arrow-up.png" />

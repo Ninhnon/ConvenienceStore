@@ -1,4 +1,5 @@
 ﻿using ConvenienceStore.Model.Admin;
+using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCommand;
 using System;
@@ -15,7 +16,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
     {
         public List<BlockVoucher> blockVouchers {get; set;}
 
-        public ObservableCollection<BlockVoucher> observableBlockVouchers { get; set;}
+        public ObservableCollection<BlockVoucher> ObservableBlockVouchers { get; set;}
 
         private string searchContent;
 
@@ -46,34 +47,48 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             }
         }
 
-        public GenerateBlockVoucher GenerateBlockVoucher { get; set; }
+        public List<Voucher> vouchers { get; set; }
+        public ObservableCollection<Voucher> ObservableVouchers { get; set; }
 
-        public ObservableCollection<Voucher> vouchers { get; set;}
+        public GenerateBlockVoucher GenerateBlockVoucher { get; set; }
+        public OpenVoucherCommand OpenVoucherCommand { get; set; }
+
         public VoucherVM()
         {
             blockVouchers = DatabaseHelper.FetchingBlockVoucherData();
 
-            observableBlockVouchers = new ObservableCollection<BlockVoucher>();
+            ObservableBlockVouchers = new ObservableCollection<BlockVoucher>();
             for (int i = 0; i < blockVouchers.Count; i++)
             {
-                observableBlockVouchers.Add(blockVouchers[i]);
+                ObservableBlockVouchers.Add(blockVouchers[i]);
             }
 
-            vouchers = new ObservableCollection<Voucher>();
+            vouchers = new List<Voucher>();
+            ObservableVouchers = new ObservableCollection<Voucher>();
 
             GenerateBlockVoucher = new GenerateBlockVoucher(this);
+            OpenVoucherCommand = new OpenVoucherCommand(this);
         }
 
         public void SetBlockVoucherCorespondSearch()
         {
-            observableBlockVouchers.Clear();
+            ObservableBlockVouchers.Clear();
 
             for (int i = 0; i < blockVouchers.Count; ++i)
             {
                 if (blockVouchers[i].ReleaseName.ToLower().Contains(searchContent.ToLower()))
                 {
-                    observableBlockVouchers.Add(blockVouchers[i]);
+                    ObservableBlockVouchers.Add(blockVouchers[i]);
                 }
+            }
+        }
+        public void LoadVouchers()
+        {
+            vouchers = selectedBlockVoucher.vouchers;
+            ObservableVouchers.Clear();
+            for (int i = 0; i < vouchers.Count; ++i)
+            {
+                ObservableVouchers.Add(vouchers[i]);
             }
         }
 

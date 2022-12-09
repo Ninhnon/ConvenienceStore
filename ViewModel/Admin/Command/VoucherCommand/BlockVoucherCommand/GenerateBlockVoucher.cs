@@ -189,7 +189,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCo
 
             if (newBlockVoucher.ReleaseName.ToLower().Contains(VM.SearchContent.ToLower()))
             {
-                VM.observableBlockVouchers.Add(newBlockVoucher);
+                VM.ObservableBlockVouchers.Add(newBlockVoucher);
             }
             VM.blockVouchers.Add(newBlockVoucher);
 

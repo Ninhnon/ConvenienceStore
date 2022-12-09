@@ -3,12 +3,12 @@
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <Style x:Key="ProductCard"
            TargetType="materialDesign:Card">
-        <Setter Property="Width" Value="675"/>
+        <Setter Property="Margin" Value="5 0 0 10"/>
+        <Setter Property="Width" Value="650"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="materialDesign:Card">
                     <Border x:Name="border"
-                            Margin="5 0 5 7"
                             CornerRadius="10">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0 0" EndPoint="1 1">
