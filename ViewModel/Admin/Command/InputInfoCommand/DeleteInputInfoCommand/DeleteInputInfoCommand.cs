@@ -1,5 +1,4 @@
-﻿using ConvenienceStore.Model.Admin;
-using ConvenienceStore.Utils.Helpers;
+﻿using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin.AdminVM;
 using System;
 using System.Collections.Generic;
@@ -11,10 +10,10 @@ using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand.DeleteInputInfoCommand
 {
-    public class DeleteInputInfo : ICommand
+    public class DeleteInputInfoCommand : ICommand
     {
         InputInfoVM VM;
-        public DeleteInputInfo(InputInfoVM VM)
+        public DeleteInputInfoCommand(InputInfoVM VM)
         {
             this.VM = VM;
         }
@@ -32,7 +31,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand.DeleteInputI
 
         public void Execute(object parameter)
         {
-            var inputInfo = VM.SelectedInputInfo;  // inputInfo cần delete
+            var inputInfo = VM.DeletedInputInfo;  // inputInfo cần delete
 
             VM.ObservableInputInfos.Remove(inputInfo);
             VM.inputInfos.Remove(inputInfo);

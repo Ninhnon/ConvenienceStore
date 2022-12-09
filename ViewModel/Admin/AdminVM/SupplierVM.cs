@@ -72,7 +72,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 }
             }
             
-            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

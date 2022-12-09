@@ -60,13 +60,12 @@ namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand
 
             newInputInfo.Id = DatabaseHelper.NewestInputInfoId();
 
-            VM.inputInfos.Add(newInputInfo);
-
             if (VM.SelectedManager.Id == newInputInfo.UserId || VM.SelectedManager.Name == "All")
             {
                 VM.ObservableInputInfos.Add(newInputInfo);
             }
-            
+            VM.inputInfos.Add(newInputInfo);
+
             window.Close();
         }
     }
