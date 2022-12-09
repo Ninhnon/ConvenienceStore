@@ -7,11 +7,11 @@
              mc:Ignorable="d" 
           
                           xmlns:fa="http://schemas.fontawesome.io/icons/" 
-
+x:Name ="info"
              
              >
     <StackPanel Orientation="Vertical">
-        <fa:ImageAwesome Icon="CircleOutline" Width="20" Height="20" Foreground="{Binding Path=Color,ElementName=info}" Margin="0 0 0 7"/>
+        <fa:ImageAwesome  Icon="CircleOutline" Width="20" Height="20" Foreground="{Binding Path=Color,ElementName=info}" Margin="0 0 0 7"/>
         <TextBlock Text="{Binding Path=Title,ElementName=info}" Foreground="#303A4F" HorizontalAlignment="Center" FontWeight="SemiBold"/>
         <TextBlock Text="{Binding Path=Desc,ElementName=info}" Foreground="#9CA2B3" HorizontalAlignment="Center" Margin="0 3 0 0"/>
     </StackPanel>

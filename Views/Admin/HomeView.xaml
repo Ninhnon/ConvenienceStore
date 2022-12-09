@@ -167,19 +167,12 @@
                    
                     >
                     <Border.Background>
-                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                            <GradientStop Color="#734b6d" Offset="0.2"/>
-                            <GradientStop Color="#2c3e50" Offset="1"/>
+                        <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                            <GradientStop Color='#E9E4F0' Offset="0.3"/>
+                            <GradientStop Color='#D3CCE3' Offset="1"/>
                         </LinearGradientBrush>
                     </Border.Background>
-                    <Border.Effect>
-                        <DropShadowEffect 
-                            BlurRadius="8" 
-                            ShadowDepth="1.5" 
-                            Direction="270"
-                      
-                            Opacity=".42"/>
-                    </Border.Effect>
+
                     <Grid 
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -203,23 +196,23 @@
                             Height="364" 
                             HorizontalAlignment="Left" 
                             VerticalAlignment="Bottom" Grid.ColumnSpan="2" >
-                            <lvc:CartesianChart.Background>
-                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                    <GradientStop Color="#734b6d" Offset="0.2"/>
-                                    <GradientStop Color="#2c3e50" Offset="1"/>
-                                </LinearGradientBrush>
-                            </lvc:CartesianChart.Background>
+                            <lvc:CartesianChart.DataTooltip>
+                                <lvc:DefaultTooltip Background="Red" Foreground="#ffffff" Opacity="0.7" BulletSize="10">
+                                </lvc:DefaultTooltip>
+                            </lvc:CartesianChart.DataTooltip>
 
 
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis 
+                                <lvc:Axis Foreground="#90A3B2" ShowLabels="True"
                              x:Name="AxisXchart"
                                     Title="{Binding AxisXTitle, Mode=TwoWay}" 
                                     Labels="{Binding Labels, Mode=TwoWay}" 
                                    
                                     FontSize="14">
+                                    
+                                    
                                     <lvc:Axis.Separator>
-                                        <lvc:Separator Step="1"/>
+                                        <lvc:Separator StrokeThickness="0" Step="1"/>
                                     </lvc:Axis.Separator>
                                 </lvc:Axis>
                             </lvc:CartesianChart.AxisX>
@@ -232,14 +225,12 @@
                                 MinValue="0"
                                     FontSize="14">
 
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator StrokeThickness="0"/>
+                                    </lvc:Axis.Separator>
                                 </lvc:Axis>
                             </lvc:CartesianChart.AxisY>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Initialized">
-                                    <i:InvokeCommandAction Command="{Binding InitColumnChartTodayCommand}" 
-                                           CommandParameter="{Binding ElementName=wdHome}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                   
                         </lvc:CartesianChart>
                     </Grid>
                 </Border>
