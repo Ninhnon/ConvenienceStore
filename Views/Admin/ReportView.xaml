@@ -64,7 +64,7 @@
                                 </i:Interaction.Triggers>
 
                                 <lvc:CartesianChart.DataTooltip>
-                                    <lvc:DefaultTooltip Background="Blue" Foreground="Red" Opacity="0.7" BulletSize="10">
+                                    <lvc:DefaultTooltip Background="#D3CCE3" Foreground="Red" Opacity="0.7" BulletSize="10">
                                     </lvc:DefaultTooltip>
                                 </lvc:CartesianChart.DataTooltip>
 
@@ -136,7 +136,8 @@
                             >
                         <StackPanel Margin="0,0,0,-20">
                             <!--Titles-->
-                            <TextBlock Text="Biểu đồ loại hàng hóa của tổng đơn hàng" Style="{StaticResource title}"/>
+                            <TextBlock FontSize="17"
+                                Text="Cơ cấu loại hàng hóa trên tổng sản phẩm bán được" Style="{StaticResource title}"/>
 
                             <!--Middle Circle-->
                             <Grid Margin="0 38 0 38">

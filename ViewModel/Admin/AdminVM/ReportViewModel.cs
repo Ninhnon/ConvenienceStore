@@ -242,23 +242,34 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         private string[] lineLabels;
         public string[] LineLabels { get => lineLabels; set { lineLabels = value; OnPropertyChanged(); } }
 
-        public void InitLineChart (ReportView parameter)
-            {
+        public void InitLineChart(ReportView parameter)
+        {
 
-     
+
 
             string selectedYear = DateTime.Now.Year.ToString();
-          
+
             LineSeriesCollection = new SeriesCollection
                       {
+                     new LineSeries
+                          {
+                              Title="Đơn hàng",
+                              Values=new ChartValues<int>{5,7,12,9,10},
+                              Stroke=(Brush)new BrushConverter().ConvertFrom("#0000ffff")
+                          },
                           new LineSeries
                           {
                               Title = "Doanh thu",
+                              PointForeground=(Brush)new BrushConverter().ConvertFrom("#FE6C47"),
                                Stroke=(Brush)new BrushConverter().ConvertFrom("#FE6C47"),
                              Fill = (Brush)new BrushConverter().ConvertFrom("#0000ffff"),
                               Values = ReportDAL.Instance.QueryRevenueByYear(selectedYear),
                           }
-            };
+
+                     
+
+
+        };
             /*
             new ColumnSeries
             {

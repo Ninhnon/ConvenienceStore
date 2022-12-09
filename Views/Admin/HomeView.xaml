@@ -182,7 +182,7 @@
                             <ColumnDefinition Width="39*"/>
                             <ColumnDefinition Width="106*"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel 
+                        <StackPanel           
                             Orientation="Horizontal"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Left" 
