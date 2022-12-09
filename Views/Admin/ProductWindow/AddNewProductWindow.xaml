@@ -73,8 +73,7 @@
                                                FontSize="16"
                                                FontWeight="SemiBold"
                                                Height="22"/>
-                                    <TextBox x:Name="BarcodeTextBox"
-                                             Height="25">
+                                    <TextBox x:Name="BarcodeTextBox">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="TextChanged">
                                                 <i:InvokeCommandAction Command="{StaticResource DetermineCountryCommand}"
@@ -100,12 +99,11 @@
                             </Grid>
 
                             <TextBlock Text="Title"
-                                            FontSize="16"
-                                            FontWeight="SemiBold"
-                                            Height="22"/>
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Height="22"/>
 
-                            <TextBox x:Name="TitleTextBox"
-                                            Height="25"/>
+                            <TextBox x:Name="TitleTextBox"/>
 
                             <TextBlock x:Name="TitleErrorMessage"
                                             Foreground="Red"
@@ -121,12 +119,11 @@
                                 <StackPanel Grid.Column="0">
 
                                     <TextBlock Text="Cost"
-                                        FontSize="16"
-                                        FontWeight="SemiBold"
-                                        Height="22"/>
+                                               FontSize="16"
+                                               FontWeight="SemiBold"
+                                               Height="22"/>
 
-                                    <TextBox x:Name="CostTextBox"
-                                        Height="25"/>
+                                    <TextBox x:Name="CostTextBox"/>
 
                                     <TextBlock x:Name="CostErrorMessage"
                                         Foreground="Red"/>
@@ -139,8 +136,7 @@
                                         FontSize="16"
                                         Height="22"/>
 
-                                    <TextBox x:Name="PriceTextBox"
-                                        Height="25"/>
+                                    <TextBox x:Name="PriceTextBox"/>
 
                                     <TextBlock x:Name="PriceErrorMessage"
                                            
@@ -173,7 +169,7 @@
                                             Orientation="Vertical"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center"
-                                            Visibility="{Binding ElementName=ImageSource, Converter={StaticResource HasImageConverter}}">
+                                            Visibility="{Binding ElementName=ImageProduct, Path=ImageSource, Converter={StaticResource HasImageConverter}}">
 
                                         <Image x:Name="IconPicture"
                                             Source="/Resources/Images/IconForProduct/image.png"
@@ -188,7 +184,7 @@
 
                                     <Border.Background>
                                         <ImageBrush x:Name="ImageProduct"
-                                                Stretch="UniformToFill"/>
+                                                    Stretch="UniformToFill"/>
                                     </Border.Background>
 
                                 </Border>
@@ -230,9 +226,9 @@
                         <StackPanel Grid.Column="0">
 
                             <TextBlock Text="ManufacturingDate"
-                                        FontSize="16"
-                                        FontWeight="SemiBold"
-                                        Height="22"/>
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Height="22"/>
                             <Grid>
                                 <DatePicker x:Name="ManufacturingDate"
                                             SelectedDateFormat="Short"/>
@@ -241,8 +237,9 @@
                                            Background="White"
                                            HorizontalAlignment="Stretch"
                                            VerticalAlignment="Top"
-                                           Margin="0 3.5 14 0"
-                                           Height="19"/>
+                                           Margin="0 8 14 0"
+                                           Height="23"
+                                           d:Text="08-12-2022"/>
                             </Grid>
 
                             <TextBlock x:Name="ManufacturingDateErrorMessage"
@@ -263,8 +260,8 @@
                                             Background="White"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Top"
-                                            Margin="0 3.5 14 0"
-                                            Height="19"/>
+                                            Margin="0 8 14 0"
+                                            Height="23"/>
                             </Grid>
                             <TextBlock x:Name="ExpiryDateErrorMessage"
                                         Foreground="Red"/>
@@ -284,8 +281,7 @@
                                         FontWeight="SemiBold"
                                         Height="22"/>
                             <TextBox x:Name="DiscountTextBox"
-                                        Height="25"
-                                Text="0"/>
+                                     Text="0"/>
                             <TextBlock x:Name="DiscountErrorMessage"
                                            
                                         Foreground="Red"/>
@@ -296,11 +292,10 @@
                                         FontSize="16"
                                         FontWeight="SemiBold"
                                         Height="22"/>
-                            <TextBox x:Name="StockTextBox"
-                                                Height="25"/>
+                            <TextBox x:Name="StockTextBox"/>
                             <TextBlock x:Name="StockErrorMessage"
-                                        Height="16"
-                                        Foreground="Red"/>
+                                       Height="16"
+                                       Foreground="Red"/>
                         </StackPanel>
                     </Grid>
 

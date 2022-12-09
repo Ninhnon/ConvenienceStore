@@ -82,12 +82,12 @@ namespace ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.AddNewSupplie
             DatabaseHelper.InsertSupplier(newSupplier);
 
             newSupplier.Id = DatabaseHelper.NewestSupplierId();
-
-            VM.suppliers.Add(newSupplier);
+            
             if (newSupplier.Name.ToLower().Contains(VM.SearchContent.ToLower()))
             {
                 VM.ObservableSupplier.Add(newSupplier);
             }
+            VM.suppliers.Add(newSupplier);
 
             window.Close();
         }

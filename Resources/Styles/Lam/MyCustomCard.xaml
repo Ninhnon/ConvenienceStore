@@ -42,14 +42,14 @@
 
     <Style x:Key="InputInfoCard"
            TargetType="Border">
-        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Margin" Value="5 5 5 10"/>
         <Setter Property="Width" Value="200"/>
         <Setter Property="Height" Value="200"/>
-        <Setter Property="Background" Value="#F2F2F2"/>
+        <Setter Property="Background" Value="#F9F9F9"/>
         <Setter Property="CornerRadius" Value="10"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#D2D2D2"/>
+                <Setter Property="Background" Value="#E5E5E5"/>
             </Trigger>
         </Style.Triggers>
     </Style>

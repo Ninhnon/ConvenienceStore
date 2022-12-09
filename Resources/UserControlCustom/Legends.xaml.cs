@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ConvenienceStore.Views.Admin.UserControls
+namespace ConvenienceStore.Resources.UserControlCustom
 {
     /// <summary>
-    /// Interaction logic for VoucherBlock.xaml
+    /// Interaction logic for Legends.xaml
     /// </summary>
-    public partial class VoucherBlock : UserControl
+    public partial class Legends : UserControl
     {
-        public VoucherBlock()
+        public Legends()
         {
             InitializeComponent();
         }

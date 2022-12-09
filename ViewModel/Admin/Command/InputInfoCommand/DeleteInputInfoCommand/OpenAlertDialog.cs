@@ -1,4 +1,5 @@
-﻿using ConvenienceStore.ViewModel.Admin.AdminVM;
+﻿using ConvenienceStore.Model.Admin;
+using ConvenienceStore.ViewModel.Admin.AdminVM;
 using ConvenienceStore.Views.Admin.InputInfoWindow;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand.DeleteInputI
 
         public void Execute(object parameter)
         {
+            VM.DeletedInputInfo = parameter as InputInfo;
             var alertDialog = new AlertDialogDeleteInputInfo()
             {
                 DataContext = VM,

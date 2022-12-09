@@ -59,7 +59,7 @@
                             Background="{StaticResource PrimaryColor}"
                             BorderThickness="0"
                             Width="60"
-                            Command="{Binding DeleteInputInfo}"
+                            Command="{Binding DeleteInputInfoCommand}"
                             CommandParameter="{Binding ElementName=AlertDialogDeleteInputInfoScreen}"/>
                 </StackPanel>
             </StackPanel>

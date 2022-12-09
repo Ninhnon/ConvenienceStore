@@ -59,6 +59,11 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             }
             return accounts;
         }
+        public List<Account> ConvertDataTableToListEmployee()
+        {
+            List<Account> accounts = DatabaseHelper.FetchingAccountEmployeeData();
+            return accounts;
+        }
         public List<Account> ConvertDataTableToList()
         {
             List<Account> accounts = DatabaseHelper.FetchingAccountData();
@@ -81,6 +86,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             cmd.ExecuteNonQuery();
             CloseConnection();
         }
+       
         public void DeleteAccount(int idAccount)
         {
          
