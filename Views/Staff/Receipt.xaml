@@ -157,57 +157,105 @@
                         </TextBlock>
                     </StackPanel>
 
-                    <!--Chi tiết hóa đơn-->
+                    <!--Tìm mã khách hàng & Nhập voucher-->
                     <StackPanel Orientation="Horizontal"
                             Margin="5 0 0 0">
 
-                        <TextBlock Text="Mã khách hàng: " 
+                        <!--Tìm mã khách hàng-->
+                            
+                            <TextBlock Text="Mã khách hàng: " 
                          FontWeight="Light"
                          FontSize="13"
                          TextAlignment="Center"
                          HorizontalAlignment="Left"
                                    Margin="0 15 0 0"/>
 
-                        <TextBox x:Name="customerIdTbx"
+                            <TextBox x:Name="customerIdTbx"
                             Margin="0 5 0 0"
                             FontSize="13"
                                  TextAlignment="Center"
-                                 materialDesign:HintAssist.Hint="Nhập tại đây"
-                                 materialDesign:HintAssist.HintOpacity="0.5">
+                                     MinWidth="60">
 
-                            <TextBox.InputBindings>
-                                <KeyBinding Key="Enter"
+                                <TextBox.InputBindings>
+                                    <KeyBinding Key="Enter"
                                             Command="{Binding SearchCustomerIdCM}"
                                             CommandParameter="{Binding ElementName=customerIdTbx}"/>
-                            </TextBox.InputBindings>
+                                </TextBox.InputBindings>
 
-                            <TextBox.Style>
-                                <Style TargetType="{x:Type TextBox}"
+                                <TextBox.Style>
+                                    <Style TargetType="{x:Type TextBox}"
                                    BasedOn="{StaticResource MaterialDesignTextBox}">
-                                    <Setter Property="IsEnabled" 
+                                        <Setter Property="IsEnabled" 
                                         Value="True"/>
 
-                                    <!--Textbox không thể nhập nội dung sau khi đã thanh toán-->
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false">
-                                            <Setter Property="IsEnabled" Value="False"/>
-                                        </DataTrigger>
+                                        <!--Textbox không thể nhập nội dung sau khi đã thanh toán-->
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false">
+                                                <Setter Property="IsEnabled" Value="False"/>
+                                            </DataTrigger>
 
-                                        <MultiDataTrigger>
-                                            <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false"/>
-                                                <Condition Binding="{Binding ElementName=customerIdTbx, Path=Text}" Value=""/>
-                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false"/>
+                                                    <Condition Binding="{Binding ElementName=customerIdTbx, Path=Text}" Value=""/>
+                                                </MultiDataTrigger.Conditions>
 
-                                            <MultiDataTrigger.Setters>
-                                                <Setter Property="Visibility" Value="Hidden"/>
-                                            </MultiDataTrigger.Setters>
-                                        </MultiDataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBox.Style>
-                        </TextBox>
+                                                <MultiDataTrigger.Setters>
+                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                </MultiDataTrigger.Setters>
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
 
+                        <!--Nhập voucher-->
+                            
+                                <TextBlock Text="Mã voucher: " 
+                         FontWeight="Light"
+                         FontSize="13"
+                         TextAlignment="Center"
+                         HorizontalAlignment="Left"
+                                   Margin="80 15 0 0"/>
+
+                                <TextBox x:Name="voucherIdTbx"
+                            Margin="0 5 0 0"
+                            FontSize="13"
+                                 TextAlignment="Center"
+                                 MinWidth="60">
+
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter"
+                                            Command="{Binding SearchCustomerIdCM}"
+                                            CommandParameter="{Binding ElementName=customerIdTbx}"/>
+                                    </TextBox.InputBindings>
+
+                                    <TextBox.Style>
+                                        <Style TargetType="{x:Type TextBox}"
+                                   BasedOn="{StaticResource MaterialDesignTextBox}">
+                                            <Setter Property="IsEnabled" 
+                                        Value="True"/>
+
+                                            <!--Textbox không thể nhập nội dung sau khi đã thanh toán-->
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false">
+                                                    <Setter Property="IsEnabled" Value="False"/>
+                                                </DataTrigger>
+
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false"/>
+                                                        <Condition Binding="{Binding ElementName=customerIdTbx, Path=Text}" Value=""/>
+                                                    </MultiDataTrigger.Conditions>
+
+                                                    <MultiDataTrigger.Setters>
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                    </MultiDataTrigger.Setters>
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBox.Style>
+                                </TextBox>
                     </StackPanel>
 
                     <Separator Margin="5 10 5 10"/>

@@ -8,6 +8,7 @@
         Title="HistoryWindow" 
         d:DesignHeight="600"
         d:DesignWidth="1100"
+      x:Name="staffHistoryPage"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -20,195 +21,208 @@
         ShowsNavigationUI="False"
         FontFamily="{DynamicResource MaterialDesignFont}"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
-    <Grid  Background="#f0f2f5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="10*" />
-            <RowDefinition  Height="90*" />
-        </Grid.RowDefinitions>
+    <Border CornerRadius="0,0,20,0">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color='#E9E4F0' Offset="0"/>
+                <GradientStop Color='#D3CCE3' Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid>
 
-        <StackPanel Orientation="Horizontal"
-                    Grid.Row="0">
-            <TextBox materialDesign:HintAssist.Hint="Tìm kiếm"
-                     FontSize="25"
-                     Foreground="#DD000000"
-                     FontFamily="Arial"
-                     AllowDrop="True"
-                     BorderThickness="0,0,0,1"
-                     Width="300"
-                     Height="30"
-                     Padding="0"
-                     Margin="30,0,0,0"
-                     x:Name="SearchBox"
-                     VerticalAlignment="Bottom">
-            </TextBox>
-            <ComboBox Height="30"
-                      Width="165"
-                      VerticalAlignment="Bottom"
-                      Padding="0,5,0,0"
-                      FontSize="20"
-                      Margin="10,0,0,0"
-                      SelectedIndex="0"
-                      x:Name="cbbFilter"
-                      SelectedValuePath="Content">
-                <ComboBoxItem Content="Mã hóa đơn" />
-                <ComboBoxItem Content="Số điện thoại" />
-            </ComboBox>
-        </StackPanel>
+            <StackPanel Margin="30 20">
+                <Grid Margin="0 0 0 20">
+                    <TextBlock Text="Chi tiết hóa đơn"
+                           FontSize="32"
+                           FontWeight="SemiBold"
+                           Margin="0 0 0 5"/>
+                </Grid>
 
-        <!--#region Danh sách hóa đơn-->
-        <materialDesign:Card Grid.Row="1"
-                             UniformCornerRadius="5"
-                             Margin="30,20,30,20">
-            <StackPanel>
-                <ListView ItemsSource="{Binding BillList}"
-                          SelectedItem="{Binding SelectedItem}"
-                          x:Name="BillList"
-                          Height="580">
+                <Grid Margin="0 0 0 15">
 
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem"
-                               BasedOn="{StaticResource MaterialDesignGridViewItem}">
-                        </Style>
-                    </ListView.ItemContainerStyle>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="ID">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Id}"
-                                                   FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Tên khách hàng"
-                                            Width="280">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Customer.Name}"
-                                                   FontSize="18"
-                                                   Margin="15,0,0,0" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Số điện thoại"
-                                            Width="180">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Customer.Phone}"
-                                                   FontSize="18"
-                                                   Margin="15,0,0,0" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Tên người thanh toán"
-                                            Width="250">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding User.Name}"
-                                                   FontSize="18"
-                                                   Margin="15,0,0,0" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Ngày đăng ký"
-                                            Width="200">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding StartDate,StringFormat=dd/MM/yyyy}"
-                                                   FontSize="18"
-                                                   Margin="15,0,0,0" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Chi tiêu trong kỳ"
-                                            Width="240">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding ExpenseStr}"
-                                                   FontSize="18"
-                                                   Margin="15,0,0,0" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel VerticalAlignment="Center"
-                                                    Orientation="Horizontal">
-                                            <Border BorderBrush="Black"
-                                                    BorderThickness="1"
-                                                    CornerRadius="6"
-                                                    Cursor="Hand">
-                                                <Border.Style>
-                                                    <Style TargetType="Border">
-                                                        <Style.Triggers>
-                                                            <Trigger Property="IsMouseOver"
-                                                                     Value="True">
-                                                                <Setter Property="Background"
-                                                                        Value="#00e5ff" />
-                                                            </Trigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Border.Style>
-                                                <Image Source="/Resources/Icon/pencil.png"
-                                                       Width="30"
-                                                       Height="30"
-                                                       Cursor="Hand" />
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=_ListView, Path=DataContext.OpenEditCustomerCM}" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </Border>
-                                            <Border Margin="10 0 0 0"
-                                                    BorderBrush="Black"
-                                                    BorderThickness="1"
-                                                    CornerRadius="6"
-                                                    Cursor="Hand">
-                                                <Border.Style>
-                                                    <Style TargetType="Border">
-                                                        <Style.Triggers>
-                                                            <Trigger Property="IsMouseOver"
-                                                                     Value="True">
-                                                                <Setter Property="Background"
-                                                                        Value="#ff6255" />
-                                                            </Trigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Border.Style>
-                                                <materialDesign:PackIcon Kind="GarbageCanEmpty"
-                                                                         Width="30"
-                                                                         Height="30"
-                                                                         Cursor="Hand" />
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=_ListView, Path=DataContext.DeleteCustomerCommand}" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </Border>
+                    <StackPanel Orientation="Horizontal">
+                        
+                        <TextBlock Text="Số lượng:  "
+                           FontSize="24"
+                           FontWeight="DemiBold"
+                           VerticalAlignment="Center"/>
+                        
+                        <TextBlock Text="23"
+                           d:Text="10"
+                           FontSize="24"
+                           FontWeight="DemiBold"
+                           VerticalAlignment="Center"/>
+                    </StackPanel>
 
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
+                    <Border Grid.Column="2"
+                            Background="White"
+                            Height="40"
+                            Width="300"
+                            CornerRadius="20"
+                            Panel.ZIndex="2">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="5"
+                                            Direction="270"
+                                            Opacity="0.45"
+                                            RenderingBias="Performance"
+                                            ShadowDepth="1.5"/>
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="60"/>
 
-                </ListView>
-                <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
-                             Height="100"
-                             Width="100"
-                             Margin="0,-600,0,0" 
-                             IsIndeterminate="{Binding IsGettingSource}"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+
+                                <TextBlock Text="Search here ..."
+                                    FontSize="14"
+                                    Foreground="#9ea4ad"
+                                    Margin="22 0 15 0"
+                                    VerticalAlignment="Center"
+                                    IsHitTestVisible="False"/>
+
+                                <TextBox x:Name="SearchTextBox"
+                                         Text="{Binding SearchContent, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                                         FontSize="14"
+                                         Margin="20 0 10 0"
+                                         Style="{StaticResource SearchTextBox}"
+                                         Height="30"
+                                         VerticalContentAlignment="Center">
+                                </TextBox>
+                            </Grid>
+
+                            <Border Grid.Column="1"
+                                Background="#B06AB3"
+                                CornerRadius="0 20 20 0"
+                                Cursor="Hand">
+                                
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding SearchBill}"/>
+                                    </i:EventTrigger>
+
+                                </i:Interaction.Triggers>
+                                <materialDesign:PackIcon Kind="Search"
+                                                     Foreground="White"
+                                                     VerticalAlignment="Center"
+                                                     HorizontalAlignment="Center"
+                                                     Height="20" 
+                                                     Width="20"/>
+
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                </Grid>
+
+                <DataGrid x:Name="billsDataGrid" 
+                          Background="Transparent"
+                      CellStyle="{DynamicResource DataGridCellStyle1}" 
+                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                      RowStyle="{DynamicResource DataGridRowStyle1}"
+                      ItemsSource="{Binding BillList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      ScrollViewer.CanContentScroll="False"
+                      VirtualizingPanel.IsVirtualizing="True"
+                      Height="434"
+                      CanUserAddRows="False"
+                      AutoGenerateColumns="False">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Số hóa đơn" 
+                                        IsReadOnly="True"
+                                        CanUserResize="False"
+                                        Width="Auto"
+                                        Binding="{Binding BillId}"/>
+
+                        <DataGridTemplateColumn x:Name="userName"
+                                            Header="Nhân viên thanh toán"
+                                            IsReadOnly="True"
+                                            CanUserResize="False"
+                                            Width="*">
+                            
+                            <DataGridTemplateColumn.CellTemplate>
+                                
+                                <DataTemplate>
+                                    
+                                    <TextBlock Text="{Binding UserName}"
+                                           ToolTip="{Binding UserName}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Tên khách hàng"
+                                            IsReadOnly="True"
+                                            CanUserResize="False"
+                                            Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding CustomerName}"
+                                           ToolTip="{Binding CustomerName}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Ngày hóa đơn" 
+                                        IsReadOnly="True"
+                                        CanUserResize="False"
+                                        Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding BillDate}"
+                                           ToolTip="{Binding BillDate}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        
+                        <DataGridTextColumn Header="Tổng tiền" 
+                                        IsReadOnly="True"
+                                        CanUserResize="False"
+                                        Width="140"
+                                        Binding="{Binding TotalPrice}"/>
+
+                        <DataGridTemplateColumn Header="Thao tác"
+                                            IsReadOnly="True"
+                                            CanUserResize="False"
+                                            Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" DataContext="{StaticResource SupplierVM}">
+                                        <Button Style="{StaticResource MaterialDesignFlatLightButton}"
+                                            Content="{materialDesign:PackIcon Kind=Edit, Size=24}"
+                                            Foreground="#4B0082"
+                                            Height="32"
+                                            Padding="6 4"
+                                            Command="{Binding Source={StaticResource SupplierVM}, Path=EditSupplierButton}"
+                                            CommandParameter="{Binding}"/>
+                                        <Button Style="{StaticResource MaterialDesignFlatLightButton}"
+                                            Content="{materialDesign:PackIcon Kind=Delete, Size=24}"
+                                            Height="32"
+                                            Foreground="#CF0A0A"
+                                            Padding="6 4"
+                                            Margin="15 0 0 0"
+                                            HorizontalAlignment="Right"
+                                                DataContext="{StaticResource EmployeeVM}"
+                                            Command="{Binding DeleteEmployeeCommand }"
+                                            CommandParameter="{Binding ElementName=wdEmployee}"/>
+
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </StackPanel>
-        </materialDesign:Card>
-        <!--#endregion-->
+        </Grid>
+    </Border>
 
-        <Grid Grid.RowSpan="2"
-              Background="Gray"
-              Opacity="0.3"
-              Visibility="Collapsed"
-              x:Name="ShadowMask" />
-    </Grid>
+
 </Page>

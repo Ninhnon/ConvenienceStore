@@ -24,8 +24,7 @@
             </LinearGradientBrush>
         </Border.Background>
         <Grid  HorizontalAlignment="Right" Width="1125"
-                 DataContext="{StaticResource EmployeeVM}"
-              >
+                 DataContext="{StaticResource EmployeeVM}">
 
 
 
