@@ -79,7 +79,7 @@
                     <Border Grid.Column="2"
                             Background="White"
                             Height="40"
-                            Width="300"
+                            Width="250"
                             CornerRadius="20">
                         <Border.Effect>
                             <DropShadowEffect BlurRadius="5"
@@ -91,7 +91,7 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="50"/>
 
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">

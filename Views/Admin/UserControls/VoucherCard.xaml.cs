@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConvenienceStore.Model.Admin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,24 @@ namespace ConvenienceStore.Views.Admin.UserControls
         public VoucherCard()
         {
             InitializeComponent();
+        }
+
+        public Voucher VoucherItem
+        {
+            get { return (Voucher)GetValue(VoucherItemProperty); }
+            set { SetValue(VoucherItemProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for VoucherItem.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty VoucherItemProperty =
+            DependencyProperty.Register("VoucherItem", typeof(Voucher), typeof(VoucherCard), new PropertyMetadata(null, SetValues));
+
+        private static void SetValues(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is VoucherCard voucherCardControl)
+            {
+                voucherCardControl.DataContext = voucherCardControl.VoucherItem;
+            }
         }
     }
 }

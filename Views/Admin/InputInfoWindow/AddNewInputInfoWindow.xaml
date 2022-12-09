@@ -78,12 +78,20 @@
                         <TextBlock Text="Ngày nhập:"
                                    FontSize="20"
                                    FontWeight="SemiBold"/>
-
-                        <DatePicker x:Name="DatePicker"
-                                    Grid.Column="1"
-                                    SelectedDate="{x:Static sys:DateTime.Now}"
-                                    VerticalAlignment="Top"
-                                    Margin="0 4.6 0 0"/>
+                        <Grid Grid.Column="1">
+                            <DatePicker x:Name="DatePicker"
+                                        SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <TextBlock Text="{Binding ElementName=DatePicker,
+                                       Path=SelectedDate, StringFormat=dd-MM-yyyy}"
+                                       FontSize="15"
+                                       Background="White"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Top"
+                                       Margin="0 6 14 0"
+                                       Height="24"
+                                       d:Text="08-12-2022"/>
+                        </Grid>
+                        
                     </Grid>
 
                     <Grid Margin="0 0 0 20">

@@ -165,7 +165,7 @@
                                             </i:EventTrigger>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                                 <i:InvokeCommandAction Command="{Binding Source={StaticResource InputInfoVM}, Path=OpenInputInfoCommand}"
-                                                                   CommandParameter="{Binding}"/>
+                                                                       CommandParameter="{Binding}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </UserControls:InputInfoCard>
@@ -405,7 +405,7 @@
             <Border x:Name="ProductS1"
                     Grid.Column="0"
                     CornerRadius="25"
-                    Visibility="Hidden">
+                    Visibility="Visible">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                         <GradientStop Color='#E9E4F0' Offset="0"/>
@@ -495,7 +495,7 @@
                         <Border Grid.Column="2"
                                 Background="White"
                                 Height="40"
-                                Width="300"
+                                Width="250"
                                 CornerRadius="20">
                             <Border.Effect>
                                 <DropShadowEffect BlurRadius="5"
@@ -507,7 +507,7 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="50"/>
 
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
@@ -553,14 +553,11 @@
 
                     </Grid>
 
-
-
                     <ListView x:Name="ListViewProductCard"
                               Margin="25 150 25 27"
                               ItemsSource="{Binding ObservableProducts}"
                               SelectedValue="{Binding SelectedProduct}"
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                              ScrollViewer.VerticalScrollBarVisibility="Hidden"
                               ScrollViewer.CanContentScroll="False"
                               VirtualizingPanel.IsVirtualizing="True">
                         <ListView.ItemContainerStyle>

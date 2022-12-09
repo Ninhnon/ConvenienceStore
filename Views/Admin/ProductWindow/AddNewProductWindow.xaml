@@ -11,7 +11,7 @@
         xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
         mc:Ignorable="d"
         x:Name="AddNewProductScreen"
-        Height="660" Width="1200"
+        Height="600" Width="1200"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
@@ -73,7 +73,8 @@
                                                FontSize="16"
                                                FontWeight="SemiBold"
                                                Height="22"/>
-                                    <TextBox x:Name="BarcodeTextBox">
+                                    <TextBox x:Name="BarcodeTextBox"
+                                             Height="25">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="TextChanged">
                                                 <i:InvokeCommandAction Command="{StaticResource DetermineCountryCommand}"
