@@ -254,6 +254,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                           new LineSeries
                           {
                               Title = "Doanh thu",
+                               Stroke=(Brush)new BrushConverter().ConvertFrom("#FE6C47"),
                              Fill = (Brush)new BrushConverter().ConvertFrom("#0000ffff"),
                               Values = ReportDAL.Instance.QueryRevenueByYear(selectedYear),
                           }
@@ -268,7 +269,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
         };
             */
-            Labels = ReportDAL.Instance.QueryMonthInYear(selectedYear);
+            LineLabels = ReportDAL.Instance.QueryMonthInYear(selectedYear);
             Formatter = value => string.Format("{0:N0}", value);
 
 

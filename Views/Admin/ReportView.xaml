@@ -64,7 +64,7 @@
                                 </i:Interaction.Triggers>
 
                                 <lvc:CartesianChart.DataTooltip>
-                                    <lvc:DefaultTooltip Background="Azure" Foreground="#ffffff" Opacity="0.7" BulletSize="10">
+                                    <lvc:DefaultTooltip Background="Blue" Foreground="Red" Opacity="0.7" BulletSize="10">
                                     </lvc:DefaultTooltip>
                                 </lvc:CartesianChart.DataTooltip>
 
@@ -136,12 +136,7 @@
                             >
                         <StackPanel Margin="0,0,0,-20">
                             <!--Titles-->
-                            <TextBlock Text="Your main skillset" Style="{StaticResource title}"/>
-                            <TextBlock Style="{StaticResource desc}">
-                                <Run>You improved it by </Run>
-                                <Run Foreground="#E37C91">12 points</Run>
-                                <Run>last week</Run>
-                            </TextBlock>
+                            <TextBlock Text="Biểu đồ loại hàng hóa của tổng đơn hàng" Style="{StaticResource title}"/>
 
                             <!--Middle Circle-->
                             <Grid Margin="0 38 0 38">
@@ -165,9 +160,9 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <uc:CircleInfo Color="#6254F9" Title="Graphic Design" Desc="35%"/>
-                                <uc:CircleInfo Grid.Column="1" Color="#FFBE41" Title="UX / UI" Desc="3%"/>
-                                <uc:CircleInfo Grid.Column="2" Color="#DFE931" Title="Management" Desc="39%"/>
+                                <uc:CircleInfo Color="#6254F9" Title="Đồ ăn" Desc="35%"/>
+                                <uc:CircleInfo Grid.Column="1" Color="#FFBE41" Title="Thức uống" Desc="3%"/>
+                                <uc:CircleInfo Grid.Column="2" Color="#DFE931" Title="Khác" Desc="39%"/>
                             </Grid>
                         </StackPanel>
                     </Border>
