@@ -32,7 +32,7 @@
             <!-- Start: GridColumn Right -->
             <Grid >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="22"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
@@ -122,11 +122,11 @@
                                  Command="{Binding ProductCommand}"
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
                                  FontWeight="SemiBold"/>                    
-                    <RadioButton x:Name="rdVoucher" Content="Voucher" Style="{DynamicResource MenuRadioButtonStyle}"
+                    <!--<RadioButton x:Name="rdVoucher" Content="Voucher" Style="{DynamicResource MenuRadioButtonStyle}"
                                  Tag="{DynamicResource voucher}" Margin="0 5 0 5"
                                  Command="{Binding VoucherCommand}"
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
-                                 FontWeight="SemiBold"/>
+                                 FontWeight="SemiBold"/>-->
                     <RadioButton x:Name="rdReport" Content="Report" Style="{DynamicResource MenuRadioButtonStyle}"
                                  Tag="{DynamicResource report}" Margin="0 5 0 5"
                                  Command="{Binding ReportCommand}"
