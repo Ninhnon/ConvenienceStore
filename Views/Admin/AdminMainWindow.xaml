@@ -75,8 +75,7 @@
                     <Button x:Name="btnMinimize" Style="{DynamicResource IconButtonsStyle}" Content="{DynamicResource minimize}" Click="btnMinimize_Click"/>
                 </StackPanel>
                 <!-- End: Button Close | Restore | Minimize -->
-
-                <Frame Grid.Row="1" Margin="60,0,0,0" x:Name="PagesNavigation" NavigationUIVisibility="Hidden" >
+                    <Frame  x:Name="PagesNavigation" Grid.Row="1" Margin="60,0,0,0" NavigationUIVisibility="Hidden" >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Loaded">
                             <i:InvokeCommandAction Command="{Binding HomeCommand}"

@@ -9,8 +9,8 @@
       xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
       xmlns:SupplierCard="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.SupplierCard"
       mc:Ignorable="d" 
-      Height="660"
-     Width="1100"
+      Height="638"
+      Width="1140"
        Style="{StaticResource Page_Style}"
       Title="SupplierView"
       >

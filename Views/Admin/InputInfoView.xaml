@@ -14,8 +14,8 @@
       DataContext="{StaticResource InputInfoVM}"
 
       Style="{StaticResource Page_Style}"
-      Height="600"
-      Width="1125"
+      Height="638"
+      Width="1140"
 
       Background="Transparent">
 

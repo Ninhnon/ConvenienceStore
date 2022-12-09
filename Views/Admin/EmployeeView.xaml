@@ -10,9 +10,9 @@
       x:Name="wdEmployee"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              Style="{StaticResource Page_Style}"
-             d:DesignHeight="600"
-      DataContext="{StaticResource EmployeeVM}"
-             Width="1125">
+      Height="638"
+      Width="1140"
+      DataContext="{StaticResource EmployeeVM}">
     <Page.Resources>
         <Converters:StringToVisibility x:Key="StringToVisibility"/>
     </Page.Resources>

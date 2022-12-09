@@ -11,8 +11,8 @@
              x:Name="wdReport" 
       xmlns:uc="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        d:DesignHeight="660"
-        Width="1100"
+        Height="638"
+      Width="1140"
       DataContext="{StaticResource ReportVM}"
        Style="{StaticResource Page_Style}">
     <!--Style="{StaticResource Page_Style}"-->

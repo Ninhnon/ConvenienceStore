@@ -11,8 +11,8 @@
       mc:Ignorable="d" 
       Style="{StaticResource Page_Style}"
       Title="ProfileView"
-      Height="600"
-      Width="1125"
+      Height="638"
+      Width="1140"
       >
 
 

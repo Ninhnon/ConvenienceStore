@@ -14,8 +14,8 @@
       mc:Ignorable="d" 
       x:Name="VoucherScreen"
       Style="{StaticResource Page_Style}"
-      Height="600"
-      Width="1125">
+      Height="638"
+      Width="1140">
 
     <Page.Resources>
 
