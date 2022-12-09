@@ -96,7 +96,7 @@
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
 
-                                <TextBlock Text="Search here ..."
+                                <TextBlock Text="Tìm tên Nhà cung cấp ..."
                                     FontSize="14"
                                     Foreground="#9ea4ad"
                                     Margin="22 0 15 0"

@@ -41,7 +41,7 @@ namespace ConvenienceStore.Views.Admin.UserControls
             if (d is BlockVoucherCard blockVoucherCardControl)
             {
                 blockVoucherCardControl.DataContext = blockVoucherCardControl.BlockVoucherItem;
-                blockVoucherCardControl.ActiveTextBlock.Text = $"Active {blockVoucherCardControl.BlockVoucherItem.vouchers.Count(p => p.Status == 0)} / {blockVoucherCardControl.BlockVoucherItem.vouchers.Count}";
+                blockVoucherCardControl.ActiveTextBlock.Text = $"{blockVoucherCardControl.BlockVoucherItem.vouchers.Count(p => p.Status == 0)} / {blockVoucherCardControl.BlockVoucherItem.vouchers.Count}";
             }
         }
     }

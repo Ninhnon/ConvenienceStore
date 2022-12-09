@@ -187,12 +187,6 @@ namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCo
                 FinishDate = (DateTime)window.FinishDate.SelectedDate,
             };
 
-            if (newBlockVoucher.ReleaseName.ToLower().Contains(VM.SearchContent.ToLower()))
-            {
-                VM.ObservableBlockVouchers.Add(newBlockVoucher);
-            }
-            VM.blockVouchers.Add(newBlockVoucher);
-
             window.PrefixCode.Text = string.Empty;
             window.SuffixNumber.Text = string.Empty;
             window.NumberOfVoucher.Text = string.Empty;
@@ -207,6 +201,12 @@ namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCo
             window.StartDateErrorMessage.Text = string.Empty;
             window.FinishDateErrorMessage.Text = string.Empty;
 
+            if (newBlockVoucher.ReleaseName.ToLower().Contains(VM.SearchContent.ToLower()))
+            {
+                VM.ObservableBlockVouchers.Add(newBlockVoucher);
+            }
+            VM.blockVouchers.Add(newBlockVoucher);
+
             for (int i = 0; i < numberOfVoucher; i++)
             {
                 newBlockVoucher.vouchers.Add(new Voucher()
@@ -217,6 +217,8 @@ namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCo
             }
 
             DatabaseHelper.InsertBlockVoucher(newBlockVoucher);
+
+            // Phần này Lâm đã check kĩ. Ngày 9/12/2022
         }
         private string RandomString(int size)
         {

@@ -72,7 +72,7 @@
                                         VerticalAlignment="Center"/>
 
                                 <ComboBox Style="{StaticResource CustomComboBox}"
-                                        SelectedIndex="{Binding IsDesc, Mode=TwoWay}"
+                                          SelectedIndex="{Binding IsDesc, Mode=TwoWay}"
                                         Width="100">
                                     <TextBlock Text="Tăng dần"
                                             FontSize="16"/>
@@ -91,9 +91,9 @@
                                     VerticalAlignment="Center"/>
 
                                 <ComboBox Style="{StaticResource CustomComboBox}"
-                                        SelectedIndex="0"
-                                        SelectedItem="{Binding SelectedManager, Mode=OneWayToSource}"
-                                        ItemsSource="{Binding managers}">
+                                          SelectedIndex="0"
+                                          SelectedItem="{Binding SelectedManager, Mode=OneWayToSource}"
+                                          ItemsSource="{Binding managers}">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding}"
@@ -405,7 +405,7 @@
             <Border x:Name="ProductS1"
                     Grid.Column="0"
                     CornerRadius="25"
-                    Visibility="Visible">
+                    Visibility="Hidden">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                         <GradientStop Color='#E9E4F0' Offset="0"/>
@@ -512,7 +512,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
 
-                                    <TextBlock Text="Search here ..."
+                                    <TextBlock Text="Tìm mã vạch sản phẩm ..."
                                         FontSize="14"
                                         Foreground="#9ea4ad"
                                         Margin="22 0 15 0"
@@ -614,10 +614,10 @@
                     Background="{StaticResource FloralWhite}"
                     CornerRadius="0 25 25 0"
                     DataContext="{Binding ElementName=ListViewProductCard, Path=SelectedItem}"
-                    Visibility="Hidden">
+                    Visibility="Visible">
                 <StackPanel x:Name="ProductDetail"
                             Visibility="{Binding ElementName=ListViewProductCard, Path=SelectedIndex,Converter={StaticResource IndexToVisibility}}">
-                    <Border Height="270"
+                    <Border Height="240"
                                 CornerRadius="0 25 0 0 ">
                         <Border.Background>
                             <ImageBrush ImageSource="{Binding Image}"
@@ -628,56 +628,56 @@
                     <StackPanel Margin="20 10 20 15">
 
                         <TextBlock VerticalAlignment="Center"
-                                       HorizontalAlignment="Left"
-                                       Text="{Binding Title}"
-                                       TextWrapping="Wrap"
-                                       FontSize="24"
-                                       FontWeight="SemiBold"
-                                       Margin="0 0 0 20"/>
+                                   HorizontalAlignment="Left"
+                                   Text="{Binding Title}"
+                                   TextWrapping="Wrap"
+                                   FontSize="24"
+                                   FontWeight="SemiBold"
+                                   Margin="0 0 0 20"/>
 
                         <StackPanel Orientation="Horizontal"
-                                        Margin="0 0 0 10">
+                                    Margin="0 0 0 10">
                             <Image Source="/Resources/Images/IconForProduct/tag.png"
-                                       Height="30"
-                                       HorizontalAlignment="Left"
-                                       Margin="0 0 15 0"/>
+                                   Height="30"
+                                   HorizontalAlignment="Left"
+                                   Margin="0 0 15 0"/>
                             <TextBlock Text="{Binding Barcode}"
-                                           FontSize="18"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"/>
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal"
-                                        Margin="0 0 0 10">
+                                    Margin="0 0 0 10">
                             <Image Source="/Resources/Images/IconForProduct/package.png"
-                                        Height="30"
-                                        HorizontalAlignment="Left"
-                                        Margin="0 0 15 0"/>
+                                   Height="30"
+                                   HorizontalAlignment="Left"
+                                   Margin="0 0 15 0"/>
                             <TextBlock Text="SL:"
-                                            FontSize="18"
-                                            FontWeight="SemiBold"
-                                            VerticalAlignment="Center"
-                                            Margin="0 0 15 0"/>
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"
+                                       Margin="0 0 15 0"/>
                             <TextBlock Text="{Binding Stock}"
-                                            FontSize="18"
-                                            FontWeight="SemiBold"
-                                            VerticalAlignment="Center"/>
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
                         </StackPanel>
 
 
                         <StackPanel Orientation="Horizontal"
-                                        Margin="0 0 0 10">
+                                    Margin="0 0 0 10">
                             <Image Source="/Resources/Images/IconForProduct/location.png"
-                                       Height="30"
-                                       Margin="0 0 15 0"/>
+                                   Height="30"
+                                   Margin="0 0 15 0"/>
                             <TextBlock Text="{Binding ProductionSite}"
-                                           FontSize="18"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"/>
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
                         </StackPanel>
 
                         <Grid Height="30"
-                                  Margin="0 0 0 10">
+                              Margin="0 0 0 10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="30"/>
                                 <ColumnDefinition Width="15"/>
@@ -686,24 +686,24 @@
                             </Grid.ColumnDefinitions>
 
                             <Image Grid.Column="0"
-                                       Source="/Resources/Images/IconForProduct/money.png"/>
+                                   Source="/Resources/Images/IconForProduct/money.png"/>
 
                             <TextBlock Grid.Column="2"
-                                           Text="Giá nhập:"
-                                           FontSize="18"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"/>
+                                       Text="Giá nhập:"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
 
                             <TextBlock Grid.Column="3"
-                                           Text="{Binding Cost, Converter={StaticResource IntToVNDCurrency}}"
-                                           FontSize="18"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Right"/>
+                                       Text="{Binding Cost, Converter={StaticResource IntToVNDCurrency}}"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right"/>
                         </Grid>
 
                         <Grid Height="30"
-                                  Margin="0 0 0 10">
+                              Margin="0 0 0 10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="30"/>
                                 <ColumnDefinition Width="15"/>
@@ -712,53 +712,53 @@
                             </Grid.ColumnDefinitions>
 
                             <Image Grid.Column="0"
-                                       Source="/Resources/Images/IconForProduct/salary.png"/>
+                                   Source="/Resources/Images/IconForProduct/salary.png"/>
 
                             <TextBlock Grid.Column="2"
-                                           Text="Giá bán:"
-                                           FontSize="18"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"/>
+                                       Text="Giá bán:"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
 
                             <TextBlock Grid.Column="3"
-                                           Text="{Binding Price, Converter={StaticResource IntToVNDCurrency}}"
-                                           FontSize="18"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Right"/>
+                                       Text="{Binding Price, Converter={StaticResource IntToVNDCurrency}}"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right"/>
                         </Grid>
 
                         <StackPanel Orientation="Horizontal"
-                                        HorizontalAlignment="Left"
-                                        Margin="0 0 0 10">
+                                    HorizontalAlignment="Left"
+                                    Margin="0 0 0 10">
                             <Image Source="/Resources/Images/IconForProduct/calendar.png"
-                                       Height="30"
-                                       Margin="0 0 15 0"/>
+                                   Height="30"
+                                   Margin="0 0 15 0"/>
                             <TextBlock Text="NSX:"
-                                           FontSize="18"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"
-                                           Width="50"/>
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"
+                                       Width="50"/>
                             <TextBlock Text="{Binding ManufacturingDate, StringFormat=dd-MM-yyyy}"
-                                           FontSize="18"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"/>
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal"
-                                        HorizontalAlignment="Left">
+                                    HorizontalAlignment="Left">
                             <Image Source="/Resources/Images/IconForProduct/schedule.png"
-                                       Height="30"
-                                       Margin="0 0 15 0"/>
+                                   Height="30"
+                                   Margin="0 0 15 0"/>
                             <TextBlock Text="HSD:"
-                                           FontSize="18"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"
-                                           Width="50"/>
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"
+                                       Width="50"/>
                             <TextBlock Text="{Binding ExpiryDate, StringFormat=dd-MM-yyyy}"
-                                           FontSize="18"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"/>
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
                         </StackPanel>
 
                     </StackPanel>

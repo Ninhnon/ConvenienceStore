@@ -1,5 +1,4 @@
-﻿using ConvenienceStore.Model.Admin;
-using ConvenienceStore.ViewModel.Admin.AdminVM;
+﻿using ConvenienceStore.ViewModel.Admin.AdminVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +8,11 @@ using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCommand
 {
-    class OpenVoucherCommand : ICommand
+    class FilterAllVoucherCommand : ICommand
     {
         VoucherVM VM;
 
-        public OpenVoucherCommand(VoucherVM VM)
+        public FilterAllVoucherCommand(VoucherVM VM)
         {
             this.VM = VM;
         }
@@ -31,10 +30,13 @@ namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCo
 
         public void Execute(object parameter)
         {
-            BlockVoucher blockVoucher = parameter as BlockVoucher;
-            VM.SelectedBlockVoucher = blockVoucher;
-
-            VM.LoadActiveVouchers();
+            for (int i = 0; i < VM.vouchers.Count; i++)
+            {
+                if (VM.vouchers[i].Status == 1)
+                {
+                    VM.ObservableVouchers.Add(VM.vouchers[i]);
+                }
+            }
         }
     }
 }
