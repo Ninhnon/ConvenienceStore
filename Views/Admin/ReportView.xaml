@@ -10,6 +10,7 @@
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              x:Name="wdReport" 
       xmlns:uc="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         d:DesignHeight="660"
         Width="1100"
       DataContext="{StaticResource ReportVM}"
@@ -46,30 +47,56 @@
 
                             <!--Legends-->
 
+                            <!--Color="#2889FC" Color="#FE6C47" -->
                             <!--Chart-->
-                            <lvc:CartesianChart Margin="-26,27,-30,49" LegendLocation="None">
+                            <lvc:CartesianChart Margin="-26,27,-30,49" LegendLocation="None"
+                                                DataContext="{StaticResource ReportVM}"
+                            Series="{Binding LineSeriesCollection, UpdateSourceTrigger=PropertyChanged}" 
+                        
+                                                >
+
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Loaded">
+                                        <i:InvokeCommandAction Command="{Binding InitLineChartCommand}"
+                                                CommandParameter="{Binding ElementName=wdReport}"/>
+                                      
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+
                                 <lvc:CartesianChart.DataTooltip>
-                                    <lvc:DefaultTooltip Background="Red" Foreground="#ffffff" Opacity="0.7" BulletSize="10">
+                                    <lvc:DefaultTooltip Background="Azure" Foreground="#ffffff" Opacity="0.7" BulletSize="10">
                                     </lvc:DefaultTooltip>
                                 </lvc:CartesianChart.DataTooltip>
 
                                 <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Foreground="#90A3B2" ShowLabels="True">
+                                    <lvc:Axis Foreground="#90A3B2" 
+                             x:Name="AxisXchart"
+                                    Title="Tháng" 
+                                    Labels="{Binding LineLabels, Mode=TwoWay}" 
+                                        ShowLabels="True"
+                                        >
                                         <lvc:Axis.Separator>
-                                            <lvc:Separator StrokeThickness="0" Step="2"/>
+                                            <lvc:Separator StrokeThickness="0" Step="1"/>
                                         </lvc:Axis.Separator>
                                     </lvc:Axis>
                                 </lvc:CartesianChart.AxisX>
 
-                                <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis MinValue="40" MaxValue="350" Foreground="#90A3B2" ShowLabels="True">
+                                <lvc:CartesianChart.AxisY
+                                    >
+                                    <lvc:Axis    x:Name="AxisYchart"
+                                   
+                                    LabelFormatter="{Binding Formatter}"
+                                    MinRange="0"
+                                MinValue="0" 
+                                        ShowLabels="True"
+                                        Foreground="#90A3B2" >
                                         <lvc:Axis.Separator>
                                             <lvc:Separator StrokeThickness="0"/>
                                         </lvc:Axis.Separator>
                                     </lvc:Axis>
                                 </lvc:CartesianChart.AxisY>
 
-                                <lvc:CartesianChart.Series>
+                                <!--<lvc:CartesianChart.Series>
                                     <lvc:LineSeries Values="50,120,110,160,150,180,120,170,165,180" Fill="Transparent" StrokeThickness="3" PointGeometrySize="0">
                                         <lvc:LineSeries.Stroke>
                                             <LinearGradientBrush>
@@ -89,7 +116,7 @@
                                         </lvc:LineSeries.Stroke>
                                     </lvc:LineSeries>
 
-                                </lvc:CartesianChart.Series>
+                                </lvc:CartesianChart.Series>-->
                             </lvc:CartesianChart>
 
                             <!--Note Text-->
@@ -161,7 +188,7 @@
                             </StackPanel>
 
                             <TextBlock Text="6.2m" Style="{StaticResource socialCardCounterTitle}" />
-                            <TextBlock Text="Subscribers Count" Style="{StaticResource socialCardCounterText}" />
+                            <TextBlock Text="Doanh thu đồ ăn" Style="{StaticResource socialCardCounterText}" />
 
 
                             <Grid Margin="0 0 0 15">
@@ -187,7 +214,7 @@
                             </StackPanel>
 
                             <TextBlock Text="1.8m" Style="{StaticResource socialCardCounterTitle}" />
-                            <TextBlock Text="Followers Count" Style="{StaticResource socialCardCounterText}" />
+                            <TextBlock Text="Doanh thu thức uống" Style="{StaticResource socialCardCounterText}" />
 
 
                             <Grid Margin="0 0 0 15">
