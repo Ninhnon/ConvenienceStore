@@ -1,4 +1,5 @@
-﻿using ConvenienceStore.Utils.Helpers;
+﻿using ConvenienceStore.Model.Admin;
+using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin.AdminVM;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand.DeleteInputInfoCommand
+namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCommand.DeleteBlockVoucherCommand
 {
-    public class DeleteInputInfoCommand : ICommand
+    class DeleteBlockVoucherButton : ICommand
     {
-        InputInfoVM VM;
-        public DeleteInputInfoCommand(InputInfoVM VM)
+        VoucherVM VM;
+        public DeleteBlockVoucherButton(VoucherVM VM)
         {
             this.VM = VM;
         }
@@ -31,12 +32,12 @@ namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand.DeleteInputI
 
         public void Execute(object parameter)
         {
-            var inputInfo = VM.DeletedInputInfo;  // inputInfo cần delete
+            var blockVoucher = VM.DeletedBlockVoucher;
 
-            VM.ObservableInputInfos.Remove(inputInfo);
-            VM.inputInfos.Remove(inputInfo);
+            VM.ObservableBlockVouchers.Remove(blockVoucher);
+            VM.blockVouchers.Remove(blockVoucher);
 
-            DatabaseHelper.DeleteInputInfo(inputInfo.Id);
+            DatabaseHelper.DeleteBlockVoucher(blockVoucher.Id);
             (parameter as Window).Close();
         }
     }

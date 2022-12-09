@@ -2,6 +2,7 @@
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCommand;
+using ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCommand.DeleteBlockVoucherCommand;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -50,8 +51,25 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public List<Voucher> vouchers { get; set; }
         public ObservableCollection<Voucher> ObservableVouchers { get; set; }
 
+        private BlockVoucher deletedBlockVoucher;
+
+        public BlockVoucher DeletedBlockVoucher
+        {
+            get { return deletedBlockVoucher; }
+            set 
+            { 
+                deletedBlockVoucher = value;
+                OnPropertyChanged("DeletedBlockVoucher");
+            }
+        }
+
+        // Command Region
         public GenerateBlockVoucher GenerateBlockVoucher { get; set; }
+        public OpenAlertDialog OpenAlertDialog { get; set; }
+        public DeleteBlockVoucherButton DeleteBlockVoucherButton { get; set; }
         public OpenVoucherCommand OpenVoucherCommand { get; set; }
+        public FilterActiveVoucherCommand FilterActiveVoucherCommand { get; set; }
+        public FilterAllVoucherCommand FilterAllVoucherCommand { get; set; }
 
         public VoucherVM()
         {
@@ -67,7 +85,11 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             ObservableVouchers = new ObservableCollection<Voucher>();
 
             GenerateBlockVoucher = new GenerateBlockVoucher(this);
+            OpenAlertDialog = new OpenAlertDialog(this);
+            DeleteBlockVoucherButton = new DeleteBlockVoucherButton(this);
             OpenVoucherCommand = new OpenVoucherCommand(this);
+            FilterActiveVoucherCommand = new FilterActiveVoucherCommand(this);
+            FilterAllVoucherCommand = new FilterAllVoucherCommand(this);
         }
 
         public void SetBlockVoucherCorespondSearch()
@@ -82,13 +104,16 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 }
             }
         }
-        public void LoadVouchers()
+        public void LoadActiveVouchers()
         {
             vouchers = selectedBlockVoucher.vouchers;
             ObservableVouchers.Clear();
             for (int i = 0; i < vouchers.Count; ++i)
             {
-                ObservableVouchers.Add(vouchers[i]);
+                if (vouchers[i].Status == 0)
+                {
+                    ObservableVouchers.Add(vouchers[i]);
+                }
             }
         }
 

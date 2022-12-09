@@ -181,11 +181,11 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
                 return;
             }
 
-            VM.products.Add(newProduct);
             if (newProduct.Barcode.Contains(VM.SearchContent))
             {
                 VM.ObservableProducts.Add(newProduct);
             }
+            VM.products.Add(newProduct);
             DatabaseHelper.InsertProduct(newProduct);
             window.Close();
         }

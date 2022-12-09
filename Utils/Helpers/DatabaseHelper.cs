@@ -1,6 +1,7 @@
 using ConvenienceStore.Model;
 using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Model.Staff;
+using ConvenienceStore.ViewModel.Admin.AdminVM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -95,6 +96,9 @@ namespace ConvenienceStore.Utils.Helpers
                                                                where SupplierId = {0}";
 
         static readonly string deleteSupplier = "delete Supplier where Id = {0}";
+
+        static readonly string deleteBlockVoucher = @"delete Voucher where BlockId = {0}
+                                                      delete BlockVoucher where Id = {0}";
 
         public static List<InputInfo> FetchingInputInfo()
         {
@@ -731,5 +735,15 @@ namespace ConvenienceStore.Utils.Helpers
             sqlCon.Close();
         }
     
+        public static void DeleteBlockVoucher(int BlockId)
+        {
+            sqlCon.Open();
+
+            var strCmd = string.Format(deleteBlockVoucher, BlockId);
+            var cmd = new SqlCommand(strCmd, sqlCon);
+            cmd.ExecuteNonQuery();
+
+            sqlCon.Close();
+        }
     }
 }

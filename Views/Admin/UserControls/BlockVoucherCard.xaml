@@ -16,6 +16,9 @@
                 <i:ChangePropertyAction TargetObject="{Binding ElementName=BlockVoucherDetail}"
                                         PropertyName="Visibility"
                                         Value="Visible"/>
+                <i:ChangePropertyAction TargetObject="{Binding ElementName=ComboBox}"
+                                        PropertyName="SelectedIndex"
+                                        Value="0"/>
             </i:EventTrigger>
         </i:Interaction.Triggers>
         
