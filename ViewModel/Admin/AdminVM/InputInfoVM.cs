@@ -114,13 +114,25 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             }
         }
 
+        private InputInfo deletedInputInfo;
+
+        public InputInfo DeletedInputInfo
+        {
+            get { return deletedInputInfo; }
+            set
+            {
+                deletedInputInfo = value;
+                OnPropertyChanged("DeletedInputInfo");
+            }
+        }
+
         // Command
 
         public OpenInputInfoCommand OpenInputInfoCommand { get; set; }
         public AddInputInfoButtonCommand AddInputInfoButtonCommand { get; set; }
         public CreateInputInfoButtonCommand CreateInputInfoButtonCommand { get; set; }
         public OpenAlertDialog OpenAlertDialog { get; set; }
-        public DeleteInputInfo DeleteInputInfo { get; set; }
+        public DeleteInputInfoCommand DeleteInputInfoCommand { get; set; }
         public SearchButtonCommand SearchButtonCommand { get; set; }
         public AddProductButtonCommand AddProductButtonCommand { get; set; }
         public DeleteProductCommand DeleteProductCommand { get; set; }
@@ -151,7 +163,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             AddInputInfoButtonCommand = new AddInputInfoButtonCommand(this);
             CreateInputInfoButtonCommand = new CreateInputInfoButtonCommand(this);
             OpenAlertDialog = new OpenAlertDialog(this);
-            DeleteInputInfo = new DeleteInputInfo(this);
+            DeleteInputInfoCommand = new DeleteInputInfoCommand(this);
 
             SearchButtonCommand = new SearchButtonCommand(this);
             AddProductButtonCommand = new AddProductButtonCommand(this);

@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Principal;
 using System.Windows.Forms;
+using ZXing;
 using static Emgu.CV.BarcodeDetector;
 
 namespace ConvenienceStore.Utils.Helpers
@@ -39,12 +40,20 @@ namespace ConvenienceStore.Utils.Helpers
 
         static readonly string queryNewestSupplierId = "select MAX(Id) from Supplier";
 
+        static readonly string queryNewestBlockVoucherId = "select Max(Id) from BlockVoucher";
+
         static readonly string queryStaffOnTeam = @"select Name, Avatar from Users
                                                     where ManagerId = {0} and Id <> {0}";
 
         static readonly string queryAccountUsers = "select * from Users";
         static readonly string queryAccountUsersEmployee = "select * from Users where UserRole=0 ";
         static readonly string queryAccountAdmin = "select * from Users where Id={0} ";
+
+        static readonly string queryBlockVoucher = @"select * from BlockVoucher
+                                                     order by FinishDate";
+
+        static readonly string queryVoucherViaBlockId = @"select Code, Status from Voucher
+                                                          where BlockId = {0}";
 
         static readonly string insertInputInfo = "insert InputInfo values ('{0}', {1}, {2})";
 
@@ -53,6 +62,10 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string insertConsignment = "insert Consignment values ({0}, '{1}', {2}, '{3}', '{4}', {5}, {6}, {7})";
 
         static readonly string insertSupplier = "insert Supplier values (N'{0}', N'{1}', '{2}', '{3}')";
+
+        static readonly string insertBlockVoucher = "insert BlockVoucher values ('{0}', {1}, {2},'{3}', '{4}')";
+
+        static readonly string insertVoucher = "insert Voucher values ('{0}', {1}, {2})";
 
         static readonly string updateProduct = @"update Product set Title = @Title, Image = @Image
                                                  where BarCode = @Barcode";
@@ -369,17 +382,6 @@ namespace ConvenienceStore.Utils.Helpers
             return accounts;
         }
 
-        public static void InsertInputInfo(DateTime dateTime, int UserId, int SupplierId)
-        {
-            sqlCon.Open();
-
-            var strCmd = string.Format(insertInputInfo, dateTime, UserId, SupplierId);
-            var cmd = new SqlCommand(strCmd, sqlCon);
-            cmd.ExecuteNonQuery();
-
-            sqlCon.Close();
-        }
-
         public static ObservableCollection<Member> QueryStaffOnTeam(int ManagerId)
         {
             sqlCon.Open();
@@ -401,6 +403,71 @@ namespace ConvenienceStore.Utils.Helpers
             reader.Close();
             sqlCon.Close();
             return staffs;
+        }
+
+        public static List<BlockVoucher> FetchingBlockVoucherData()
+        {
+            sqlCon.Open();
+
+            var cmd = new SqlCommand(queryBlockVoucher, sqlCon);
+
+            var blockVouchers = new List<BlockVoucher>();
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                blockVouchers.Add(new BlockVoucher()
+                {
+                    Id = reader.GetInt32(0),
+                    ReleaseName = reader.GetString(1),
+                    Type = reader.GetInt32(2),
+                    ParValue = reader.GetInt32(3),
+                    StartDate = reader.GetDateTime(4),
+                    FinishDate = reader.GetDateTime(5),
+                });
+            }
+            reader.Close();
+
+            for (int i = 0; i < blockVouchers.Count; i++)
+            {
+                blockVouchers[i].vouchers = FetchingVoucherData(blockVouchers[i].Id);
+            }
+
+            sqlCon.Close();
+
+            return blockVouchers;
+        }
+
+        public static List<Voucher> FetchingVoucherData(int blockId)
+        {
+            var strCmd = string.Format(queryVoucherViaBlockId, blockId);
+            var cmd = new SqlCommand(strCmd, sqlCon);
+
+            var vouchers = new List<Voucher>();
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                vouchers.Add(new Voucher()
+                {
+                    Code = reader.GetString(0),
+                    Status = reader.GetInt32(1)
+                });
+            }
+            reader.Close();
+
+            return vouchers;
+        }
+
+        public static void InsertInputInfo(DateTime dateTime, int UserId, int SupplierId)
+        {
+            sqlCon.Open();
+
+            var strCmd = string.Format(insertInputInfo, dateTime, UserId, SupplierId);
+            var cmd = new SqlCommand(strCmd, sqlCon);
+            cmd.ExecuteNonQuery();
+
+            sqlCon.Close();
         }
 
         public static void InsertProduct(Product product)
@@ -505,6 +572,54 @@ namespace ConvenienceStore.Utils.Helpers
             cmd.ExecuteNonQuery();
 
             sqlCon.Close();
+        }
+
+        public static int NewestBlockVoucherId()
+        {
+            sqlCon.Open();
+
+            var cmd = new SqlCommand(queryNewestBlockVoucherId, sqlCon);
+            var reader = cmd.ExecuteReader();
+
+            reader.Read();
+            var newestId = reader.GetInt32(0);
+
+            reader.Close();
+            sqlCon.Close();
+            return newestId;
+        }
+
+        public static void InsertBlockVoucher(BlockVoucher blockVoucher)
+        {
+            sqlCon.Open();
+
+            var strCmd = string.Format(insertBlockVoucher,
+                blockVoucher.ReleaseName,
+                blockVoucher.Type,
+                blockVoucher.ParValue,
+                blockVoucher.StartDate,
+                blockVoucher.FinishDate
+            );
+            var cmd = new SqlCommand(strCmd, sqlCon);
+            cmd.ExecuteNonQuery();
+
+            sqlCon.Close();
+            blockVoucher.Id = NewestBlockVoucherId();
+
+            sqlCon.Open();
+            for (int i = 0; i < blockVoucher.vouchers.Count; i++)
+            {
+                InsertVoucher(blockVoucher.vouchers[i].Code, blockVoucher.Id);
+            }
+
+            sqlCon.Close();
+        }
+
+        public static void InsertVoucher(string Code, int BlockId)
+        {
+            var strCmd = string.Format(insertVoucher, Code, 0, BlockId);
+            var cmd = new SqlCommand(strCmd, sqlCon);
+            cmd.ExecuteNonQuery();
         }
 
         public static void UpdateProduct(Product editedProduct)
