@@ -17,8 +17,6 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
      TextOptions.TextRenderingMode="Auto"
      FontFamily="{DynamicResource MaterialDesignFont}"     
       DataContext="{StaticResource VoucherStaffVM}">
-    
-
     <!--<i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding MaskNameCM}"
@@ -40,19 +38,25 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             </BeginStoryboard>
         </EventTrigger>
     </Page.Triggers>
+    <Border CornerRadius="0,0,20,0">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color='#E9E4F0' Offset="0"/>
+                <GradientStop Color='#D3CCE3' Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid  >
 
-    <Grid  Background="#f0f2f5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*" />
+                <RowDefinition Height="90*" />
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="10*" />
-            <RowDefinition Height="90*" />
-
-        </Grid.RowDefinitions>
-        <!--cong cu va cac button-->
-        <StackPanel Grid.Row="0"
+            </Grid.RowDefinitions>
+            <!--cong cu va cac button-->
+            <StackPanel Grid.Row="0"
                     Orientation="Horizontal"
                     Margin="20,0,0,0">
-            <TextBox materialDesign:HintAssist.Hint="Tìm kiếm"
+                <TextBox materialDesign:HintAssist.Hint="Tìm kiếm"
                      FontSize="18"
                      Foreground="#DD000000"
                      FontFamily="Arial"
@@ -64,133 +68,133 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      x:Name="FilterBox"
                      TextChanged="TextBox_TextChanged"
                      VerticalAlignment="Bottom">
-            </TextBox>
-            <StackPanel Orientation="Horizontal"
+                </TextBox>
+                <StackPanel Orientation="Horizontal"
                         Margin="30,0,0,0"
                         VerticalAlignment="Bottom">
-                <ComboBox FontFamily="junegull.ttf" Padding="30 0 30 0" FontSize="15"  
+                    <ComboBox FontFamily="junegull.ttf" Padding="30 0 30 0" FontSize="15"  
                           materialDesign:HintAssist.Hint="Trang Thai" 
                           Text="{Binding StatusName, UpdateSourceTrigger=PropertyChanged}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="DropDownClosed">
-                            <i:InvokeCommandAction Command="{Binding SelectedCM}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <ComboBoxItem Content="Tat ca"/>
-                    <ComboBoxItem Content="Kich hoat" />
-                    <ComboBoxItem Content="Chua kich hoat" />
-                </ComboBox>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal"
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="DropDownClosed">
+                                <i:InvokeCommandAction Command="{Binding SelectedCM}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ComboBoxItem Content="Tat ca"/>
+                        <ComboBoxItem Content="Kich hoat" />
+                        <ComboBoxItem Content="Chua kich hoat" />
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
                         Margin="30,0,0,0"
                         VerticalAlignment="Bottom">
-                <ComboBox FontFamily="junegull.ttf" FontSize="15"  Padding="30 0 30 0"
+                    <ComboBox FontFamily="junegull.ttf" FontSize="15"  Padding="30 0 30 0"
                           materialDesign:HintAssist.Hint="Loại" 
                           >
-                    <!--Text="{Binding Type, UpdateSourceTrigger=PropertyChanged}"-->
-                    <ComboBoxItem Content="Tất cả" />
-                    <ComboBoxItem Content="Cửa hàng" />
-                    <ComboBoxItem Content="Sản phẩm" />
-                </ComboBox>
+                        <!--Text="{Binding Type, UpdateSourceTrigger=PropertyChanged}"-->
+                        <ComboBoxItem Content="Tất cả" />
+                        <ComboBoxItem Content="Cửa hàng" />
+                        <ComboBoxItem Content="Sản phẩm" />
+                    </ComboBox>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
-        <Grid Grid.Row="1">
+            <Grid Grid.Row="1">
 
-            <materialDesign:Card Background="White"
+                <materialDesign:Card Background="White"
                                  Margin="0,10,0,0"
                                  VerticalAlignment="Stretch" 
                                  UniformCornerRadius="5">
-                <StackPanel>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <ListView x:Name="VoucherListView"
+                    <StackPanel>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <ListView x:Name="VoucherListView"
                               Focusable="True"
                               Height="585"
                               SelectedItem="{Binding SelectedItem,UpdateSourceTrigger=PropertyChanged}"
                               ItemsSource="{Binding List}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="Mã phát hành">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding ReleaseId}" Margin="20 8 0 0"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Tên đợt phát hành">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding ReleaseName}" Margin="20 8 0 0"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Từ ngày">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding StartDate,StringFormat=dd/MM/yyyy}" Margin="20 8 0 0"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Đến ngày">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding FinishDate,StringFormat=dd/MM/yyyy}" Margin="20 8 0 0"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Mệnh giá">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding ParValue}" Margin="20 8 0 0"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Trạng thái">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding StatusStr}" Margin="20 8 0 0"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Border BorderBrush="Black"
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Mã phát hành">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding ReleaseId}" Margin="20 8 0 0"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Tên đợt phát hành">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding ReleaseName}" Margin="20 8 0 0"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Từ ngày">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding StartDate,StringFormat=dd/MM/yyyy}" Margin="20 8 0 0"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Đến ngày">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding FinishDate,StringFormat=dd/MM/yyyy}" Margin="20 8 0 0"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Mệnh giá">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding ParValue}" Margin="20 8 0 0"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Trạng thái">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding StatusStr}" Margin="20 8 0 0"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Border BorderBrush="Black"
                                                         BorderThickness="0.5"
                                                         CornerRadius="5">
-                                                        <Border.Style>
-                                                            <Style TargetType="Border">
-                                                                <Style.Triggers>
-                                                                    <Trigger Property="IsMouseOver"
+                                                            <Border.Style>
+                                                                <Style TargetType="Border">
+                                                                    <Style.Triggers>
+                                                                        <Trigger Property="IsMouseOver"
                                                                          Value="True">
-                                                                        <Setter Property="Background"
+                                                                            <Setter Property="Background"
                                                                             Value="#00e5ff" />
-                                                                    </Trigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Border.Style>
-                                                        <StackPanel>
-                                                            <Image Source="\Resources\Images\pencil.png"
+                                                                        </Trigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Border.Style>
+                                                            <StackPanel>
+                                                                <Image Source="\Resources\Images\pencil.png"
                                                                Width="30"
                                                                Height="30"
                                                                Cursor="Hand" />
-                                                        </StackPanel>
-                                                        <!--<i:Interaction.Triggers>
+                                                            </StackPanel>
+                                                            <!--<i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseLeftButtonUp">
                                                                 <i:InvokeCommandAction Command="{Binding ElementName=VoucherListView, Path=DataContext.LoadInforBigVoucherCM}" />
                                                             </i:EventTrigger>
                                                         </i:Interaction.Triggers>-->
-                                                    </Border>
-                                                    
-                                                </StackPanel>
+                                                        </Border>
 
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Border Cursor="Hand"
+                                                    </StackPanel>
+
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border Cursor="Hand"
                                                         BorderBrush="Black"
                                                         BorderThickness="1"
                                                         Margin="10,0,0,0"
@@ -198,52 +202,54 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                                         Background="Transparent"
                                                         Width="30"
                                                         Height="30">
-                                                    <!--Visibility="{Binding Status,Converter={StaticResource EditConverter}}"-->
-                                                    <materialDesign:PackIcon Kind="Pencil"
+                                                        <!--Visibility="{Binding Status,Converter={StaticResource EditConverter}}"-->
+                                                        <materialDesign:PackIcon Kind="Pencil"
                                                                              Width="30"
                                                                              Height="30" />
-                                                    <!--<i:Interaction.Triggers>
+                                                        <!--<i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="MouseLeftButtonUp">
                                                             <i:InvokeCommandAction Command="{Binding ElementName=lvError, Path=DataContext.LoadEditErrorCM}" />
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>-->
-                                                </Border>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </ScrollViewer>
-                    <Grid>
-                        <StackPanel Orientation="Horizontal"
+                                                    </Border>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </ScrollViewer>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Right"
                                     Margin="20,0,30,10">
-                            <Label Content="Kết quả: "
+                                <Label Content="Kết quả: "
                                    FontSize="15" />
-                            <Label Content="{Binding List.Count}"
+                                <Label Content="{Binding List.Count}"
                                    x:Name="result"
                                    FontSize="15" />
-                        </StackPanel>
-                    </Grid>
-                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
 
 
-            </materialDesign:Card>
+                </materialDesign:Card>
 
-        </Grid>
+            </Grid>
 
-        <Grid Grid.RowSpan="2"
+            <Grid Grid.RowSpan="2"
               Background="Gray"
               Opacity="0.3"
               Visibility="Collapsed"
               x:Name="ShadowMask" />
-        <Grid Grid.RowSpan="2">
-            <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+            <Grid Grid.RowSpan="2">
+                <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
                          Value="0"
                          Width="100"
                          Height="100" />
-            <!--IsIndeterminate="{Binding IsReleaseVoucherLoading,UpdateSourceTrigger=PropertyChanged} "-->
+                <!--IsIndeterminate="{Binding IsReleaseVoucherLoading,UpdateSourceTrigger=PropertyChanged} "-->
+            </Grid>
+
         </Grid>
-    </Grid>
+    </Border>
 </Page>

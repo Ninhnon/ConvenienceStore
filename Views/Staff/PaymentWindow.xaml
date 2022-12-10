@@ -23,6 +23,7 @@
       ShowsNavigationUI="False">
     <Border CornerRadius="8"
             Background="LightBlue">
+
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="Loaded">
                 <i:InvokeCommandAction Command="{Binding MaskNameCM}"

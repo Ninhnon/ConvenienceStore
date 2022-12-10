@@ -23,9 +23,13 @@
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
-    <Border CornerRadius="15"
-            BorderThickness="8"
-            Background="{DynamicResource SecondaryBackgroundColor}">
+    <Border CornerRadius="0,0,20,0">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color='#E9E4F0' Offset="0"/>
+                <GradientStop Color='#D3CCE3' Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
         <Grid>
             <Grid.RowDefinitions>
 
