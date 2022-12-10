@@ -93,7 +93,8 @@
                                 <ComboBox Style="{StaticResource CustomComboBox}"
                                           SelectedIndex="0"
                                           SelectedItem="{Binding SelectedManager, Mode=OneWayToSource}"
-                                          ItemsSource="{Binding managers}">
+                                          ItemsSource="{Binding managers}"
+                                          Width="195">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding}"
@@ -123,14 +124,14 @@
 
 
                     <ListBox x:Name="InputInfoCards"
-                            ItemsSource="{Binding ObservableInputInfos}"
-                            SelectedValue="{Binding SelectedInputInfo}"
-                            Margin="25 130 3 30"
-                            VerticalAlignment="Top"
-                            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                            ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                            ScrollViewer.CanContentScroll="False"
-                            VirtualizingPanel.IsVirtualizing="True">
+                             ItemsSource="{Binding ObservableInputInfos}"
+                             SelectedValue="{Binding SelectedInputInfo}"
+                             Margin="25 130 3 30"
+                             VerticalAlignment="Top"
+                             ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                             ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                             ScrollViewer.CanContentScroll="False"
+                             VirtualizingPanel.IsVirtualizing="True">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="{x:Type ListBoxItem}">
                                 <Setter Property="Template">
@@ -638,7 +639,7 @@
                                    TextWrapping="Wrap"
                                    FontSize="24"
                                    FontWeight="SemiBold"
-                                   Margin="0 0 0 20"/>
+                                   Margin="0 0 0 17"/>
 
                         <StackPanel Orientation="Horizontal"
                                     Margin="0 0 0 10">
@@ -654,24 +655,6 @@
 
                         <StackPanel Orientation="Horizontal"
                                     Margin="0 0 0 10">
-                            <Image Source="/Resources/Images/IconForProduct/package.png"
-                                   Height="30"
-                                   HorizontalAlignment="Left"
-                                   Margin="0 0 15 0"/>
-                            <TextBlock Text="SL:"
-                                       FontSize="18"
-                                       FontWeight="SemiBold"
-                                       VerticalAlignment="Center"
-                                       Margin="0 0 15 0"/>
-                            <TextBlock Text="{Binding Stock}"
-                                       FontSize="18"
-                                       FontWeight="SemiBold"
-                                       VerticalAlignment="Center"/>
-                        </StackPanel>
-
-
-                        <StackPanel Orientation="Horizontal"
-                                    Margin="0 0 0 10">
                             <Image Source="/Resources/Images/IconForProduct/location.png"
                                    Height="30"
                                    Margin="0 0 15 0"/>
@@ -681,58 +664,61 @@
                                        VerticalAlignment="Center"/>
                         </StackPanel>
 
-                        <Grid Height="30"
-                              Margin="0 0 0 10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition Width="15"/>
-                                <ColumnDefinition Width="90"/>
-                                <ColumnDefinition Width="110"/>
-                            </Grid.ColumnDefinitions>
-
-                            <Image Grid.Column="0"
-                                   Source="/Resources/Images/IconForProduct/money.png"/>
-
-                            <TextBlock Grid.Column="2"
-                                       Text="Giá nhập:"
-                                       FontSize="18"
-                                       FontWeight="SemiBold"
-                                       VerticalAlignment="Center"/>
-
-                            <TextBlock Grid.Column="3"
-                                       Text="{Binding Cost, Converter={StaticResource IntToVNDCurrency}}"
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 0 0 10">
+                            <Image Source="/Resources/Images/IconForProduct/package.png"
+                                   Height="30"
+                                   HorizontalAlignment="Left"
+                                   Margin="0 0 15 0"/>
+                            <TextBlock Text="SL:"
                                        FontSize="18"
                                        FontWeight="SemiBold"
                                        VerticalAlignment="Center"
-                                       HorizontalAlignment="Right"/>
-                        </Grid>
-
-                        <Grid Height="30"
-                              Margin="0 0 0 10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition Width="15"/>
-                                <ColumnDefinition Width="90"/>
-                                <ColumnDefinition Width="110"/>
-                            </Grid.ColumnDefinitions>
-
-                            <Image Grid.Column="0"
-                                   Source="/Resources/Images/IconForProduct/salary.png"/>
-
-                            <TextBlock Grid.Column="2"
-                                       Text="Giá bán:"
+                                       Width="115"/>
+                            <TextBlock Text="{Binding Stock}"
                                        FontSize="18"
                                        FontWeight="SemiBold"
                                        VerticalAlignment="Center"/>
+                        </StackPanel>
 
-                            <TextBlock Grid.Column="3"
-                                       Text="{Binding Price, Converter={StaticResource IntToVNDCurrency}}"
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 0 0 10">
+                            <Image Grid.Column="0"
+                                   Source="/Resources/Images/IconForProduct/money.png"
+                                   Height="30"
+                                   HorizontalAlignment="Left"
+                                   Margin="0 0 15 0"/>
+                            <TextBlock Text="Giá nhập:"
                                        FontSize="18"
                                        FontWeight="SemiBold"
                                        VerticalAlignment="Center"
-                                       HorizontalAlignment="Right"/>
-                        </Grid>
+                                       Width="115"/>
+                            <TextBlock Text="{Binding Cost, Converter={StaticResource IntToVNDCurrency}}"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
 
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 0 0 10">
+                            <Image Grid.Column="0"
+                                   Source="/Resources/Images/IconForProduct/salary.png"
+                                   Height="30"
+                                   HorizontalAlignment="Left"
+                                   Margin="0 0 15 0"/>
+
+                            <TextBlock Text="Giá bán:"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"
+                                       Width="115"/>
+                            
+                            <TextBlock Text="{Binding Price, Converter={StaticResource IntToVNDCurrency}}"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                            
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Left"
                                     Margin="0 0 0 10">
@@ -743,7 +729,7 @@
                                        FontSize="18"
                                        FontWeight="SemiBold"
                                        VerticalAlignment="Center"
-                                       Width="50"/>
+                                       Width="115"/>
                             <TextBlock Text="{Binding ManufacturingDate, StringFormat=dd-MM-yyyy}"
                                        FontSize="18"
                                        FontWeight="SemiBold"
@@ -759,7 +745,7 @@
                                        FontSize="18"
                                        FontWeight="SemiBold"
                                        VerticalAlignment="Center"
-                                       Width="50"/>
+                                       Width="115"/>
                             <TextBlock Text="{Binding ExpiryDate, StringFormat=dd-MM-yyyy}"
                                        FontSize="18"
                                        FontWeight="SemiBold"

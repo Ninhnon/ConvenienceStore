@@ -56,6 +56,9 @@
                        Margin="0 0 0 5"/>
 
                 <TextBlock Text="{Binding Code}"
+                           TextAlignment="Center"
+                           Width="140"
+                           TextWrapping="Wrap"
                            d:Text="NOEL10Q42"
                            FontWeight="SemiBold"
                            FontSize="16"/>

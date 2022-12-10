@@ -39,7 +39,7 @@
             </Grid.RowDefinitions>
 
             <Border Background="{StaticResource PrimaryColor}"
-                    CornerRadius="25 25 0 0">
+                    CornerRadius="8 8 0 0">
                 <TextBlock Text="Sản phẩm mới"
                            Foreground="White"
                            FontSize="35"
@@ -50,7 +50,7 @@
 
             <Border Grid.Row="1"
                     Background="White"
-                    CornerRadius="0 0 25 25">
+                    CornerRadius="0 0 8 8">
                 <StackPanel Margin="30 25 30 30">
 
                     <Grid>
@@ -155,7 +155,7 @@
                                     VerticalAlignment="Top"
                                     BorderBrush="#808080"
                                     BorderThickness="2"
-                                    CornerRadius="15"
+                                    CornerRadius="8"
                                     MouseEnter="ImagePreview_MouseEnter">
 
                                     <StackPanel x:Name="ImagePreview"
@@ -190,7 +190,7 @@
                                     Background="#E9E9E9"
                                     BorderBrush="#808080"
                                     BorderThickness="2"
-                                    CornerRadius="15"
+                                    CornerRadius="8"
                                     Visibility="Hidden"
                                     MouseLeave="MarkUploadImage_MouseLeave">
                                     <Button Style="{StaticResource MaterialDesignOutlinedButton}"
