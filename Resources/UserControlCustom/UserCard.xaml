@@ -33,7 +33,7 @@
                     </LinearGradientBrush>
                 </Border.Background>
 
-                <Image Source="{Binding ElementName=userCard,Path=Image}" Width="38" Height="38"/>
+                <Image x:Name="avatarUser"  />
             </Border>
 
             <StackPanel>
@@ -49,14 +49,7 @@
                         <TextBlock Text="{Binding ElementName=userCard,Path=UpPrice}" FontSize="11" Foreground="#17405E"/>
                     </StackPanel>
 
-                    <Border Background="#76728B" CornerRadius="50" Width="20" Height="20">
-                        <Icon:PackIconMaterial Kind="ChevronDown" VerticalAlignment="Center" HorizontalAlignment="Center" Width="8" Height="8" Foreground="#ffffff"/>
-                    </Border>
-
-                    <StackPanel Margin="10 0 10 0">
-                        <TextBlock Text="Profit" Foreground="#FC967D" FontSize="10"/>
-                        <TextBlock Text="{Binding ElementName=userCard,Path=DownPrice}" FontSize="11" Foreground="#17405E"/>
-                    </StackPanel>
+                   
                 </StackPanel>
 
             </StackPanel>

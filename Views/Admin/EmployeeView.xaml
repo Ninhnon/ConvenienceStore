@@ -10,13 +10,13 @@
       x:Name="wdEmployee"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              Style="{StaticResource Page_Style}"
-      Height="638"
+      Height="620"
       Width="1140"
       DataContext="{StaticResource EmployeeVM}">
     <Page.Resources>
         <Converters:StringToVisibility x:Key="StringToVisibility"/>
     </Page.Resources>
-    <Border CornerRadius="0,0,20,0">
+    <Border  CornerRadius="8">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                 <GradientStop Color='#E9E4F0' Offset="0"/>

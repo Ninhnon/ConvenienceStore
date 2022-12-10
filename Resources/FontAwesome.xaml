@@ -171,7 +171,7 @@
 
 
     <Style x:Key="socialCard" TargetType="Border">
-        <Setter Property="Background" Value="#FDFDFD" />
+        <Setter Property="Background" Value="#eef2f3" />
         <Setter Property="CornerRadius" Value="15" />
         <Setter Property="Margin" Value="8 10 8 0" />
         <Setter Property="BorderBrush" Value="#dbdbdb" />
@@ -276,7 +276,7 @@
         </Style.Triggers>
     </Style>
     <Style x:Key="whiteBorder" TargetType="Border">
-        <Setter Property="Background" Value="#ffffff" />
+        <Setter Property="Background" Value="#eef2f3" />
         <Setter Property="CornerRadius" Value="15" />
         <Setter Property="Padding" Value="20" />
     </Style>
