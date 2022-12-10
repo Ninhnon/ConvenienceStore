@@ -88,12 +88,12 @@
                          
                            
                            >
-                              
+
                             </ImageBrush>
                         </Border.Background>
-                       
+
                     </Border>
-                    
+
                     <TextBlock Text="Visual project"
                                FontSize="25"
                                FontFamily="Montserrat"
@@ -116,8 +116,9 @@
                                FontSize="12"
                                FontWeight="Medium"
                                FontFamily="Montserrat"                             
-                               Margin="0,35,0,0"/>
-                    <TextBox  x:Name="txtUsername"
+                               Margin="0,35,0,0" Width="196"/>
+                    <Border CornerRadius="20" Background="#d7d2cc">
+                        <TextBox  x:Name="txtUsername"
                     Text="{Binding UserName}"
                     FontSize="13"
                             
@@ -125,52 +126,60 @@
                              FontFamily="Montserrat"                            
                              Foreground="Black"
                              CaretBrush="LightGray"
-                             BorderBrush="DarkGray"
-                             BorderThickness="0,0,0,2"
-                             Height="28"
+                         
+                             Height="38"
                              VerticalContentAlignment="Center"
-                             Margin="0,5,0,0"
-                             Padding="20,0,0,0" >
-                        <TextBox.Background>
-                            <ImageBrush ImageSource="/Resources/Images/Login/user-icon.png"
+                             Padding="10,0,0,0" Width="197" BorderBrush="{x:Null}" >
+                            <TextBox.Background>
+                                <ImageBrush ImageSource="/Resources/Images/Login/user-icon.png"
                                         Stretch="None"
                                         AlignmentX="Left"/>
-                        </TextBox.Background>
-                    </TextBox>
+                            </TextBox.Background>
+                        </TextBox>
+                    </Border>
                     <TextBlock Text="Password"
                                Foreground="DarkGray"
                                FontSize="12"
+                                      Margin="0,15,0,0"
                                FontWeight="Medium"
-                               FontFamily="Montserrat"                             
-                               Margin="0,15,0,0"/>
+                               FontFamily="Montserrat" Width="198" 
+                               
+                               />
+                    <Border Margin="0,0,0,0"
+                        
+                        CornerRadius="20" Background="#d7d2cc">
+                        <Grid>
 
 
-                    <PasswordBox
+
+                            <PasswordBox  Height="38"
                     x:Name="txtPassword"
                    FontSize="13"
                              FontWeight="Medium"
                              FontFamily="Montserrat"                            
                              Foreground="Black"
                              CaretBrush="LightGray"
-                             BorderBrush="DarkGray"
+                             BorderBrush="{x:Null}"
                              BorderThickness="0,0,0,2"
                              
                              VerticalContentAlignment="Center"
                              
-                             Padding="20,0,0,0" >
-                        <PasswordBox.Background>
-                            <ImageBrush ImageSource="/Resources/Images/Login/key-icon.png"
+                             Padding="10,0,0,0" Margin="10,0,16,0" >
+                                <PasswordBox.Background>
+                                    <ImageBrush ImageSource="/Resources/Images/Login/key-icon.png"
                                         Stretch="None"
                                         AlignmentX="Left"/>
-                        </PasswordBox.Background>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PasswordChanged">
-                                <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
+                                </PasswordBox.Background>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PasswordChanged">
+                                        <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
                                                    CommandParameter="{Binding ElementName=txtPassword}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </PasswordBox>
-
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </PasswordBox>
+                        </Grid>
+                       
+                    </Border>
                     <Button 
                
                 x:Name="btnLogin"
@@ -203,7 +212,7 @@
                                 HorizontalAlignment="Center"
                                 Margin="0,15,0,0">
 
-                        
+
 
 
                         <Button Foreground="Black"

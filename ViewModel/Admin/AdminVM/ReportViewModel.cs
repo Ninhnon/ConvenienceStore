@@ -15,6 +15,19 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 {
     public class ReportViewModel : BaseViewModel
     {
+        public ReportViewModel()
+        {
+            Hello = "Hello, " + CurrentAccount.Name;
+            InitColumnChartTodayCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartToday(parameter));
+            InitColumnChartMonthCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartMonth(parameter));
+            InitColumnChartYearCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartYear(parameter));
+            InitLineChartCommand = new RelayCommand<ReportView>(parameter => true, parameter => InitLineChart(parameter));
+            LoadCommand = new RelayCommand<HomeView>(parameter => true, parameter => LoadDefaultChart(parameter));
+
+
+        }
+
+
         private string _hello;
         public string Hello { get => _hello; set { _hello = value; OnPropertyChanged(); } }
         // Doanh thu tháng này 
@@ -48,17 +61,6 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
 
         //Constructor
-        public ReportViewModel()
-        {
-            Hello = "Hello, " + CurrentAccount.Name;
-            InitColumnChartTodayCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartToday(parameter));
-            InitColumnChartMonthCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartMonth(parameter));
-            InitColumnChartYearCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartYear(parameter));
-
-            LoadCommand = new RelayCommand<HomeView>(parameter => true, parameter => LoadDefaultChart(parameter));
-
-
-        }
 
         //Định nghĩa command gộp cả 3 miếng
         public ICommand LoadCommand { get; set; }
@@ -89,8 +91,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 IncreasingPercent = "100%";
             }
             NumOfSoldBill = ReportDAL.Instance.QueryRevenueNumOfSoldBillInMonth(currentMonth, currentYear).ToString() + " đơn";
-
-
+            FoodRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryFoodRevenueInYear(currentYear)) ).ToString()+" VND";
+            DrinkRevenue= string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryDrinkRevenueInYear(currentYear))).ToString() + " VND";
+            OtherRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryOtherRevenueInYear(currentYear))).ToString() + " VND";
 
 
         }
@@ -229,5 +232,91 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
 
         }
+
+
+        private string foodRevenue_;
+        public string FoodRevenue
+        {
+            get { return foodRevenue_; }
+            set
+            {
+                foodRevenue_ = value;
+                OnPropertyChanged();
+            }
+            }
+        private string drinkRevenue_;
+        public string DrinkRevenue
+        {
+            get { return drinkRevenue_; }
+            set
+            {
+                drinkRevenue_ = value;
+                OnPropertyChanged();
+            }
+        }
+        private string otherRevenue_;
+        public string OtherRevenue
+        {
+            get { return otherRevenue_; }
+            set
+            {
+                otherRevenue_ = value;
+                OnPropertyChanged();
+            }
+        }
+        private SeriesCollection lineSeriesCollection;
+        public SeriesCollection LineSeriesCollection { get => lineSeriesCollection; set { lineSeriesCollection = value; OnPropertyChanged(); } }
+
+
+        public ICommand InitLineChartCommand { get; set; }
+        private string[] lineLabels;
+        public string[] LineLabels { get => lineLabels; set { lineLabels = value; OnPropertyChanged(); } }
+
+        public void InitLineChart(ReportView parameter)
+        {
+
+
+
+            string selectedYear = DateTime.Now.Year.ToString();
+
+            LineSeriesCollection = new SeriesCollection
+                      {
+                     new LineSeries
+                          {
+                              Title="Đơn hàng",
+                               
+                              Values=ReportDAL.Instance.QueryRevenueNumOfSoldBillInYear(selectedYear),
+                             Stroke=(Brush)new BrushConverter().ConvertFrom("#0000ffff")
+                          },
+                          new LineSeries
+                          {
+                              Title = "Doanh thu",
+                              PointForeground=(Brush)new BrushConverter().ConvertFrom("#FE6C47"),
+                               Stroke=(Brush)new BrushConverter().ConvertFrom("#FE6C47"),
+                             Fill = (Brush)new BrushConverter().ConvertFrom("#0000ffff"),
+                              Values = ReportDAL.Instance.QueryRevenueByYear(selectedYear),
+                          }
+
+                     
+
+
+        };
+            /*
+            new ColumnSeries
+            {
+                Title = "Chi phí",
+                Fill = (Brush)new BrushConverter().ConvertFrom("#FFF44336"),
+                Values = ReportDAL.Instance.QueryOutcomeByYear(selectedYear)
+            }
+
+        };
+            */
+            LineLabels = ReportDAL.Instance.QueryMonthInYear(selectedYear);
+            Formatter = value => string.Format("{0:N0}", value);
+
+
+        }
+
+
     }
 }

@@ -11,11 +11,8 @@
       mc:Ignorable="d" 
       Style="{StaticResource Page_Style}"
       Title="ProfileView"
-      Height="600"
-      Width="1125"
-      >
-
-
+      Height="620"
+      Width="1140">
     <Page.Resources>
 
         <ProfileCommand:UpdateAvatarCommand x:Key="UpdateAvatarCommand"/>
@@ -29,139 +26,142 @@
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
 
-        <Grid Background="#2E3949">
+        <Border CornerRadius="8 8 0 0 "
+                Background="#2E3949">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+            <Grid>
 
-            <Border Grid.Column="0"
-                    Width="200"
-                    Height="200"
-                    CornerRadius="100"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Left"
-                    Margin="50 0 0 0">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseEnter">
-                        <i:ChangePropertyAction TargetObject="{Binding ElementName=MarkUploadImage}"
-                                                PropertyName="Visibility"
-                                                Value="Visible"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <Border.Background>
-                    <ImageBrush x:Name="Avatar"
-                                ImageSource="{Binding Avatar}"
-                                Stretch="UniformToFill"/>
-                </Border.Background>
-            </Border>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <Border x:Name="MarkUploadImage"
-                    Grid.Column="0"
-                    Width="200"
-                    Height="200"
-                    CornerRadius="100"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Left"
-                    Margin="50 0 0 0"
-                    Background="#AAE9E9E9"
-                    Visibility="Hidden">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeave">
-                        <i:ChangePropertyAction TargetObject="{Binding ElementName=MarkUploadImage}"
-                                                PropertyName="Visibility"
-                                                Value="Hidden"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <Button Style="{StaticResource MaterialDesignOutlinedButton}"
-                        Content="Upload Image"
+                <Border Grid.Column="0"
+                        Width="200"
+                        Height="200"
+                        CornerRadius="100"
                         VerticalAlignment="Center"
-                        HorizontalAlignment="Center"
-                        Foreground="Black"
-                        BorderBrush="Black"
-                        BorderThickness="2"
-                        Cursor="Hand"
-                        Command="{StaticResource UpdateAvatarCommand}"
-                        CommandParameter="{Binding ElementName=Avatar}"/>
-                        
-            </Border>
+                        HorizontalAlignment="Left"
+                        Margin="50 0 0 0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseEnter">
+                            <i:ChangePropertyAction TargetObject="{Binding ElementName=MarkUploadImage}"
+                                                    PropertyName="Visibility"
+                                                    Value="Visible"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Border.Background>
+                        <ImageBrush x:Name="Avatar"
+                                    ImageSource="{Binding Avatar}"
+                                    Stretch="UniformToFill"/>
+                    </Border.Background>
+                </Border>
 
-            <StackPanel Grid.Column="2"
+                <Border x:Name="MarkUploadImage"
+                        Grid.Column="0"
+                        Width="200"
+                        Height="200"
+                        CornerRadius="100"
                         VerticalAlignment="Center"
-                        HorizontalAlignment="Center"
-                        Orientation="Vertical">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Họ Tên:"
+                        HorizontalAlignment="Left"
+                        Margin="50 0 0 0"
+                        Background="#AAE9E9E9"
+                        Visibility="Hidden">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeave">
+                            <i:ChangePropertyAction TargetObject="{Binding ElementName=MarkUploadImage}"
+                                                    PropertyName="Visibility"
+                                                    Value="Hidden"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                            Content="Upload Image"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Foreground="Black"
+                            BorderBrush="Black"
+                            BorderThickness="2"
+                            Cursor="Hand"
+                            Command="{StaticResource UpdateAvatarCommand}"
+                            CommandParameter="{Binding ElementName=Avatar}"/>
+
+                </Border>
+
+                <StackPanel Grid.Column="2"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Họ Tên:"
+                                   FontSize="30"
+                                   FontWeight="SemiBold"
+                                   Foreground="White"
+                                   Width="150"/>
+                        <TextBlock Text="{Binding Name}"
+                                   FontSize="30"
+                                   FontWeight="SemiBold"
+                                   Foreground="White"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0 0 0 20">
+                        <TextBlock Text="Chức vụ:"
                                FontSize="30"
                                FontWeight="SemiBold"
                                Foreground="White"
                                Width="150"/>
-                    <TextBlock Text="{Binding Name}"
+                        <TextBlock Text="Quản lí"
                                FontSize="30"
                                FontWeight="SemiBold"
                                Foreground="White"/>
-                </StackPanel>
+                    </StackPanel>
 
-                <StackPanel Orientation="Horizontal"
-                            Margin="0 0 0 20">
-                    <TextBlock Text="Chức vụ:"
-                               FontSize="30"
-                               FontWeight="SemiBold"
-                               Foreground="White"
-                               Width="150"/>
-                    <TextBlock Text="Quản lí"
-                               FontSize="30"
-                               FontWeight="SemiBold"
-                               Foreground="White"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Địa chỉ:"
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Địa chỉ:"
                                FontSize="20"
                                FontWeight="SemiBold"
                                Foreground="White"
                                Width="150"/>
-                    <TextBlock Text="{Binding Address}"
+                        <TextBlock Text="{Binding Address}"
                                ToolTip="{Binding Address}"
                                FontSize="20"
                                FontWeight="SemiBold"
                                Foreground="White"
                                TextWrapping="Wrap"/>
-                </StackPanel>
+                    </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Email:"
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Email:"
                                FontSize="20"
                                FontWeight="SemiBold"
                                Foreground="White"
                                Width="150"/>
-                    <TextBlock Text="{Binding Email}"
+                        <TextBlock Text="{Binding Email}"
                                ToolTip="{Binding Phone}"
                                FontSize="20"
                                FontWeight="SemiBold"
                                Foreground="White"
                                TextWrapping="WrapWithOverflow"/>
-                </StackPanel>
+                    </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="SĐT:"
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="SĐT:"
                                FontSize="20"
                                FontWeight="SemiBold"
                                Foreground="White"
                                Width="150"/>
-                    <TextBlock Text="{Binding Phone}"
+                        <TextBlock Text="{Binding Phone}"
                                FontSize="20"
                                FontWeight="SemiBold"
                                Foreground="White"
                                TextWrapping="Wrap"/>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
 
-            <Button Grid.Column="1"
+                <Button Grid.Column="1"
                     Content="{materialDesign:PackIcon Kind=Edit}"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
@@ -169,106 +169,119 @@
                     Background="#0D99FF"
                     BorderThickness="0"
                     Foreground="White"/>
-        </Grid>
+            </Grid>
+        </Border>
 
-        <Grid Grid.Row="1"
-              Background="AliceBlue">
+        <Border Grid.Row="1"
+                CornerRadius="0 0 8 8">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color='#E9E4F0' Offset="0"/>
+                    <GradientStop Color='#D3CCE3' Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid>
+                <Border Height="60"
+                        VerticalAlignment="Top"
+                        Margin="0 20 0 0"
+                        Width="270"
+                        Background="White"
+                        CornerRadius="8">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="5"
+                                          Direction="270"
+                                          Opacity="0.45"
+                                          RenderingBias="Performance"
+                                          ShadowDepth="1.5"
+                                          Color="{StaticResource MaterialDesignShadow}"/>
+                    </Border.Effect>
+                    <TextBlock Text="Nhóm của tôi"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="28"
+                               FontWeight="SemiBold"
+                               Foreground="Black"/>
+                </Border>
 
-            <Border Height="60"
-                    VerticalAlignment="Top"
-                    Margin="0 15 0 0"
-                    Width="300"
-                    Background="White"
-                    CornerRadius="10">
-                <Border.Effect>
-                    <DropShadowEffect 
-                                    BlurRadius="5"
-                                    Direction="270"
-                                    Opacity="0.45"
-                                    RenderingBias="Performance"
-                                    ShadowDepth="1.5"
-                                    Color="{StaticResource MaterialDesignShadow}"/>
-                </Border.Effect>
-                <TextBlock Text="Nhóm của tôi"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="28"
-                       FontWeight="SemiBold"
-                       Foreground="Black"/>
-            </Border>
-
-            <ListView Height="220"
-                      VerticalAlignment="Bottom"
-                      HorizontalAlignment="Center"
-                      Margin="30 0 30 10"
-                      ItemsSource="{Binding MyTeam}"
-                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                      ScrollViewer.CanContentScroll="False"
-                      VirtualizingPanel.IsVirtualizing="True">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"
+                <ScrollViewer Margin="30 0 30 5"
+                              HorizontalScrollBarVisibility="Visible"
+                              VerticalScrollBarVisibility="Auto" >
+                    <ListView Height="220"
+                              VerticalAlignment="Bottom"
+                              HorizontalAlignment="Center"
+                              Margin="0 0 0 15"
+                              ItemsSource="{Binding MyTeam}"
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                              ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                              ScrollViewer.CanContentScroll="False"
+                              VirtualizingPanel.IsVirtualizing="True">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"
                                     CanHorizontallyScroll="True"
-                                    CanVerticallyScroll="False"></StackPanel>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                    <Border>
-                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    CanVerticallyScroll="False">
+                                </StackPanel>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                            <Border>
+                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                                           Margin="17 0"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Border Height="195"
-                                Width="170"
-                                VerticalAlignment="Bottom"
-                                CornerRadius="10"
-                                Background="White">
-                            <Border.Effect>
-                                <DropShadowEffect 
-                                   BlurRadius="5"
-                                    Direction="270"
-                                    Opacity="0.45"
-                                    RenderingBias="Performance"
-                                    ShadowDepth="1.5"
-                                    Color="{StaticResource MaterialDesignShadow}"/>
-                            </Border.Effect>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Height="195"
+                                        Width="170"
+                                        VerticalAlignment="Bottom"
+                                        CornerRadius="8"
+                                        Background="White">
+                                    <Border.Effect>
+                                        <DropShadowEffect 
+                                        BlurRadius="5"
+                                        Direction="270"
+                                        Opacity="0.45"
+                                        RenderingBias="Performance"
+                                        ShadowDepth="1.5"
+                                        Color="{StaticResource MaterialDesignShadow}"/>
+                                    </Border.Effect>
 
-                            <StackPanel Margin="15 20 15 15">
-                                <Ellipse Stroke="Transparent"
-                                         Width="100"
-                                         Height="100"
-                                         VerticalAlignment="Top"
-                                         Margin="0 0 0 10">
-                                    <Ellipse.Fill>
-                                        <ImageBrush ImageSource="{Binding Avatar}"
-                                                    Stretch="UniformToFill"/>
-                                    </Ellipse.Fill>
-                                </Ellipse>
+                                    <StackPanel Margin="15 20 15 15">
+                                        <Ellipse Stroke="Transparent"
+                                                 Width="100"
+                                                 Height="100"
+                                                 VerticalAlignment="Top"
+                                                 Margin="0 0 0 10">
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="{Binding Avatar}"
+                                                            Stretch="UniformToFill"/>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
 
-                                <TextBlock Text="{Binding Name}"
-                                           HorizontalAlignment="Center"
-                                           FontWeight="semiBold"
-                                           FontSize="18"
-                                           TextWrapping="Wrap"
-                                           TextAlignment="Center"/>
-                            </StackPanel>
+                                        <TextBlock Text="{Binding Name}"
+                                                   HorizontalAlignment="Center"
+                                                   FontWeight="semiBold"
+                                                   FontSize="18"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center"/>
+                                    </StackPanel>
 
-                        </Border>
+                                </Border>
 
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+        
     </Grid>
 </Page>

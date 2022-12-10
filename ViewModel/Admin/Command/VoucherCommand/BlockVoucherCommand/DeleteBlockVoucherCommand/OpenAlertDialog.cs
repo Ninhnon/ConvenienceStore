@@ -1,20 +1,20 @@
 ﻿using ConvenienceStore.Model.Admin;
-using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin.AdminVM;
+using ConvenienceStore.Views.Admin.InputInfoWindow;
+using ConvenienceStore.Views.Admin.VoucherWindow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
-namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand.DeleteInputInfoCommand
+namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCommand.DeleteBlockVoucherCommand
 {
-    public class DeleteInputInfo : ICommand
+    class OpenAlertDialog : ICommand
     {
-        InputInfoVM VM;
-        public DeleteInputInfo(InputInfoVM VM)
+        VoucherVM VM;
+        public OpenAlertDialog(VoucherVM VM)
         {
             this.VM = VM;
         }
@@ -32,13 +32,12 @@ namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand.DeleteInputI
 
         public void Execute(object parameter)
         {
-            var inputInfo = VM.SelectedInputInfo;  // inputInfo cần delete
-
-            VM.ObservableInputInfos.Remove(inputInfo);
-            VM.inputInfos.Remove(inputInfo);
-            DatabaseHelper.DeleteInputInfo(inputInfo.Id);
-
-            (parameter as Window).Close();
+            VM.DeletedBlockVoucher = parameter as BlockVoucher;
+            var alertDialog = new AlertDialogDeleteBlockVoucher()
+            {
+                DataContext = VM,
+            };
+            alertDialog.ShowDialog();
         }
     }
 }

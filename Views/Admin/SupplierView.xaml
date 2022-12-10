@@ -9,8 +9,8 @@
       xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
       xmlns:SupplierCard="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.SupplierCard"
       mc:Ignorable="d" 
-      Height="660"
-     Width="1100"
+      Height="638"
+      Width="1140"
        Style="{StaticResource Page_Style}"
       Title="SupplierView"
       >
@@ -79,7 +79,7 @@
                     <Border Grid.Column="2"
                             Background="White"
                             Height="40"
-                            Width="300"
+                            Width="250"
                             CornerRadius="20">
                         <Border.Effect>
                             <DropShadowEffect BlurRadius="5"
@@ -91,12 +91,12 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="50"/>
 
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
 
-                                <TextBlock Text="Search here ..."
+                                <TextBlock Text="Tìm tên Nhà cung cấp ..."
                                     FontSize="14"
                                     Foreground="#9ea4ad"
                                     Margin="22 0 15 0"
@@ -116,7 +116,8 @@
 
                             </Grid>
 
-                            <Border Grid.Column="1"
+                            <Border 
+                                Grid.Column="1"
                                 Background="{StaticResource PrimaryColor}"
                                 CornerRadius="0 20 20 0"
                                 Cursor="Hand"

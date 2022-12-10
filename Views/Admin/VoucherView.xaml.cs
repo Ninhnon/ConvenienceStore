@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConvenienceStore.ViewModel.Admin.AdminVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,23 @@ namespace ConvenienceStore.Views.Admin
         public VoucherView()
         {
             InitializeComponent();
+        }
+
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var button = (Border)sender;
+            var VM = button.DataContext as VoucherVM;
+            VM.SetBlockVoucherCorespondSearch();
+        }
+
+        private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            var searchTextBox = (TextBox)sender;
+            if (e.Key == Key.Enter)
+            {
+                var VM = searchTextBox.DataContext as VoucherVM;
+                VM.SetBlockVoucherCorespondSearch();
+            }
         }
     }
 }

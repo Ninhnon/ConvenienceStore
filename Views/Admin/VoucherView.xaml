@@ -6,14 +6,639 @@
       xmlns:local="clr-namespace:ConvenienceStore.Views.Admin"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:UserControls="clr-namespace:ConvenienceStore.Views.Admin.UserControls"
+      xmlns:BlockVoucherCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCommand"
+      xmlns:VoucherConverter="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters.VoucherConverter"
+      xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
       DataContext="{StaticResource VoucherVM}"
       mc:Ignorable="d" 
+      x:Name="VoucherScreen"
       Style="{StaticResource Page_Style}"
-      Height="600"
-      Width="1125"
-      Title="VoucherView">
+      Height="620"
+      Width="1140">
 
-    <Grid>
-        
-    </Grid>
+    <Page.Resources>
+
+        <BlockVoucherCommand:HideDeleteButtonCommand x:Key="HideDeleteButtonCommand"/>
+        <BlockVoucherCommand:PrefixCodeLostFocus x:Key="PrefixCodeLostFocus"/>
+        <Converters:StringToVisibility x:Key="StringToVisibility"/>
+        <VoucherConverter:IntToStringValueDisplay x:Key="IntToStringValueDisplay"/>
+        <VoucherConverter:IntToStringUnitDisplay x:Key="IntToStringUnitDisplay"/>
+        <VoucherConverter:StatusToDisplayStringConverter x:Key="StatusToDisplayStringConverter"/>
+
+    </Page.Resources>
+
+    <Border>
+
+
+        <Grid x:Name="BlockVoucherScreen">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="725"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border x:Name="BlockVoucherS1"
+                    Grid.Column="0"
+                    CornerRadius="8 0 0 8">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color='#E9E4F0' Offset="0"/>
+                        <GradientStop Color='#D3CCE3' Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid>
+                    <Grid VerticalAlignment="Top"
+                          Margin="30 20 30 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Quản lí Voucher"
+                                   FontSize="32"
+                                   FontWeight="SemiBold"
+                            
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"/>
+                        <Border Grid.Column="2"
+                                Background="White"
+                                Height="40"
+                                Width="250"
+                                CornerRadius="20">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="5"
+                                        Direction="270"
+                                        Opacity="0.45"
+                                        RenderingBias="Performance"
+                                        ShadowDepth="1.5"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="50"/>
+
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+
+                                    <TextBlock Text="Tìm tên voucher ..."
+                                        FontSize="14"
+                                        Foreground="#9ea4ad"
+                                        Margin="22 0 15 0"
+                                        VerticalAlignment="Center"
+                                        IsHitTestVisible="False"
+                                        Visibility="{Binding ElementName=SearchTextBox, Path=Text, Converter={StaticResource StringToVisibility}}"/>
+
+                                    <TextBox x:Name="SearchTextBox"
+                                        Text="{Binding SearchContent, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                                        FontSize="14"
+                                        Margin="20 0 10 0"
+                                        Style="{StaticResource SearchTextBox}"
+                                        Height="30"
+                                        VerticalContentAlignment="Center"
+                                        KeyDown="SearchTextBox_KeyDown">
+                                    </TextBox>
+
+                                </Grid>
+
+                                <Border 
+                            Grid.Column="1"
+                            Background="{StaticResource PrimaryColor}"
+                            CornerRadius="0 20 20 0"
+                            Cursor="Hand"
+                            MouseLeftButtonDown="Border_MouseLeftButtonDown">
+                                    <materialDesign:PackIcon Kind="Search"
+                                                    Foreground="White"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    Height="20" 
+                                                    Width="20"/>
+
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+
+                    <ListBox x:Name="BlockVoucherCards"
+                        ItemsSource="{Binding ObservableBlockVouchers}"
+                        SelectedValue="{Binding SelectedBlockVoucher}"
+                        Margin="25 83 3 30"
+                        VerticalAlignment="Top"
+                        ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                        ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                        ScrollViewer.CanContentScroll="False"
+                        VirtualizingPanel.IsVirtualizing="True">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                            <Border>
+                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <UserControls:BlockVoucherCard BlockVoucherItem="{Binding}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseEnter">
+                                                <i:ChangePropertyAction TargetObject="{Binding ElementName=DeleteButton}"
+                                                                PropertyName="Visibility"
+                                                                Value="Visible"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="MouseLeave">
+                                                <i:InvokeCommandAction Command="{StaticResource HideDeleteButtonCommand}"
+                                                                CommandParameter="{Binding ElementName=DeleteButton}"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding Source={StaticResource VoucherVM}, Path=OpenVoucherCommand}"
+                                                                       CommandParameter="{Binding}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </UserControls:BlockVoucherCard>
+
+                                    <Border x:Name="DeleteButton"
+                                    Margin="0 14 14 0"
+                                    CornerRadius="2"
+                                    Cursor="Hand"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Visibility="Hidden">
+
+                                        <Image Source="/Resources/Images/IconForInputInfo/close_box.png"
+                                        Opacity="0.4"
+                                        Height="24"/>
+
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseEnter">
+                                                <i:ChangePropertyAction PropertyName="Background"
+                                                                    Value="#D9D9D9"/>
+                                            </i:EventTrigger>
+
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding Source={StaticResource VoucherVM}, Path=OpenAlertDialog}"
+                                                                       CommandParameter="{Binding}"/>
+                                            </i:EventTrigger>
+
+                                            <i:EventTrigger EventName="MouseLeave">
+                                                <i:ChangePropertyAction PropertyName="Background"
+                                                                    Value="Transparent"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Border>
+
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                </Grid>
+            </Border>
+
+            <Border x:Name="BlockVoucherS2"
+                    Grid.Column="1"
+                    Background="#E9E4F0"
+                    CornerRadius="0 8 8 0">
+                <StackPanel Grid.Column="1"
+                    Margin="25 20 25 20">
+                    <TextBlock Text="Phát hành Voucher"
+                        FontSize="32"
+                        FontWeight="SemiBold"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Margin="0 0 0 20"
+                        Height="43"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Mã tiền tố"
+                        FontSize="18"
+                        FontWeight="SemiBold"
+                        Margin="0 0 0 4"/>
+                        <TextBlock Text=" *"
+                            Foreground="Red"
+                            FontSize="18"/>
+                    </StackPanel>
+
+                    <TextBox x:Name="PrefixCode"
+                        Style="{StaticResource MyTextBoxStyle}"
+                        Tag="TET2023"
+                        BorderThickness="0">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="LostFocus">
+                                <i:InvokeCommandAction Command="{StaticResource PrefixCodeLostFocus}"
+                                                CommandParameter="{Binding ElementName=PrefixCode}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
+
+                    <TextBlock x:Name="PrefixCodeErrorMessage"
+                        Foreground="Red"
+                        Margin="0 0 0 10"/>
+
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="SL kí tự hậu tố"
+                                    FontSize="18"
+                                    FontWeight="SemiBold"
+                                    Margin="0 0 0 4"/>
+                                <TextBlock Text=" *"
+                                Foreground="Red"
+                                FontSize="18"/>
+                            </StackPanel>
+
+                            <TextBox x:Name="SuffixNumber"
+                                Style="{StaticResource MyTextBoxStyle}"
+                                Tag="5"
+                                BorderThickness="0"/>
+
+                            <TextBlock x:Name="SuffixNumberErrorMessage"
+                                Foreground="Red"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Số lượng voucher"
+                            FontSize="18"
+                            FontWeight="SemiBold"
+                            Margin="0 0 0 4"/>
+                                <TextBlock Text=" *"
+                                Foreground="Red"
+                                FontSize="18"/>
+                            </StackPanel>
+                            <TextBox x:Name="NumberOfVoucher"
+                            Style="{StaticResource MyTextBoxStyle}"
+                            Tag="100"
+                            BorderThickness="0"/>
+
+                            <TextBlock x:Name="NumberOfVoucherErrorMessage"
+                                Foreground="Red"/>
+                        </StackPanel>
+                    </Grid>
+
+
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Kiểu"
+                                    FontSize="18"
+                                    FontWeight="SemiBold"
+                                    Margin="0 0 0 4"/>
+                                <TextBlock Text=" *"
+                                Foreground="Red"
+                                FontSize="18"/>
+                            </StackPanel>
+
+                            <ComboBox x:Name="TypeComboBox"
+                                Style="{StaticResource CustomComboBoxHasBorder}"
+                                Height="40"
+                                Width="165"
+                                HorizontalAlignment="Left"
+                                SelectedIndex="0">
+                                <TextBlock Text="Giảm tiền"
+                                    FontSize="15"/>
+                                <TextBlock Text="Giảm theo %"
+                                    FontSize="15"/>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Trị giá"
+                                    FontSize="18"
+                                    FontWeight="SemiBold"
+                                    Margin="0 0 0 4"/>
+                                <TextBlock Text=" *"
+                                    Foreground="Red"
+                                    FontSize="18"/>
+                            </StackPanel>
+                            <Grid>
+                                <TextBox x:Name="Value"
+                                    Style="{StaticResource MyTextBoxStyle}"
+                                    Tag="{Binding ElementName=TypeComboBox, Path=SelectedIndex, Converter={StaticResource IntToStringValueDisplay}}"
+                                    BorderThickness="0">
+                                </TextBox>
+                                <TextBlock Text="{Binding ElementName=TypeComboBox, Path=SelectedIndex, Converter={StaticResource IntToStringUnitDisplay}}"
+                                    Foreground="#9295A5"
+                                    FontSize="15"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right"
+                                    Margin="0 0 10 0"/>
+
+                            </Grid>
+
+                            <TextBlock x:Name="ValueErrorMessage"
+                                Foreground="Red"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Ngày bắt đầu"
+                        FontSize="18"
+                        FontWeight="SemiBold"
+                        Margin="0 0 0 4"/>
+                        <TextBlock Text=" *"
+                            Foreground="Red"
+                            FontSize="18"/>
+                    </StackPanel>
+
+                    <Grid>
+                        <DatePicker x:Name="StartDate"
+                            SelectedDateFormat="Short"/>
+                        <TextBlock Text="{Binding ElementName=StartDate,
+                            Path=SelectedDate, StringFormat=dd-MM-yyyy}"
+                            Background="#E9E4F0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top"
+                            Margin="0 7 14 0"
+                            Height="24"/>
+                    </Grid>
+
+                    <TextBlock x:Name="StartDateErrorMessage"
+                        Foreground="Red"
+                        Margin="0 0 0 10"/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Ngày kết thúc"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   Margin="0 0 0 4"/>
+                        <TextBlock Text=" *"
+                                   Foreground="Red"
+                                   FontSize="18"/>
+                    </StackPanel>
+
+                    <Grid>
+                        <DatePicker x:Name="FinishDate"
+                            SelectedDateFormat="Short"/>
+                        <TextBlock Text="{Binding ElementName=FinishDate,
+                            Path=SelectedDate, StringFormat=dd-MM-yyyy}"
+                            Background="#E9E4F0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top"
+                            Margin="0 7 14 0"
+                            Height="24"/>
+                    </Grid>
+
+                    <TextBlock x:Name="FinishDateErrorMessage"
+                        Foreground="Red"
+                        Margin="0 0 0 10"/>
+
+                    <Button Command="{Binding GenerateBlockVoucher}"
+                            CommandParameter="{Binding ElementName=VoucherScreen}"
+                            Height="35">
+                        <Button.Content>
+                            <TextBlock Text="Tạo"
+                                       FontSize="16"/>
+                        </Button.Content>
+                    </Button>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Voucher Detail-->
+
+            <Border x:Name="Voucher"
+                    Grid.Column="0"
+                    Visibility="Hidden"
+                    CornerRadius="8 0 0 8">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color='#D3CCE3' Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid>
+
+                    <Border Background="Transparent"
+                            Cursor="Hand"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Left"
+                            Margin="30 30 0 0">
+                        <Image Source="/Resources/Images/IconForProduct/arrow.png"
+                                    Width="30"/>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:ChangePropertyAction TargetObject="{Binding ElementName=Voucher}"
+                                                        PropertyName="Visibility"
+                                                        Value="Hidden"/>
+                                <i:ChangePropertyAction TargetObject="{Binding ElementName=BlockVoucherDetail}"
+                                                        PropertyName="Visibility"
+                                                        Value="Hidden"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Border>
+
+                    <TextBlock Text="Voucher"
+                               FontSize="32"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Top"
+                               HorizontalAlignment="Center"
+                               Margin="0 24 0 0"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Left"
+                                Margin="30 70 0 0">
+                        <TextBlock Text="Lọc: "
+                                   FontSize="16"
+                                   Foreground="Gray"
+                                   VerticalAlignment="Center"/>
+                        <ComboBox x:Name="ComboBox"
+                                  Style="{StaticResource CustomComboBox}"
+                                  SelectedIndex="0">
+                            <TextBlock Text="Chưa sử dụng"
+                                       FontSize="16"/>
+                            <TextBlock Text="Tất cả"
+                                       FontSize="16"/>
+                            <i:Interaction.Triggers>
+                                <i:DataTrigger Binding="{Binding ElementName=ComboBox,Path=SelectedIndex}"
+                                               Value="0">
+                                    <i:InvokeCommandAction Command="{Binding FilterActiveVoucherCommand}"/>
+                                </i:DataTrigger>
+                                <i:DataTrigger Binding="{Binding ElementName=ComboBox,Path=SelectedIndex}"
+                                               Value="1">
+                                    <i:InvokeCommandAction Command="{Binding FilterAllVoucherCommand}"/>
+                                </i:DataTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+
+                    </StackPanel>
+
+                    <ListBox x:Name="VoucherCards"
+                             Margin="25 110 25 30"
+                             ItemsSource="{Binding ObservableVouchers}"
+                             ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                             ScrollViewer.CanContentScroll="False"
+                             VirtualizingPanel.IsVirtualizing="True">
+
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                            <Border>
+                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <UserControls:VoucherCard VoucherItem="{Binding}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                </Grid>
+            </Border>
+
+            <Border x:Name="BlockVoucherDetail"
+                    Grid.Column="1"
+                    Background="#E9E4F0"
+                    Visibility="Hidden"
+                    CornerRadius="0 8 8 0">
+                <StackPanel VerticalAlignment="Center"
+                            Margin="30 0">
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Tên voucher: "
+                                   FontSize="18"
+                                   FontWeight="SemiBold"/>
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding SelectedBlockVoucher.ReleaseName}"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   d:Text="NOEL"/>
+                    </Grid>
+
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Kiểu giảm giá: "
+                                   FontSize="18"
+                                   FontWeight="SemiBold"/>
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding SelectedBlockVoucher.Type, Converter={StaticResource StatusToDisplayStringConverter}}"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   d:Text="Giảm theo phần trăm"/>
+                    </Grid>
+
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Trị giá: "
+                                   FontSize="18"
+                                   FontWeight="SemiBold"/>
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding SelectedBlockVoucher.ParValue}"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   d:Text="20"/>
+                    </Grid>
+
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Số lượng: "
+                                   FontSize="18"
+                                   FontWeight="SemiBold"/>
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding SelectedBlockVoucher.vouchers.Count}"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   d:Text="100"/>
+                    </Grid>
+
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Ngày bắt đầu: "
+                                   FontSize="18"
+                                   FontWeight="SemiBold"/>
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding SelectedBlockVoucher.StartDate, StringFormat=dd-MM-yyyy}"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   d:Text="15-01-2023"/>
+                    </Grid>
+
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Ngày kết thúc: "
+                                   FontSize="18"
+                                   FontWeight="SemiBold"/>
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding SelectedBlockVoucher.FinishDate, StringFormat=dd-MM-yyyy}"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   d:Text="31-01-2023"/>
+                    </Grid>
+
+                </StackPanel>
+
+            </Border>
+        </Grid>
+
+    </Border>
 </Page>

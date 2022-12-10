@@ -8,6 +8,12 @@ namespace ConvenienceStore.Model
 {
     public class Account
     {
+        private int number_;
+        public int Number
+        {
+            get { return number_; }
+            set { number_ = value; }
+        }
         private int _idAccount;
         public int IdAccount
         {
@@ -87,19 +93,7 @@ namespace ConvenienceStore.Model
             this.avatar_ = avatar_;
             this.managerId_= managerId_;
         }
-        public Account(string userRole_, string name_, string address_, string phone_, string email_, string username_, string password_)
-        {
-
-            this.userRole_ = userRole_;
-            this.name_ = name_;
-            this.address_ = address_;
-            this.phone_ = phone_;
-            this.email_ = email_;
-            this.username_ = username_;
-            this.password_ = password_;
-            
-
-        }
+    
         public Account(string userRole_, string name_, string address_, string phone_, string email_, string username_, string password_, byte[]avatar_,int managerId_)
         {
 

@@ -32,7 +32,7 @@
         </Border.Background>
         <Grid>
             <Grid.RowDefinitions>
-                
+
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -42,13 +42,13 @@
             </Grid.RowDefinitions>
 
             <i:Interaction.Triggers>
-                
+
                 <i:EventTrigger EventName="Loaded">
-                    
+
                     <i:InvokeCommandAction Command="{Binding LoadReceipt}" />
-                    
+
                 </i:EventTrigger>
-                
+
             </i:Interaction.Triggers>
 
             <!--ControlBar-->
@@ -67,6 +67,19 @@
                                              Height="24"
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Center"/>
+
+                    <!--Trigger style phụ thuộc vào button OK-->
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}"
+                                   BasedOn="{StaticResource ReceiptButtonStyle}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="False">
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                 </Button>
             </Grid>
 
@@ -92,13 +105,13 @@
                     <!--Số hóa đơn-->
                     <StackPanel Orientation="Horizontal"
                             Margin="5 10 0 0">
-                        <TextBlock Text="Receipt no: " 
+                        <TextBlock Text="Số hóa đơn: " 
                          FontWeight="Light"
                          FontSize="13"
                          TextAlignment="Center"
                          HorizontalAlignment="Left"/>
 
-                        <TextBlock Text="2003" 
+                        <TextBlock Text="{Binding ReceiptBill.Id}" 
                          FontWeight="Light"
                          FontSize="13"
                          TextAlignment="Center"
@@ -109,58 +122,144 @@
                     <!--Ngày xuất hóa đơn-->
                     <StackPanel Orientation="Horizontal"
                             Margin="5 5 0 0">
-                        <TextBlock Text="Date: " 
+                        <TextBlock Text="Ngày hóa đơn: " 
                          FontWeight="Light"
                          FontSize="13"
                          TextAlignment="Center"
                          HorizontalAlignment="Left"/>
 
-                        <TextBlock Text="Oct 5, 2019 06:39 PM" 
+                        <TextBlock Text="{Binding ReceiptBill.BillDate, StringFormat={}{0:dddd, dd MMMM yyyy, hh:mm:ss}}" 
                          FontWeight="Light"
                          FontSize="13"
                          TextAlignment="Center"
                          HorizontalAlignment="Left"
-                               Margin="5 0 0 0"/>
+                               Margin="5 0 0 0"
+                                   xml:lang="vi"/>
                     </StackPanel>
 
                     <!--Nhân viên thanh toán-->
                     <StackPanel Orientation="Horizontal"
                             Margin="5 5 0 0">
-                        <TextBlock Text="Cashier: " 
+                        <TextBlock Text="Thu ngân: "
                          FontWeight="Light"
                          FontSize="13"
                          TextAlignment="Center"
                          HorizontalAlignment="Left"/>
 
-                        <TextBlock Text="5333-Nguyễn Ngọc Tín" 
+                        <TextBlock
                          FontWeight="Light"
                          FontSize="13"
                          TextAlignment="Center"
                          HorizontalAlignment="Left"
-                               Margin="5 0 0 0"/>
+                               Margin="5 0 0 0">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="StaffId"/>
+                                    <Binding Path="StaffName"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </StackPanel>
 
-                    <!--Chi tiết hóa đơn-->
+                    <!--Tìm mã khách hàng & Nhập voucher-->
                     <StackPanel Orientation="Horizontal"
-                            Margin="5 5 0 0">
-                        <TextBlock Text="Customer Id: " 
+                            Margin="5 0 0 0">
+
+                        <!--Tìm mã khách hàng-->
+                            
+                            <TextBlock Text="Mã khách hàng: " 
                          FontWeight="Light"
                          FontSize="13"
                          TextAlignment="Center"
                          HorizontalAlignment="Left"
-                                   Margin="0 10 0 0"/>
+                                   Margin="0 15 0 0"/>
 
-                        <TextBox x:Name="customerIdTbx"
-                            Margin="5 5 0 0"
-  materialDesign:HintAssist.Hint="Mã khách hàng"
-  Style="{StaticResource MaterialDesignTextBox}"
-                            FontSize="13">
-                            <TextBox.InputBindings>
-                                <KeyBinding Key="Enter"
+                            <TextBox x:Name="customerIdTbx"
+                            Margin="0 5 0 0"
+                            FontSize="13"
+                                 TextAlignment="Center"
+                                     MinWidth="60">
+
+                                <TextBox.InputBindings>
+                                    <KeyBinding Key="Enter"
                                             Command="{Binding SearchCustomerIdCM}"
                                             CommandParameter="{Binding ElementName=customerIdTbx}"/>
-                            </TextBox.InputBindings>
-                        </TextBox>
+                                </TextBox.InputBindings>
+
+                                <TextBox.Style>
+                                    <Style TargetType="{x:Type TextBox}"
+                                   BasedOn="{StaticResource MaterialDesignTextBox}">
+                                        <Setter Property="IsEnabled" 
+                                        Value="True"/>
+
+                                        <!--Textbox không thể nhập nội dung sau khi đã thanh toán-->
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false">
+                                                <Setter Property="IsEnabled" Value="False"/>
+                                            </DataTrigger>
+
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false"/>
+                                                    <Condition Binding="{Binding ElementName=customerIdTbx, Path=Text}" Value=""/>
+                                                </MultiDataTrigger.Conditions>
+
+                                                <MultiDataTrigger.Setters>
+                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                </MultiDataTrigger.Setters>
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+
+                        <!--Nhập voucher-->
+                            
+                                <TextBlock Text="Mã voucher: " 
+                         FontWeight="Light"
+                         FontSize="13"
+                         TextAlignment="Center"
+                         HorizontalAlignment="Left"
+                                   Margin="80 15 0 0"/>
+
+                                <TextBox x:Name="voucherIdTbx"
+                            Margin="0 5 0 0"
+                            FontSize="13"
+                                 TextAlignment="Center"
+                                 MinWidth="60">
+
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter"
+                                            Command="{Binding SearchCustomerIdCM}"
+                                            CommandParameter="{Binding ElementName=customerIdTbx}"/>
+                                    </TextBox.InputBindings>
+
+                                    <TextBox.Style>
+                                        <Style TargetType="{x:Type TextBox}"
+                                   BasedOn="{StaticResource MaterialDesignTextBox}">
+                                            <Setter Property="IsEnabled" 
+                                        Value="True"/>
+
+                                            <!--Textbox không thể nhập nội dung sau khi đã thanh toán-->
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false">
+                                                    <Setter Property="IsEnabled" Value="False"/>
+                                                </DataTrigger>
+
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false"/>
+                                                        <Condition Binding="{Binding ElementName=customerIdTbx, Path=Text}" Value=""/>
+                                                    </MultiDataTrigger.Conditions>
+
+                                                    <MultiDataTrigger.Setters>
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                    </MultiDataTrigger.Setters>
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBox.Style>
+                                </TextBox>
                     </StackPanel>
 
                     <Separator Margin="5 10 5 10"/>
@@ -171,70 +270,77 @@
             <materialDesign:Card Grid.Row="2"
                              Margin="5 5 5 0"
                              VerticalAlignment="Stretch"
-                                 Height="160"
+                                 Height="150"
                                  x:Name="billDetailCard">
-                
+
                 <ScrollViewer VerticalScrollBarVisibility="Hidden"
                               HorizontalScrollBarVisibility="Hidden"
                               PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
                               x:Name="billDetailScrollView">
-                    
+
                     <ListView ItemsSource="{Binding ShoppingCart}" 
                           SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                           VerticalAlignment="Top"
                           materialDesign:ListBoxItemAssist.ShowSelection="False"
                           materialDesign:ListBoxAssist.IsToggle="False"
                               x:Name="billDetailListView">
-                        
+
                         <ListView.View>
-                            
+
                             <GridView>
-                                
+                                <GridView.ColumnHeaderContainerStyle>
+                                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                        <Setter Property="Padding" Value="15 0 0 0"/>
+                                    </Style>
+                                </GridView.ColumnHeaderContainerStyle>
+
                                 <GridViewColumn Header="SL"
-                                            Width="auto">
+                                            Width="80">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Quantity}"
-                                                   Margin="16 0 0 0"/>
+                                                   HorizontalAlignment="Left"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                
+
                                 <GridViewColumn Header="Sản phẩm"
-                                            Width="200">
+                                            Width="220">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Title}"
-                                                   Margin="-15 0 5 0"/>
+                                                   HorizontalAlignment="Left"
+                                                       TextWrapping="WrapWithOverflow"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                
+
                                 <GridViewColumn Header="Số tiền"
-                                            Width="auto">
+                                            Width="130">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding TotalPrice, Converter={StaticResource MoneyToVNDCurrency}}"
-                                                   Margin="5 0 0 0"/>
+                                                   HorizontalAlignment="Left"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                
+
                             </GridView>
-                            
+
                         </ListView.View>
-                        
+
                     </ListView>
                     
                 </ScrollViewer>
-                
+
             </materialDesign:Card>
 
             <Grid Grid.Row="3" Margin="0 5 0 5">
                 <StackPanel Orientation="Vertical">
 
                     <Separator Margin="5 10 5 0"/>
-                    
+
                     <TextBlock FontSize="18"
                            FontWeight="Bold"
                            Margin="5 10 10 5"
@@ -259,50 +365,46 @@
             <Grid Grid.Row="4">
                 <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom">
+                        VerticalAlignment="Bottom"
+                            x:Name="stackButtons">
 
-                    <StackPanel.Resources>
-
-                        <Style TargetType="Button"
-                           BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
-
-                            <Setter Property="VerticalAlignment"
-                                Value="Bottom"/>
-
-                            <Setter Property="HorizontalAlignment"
-                                Value="Right"/>
-
-                            <Setter Property="Width"
-                                Value="70"/>
-
-                            <Setter Property="Height"
-                                Value="30"/>
-
-                            <Setter Property="FontSize"
-                                Value="12"/>
-
-                        </Style>
-
-                    </StackPanel.Resources>
                     <Button Content="OK"
                         x:Name="OkBtn"
+                            Style="{StaticResource ReceiptButtonStyle}"
                             Margin="0 0 10 10"
                             materialDesign:ButtonAssist.CornerRadius="8"
                             Command="{Binding CompleteReceiptCM}"
+                            CommandParameter="{Binding ElementName=OkBtn}"
                             BorderBrush="Transparent" />
 
-                    <Button Content="Hủy"
+                    <Button 
                         x:Name="CancelBtn"
                             Margin="0 0 10 10"
                             materialDesign:ButtonAssist.CornerRadius="8"
                             Command="{Binding CancelReceiptCM}"
-                            CommandParameter="{Binding ElementName=receiptPage}"
+                            CommandParameter="{Binding ElementName=CancelBtn}"
                             BorderBrush="Transparent"
-                        Background="OrangeRed"/>
+                        Background="OrangeRed">
+
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}"
+                                   BasedOn="{StaticResource ReceiptButtonStyle}">
+                                <Setter Property="Content" 
+                                        Value="Hủy"/>
+
+                                <!--Đổi nội dung phụ thuộc vào button ok-->
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false">
+                                        <Setter Property="Content" Value="Thoát"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
                 </StackPanel>
             </Grid>
         </Grid>
-        
+
     </Border>
-    
+
 </Window>

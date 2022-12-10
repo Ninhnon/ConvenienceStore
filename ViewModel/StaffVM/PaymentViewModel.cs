@@ -1,7 +1,9 @@
 ﻿using ConvenienceStore.Model;
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
+using ConvenienceStore.Views;
 using ConvenienceStore.Views.Staff;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
@@ -65,12 +67,34 @@ namespace ConvenienceStore.ViewModel.StaffVM
         private int _TotalBill;
         public int TotalBill { get { return _TotalBill; } set { _TotalBill = value; OnPropertyChanged(); } }
 
+        private int? _CustomerId;
+        public int? CustomerId { get { return _CustomerId; } set { _CustomerId = value; OnPropertyChanged(); } }
+
+        private Receipt _ReceiptPage;
+        public Receipt ReceiptPage { get { return _ReceiptPage; } set { _ReceiptPage = value; OnPropertyChanged(); } }
+
+        //public Receipt ReceiptPage
+
         public List<Products> products = new List<Products>();
         public List<Customer> customers = new List<Customer>();
         public List<ConvenienceStore.Model.Staff.Bill> bill = new List<ConvenienceStore.Model.Staff.Bill>();
 
+        private Model.Staff.Bill _ReceiptBill;
+        public Model.Staff.Bill ReceiptBill { get { return _ReceiptBill; } set { _ReceiptBill = value; OnPropertyChanged(); } }
+
+        #region Staff Info
+        private int _StaffId;
+        public int StaffId { get { return _StaffId; } set { _StaffId = value; OnPropertyChanged(); } }
+
+        private string _StaffName;
+        public string StaffName { get { return _StaffName; } set { _StaffName = value; OnPropertyChanged(); } }
+        #endregion
+
         public PaymentViewModel()
         {
+            StaffName = CurrentAccount.Name;
+            StaffId = CurrentAccount.idAccount;
+
             products = DatabaseHelper.FetchingProductData();
             List = new ObservableCollection<Products>(products);
 
@@ -194,25 +218,35 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 return true;
             }, (p) =>
             {
-                Receipt wd = new Receipt();
-
+                //Receipt wd = new Receipt();
+                ReceiptPage = new Receipt();
                 MaskName.Visibility = Visibility.Visible;
-
                 TotalBill = 0;
                 foreach (BillDetails bd in ShoppingCart)
                 {
                     TotalBill += (int)bd.TotalPrice;
                 }
 
-                wd.ShowDialog();
+                ReceiptPage.ShowDialog();
+                //wd.ShowDialog();
             });
 
-            CancelReceiptCM = new RelayCommand<Window>((p) =>
+            CancelReceiptCM = new RelayCommand<Button>((p) =>
             {
                 return true;
             }, (p) =>
             {
-                p.Close();
+                // Nếu đã thanh toán xong thì làm trống giỏ hàng
+
+                if (p.Content.ToString() == "Thoát")
+                {
+                    while (ShoppingCart.Count > 0)
+                    {
+                        ShoppingCart.RemoveAt(ShoppingCart.Count - 1);
+                    }
+                }
+
+                ReceiptPage.Close();
                 MaskName.Visibility = Visibility.Hidden;
             });
 
@@ -231,15 +265,55 @@ namespace ConvenienceStore.ViewModel.StaffVM
             }, (p) =>
             {
                 customers = DatabaseHelper.FetchingCustomerData();
-                MessageBox.Show("Mã khách hàng hợp lệ");
+                var checkCustomerId = customers.Where(x => Convert.ToString(x.Id) == p.Text);
+
+                if (p.Text == null)
+                    CustomerId = null;
+
+                if (checkCustomerId.Count() == 1)
+                {
+                    CustomerId = Convert.ToInt32(p.Text);
+                    MessageBoxCustom mbSuccess = new MessageBoxCustom("Thông báo", "Mã khách hàng hợp lệ", MessageType.Success, MessageButtons.OK);
+                    mbSuccess.ShowDialog();
+                }
+                else
+                {
+                    p.Text = null;
+                    CustomerId = null;
+                    MessageBoxCustom mbFailed = new MessageBoxCustom("Cảnh báo", "Mã khách hàng không hợp lệ", MessageType.Error, MessageButtons.OK);
+                    mbFailed.ShowDialog();
+                }
             });
 
-            CompleteReceiptCM = new RelayCommand<object>((p) =>
+            CompleteReceiptCM = new RelayCommand<Button>((p) =>
             {
                 return true;
             }, (p) =>
             {
-                bill = DatabaseHelper.FetchingBillData();
+                try
+                {
+                    DatabaseHelper.InsertBill(CustomerId, TotalBill);
+                    ReceiptBill = DatabaseHelper.FetchingBillData().LastOrDefault();
+                    if (ReceiptBill == null)
+                        return;
+
+                    //Sửa thông tin BillId trong các BillDetail và thêm cái BillDetail vào database
+                    foreach (BillDetails bd in ShoppingCart)
+                    {
+                        bd.BillId = ReceiptBill.Id;
+                        DatabaseHelper.InsertBillDetail(bd);
+                    }
+
+                    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Thanh toán thành công", MessageType.Success, MessageButtons.OK);
+                    mb.ShowDialog();
+                    //Disable nút thanh toán
+                    p.IsEnabled = false;
+                }
+                catch
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Thanh toán gặp sự cố, vui lòng thử lại!", MessageType.Warning, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
             });
         }
     }

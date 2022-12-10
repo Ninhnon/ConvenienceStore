@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:ConvenienceStore.Views.Staff"
         mc:Ignorable="d"
         Title="PaymentWindow"
-        d:DesignHeight="600"
-        d:DesignWidth="1100"
+        Height="638"
+      Width="1140"
         x:Name="paymentWindow"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -21,13 +21,9 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       ShowsNavigationUI="False">
-    <Border CornerRadius="0,0,20,0">
-        <Border.Background>
-            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                <GradientStop Color='#E9E4F0' Offset="0"/>
-                <GradientStop Color='#D3CCE3' Offset="1"/>
-            </LinearGradientBrush>
-        </Border.Background>
+    <Border CornerRadius="8"
+            Background="LightBlue">
+
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="Loaded">
                 <i:InvokeCommandAction Command="{Binding MaskNameCM}"
@@ -163,7 +159,8 @@
                                              Grid.Row="0"
                                              Grid.RowSpan="2">
                                                     <Ellipse.Fill>
-                                                        <ImageBrush ImageSource="{Binding Image}"/>
+                                                        <ImageBrush ImageSource="{Binding Image}"
+                                                                    Stretch="UniformToFill"/>
                                                     </Ellipse.Fill>
 
                                                     <Ellipse.Effect>
@@ -235,7 +232,7 @@
                 <Grid Grid.Column="1">
                     <materialDesign:Card Margin="0 20 20 20"
                                      UniformCornerRadius="15"
-                                     Background="Transparent" >
+                                     Background="{DynamicResource PrimaryBackgroundColor}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
@@ -256,8 +253,7 @@
                                   VerticalScrollBarVisibility="Hidden"
                                   PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
                                       Grid.Row="1"
-                                          x:Name="shoppingCartScrollView"
-                                          >
+                                          x:Name="shoppingCartScrollView">
 
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="ScrollChanged">

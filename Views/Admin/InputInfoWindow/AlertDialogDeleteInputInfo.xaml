@@ -8,7 +8,7 @@
         xmlns:Command="clr-namespace:ConvenienceStore.ViewModel.Admin.Command"
         mc:Ignorable="d"
         x:Name="AlertDialogDeleteInputInfoScreen"
-        Height="660" Width="1200"
+        Height="600" Width="1200"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
@@ -39,7 +39,7 @@
                            FontWeight="SemiBold"
                            Margin="0 0 0 20"/>
 
-                <TextBlock Text="Bạn có muốn xóa &quot;Đợt nhập kho&quot; này không khỏi danh sách không?"
+                <TextBlock Text="Bạn có muốn xóa &quot;Đợt nhập kho&quot; này khỏi danh sách không?"
                            TextWrapping="Wrap"
                            FontSize="16"
                            Margin="0 0 0 30"/>
@@ -59,7 +59,7 @@
                             Background="{StaticResource PrimaryColor}"
                             BorderThickness="0"
                             Width="60"
-                            Command="{Binding DeleteInputInfo}"
+                            Command="{Binding DeleteInputInfoCommand}"
                             CommandParameter="{Binding ElementName=AlertDialogDeleteInputInfoScreen}"/>
                 </StackPanel>
             </StackPanel>

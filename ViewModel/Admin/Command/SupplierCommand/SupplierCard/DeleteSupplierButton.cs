@@ -41,6 +41,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.SupplierCard
         public void Execute(object parameter)
         {
             var supplier = parameter as Supplier;
+
             VM.ObservableSupplier.Remove(supplier);
             VM.suppliers.Remove(supplier);
 

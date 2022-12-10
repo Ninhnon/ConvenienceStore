@@ -29,7 +29,7 @@
     <Grid>
         <Border Background="Black"
                 Opacity="0.4"
-                CornerRadius="25">
+                CornerRadius="8">
         </Border>
         <Grid Width="650"
               VerticalAlignment="Center">
@@ -40,7 +40,7 @@
 
             <Border Background="{StaticResource PrimaryColor}"
                     CornerRadius="25 25 0 0">
-                <TextBlock Text="New Product"
+                <TextBlock Text="Sản phẩm mới"
                            Foreground="White"
                            FontSize="35"
                            FontWeight="SemiBold"
@@ -69,7 +69,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel>
-                                    <TextBlock Text="Barcode"
+                                    <TextBlock Text="Mã vạch"
                                                FontSize="16"
                                                FontWeight="SemiBold"
                                                Height="22"/>
@@ -89,28 +89,27 @@
                                                 Height="16"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="2">
-                                    <TextBlock Text="Country"
-                                                FontSize="16"
-                                                FontWeight="SemiBold"
-                                                Height="22"/>
+                                    <TextBlock Text="Nơi sản xuất"
+                                               FontSize="16"
+                                               FontWeight="SemiBold"
+                                               Height="22"/>
                                     <TextBlock x:Name="CountryTextBlock"
-                                                Margin="0 4.52 0 0"
-                                                Foreground="Gray"/>
+                                               Margin="0 4.52 0 0"
+                                               Foreground="Gray"/>
                                 </StackPanel>
                             </Grid>
 
-                            <TextBlock Text="Title"
-                                            FontSize="16"
-                                            FontWeight="SemiBold"
-                                            Height="22"/>
+                            <TextBlock Text="Tên"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Height="22"/>
 
-                            <TextBox x:Name="TitleTextBox"
-                                            Height="25"/>
+                            <TextBox x:Name="TitleTextBox"/>
 
                             <TextBlock x:Name="TitleErrorMessage"
-                                            Foreground="Red"
-                                            Height="16"
-                                            Margin="0 0 0 10"/>
+                                       Foreground="Red"
+                                       Height="16"
+                                       Margin="0 0 0 10"/>
 
                             <Grid Margin="0 0 0 10">
                                 <Grid.ColumnDefinitions>
@@ -120,42 +119,32 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0">
 
-                                    <TextBlock Text="Cost"
-                                        FontSize="16"
-                                        FontWeight="SemiBold"
-                                        Height="22"/>
+                                    <TextBlock Text="Giá nhập"
+                                               FontSize="16"
+                                               FontWeight="SemiBold"
+                                               Height="22"/>
 
-                                    <TextBox x:Name="CostTextBox"
-                                        Height="25"/>
+                                    <TextBox x:Name="CostTextBox"/>
 
                                     <TextBlock x:Name="CostErrorMessage"
-                                        Foreground="Red"/>
+                                               Foreground="Red"/>
 
                                 </StackPanel>
                                 <StackPanel Grid.Column="2">
 
-                                    <TextBlock Text="Price"
-                                        FontWeight="SemiBold"
-                                        FontSize="16"
-                                        Height="22"/>
+                                    <TextBlock Text="Giá bán"
+                                               FontWeight="SemiBold"
+                                               FontSize="16"
+                                               Height="22"/>
 
-                                    <TextBox x:Name="PriceTextBox"
-                                        Height="25"/>
+                                    <TextBox x:Name="PriceTextBox"/>
 
                                     <TextBlock x:Name="PriceErrorMessage"
-                                           
-                                        Foreground="Red"/>
+                                               Foreground="Red"/>
                                 </StackPanel>
                             </Grid>
 
                         </StackPanel>
-
-                        <!--<materialDesign:Card Grid.Column="2"
-                                             Style="{StaticResource UploadImageComponent}"
-                                             Width="193"
-                                             Height="193"
-                                             VerticalAlignment="Top">
-                        </materialDesign:Card>-->
 
                         <StackPanel Grid.Column="2">
                             <Grid>
@@ -170,25 +159,25 @@
                                     MouseEnter="ImagePreview_MouseEnter">
 
                                     <StackPanel x:Name="ImagePreview"
-                                            Orientation="Vertical"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"
-                                            Visibility="{Binding ElementName=ImageSource, Converter={StaticResource HasImageConverter}}">
+                                               Orientation="Vertical"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
+                                               Visibility="{Binding ElementName=ImageProduct, Path=ImageSource, Converter={StaticResource HasImageConverter}}">
 
                                         <Image x:Name="IconPicture"
-                                            Source="/Resources/Images/IconForProduct/image.png"
-                                            Width="75"
-                                            Margin="0 0 0 5"/>
+                                               Source="/Resources/Images/IconForProduct/image.png"
+                                               Width="75"
+                                               Margin="0 0 0 5"/>
 
-                                        <TextBlock Text="Image Preview"
-                                               Foreground="#808080"
-                                               FontSize="16"
-                                               FontWeight="DemiBold"/>
+                                        <TextBlock Text="Ảnh sản phẩm"
+                                                   Foreground="#808080"
+                                                   FontSize="16"
+                                                   FontWeight="DemiBold"/>
                                     </StackPanel>
 
                                     <Border.Background>
                                         <ImageBrush x:Name="ImageProduct"
-                                                Stretch="UniformToFill"/>
+                                                    Stretch="UniformToFill"/>
                                     </Border.Background>
 
                                 </Border>
@@ -205,7 +194,7 @@
                                     Visibility="Hidden"
                                     MouseLeave="MarkUploadImage_MouseLeave">
                                     <Button Style="{StaticResource MaterialDesignOutlinedButton}"
-                                        Content="Upload Image"
+                                        Content="Tải ảnh lên"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Foreground="Black"
@@ -229,10 +218,10 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
 
-                            <TextBlock Text="ManufacturingDate"
-                                        FontSize="16"
-                                        FontWeight="SemiBold"
-                                        Height="22"/>
+                            <TextBlock Text="Ngày sản xuất"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Height="22"/>
                             <Grid>
                                 <DatePicker x:Name="ManufacturingDate"
                                             SelectedDateFormat="Short"/>
@@ -241,8 +230,9 @@
                                            Background="White"
                                            HorizontalAlignment="Stretch"
                                            VerticalAlignment="Top"
-                                           Margin="0 3.5 14 0"
-                                           Height="19"/>
+                                           Margin="0 8 14 0"
+                                           Height="23"
+                                           d:Text="08-12-2022"/>
                             </Grid>
 
                             <TextBlock x:Name="ManufacturingDateErrorMessage"
@@ -250,10 +240,10 @@
 
                         </StackPanel>
                         <StackPanel Grid.Column="2">
-                            <TextBlock Text="ExpiryDate"
-                                        FontSize="16"
-                                        FontWeight="SemiBold"
-                                        Height="22"/>
+                            <TextBlock Text="Hạn sử dụng"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Height="22"/>
                             <Grid>
 
                                 <DatePicker x:Name="ExpiryDate"
@@ -263,8 +253,8 @@
                                             Background="White"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Top"
-                                            Margin="0 3.5 14 0"
-                                            Height="19"/>
+                                            Margin="0 8 14 0"
+                                            Height="23"/>
                             </Grid>
                             <TextBlock x:Name="ExpiryDateErrorMessage"
                                         Foreground="Red"/>
@@ -279,35 +269,33 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel>
-                            <TextBlock Text="Discount (%)"
+                            <TextBlock Text="Giảm giá (%)"
                                         FontSize="16"
                                         FontWeight="SemiBold"
                                         Height="22"/>
                             <TextBox x:Name="DiscountTextBox"
-                                        Height="25"
-                                Text="0"/>
+                                     Text="0"/>
                             <TextBlock x:Name="DiscountErrorMessage"
                                            
                                         Foreground="Red"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="2">
-                            <TextBlock Text="Stock"
-                                        FontSize="16"
-                                        FontWeight="SemiBold"
-                                        Height="22"/>
-                            <TextBox x:Name="StockTextBox"
-                                                Height="25"/>
+                            <TextBlock Text="Số lượng nhập"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Height="22"/>
+                            <TextBox x:Name="StockTextBox"/>
                             <TextBlock x:Name="StockErrorMessage"
-                                        Height="16"
-                                        Foreground="Red"/>
+                                       Height="16"
+                                       Foreground="Red"/>
                         </StackPanel>
                     </Grid>
 
                     <StackPanel Grid.Row="1"
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Right">
-                        <Button Content="Cancle"
+                        <Button Content="Hủy"
                                 Foreground="{StaticResource PrimaryColor}"
                                 Style="{StaticResource MaterialDesignOutlinedButton}"
                                 BorderBrush="{StaticResource PrimaryColor}"
@@ -316,7 +304,7 @@
                                 Command="{StaticResource CloseAppCommand}"
                                 CommandParameter="{Binding ElementName=AddNewProductScreen}"/>
                         <Button x:Name="SaveButton"
-                                Content="Save"
+                                Content="Lưu"
                                 Background="{StaticResource PrimaryColor}"
                                 BorderThickness="0"
                                 Command="{Binding SaveNewProductCommand}"

@@ -8,9 +8,11 @@
        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:uc="clr-namespace:ConvenienceStore.Resources.UserControlCustom" xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
       x:Name="wdEmployee"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              Style="{StaticResource Page_Style}"
-             d:DesignHeight="600"
-             Width="1125">
+      Height="638"
+      Width="1140"
+      DataContext="{StaticResource EmployeeVM}">
     <Page.Resources>
         <Converters:StringToVisibility x:Key="StringToVisibility"/>
     </Page.Resources>
@@ -21,8 +23,8 @@
                 <GradientStop Color='#D3CCE3' Offset="1"/>
             </LinearGradientBrush>
         </Border.Background>
-        <Grid DataContext="{StaticResource EmployeeVM}" HorizontalAlignment="Right" Width="1125"
-              >
+        <Grid  HorizontalAlignment="Right" Width="1125"
+                 DataContext="{StaticResource EmployeeVM}">
 
 
 
@@ -113,6 +115,7 @@
                                          Height="30"
                                          VerticalContentAlignment="Center"
                                          >
+                                   
                                 </TextBox>
 
                             </Grid>
@@ -122,6 +125,16 @@
                                 CornerRadius="0 20 20 0"
                                 Cursor="Hand"
                                 >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding SearchCommand}"
+                                                               CommandParameter="{Binding ElementName=wdEmployee}"
+                                                               >
+                                            
+                                        </i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                
+                                </i:Interaction.Triggers>
                                 <materialDesign:PackIcon Kind="Search"
                                                      Foreground="White"
                                                      VerticalAlignment="Center"
@@ -135,11 +148,11 @@
 
                 </Grid>
 
-                <DataGrid x:Name="SuppliersDataGrid" Background="Transparent"
+                <DataGrid x:Name="AccountsDataGrid" Background="Transparent"
                       CellStyle="{DynamicResource DataGridCellStyle1}" 
                       ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
                       RowStyle="{DynamicResource DataGridRowStyle1}"
-                      ItemsSource="{Binding ObservableEmployee}"
+                      ItemsSource="{Binding ObservableEmployee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                       ScrollViewer.VerticalScrollBarVisibility="Hidden"
                       ScrollViewer.CanContentScroll="False"
@@ -153,7 +166,7 @@
                                         IsReadOnly="True"
                                         CanUserResize="False"
                                         Width="Auto"
-                                        Binding="{Binding IdAccount}"/>
+                                        Binding="{Binding Number}"/>
                         <DataGridTemplateColumn x:Name="NameSupplier"
                                             Header="Tên nhân viên"
                                             IsReadOnly="True"
@@ -194,14 +207,15 @@
                                             Width="Auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Horizontal" DataContext="{StaticResource SupplierVM}">
                                         <Button Style="{StaticResource MaterialDesignFlatLightButton}"
                                             Content="{materialDesign:PackIcon Kind=Edit, Size=24}"
                                             Foreground="#4B0082"
                                             Height="32"
                                             Padding="6 4"
-                                            Command="{Binding Source={StaticResource SupplierVM}, Path=EditSupplierButton}"
-                                            CommandParameter="{Binding}"/>
+                                                 DataContext="{StaticResource EmployeeVM}"
+                                            Command="{Binding EditEmployeeCommand }"
+                                            CommandParameter="{Binding ElementName=wdEmployee}"/>
                                         <Button Style="{StaticResource MaterialDesignFlatLightButton}"
                                             Content="{materialDesign:PackIcon Kind=Delete, Size=24}"
                                             Height="32"
@@ -209,8 +223,9 @@
                                             Padding="6 4"
                                             Margin="15 0 0 0"
                                             HorizontalAlignment="Right"
-                                            Command="{Binding Source={StaticResource SupplierVM}, Path=DeleteSupplierButton}"
-                                            CommandParameter="{Binding}"/>
+                                                DataContext="{StaticResource EmployeeVM}"
+                                            Command="{Binding DeleteEmployeeCommand }"
+                                            CommandParameter="{Binding ElementName=wdEmployee}"/>
 
                                     </StackPanel>
                                 </DataTemplate>

@@ -4,12 +4,281 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ConvenienceStore.Views.Admin"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
+      xmlns:fa1="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
-             x:Name="wdReport" d:DesignHeight="600"
-             Width="1100"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             x:Name="wdReport" 
+      xmlns:uc="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        Height="600"
+      
+      DataContext="{StaticResource ReportVM}"
        Style="{StaticResource Page_Style}">
     <!--Style="{StaticResource Page_Style}"-->
-    <Grid Background="AliceBlue">
+    <Border
+        CornerRadius="0,0,20,0">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color='#E9E4F0' Offset="0"/>
+                <GradientStop Color='#D3CCE3' Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid>
+            <StackPanel>
+                <StackPanel Height="388" Width="1113" Orientation="Horizontal">
+                    <Border Grid.Column="1" Grid.Row="2" VerticalAlignment="Top"
+                Background="#eef2f3" 
+        CornerRadius="15"
+        Padding="20" Width="459"
+                Height="357"
+                Margin="20 10 20 10">
+                        <Grid Margin="10 5">
+                            <!--Title-->
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,-23,0">
+                                <TextBlock Text="Sales Figures"
+                           Foreground="#083353" 
+            FontSize="20" 
+            FontWeight="Bold" />
+                                <uc:Legends Margin="100,8,10,0" VerticalAlignment="Top" Width="192"  />
+                            </StackPanel>
 
-    </Grid>
+
+
+                            <!--Legends-->
+
+                            <!--Color="#2889FC" Color="#FE6C47" -->
+                            <!--Chart-->
+                            <lvc:CartesianChart Margin="-26,27,-30,49" LegendLocation="None"
+                                                DataContext="{StaticResource ReportVM}"
+                            Series="{Binding LineSeriesCollection, UpdateSourceTrigger=PropertyChanged}" 
+                        
+                                                >
+
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Loaded">
+                                        <i:InvokeCommandAction Command="{Binding InitLineChartCommand}"
+                                                CommandParameter="{Binding ElementName=wdReport}"/>
+
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+
+                                <lvc:CartesianChart.DataTooltip>
+                                    <lvc:DefaultTooltip Background="#D3CCE3" Foreground="Red" Opacity="0.7" BulletSize="10">
+                                    </lvc:DefaultTooltip>
+                                </lvc:CartesianChart.DataTooltip>
+
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Foreground="#90A3B2" 
+                             x:Name="AxisXchart"
+                                    Title="Tháng" 
+                                    Labels="{Binding LineLabels, Mode=TwoWay}" 
+                                        ShowLabels="True"
+                                        >
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator StrokeThickness="0" Step="1"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+
+                                <lvc:CartesianChart.AxisY
+                                    >
+                                    <lvc:Axis    x:Name="AxisYchart"
+                                   
+                                    LabelFormatter="{Binding Formatter}"
+                                    MinRange="0"
+                                MinValue="0" 
+                                        ShowLabels="True"
+                                        Foreground="#90A3B2" >
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator StrokeThickness="0"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisY>
+
+                                <!--<lvc:CartesianChart.Series>
+                                    <lvc:LineSeries Values="50,120,110,160,150,180,120,170,165,180" Fill="Transparent" StrokeThickness="3" PointGeometrySize="0">
+                                        <lvc:LineSeries.Stroke>
+                                            <LinearGradientBrush>
+
+                                                <GradientStop Color="#2889FC" Offset="0.5"/>
+
+                                            </LinearGradientBrush>
+                                        </lvc:LineSeries.Stroke>
+                                    </lvc:LineSeries>
+                                    <lvc:LineSeries  Values="170,240,200,220,220,270,200,260,200,240" Fill="Transparent" StrokeThickness="3" PointGeometrySize="0">
+                                        <lvc:LineSeries.Stroke >
+                                            <LinearGradientBrush >
+
+                                                <GradientStop Color="#FE6C47" Offset="0.5"/>
+
+                                            </LinearGradientBrush>
+                                        </lvc:LineSeries.Stroke>
+                                    </lvc:LineSeries>
+
+                                </lvc:CartesianChart.Series>-->
+                            </lvc:CartesianChart>
+
+                            <!--Note Text-->
+                            <Grid VerticalAlignment="Bottom" Margin="10 0">
+                                <TextBlock TextWrapping="Wrap" Margin="30,0,0,-28" LineHeight="18" Foreground="#B7B7B7"
+                                   Text="Net Sales, Found on the income statement are used to calculate this ration Return and refunds must be backed out of total sales to measure the truly measure the firms assets ability to generate sales."/>
+                            </Grid>
+
+                        </Grid>
+                    </Border>
+                    <Border Background="#eef2f3" 
+                            Grid.Row="1" Padding="30 20 30 20" 
+                            CornerRadius="20" 
+                            Margin="20 10 20 10" 
+                            Height="368" Width="495"
+                            VerticalAlignment="Top"
+                            >
+                        <StackPanel Margin="0,0,0,-20">
+                            <!--Titles-->
+                            <TextBlock FontSize="17"
+                                Text="Cơ cấu loại hàng hóa trên tổng sản phẩm bán được" Style="{StaticResource title}"/>
+
+                            <!--Middle Circle-->
+                            <Grid Margin="0 38 0 38">
+                                <lvc:PieChart LegendLocation="None" InnerRadius="80" Hoverable="False" Height="150" DataTooltip="{x:Null}">
+                                    <lvc:PieChart.Series>
+                                        <lvc:PieSeries Values="1" StrokeThickness="0" Fill="#FFBE41"/>
+                                        <lvc:PieSeries Values="1" StrokeThickness="0" Fill="#DFE931"/>
+                                        <lvc:PieSeries Values="1" StrokeThickness="0" Fill="#664BFB"/>
+                                    </lvc:PieChart.Series>
+                                </lvc:PieChart>
+
+                                <TextBlock Text="74" FontSize="44" FontWeight="SemiBold" TextAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 20"/>
+                                <TextBlock Text="Main Skillpoints" TextAlignment="Center" Foreground="#9CA2B3" VerticalAlignment="Center" Margin="0 45 0 0"/>
+                            </Grid>
+
+                            <!--Bottom Informations-->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <uc:CircleInfo Color="#6254F9" Title="Đồ ăn" Desc="35%"/>
+                                <uc:CircleInfo Grid.Column="1" Color="#FFBE41" Title="Thức uống" Desc="3%"/>
+                                <uc:CircleInfo Grid.Column="2" Color="#DFE931" Title="Khác" Desc="39%"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Margin="20,0,0,0"
+                            HorizontalAlignment="Left" Orientation="Horizontal"
+                            Height="247" Width="1079">
+                    <Border Style="{StaticResource socialCard}" VerticalAlignment="Top"
+                           Width="200"
+                            Height="200"
+           >
+                        <StackPanel>
+
+                            <StackPanel Margin="0,30,0,0"  Style="{StaticResource socialCardStack}">
+                                <fa1:IconImage Icon="Burger" Foreground="Red" Style="{StaticResource socialCardIconTitle}" />
+                                <TextBlock Text="Đồ ăn" Style="{StaticResource socialCardTitle}" />
+                            </StackPanel>
+
+                            <TextBlock Text="{Binding FoodRevenue}" FontSize="25" Style="{StaticResource socialCardCounterTitle}" />
+                            <TextBlock Text="Doanh thu đồ ăn" Style="{StaticResource socialCardCounterText}" />
+
+
+                            <Grid Margin="0 0 0 15">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                    <Border  Width="200"
+                            Height="200" 
+                             VerticalAlignment="Top"
+                        Style="{StaticResource socialCard}">
+                        <StackPanel>
+
+                            <StackPanel Margin="0,30,0,0" Style="{StaticResource socialCardStack}">
+                                <fa1:IconImage Icon="MugHot" Foreground="#512DA8" Style="{StaticResource socialCardIconTitle}" Height="31" Width="32" />
+                                <TextBlock Text="Thức uống" Style="{StaticResource socialCardTitle}" />
+                            </StackPanel>
+
+                            <TextBlock Text="{Binding DrinkRevenue}" 
+                                       FontSize="25"
+                                       Style="{StaticResource socialCardCounterTitle}" />
+                            <TextBlock Text="Doanh thu thức uống" Style="{StaticResource socialCardCounterText}" />
+
+
+                            <Grid Margin="0 0 0 15">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                    <Border  Width="200"
+                            Height="200" 
+                             VerticalAlignment="Top"
+                        Style="{StaticResource socialCard}">
+                        <StackPanel>
+
+                            <StackPanel Margin="0,30,0,0" Style="{StaticResource socialCardStack}">
+                                <fa1:IconImage Icon="QuestionCircle" Foreground="#999966" Style="{StaticResource socialCardIconTitle}" Height="31" Width="32" />
+                                <TextBlock Text="Khác" Style="{StaticResource socialCardTitle}" />
+                            </StackPanel>
+
+                            <TextBlock Text="{Binding OtherRevenue}" 
+                                       FontSize="25"
+                                       Style="{StaticResource socialCardCounterTitle}" />
+                            <TextBlock Text="Doanh thu thức uống" Style="{StaticResource socialCardCounterText}" />
+
+
+                            <Grid Margin="0 0 0 15">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                    <Border VerticalAlignment="Top" Margin="200,0,50,0"
+                        Style="{StaticResource whiteBorder}" Height="182"  Width="305">
+                        <StackPanel Margin="0,-20,0,-19" Width="272">
+                            <TextBlock Text="Sales Top List" HorizontalAlignment="Center"
+                                        Height="28" FontSize="20" FontWeight="Bold"
+                                       Foreground="Black"
+                                       />
+
+
+                            <uc:UserCard Title="Reza Asadi" IsActive="True" UpPrice="$1256" DownPrice="$337" Width="280"/>
+                            <uc:UserCard Title="Firman Jabber" UpPrice="$1049" DownPrice="$789"/>
+                            <uc:UserCard Title="John Doe" UpPrice="$1105" DownPrice="$459" />
+                        </StackPanel>
+                    </Border>
+                    <!--Social Card-->
+                </StackPanel>
+
+            </StackPanel>
+
+
+        </Grid>
+
+
+
+
+
+    </Border>
 </Page>

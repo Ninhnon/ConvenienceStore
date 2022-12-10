@@ -3,13 +3,13 @@
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <Style x:Key="ProductCard"
            TargetType="materialDesign:Card">
-        <Setter Property="Width" Value="675"/>
+        <Setter Property="Margin" Value="5 0 0 10"/>
+        <Setter Property="Width" Value="650"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="materialDesign:Card">
                     <Border x:Name="border"
-                            Margin="5 0 5 7"
-                            CornerRadius="10">
+                            CornerRadius="8">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0 0" EndPoint="1 1">
                                 <GradientStop Color="White" Offset="0.0"/>
@@ -42,15 +42,16 @@
 
     <Style x:Key="InputInfoCard"
            TargetType="Border">
-        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Margin" Value="5 5 5 10"/>
         <Setter Property="Width" Value="200"/>
         <Setter Property="Height" Value="200"/>
-        <Setter Property="Background" Value="#F2F2F2"/>
-        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Background" Value="#F9F9F9"/>
+        <Setter Property="CornerRadius" Value="8"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#D2D2D2"/>
+                <Setter Property="Background" Value="#E5E5E5"/>
             </Trigger>
         </Style.Triggers>
     </Style>
+
 </ResourceDictionary>

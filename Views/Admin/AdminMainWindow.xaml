@@ -33,13 +33,8 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
     </Window.Resources>
-    <Border  CornerRadius="20" >
-        <Border.Background>
-            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                <GradientStop Color='#E9E4F0' Offset="0"/>
-                <GradientStop Color='#D3CCE3' Offset="1"/>
-            </LinearGradientBrush>
-        </Border.Background>
+    <Border  CornerRadius="8" 
+             Background="{DynamicResource PrimaryBackgroundColor}">
         <i:Interaction.Triggers>
 
             <i:EventTrigger EventName="MouseUp">
@@ -52,31 +47,18 @@
 
             <Grid >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="22"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
                 <!-- Start: Button Close | Restore | Minimize -->
 
-                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1105,0,0,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft" Width="85">
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1110,0,0,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft" Width="85">
                     <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="btnClose_Click" Tag="IsCloseButton"/>
-                    <Button x:Name="btnRestore" Margin="5,0" Click="btnRestore_Click">
-                        <Button.Style>
-                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonsStyle}">
-                                <Setter Property="Content" Value="{DynamicResource maximize}"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=wdMain, Path=WindowState}" Value="Maximized">
-                                        <Setter Property="Content" Value="{DynamicResource restore}"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
                     <Button x:Name="btnMinimize" Style="{DynamicResource IconButtonsStyle}" Content="{DynamicResource minimize}" Click="btnMinimize_Click"/>
                 </StackPanel>
                 <!-- End: Button Close | Restore | Minimize -->
-
-                <Frame Grid.Row="1" Margin="60,0,0,0" x:Name="PagesNavigation" NavigationUIVisibility="Hidden" >
+                    <Frame  x:Name="PagesNavigation" Grid.Row="1" Margin="60,0,0,0" NavigationUIVisibility="Hidden" >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Loaded">
                             <i:InvokeCommandAction Command="{Binding HomeCommand}"
@@ -94,16 +76,14 @@
             </Grid>
 
             <!-- Start: GridColumn Right -->
-            <Border 
-                    CornerRadius="20"
+            <Border CornerRadius="8"
                     HorizontalAlignment="Left">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                        <GradientStop Color='#E9E4F0' Offset="0"/>
                         <GradientStop Color='#F5F7FA' Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                <Grid x:Name="gridMenu"  Width="58"   >
+                <Grid x:Name="gridMenu" Width="60"   >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="60"/>
                         <RowDefinition Height="80"/>
@@ -168,13 +148,13 @@
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
                                  Margin="0 5 0 5"
                                  FontWeight="SemiBold"/>
-                        <RadioButton x:Name="rdReport" Content="Report"
+                        <!--<RadioButton x:Name="rdReport" Content="Report"
                                  Style="{DynamicResource MenuRadioButtonStyle}"
                                  Tag="{DynamicResource report}" 
                                  Margin="0 5 0 5" 
                                  Command="{Binding ReportCommand}"
                         CommandParameter="{Binding ElementName=PagesNavigation}"
-                                    FontWeight="SemiBold"/>
+                                    FontWeight="SemiBold"/>-->
                         <RadioButton x:Name="rdChart" Content="Chart"
                                  Style="{DynamicResource MenuRadioButtonStyle}"
                                  Tag="{DynamicResource chart}" 
@@ -194,6 +174,8 @@
                                  FontWeight="SemiBold"/>
                         <!--<RadioButton x:Name="rdVoucher" Content="Voucher" Style
                     ="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource voucher}" Margin="0 5 0 5" Click="rdVoucher_Click" FontWeight="SemiBold"/>-->
+                     
+
                     </StackPanel>
 
                     <StackPanel Grid.Row="3" VerticalAlignment="Bottom" Orientation="Horizontal" Width="200" Margin="0 0 0 20">
@@ -207,7 +189,7 @@
                             <Label Content="{Binding Email}" Foreground="{DynamicResource PrimaryGrayColor}" FontSize="11" FontWeight="Regular" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0 -10 0 0"/>
                         </StackPanel>
                     </StackPanel>
-
+                    
                 </Grid>
             </Border>
             <!-- Start: GridColum Left-->

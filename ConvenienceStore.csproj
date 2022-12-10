@@ -31,6 +31,10 @@
     <None Remove="Resources\Images\IconForProduct\salary.png" />
     <None Remove="Resources\Images\IconForProduct\schedule.png" />
     <None Remove="Resources\Images\IconForProduct\tag.png" />
+    <None Remove="Resources\Images\IconForVoucher\calendar.png" />
+    <None Remove="Resources\Images\IconForVoucher\coupons.png" />
+    <None Remove="Resources\Images\IconForVoucher\right.png" />
+    <None Remove="Resources\Images\IconForVoucher\ticket_hascolor.png" />
     <None Remove="Resources\Images\Login\logo.jpg" />
     <None Remove="Resources\Images\Menu\home.png" />
     <None Remove="Resources\Images\OverallApp\caret-arrow-up.png" />
@@ -59,6 +63,7 @@
     <None Remove="Resources\Images\pencil.png" />
     <None Remove="Resources\Images\product.png" />
     <None Remove="Resources\Images\qr.png" />
+    <None Remove="Resources\Images\stones.jpg" />
     <None Remove="Resources\Images\Thuong1.png" />
     <None Remove="Resources\Images\trash_can.png" />
     <None Remove="Resources\Images\troubles.png" />
@@ -78,8 +83,10 @@
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="FluentValidation" Version="11.4.0" />
     <PackageReference Include="FontAwesome.Sharp" Version="6.1.1" />
+    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
     <PackageReference Include="MaterialDesignColors" Version="2.0.9" />
     <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
@@ -117,6 +124,10 @@
     <Resource Include="Resources\Images\IconForProduct\salary.png" />
     <Resource Include="Resources\Images\IconForProduct\schedule.png" />
     <Resource Include="Resources\Images\IconForProduct\tag.png" />
+    <Resource Include="Resources\Images\IconForVoucher\calendar.png" />
+    <Resource Include="Resources\Images\IconForVoucher\coupons.png" />
+    <Resource Include="Resources\Images\IconForVoucher\right.png" />
+    <Resource Include="Resources\Images\IconForVoucher\ticket_hascolor.png" />
     <Resource Include="Resources\Images\Login\logo.jpg" />
     <Resource Include="Resources\Images\Menu\home.png" />
     <Resource Include="Resources\Images\OverallApp\caret-arrow-up.png" />
@@ -150,6 +161,7 @@
     <Resource Include="Resources\Images\Menu\troubles.png" />
     <Resource Include="Resources\Images\Login\user-icon.png" />
     <Resource Include="Resources\Images\Menu\voucher.png" />
+    <Resource Include="Resources\Images\stones.jpg" />
     <Resource Include="Resources\UserControlCustom\employee.png" />
     <Resource Include="Resources\UserControlCustom\home.png" />
     <Resource Include="Resources\UserControlCustom\product.png" />
