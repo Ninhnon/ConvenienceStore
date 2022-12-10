@@ -12,9 +12,8 @@
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
       DataContext="{StaticResource InputInfoVM}"
-
       Style="{StaticResource Page_Style}"
-      Height="638"
+      Height="620"
       Width="1140"
 
       Background="Transparent">
@@ -38,10 +37,11 @@
             </Grid.ColumnDefinitions>
 
             <Border x:Name="InputInfoS1"
-                    Grid.Column="0">
+                    Grid.Column="0"
+                    CornerRadius="8 0 0 8">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                        <GradientStop Color='LightBlue' Offset="0"/>
+                        <GradientStop Color='#E9E4F0' Offset="0"/>
                         <GradientStop Color='#D3CCE3' Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
@@ -246,7 +246,7 @@
 
             <Border x:Name="InputInfoS2"
                     Grid.Column="1"
-                    CornerRadius="0 25 25 0">
+                    CornerRadius="0 8 8 0">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                         <GradientStop Color='#E9E4F0' Offset="0"/>
@@ -404,7 +404,7 @@
             <!--Products Screen-->
             <Border x:Name="ProductS1"
                     Grid.Column="0"
-                    CornerRadius="25"
+                    CornerRadius="8 0 0 8"
                     Visibility="Hidden">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
@@ -416,8 +416,8 @@
                 <Grid>
 
                     <Grid VerticalAlignment="Top"
-                              HorizontalAlignment="Stretch"
-                              Margin="30 25 30 0">
+                          HorizontalAlignment="Stretch"
+                          Margin="30 25 30 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
@@ -449,19 +449,19 @@
                                    HorizontalAlignment="Center"/>
 
                         <Button Grid.Column="2" 
-                                    Height="40" Width="110"
-                                    VerticalAlignment="Center"
-                                    Padding="14 4 "
-                                    Background="{StaticResource PrimaryColor}"
-                                    BorderThickness="0"
-                                    Command="{Binding AddProductButtonCommand}">
+                                Height="40" Width="100"
+                                VerticalAlignment="Center"
+                                Padding="14 4 "
+                                Background="{StaticResource PrimaryColor}"
+                                BorderThickness="0"
+                                Command="{Binding AddProductButtonCommand}">
                             <Button.Content>
 
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="Add"
                                                              VerticalAlignment="Center"
                                                              Margin="0 0 3 0"/>
-                                    <TextBlock Text="Add"
+                                    <TextBlock Text="Thêm"
                                                Width="30"
                                                Margin="0 0 3 0"
                                                TextAlignment="Center"/>
@@ -486,7 +486,7 @@
                                    FontSize="24"
                                    FontWeight="DemiBold"
                                    VerticalAlignment="Center"/>
-                            <TextBlock Text=" products"
+                            <TextBlock Text=" sản phẩm"
                                        FontSize="24"
                                        FontWeight="DemiBold"
                                        VerticalAlignment="Center"/>
@@ -611,17 +611,22 @@
 
             <Border x:Name="ProductS2"
                     Grid.Column="1"
-                    Background="{StaticResource FloralWhite}"
-                    CornerRadius="0 25 25 0"
+                    CornerRadius="0 8 8 0"
                     DataContext="{Binding ElementName=ListViewProductCard, Path=SelectedItem}"
-                    Visibility="Visible">
+                    Visibility="Hidden">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color='#E9E4F0' Offset="0"/>
+                        <GradientStop Color='#D3CCE3' Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
                 <StackPanel x:Name="ProductDetail"
                             Visibility="{Binding ElementName=ListViewProductCard, Path=SelectedIndex,Converter={StaticResource IndexToVisibility}}">
                     <Border Height="240"
-                                CornerRadius="0 25 0 0 ">
+                            CornerRadius="0 8 0 0 ">
                         <Border.Background>
                             <ImageBrush ImageSource="{Binding Image}"
-                                            Stretch="UniformToFill"/>
+                                        Stretch="UniformToFill"/>
                         </Border.Background>
                     </Border>
 
