@@ -8,7 +8,7 @@
         xmlns:Command="clr-namespace:ConvenienceStore.ViewModel.Admin.Command"
         mc:Ignorable="d"
         x:Name="AlertDialogDeleteBlockVoucherScreen"
-        Height="600" Width="1200"
+        Height="660" Width="1200"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
@@ -25,11 +25,11 @@
 
         <Border Background="Black"
                 Opacity="0.4"
-                CornerRadius="25">
+                CornerRadius="8">
         </Border>
 
         <Border Background="White"
-                CornerRadius="10"
+                CornerRadius="8"
                 Width="400"
                 VerticalAlignment="Center">
             <StackPanel Margin="30 30 30 25"

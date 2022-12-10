@@ -151,7 +151,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             managers.Insert(0, new Manager()
             {
                 Id = 0,
-                Name = "All"
+                Name = "Tất cả"
             });
 
             suppliers = DatabaseHelper.FetchingSupplier();
@@ -187,7 +187,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             {
                 for (int i = inputInfos.Count - 1; i >= 0; --i)
                 {
-                    if (inputInfos[i].UserId == selectedManager.Id || selectedManager.Name == "All")
+                    if (inputInfos[i].UserId == selectedManager.Id || selectedManager.Name == "Tất cả")
                     {
                         ObservableInputInfos.Add(inputInfos[i]);
                     }
@@ -197,7 +197,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             {
                 for (int i = 0; i < inputInfos.Count; ++i)
                 {
-                    if (inputInfos[i].UserId == selectedManager.Id || selectedManager.Name == "All")
+                    if (inputInfos[i].UserId == selectedManager.Id || selectedManager.Name == "Tất cả")
                     {
                         ObservableInputInfos.Add(inputInfos[i]);
                     }
