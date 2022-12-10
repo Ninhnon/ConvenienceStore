@@ -6,6 +6,7 @@
         xmlns:Command="clr-namespace:ConvenienceStore.ViewModel.Admin.Command"
         xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
         xmlns:EditProductCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.ProductCommand.EditProductCommand"
+        xmlns:AddNewProductCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductCommand"
         x:Name="EditReportScreen"
         mc:Ignorable="d"
         Height="660" Width="1200"
@@ -23,6 +24,7 @@
         <EditProductCommand:UpdateProductButtonCommand x:Key="UpdateProductButtonCommand"/>
         <Converters:BoolToVisibility x:Key="BoolToVisibility"/>
         <Converters:HasImageConverter x:Key="HasImageConverter"/>
+        <AddNewProductCommand:UploadImageCommand x:Key="UploadImageCommand"/>
     </Window.Resources>
 
     <Grid>
@@ -164,7 +166,7 @@
                                 MouseEnter="ImagePreview_MouseEnter">
 
                             <Border.Background>
-                                <ImageBrush x:Name="ImageReport"
+                                <ImageBrush x:Name="ImageProduct"
                                             ImageSource="{Binding SelectedItem.Image}"
                                             Stretch="UniformToFill"/>
                             </Border.Background>
@@ -191,7 +193,7 @@
                                     BorderThickness="2"
                                     Cursor="Hand"
                                     Command="{StaticResource ChangeImageCommand}"
-                                    CommandParameter="{Binding ElementName=ImageReport}"/>
+                                    CommandParameter="{Binding ElementName=ImageProduct}"/>
                         </Border>
                     </Grid>
 

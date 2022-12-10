@@ -35,10 +35,10 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryName = @"select Name from [Users] where Id={0}";
         static readonly string insertErorrs = "insert into Report(Title, Description, Status, RepairCost, SubmittedAt, StaffId, Image) select N'{0}',N'{1}',N'{2}',{3},N'{4}',N'{5}', BulkColumn FROM Openrowset(Bulk N'{6}', Single_Blob) as img";
         static readonly string queryInsertBillDetail = @"insert into BillDetail(BillId, ProductId, Quantity, TotalPrice) values (@billId, @productId, @quantity, @totalPrice)";
-        static readonly string insertReport = "insert Report values (@Title, @Description, @Status, @SubmittedAt,@RepairCost,Null,Null,@StaffId, @Image)";
+        static readonly string insertReport = "insert into Report(Title, Description, Status, SubmittedAt, RepairCost, StaffId, Image) values (@Title, @Description, @Status, @SubmittedAt,@RepairCost,@StaffId, @Image)";
         static readonly string insertBillData = @"insert into Bill(BillDate, CustomerId, UserId, Price) Values (@billDate, @cusId, @userId, @price)";
         static readonly string updateReport = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost
-                                                 where SubmittedAt=@SubmittedAt";
+                                                 where Id=@Id";
         public static List<Model.Staff.Bill> FetchingBillData()
         {
             sqlCon.Open();
@@ -134,6 +134,7 @@ namespace ConvenienceStore.Utils.Helpers
             {
                 reports.Add(new Report()
                 {
+                    Id = reader.GetInt32(0),
                     Title = reader.GetString(1),
                     Description = reader.GetString(2),
                     Status = reader.GetString(3),
@@ -352,12 +353,13 @@ namespace ConvenienceStore.Utils.Helpers
             //{
                 cmd = new SqlCommand(insertReport, sqlCon);
                 cmd.Parameters.AddWithValue("@Title", report.Title);
+                cmd.Parameters.AddWithValue("@Description", report.Description);
+                cmd.Parameters.AddWithValue("@Status", report.Status);
+                cmd.Parameters.AddWithValue("@SubmittedAt", report.SubmittedAt);
                 cmd.Parameters.AddWithValue("@RepairCost", report.RepairCost);
                 cmd.Parameters.AddWithValue("@StaffId", report.StaffId);
-                cmd.Parameters.AddWithValue("@Status", report.Status);
-                cmd.Parameters.AddWithValue("@Description", report.Description);
                 cmd.Parameters.AddWithValue("@Image", report.Image);
-                cmd.Parameters.AddWithValue("@SubmittedAt", report.SubmittedAt);
+                
 
                 cmd.ExecuteNonQuery();
             //}
@@ -388,7 +390,9 @@ namespace ConvenienceStore.Utils.Helpers
             cmd.Parameters.AddWithValue("@Title", editedReport.Title);
             cmd.Parameters.AddWithValue("@Image", editedReport.Image);
             cmd.Parameters.AddWithValue("@RepairCost", editedReport.RepairCost);
-            cmd.Parameters.AddWithValue("@SubmittedAt", editedReport.SubmittedAt);
+            cmd.Parameters.AddWithValue("@Id", editedReport.Id);
+
+            //cmd.Parameters.AddWithValue("@SubmittedAt", editedReport.SubmittedAt);
             cmd.ExecuteNonQuery();
 
             sqlCon.Close();
