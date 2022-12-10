@@ -89,7 +89,7 @@
 
                                 <TextBox x:Name="TitleTextBox"
                                              Text="{Binding SelectedItem.Title, Mode=OneTime}"
-                                             Height="26"
+                                             
                                              VerticalContentAlignment="Center"
                                              Background="White"
                                              Visibility="{Binding ElementName=TitleToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
@@ -223,7 +223,7 @@
 
                                 <TextBox x:Name="CostTextBox"
                                              Text="{Binding RepairCost, Mode=OneTime}"
-                                             Height="26"
+                                             
                                              VerticalContentAlignment="Center"
                                              Background="White"
                                              Visibility="{Binding ElementName=CostToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
