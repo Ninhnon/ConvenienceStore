@@ -42,14 +42,16 @@ namespace ConvenienceStore.ViewModel.Login
             List<Account> accounts = AccountDAL.Instance.ConvertDataTableToList();
             if (string.IsNullOrEmpty(parameter.txtUsername.Text))
             {
-                MessageBox.Show("Hay nhap ten dang nhap");
+                MessageBoxCustom mb = new("Cảnh báo", "Hãy nhập tài khoản", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
                 parameter.txtUsername.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(parameter.txtPassword.Password.ToString()))
 
             {
-                MessageBox.Show("hay nhap mat khau");
+                MessageBoxCustom mb = new("Cảnh báo", "Hãy nhập mật khẩu", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
                 parameter.txtPassword.Focus();
                 return;
             }

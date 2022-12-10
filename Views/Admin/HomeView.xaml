@@ -10,7 +10,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
       xmlns:Uc="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
-        Height="638"
+        Height="620"
       Width="1140"
         mc:Ignorable="d"
         x:Name="wdHome" 
@@ -19,7 +19,7 @@
            DataContext="{StaticResource AdminMainWindowVM}">
     <!--Style="{StaticResource Page_Style}"-->
     <Border
-        CornerRadius="0,0,20,0">
+        CornerRadius="8">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                 <GradientStop Color='#E9E4F0' Offset="0"/>

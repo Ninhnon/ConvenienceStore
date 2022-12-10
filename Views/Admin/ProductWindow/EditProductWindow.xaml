@@ -39,7 +39,7 @@
             </Grid.RowDefinitions>
 
             <Border Background="{StaticResource PrimaryColor}"
-                    CornerRadius="25 25 0 0">
+                    CornerRadius="8 8 0 0">
                 <Grid Margin="30 15"
                       VerticalAlignment="Center">
 
@@ -81,7 +81,7 @@
 
             <Border Grid.Row="1"
                     Background="White"
-                    CornerRadius="0 0 25 25">
+                    CornerRadius="0 0 8 8">
 
                 <StackPanel Margin="30 20 30 30">
 
@@ -136,7 +136,6 @@
 
                                         <TextBox x:Name="CostTextBox"
                                              Text="{Binding Cost, Mode=OneTime}"
-                                             
                                              VerticalContentAlignment="Center"
                                              Background="White"
                                              Visibility="{Binding ElementName=CostToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
@@ -165,16 +164,15 @@
                                     <Grid>
 
                                         <TextBlock Text="{Binding ElementName=PriceTextBox, Path=Text}"
-                                               VerticalAlignment="Center"
-                                               Foreground="Gray"
-                                               Margin="1 0 0 0"/>
+                                                   VerticalAlignment="Center"
+                                                   Foreground="Gray"
+                                                   Margin="1 0 0 0"/>
 
                                         <TextBox x:Name="PriceTextBox"
-                                             Text="{Binding Price, Mode=OneTime}"
-                                             Height="26"
-                                             VerticalContentAlignment="Center"
-                                             Background="White"
-                                             Visibility="{Binding ElementName=PriceToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
+                                                 Text="{Binding Price, Mode=OneTime}"
+                                                 VerticalContentAlignment="Center"
+                                                 Background="White"
+                                                 Visibility="{Binding ElementName=PriceToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
 
                                     </Grid>
 
@@ -192,7 +190,7 @@
                                 VerticalAlignment="Top"
                                 BorderBrush="#808080"
                                 BorderThickness="2"
-                                CornerRadius="15"
+                                CornerRadius="8"
                                 MouseEnter="ImagePreview_MouseEnter">
 
                             <Border.Background>
@@ -208,10 +206,10 @@
                                 Width="142"
                                 Height="142"
                                 VerticalAlignment="Top"
-                                Background="#E9E9E9"
+                                Background="#CCE9E9E9"
                                 BorderBrush="#808080"
                                 BorderThickness="2"
-                                CornerRadius="15"
+                                CornerRadius="8"
                                 Visibility="Hidden"
                                 MouseLeave="MarkUploadImage_MouseLeave">
                             <Button Style="{StaticResource MaterialDesignOutlinedButton}"
@@ -219,7 +217,7 @@
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     Foreground="Black"
-                                    BorderBrush="#808080"
+                                    BorderBrush="Black"
                                     BorderThickness="2"
                                     Cursor="Hand"
                                     Command="{StaticResource ChangeImageCommand}"
@@ -253,35 +251,34 @@
                             <Grid>
 
                                 <TextBlock Text="{Binding ElementName=ManufacturingDate,
-                                               Path=SelectedDate, StringFormat=dd-MM-yyyy}"
-                                               VerticalAlignment="Center"
-                                               Foreground="Gray"/>
+                                           Path=SelectedDate, StringFormat=dd-MM-yyyy}"
+                                           VerticalAlignment="Center"
+                                           Foreground="Gray"/>
 
                                 <Grid Background="White"
-                                          Visibility="{Binding ElementName=ManufacturingDateToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
+                                      Visibility="{Binding ElementName=ManufacturingDateToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
                                     <DatePicker x:Name="ManufacturingDate"
-                                                    SelectedDate="{Binding ManufacturingDate, Mode=OneTime}"
-                                                    SelectedDateFormat="Short"
-                                                    Height="26"
-                                                    VerticalContentAlignment="Center"
-                                                    FontSize="1"/>
+                                                SelectedDate="{Binding ManufacturingDate, Mode=OneTime}"
+                                                SelectedDateFormat="Short"
+                                                Height="26"
+                                                VerticalContentAlignment="Center"
+                                                FontSize="1"/>
                                     <TextBlock Text="{Binding ElementName=ManufacturingDate,
-                                                   Path=SelectedDate, StringFormat=dd-MM-yyyy}"
-                                                   Background="White"
-                                                   HorizontalAlignment="Left"
-                                                   VerticalAlignment="Top"
-                                                   Margin="0 4 0 0"
-                                                   Height="19" Width="230"/>
+                                               Path=SelectedDate, StringFormat=dd-MM-yyyy}"
+                                               Background="White"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Top"
+                                               Margin="0 5 0 0"
+                                               Height="19" Width="230"/>
                                 </Grid>
 
                             </Grid>
 
-
-
                             <TextBlock x:Name="ManufacturingDateErrorMessage"
-                                           Foreground="Red"/>
+                                       Foreground="Red"/>
 
                         </StackPanel>
+                        
                         <StackPanel Grid.Column="2">
 
                             <StackPanel Orientation="Horizontal">
@@ -292,35 +289,34 @@
                                            Height="24"/>
 
                                 <ToggleButton x:Name="ExpiryDateToggleButton"
-                                                  Style="{StaticResource LockToggleButton}"
-                                                  Foreground="LightGray"
-                                                  Margin="5 0 0 0"/>
+                                              Style="{StaticResource LockToggleButton}"
+                                              Foreground="LightGray"
+                                              Margin="5 0 0 0"/>
 
                             </StackPanel>
 
                             <Grid>
 
                                 <TextBlock Text="{Binding ElementName=ExpiryDate,
-                                                     Path=SelectedDate, StringFormat=dd-MM-yyyy}"
-                                               VerticalAlignment="Center"
-                                               Foreground="Gray"
-                                               Margin="1 0 0 0"/>
+                                           Path=SelectedDate, StringFormat=dd-MM-yyyy}"
+                                           VerticalAlignment="Center"
+                                           Foreground="Gray"/>
 
                                 <Grid Background="White"
                                           Visibility="{Binding ElementName=ExpiryDateToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
 
                                     <DatePicker x:Name="ExpiryDate"
-                                                    SelectedDate="{Binding ExpiryDate, Mode=OneTime}"
-                                                    SelectedDateFormat="Short"
-                                                    Height="26"
-                                                    VerticalContentAlignment="Center"/>
+                                                SelectedDate="{Binding ExpiryDate, Mode=OneTime}"
+                                                SelectedDateFormat="Short"
+                                                Height="26"
+                                                VerticalContentAlignment="Center"/>
                                     <TextBlock x:Name="ExpiryDateTextBlock"
-                                                   Text="{Binding ElementName=ExpiryDate, Path=SelectedDate, StringFormat=dd-MM-yyyy}"
-                                                   Background="White"
-                                                   HorizontalAlignment="Left"
-                                                   VerticalAlignment="Top"
-                                                   Margin="0 4 0 0"
-                                                   Height="19" Width="230"/>
+                                               Text="{Binding ElementName=ExpiryDate, Path=SelectedDate, StringFormat=dd-MM-yyyy}"
+                                               Background="White"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Top"
+                                               Margin="0 5 0 0"
+                                               Height="19" Width="230"/>
                                 </Grid>
 
                             </Grid>
@@ -345,7 +341,6 @@
                                        Height="24"/>
                             <TextBox x:Name="DiscountTextBox"
                                      Text="{Binding Discount, Mode=OneTime}"
-                                     Height="25"
                                      VerticalContentAlignment="Center"/>
                             <TextBlock x:Name="DiscountErrorMessage"
                                            
@@ -368,16 +363,15 @@
                             <Grid>
 
                                 <TextBlock Text="{Binding ElementName=StockTextBox, Path=Text}"
-                                               VerticalAlignment="Center"
-                                               Foreground="Gray"
-                                               Margin="1 0 0 0"/>
+                                           VerticalAlignment="Top"
+                                           Foreground="Gray"
+                                           Margin="1 8 0 0"/>
 
                                 <TextBox x:Name="StockTextBox"
-                                             Text="{Binding Stock, Mode=OneTime}"
-                                             Background="White"
-                                             Height="25"
-                                             VerticalContentAlignment="Center"
-                                             Visibility="{Binding ElementName=StockToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
+                                         Text="{Binding Stock, Mode=OneTime}"
+                                         Background="White"
+                                         VerticalContentAlignment="Center"
+                                         Visibility="{Binding ElementName=StockToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
 
                             </Grid>
 

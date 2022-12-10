@@ -527,7 +527,7 @@
                     CornerRadius="0 8 8 0">
                 <StackPanel VerticalAlignment="Center"
                             Margin="30 0">
-                    <Grid Margin="0 0 0 10">
+                    <Grid Margin="0 0 0 15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120"/>
                             <ColumnDefinition Width="25"/>
@@ -545,7 +545,7 @@
                                    d:Text="NOEL"/>
                     </Grid>
 
-                    <Grid Margin="0 0 0 10">
+                    <Grid Margin="0 0 0 15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120"/>
                             <ColumnDefinition Width="25"/>
@@ -563,7 +563,7 @@
                                    d:Text="Giảm theo phần trăm"/>
                     </Grid>
 
-                    <Grid Margin="0 0 0 10">
+                    <Grid Margin="0 0 0 15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120"/>
                             <ColumnDefinition Width="25"/>
@@ -581,7 +581,7 @@
                                    d:Text="20"/>
                     </Grid>
 
-                    <Grid Margin="0 0 0 10">
+                    <Grid Margin="0 0 0 15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120"/>
                             <ColumnDefinition Width="25"/>
@@ -599,7 +599,7 @@
                                    d:Text="100"/>
                     </Grid>
 
-                    <Grid Margin="0 0 0 10">
+                    <Grid Margin="0 0 0 15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120"/>
                             <ColumnDefinition Width="25"/>
@@ -617,7 +617,7 @@
                                    d:Text="15-01-2023"/>
                     </Grid>
 
-                    <Grid Margin="0 0 0 10">
+                    <Grid Margin="0 0 0 15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120"/>
                             <ColumnDefinition Width="25"/>

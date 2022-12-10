@@ -1,4 +1,5 @@
 ﻿using ConvenienceStore.Model.Admin;
+using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin.AdminVM;
 using ConvenienceStore.Views.Admin;
@@ -214,6 +215,20 @@ namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCo
                     Code = newBlockVoucher.ReleaseName + RandomString(SuffixNumber),
                     Status = 0,
                 });
+            }
+
+            int d;
+            while ((d = newBlockVoucher.vouchers.Distinct().Count()) < numberOfVoucher)
+            {
+                newBlockVoucher.vouchers = newBlockVoucher.vouchers.Distinct().ToList();
+                for (int i = 1; i <= numberOfVoucher - d; ++i)
+                {
+                    newBlockVoucher.vouchers.Add(new Voucher()
+                    {
+                        Code = newBlockVoucher.ReleaseName + RandomString(SuffixNumber),
+                        Status = 0,
+                    });
+                }
             }
 
             DatabaseHelper.InsertBlockVoucher(newBlockVoucher);
