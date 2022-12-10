@@ -11,13 +11,22 @@
              x:Name="wdReport" 
       xmlns:uc="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        Height="600"
-      
+        Height="620"
+      Width="1140"
       DataContext="{StaticResource ReportVM}"
        Style="{StaticResource Page_Style}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger>
+            <i:InvokeCommandAction  Command="{Binding InitTopSaleCommand}"
+                                     CommandParameter="{Binding ElementName=wdReport}"
+                                    >
+                                     
+            </i:InvokeCommandAction>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <!--Style="{StaticResource Page_Style}"-->
     <Border
-        CornerRadius="0,0,20,0">
+         CornerRadius="8">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                 <GradientStop Color='#E9E4F0' Offset="0"/>
@@ -26,12 +35,12 @@
         </Border.Background>
         <Grid>
             <StackPanel>
-                <StackPanel Height="388" Width="1113" Orientation="Horizontal">
+                <StackPanel Height="320" Width="1113" Orientation="Horizontal">
                     <Border Grid.Column="1" Grid.Row="2" VerticalAlignment="Top"
                 Background="#eef2f3" 
         CornerRadius="15"
         Padding="20" Width="459"
-                Height="357"
+                Height="285"
                 Margin="20 10 20 10">
                         <Grid Margin="10 5">
                             <!--Title-->
@@ -86,8 +95,7 @@
                                     <lvc:Axis    x:Name="AxisYchart"
                                    
                                     LabelFormatter="{Binding Formatter}"
-                                    MinRange="0"
-                                MinValue="0" 
+                                
                                         ShowLabels="True"
                                         Foreground="#90A3B2" >
                                         <lvc:Axis.Separator>
@@ -131,39 +139,45 @@
                             Grid.Row="1" Padding="30 20 30 20" 
                             CornerRadius="20" 
                             Margin="20 10 20 10" 
-                            Height="368" Width="495"
+                            Height="291" Width="495"
                             VerticalAlignment="Top"
                             >
                         <StackPanel Margin="0,0,0,-20">
                             <!--Titles-->
-                            <TextBlock FontSize="17"
-                                Text="Cơ cấu loại hàng hóa trên tổng sản phẩm bán được" Style="{StaticResource title}"/>
 
                             <!--Middle Circle-->
                             <Grid Margin="0 38 0 38">
-                                <lvc:PieChart LegendLocation="None" InnerRadius="80" Hoverable="False" Height="150" DataTooltip="{x:Null}">
-                                    <lvc:PieChart.Series>
-                                        <lvc:PieSeries Values="1" StrokeThickness="0" Fill="#FFBE41"/>
-                                        <lvc:PieSeries Values="1" StrokeThickness="0" Fill="#DFE931"/>
-                                        <lvc:PieSeries Values="1" StrokeThickness="0" Fill="#664BFB"/>
-                                    </lvc:PieChart.Series>
-                                </lvc:PieChart>
+                                <lvc:PieChart 
+                                      Series="{Binding PieSeriesCollection}"
+                                    LegendLocation="None" InnerRadius="80" Hoverable="False"  Margin="0,10,0,56">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Loaded">
+                                            <i:InvokeCommandAction Command="{Binding InitPieChartCommand}"
+                                                CommandParameter="{Binding ElementName=wdReport}"/>
 
-                                <TextBlock Text="74" FontSize="44" FontWeight="SemiBold" TextAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 20"/>
-                                <TextBlock Text="Main Skillpoints" TextAlignment="Center" Foreground="#9CA2B3" VerticalAlignment="Center" Margin="0 45 0 0"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+
+                                    <lvc:PieChart.DataTooltip>
+                                        <lvc:DefaultTooltip ContentStringFormat="0:#,##0" Background="#D3CCE3" Foreground="Red" Opacity="0.7" BulletSize="10">
+                                        </lvc:DefaultTooltip>
+                                    </lvc:PieChart.DataTooltip>
+
+                                  
+                                </lvc:PieChart>
                             </Grid>
 
                             <!--Bottom Informations-->
-                            <Grid>
+                            <Grid >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <uc:CircleInfo Color="#6254F9" Title="Đồ ăn" Desc="35%"/>
-                                <uc:CircleInfo Grid.Column="1" Color="#FFBE41" Title="Thức uống" Desc="3%"/>
-                                <uc:CircleInfo Grid.Column="2" Color="#DFE931" Title="Khác" Desc="39%"/>
+                                <uc:CircleInfo Color="#6254F9" Title="Đồ ăn" />
+                                <uc:CircleInfo Grid.Column="1" Color="#FFBE41" Title="Thức uống" />
+                                <uc:CircleInfo Grid.Column="2" Color="#DFE931" Title="Khác" />
                             </Grid>
                         </StackPanel>
                     </Border>
@@ -171,7 +185,8 @@
 
                 <StackPanel Margin="20,0,0,0"
                             HorizontalAlignment="Left" Orientation="Horizontal"
-                            Height="247" Width="1079">
+                            Height="247" Width="1093">
+                    
                     <Border Style="{StaticResource socialCard}" VerticalAlignment="Top"
                            Width="200"
                             Height="200"
@@ -255,22 +270,24 @@
                         </StackPanel>
                     </Border>
                     <Border VerticalAlignment="Top" Margin="200,0,50,0"
-                        Style="{StaticResource whiteBorder}" Height="182"  Width="305">
+                        Style="{StaticResource whiteBorder}" Height="249"  Width="236">
                         <StackPanel Margin="0,-20,0,-19" Width="272">
-                            <TextBlock Text="Sales Top List" HorizontalAlignment="Center"
-                                        Height="28" FontSize="20" FontWeight="Bold"
+                            <TextBlock Text="Sales Top List This Month" HorizontalAlignment="Left"
+                                        Height="28" FontSize="16" FontWeight="Bold"
                                        Foreground="Black"
                                        />
 
 
-                            <uc:UserCard Title="Reza Asadi" IsActive="True" UpPrice="$1256" DownPrice="$337" Width="280"/>
-                            <uc:UserCard Title="Firman Jabber" UpPrice="$1049" DownPrice="$789"/>
-                            <uc:UserCard Title="John Doe" UpPrice="$1105" DownPrice="$459" />
+                            <uc:UserCard x:Name="top1"  IsActive="True"   Width="280"/>
+                            <uc:UserCard x:Name="top2" />
+                            <uc:UserCard x:Name="top3" />
                         </StackPanel>
                     </Border>
                     <!--Social Card-->
                 </StackPanel>
-
+                <TextBlock Text="{Binding ThisMonth1}" FontWeight="Bold" VerticalAlignment="Bottom" Grid.Row="1" FontSize="22" 
+                           Margin="310,-50,0,0"
+                           Foreground="#BE5869" Grid.RowSpan="3" Height="34"/>
             </StackPanel>
 
 

@@ -10,6 +10,9 @@ using System.Windows;
 using ConvenienceStore.Utils.DataLayerAccess;
 using ConvenienceStore.Views.Admin;
 using ConvenienceStore.Model;
+using ConvenienceStore.Utils.Helpers;
+using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace ConvenienceStore.ViewModel.Admin.AdminVM
 {
@@ -18,12 +21,14 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public ReportViewModel()
         {
             Hello = "Hello, " + CurrentAccount.Name;
+            ThisMonth1 = "0/0/0";
             InitColumnChartTodayCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartToday(parameter));
             InitColumnChartMonthCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartMonth(parameter));
             InitColumnChartYearCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartYear(parameter));
             InitLineChartCommand = new RelayCommand<ReportView>(parameter => true, parameter => InitLineChart(parameter));
             LoadCommand = new RelayCommand<HomeView>(parameter => true, parameter => LoadDefaultChart(parameter));
-
+            InitTopSaleCommand = new RelayCommand<ReportView>(parameter => true, parameter => LoadTopSale(parameter));
+            InitPieChartCommand = new RelayCommand<ReportView>(parameter => true, parameter => InitPieChart(parameter));
 
         }
 
@@ -91,9 +96,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 IncreasingPercent = "100%";
             }
             NumOfSoldBill = ReportDAL.Instance.QueryRevenueNumOfSoldBillInMonth(currentMonth, currentYear).ToString() + " đơn";
-            FoodRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryFoodRevenueInYear(currentYear)) ).ToString()+" VND";
-            DrinkRevenue= string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryDrinkRevenueInYear(currentYear))).ToString() + " VND";
-            OtherRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryOtherRevenueInYear(currentYear))).ToString() + " VND";
+            FoodRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryFoodRevenueInMonth(currentMonth,currentYear)) ).ToString() +" VND";
+            DrinkRevenue= string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryDrinkRevenueInMonth(currentMonth,currentYear))).ToString()+" VND";
+            OtherRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryOtherRevenueInMonth(currentMonth,currentYear))).ToString()+" VND";
 
 
         }
@@ -116,6 +121,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public string AxisYTitle { get => axisYTitle; set { axisYTitle = value; OnPropertyChanged(); } }
         private SeriesCollection columnSeriesCollection;
         public SeriesCollection ColumnSeriesCollection { get => columnSeriesCollection; set { columnSeriesCollection = value; OnPropertyChanged(); } }
+        
         private string[] labels;
         public string[] Labels { get => labels; set { labels = value; OnPropertyChanged(); } }
         private Func<double, string> formatter;
@@ -124,6 +130,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public ICommand InitColumnChartMonthCommand { get; set; }
         public ICommand InitColumnChartYearCommand { get; set; }
 
+        public ICommand InitTopSaleCommand { get; set; }
+        
 
         //Khởi tạo biểu đồ cột
 
@@ -264,13 +272,100 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 OnPropertyChanged();
             }
         }
+
+
+        private string foodRevenue_1;
+        public string FoodRevenue1
+        {
+            get { return foodRevenue_1; }
+            set
+            {
+                foodRevenue_1 = value;
+                OnPropertyChanged();
+            }
+        }
+        private string drinkRevenue_1;
+        public string DrinkRevenue1
+        {
+            get { return drinkRevenue_1; }
+            set
+            {
+                drinkRevenue_1 = value;
+                OnPropertyChanged();
+            }
+        }
+        private string otherRevenue_1;
+        public string OtherRevenue1
+        {
+            get { return otherRevenue_1; }
+            set
+            {
+                otherRevenue_1 = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         private SeriesCollection lineSeriesCollection;
         public SeriesCollection LineSeriesCollection { get => lineSeriesCollection; set { lineSeriesCollection = value; OnPropertyChanged(); } }
-
+        private SeriesCollection pieSeriesCollection_;
+        public SeriesCollection PieSeriesCollection
+        {
+            get { return pieSeriesCollection_; }
+            set { pieSeriesCollection_ = value; OnPropertyChanged(); }
+        }
 
         public ICommand InitLineChartCommand { get; set; }
         private string[] lineLabels;
         public string[] LineLabels { get => lineLabels; set { lineLabels = value; OnPropertyChanged(); } }
+
+       public ICommand InitPieChartCommand { get; set; }
+
+
+        public void InitPieChart(ReportView parameter)
+        {
+            string currentMonth = DateTime.Now.Month.ToString();
+     
+            string currentYear = DateTime.Now.Year.ToString();
+            FoodRevenue1 =(ReportDAL.Instance.QueryFoodRevenueInMonth(currentMonth, currentYear)).ToString();
+            DrinkRevenue1 = (ReportDAL.Instance.QueryDrinkRevenueInMonth(currentMonth, currentYear)).ToString();
+            OtherRevenue1 = (ReportDAL.Instance.QueryOtherRevenueInMonth(currentMonth, currentYear)).ToString();
+
+            ChartValues<long> food = new ChartValues<long>();
+            food.Add(long.Parse(FoodRevenue1));
+            ChartValues<long> drink = new ChartValues<long>();
+            drink.Add(long.Parse(DrinkRevenue1));
+            ChartValues<long> other = new ChartValues<long>();
+            other.Add(long.Parse(OtherRevenue1));
+            PieSeriesCollection = new SeriesCollection()
+            {
+                new PieSeries
+                {
+                    Title="Đồ ăn",
+            Values= food,
+              Fill = (Brush)new BrushConverter().ConvertFrom("#6254F9"),
+              LabelPoint=chartPoint => string.Format("{0:N0}", chartPoint.Y)
+                },
+                 new PieSeries
+                {
+                    Title="Thức uống",
+            Values= drink,
+              Fill = (Brush)new BrushConverter().ConvertFrom("#FFBE41"),
+              LabelPoint=chartPoint => string.Format("{0:N0}", chartPoint.Y)
+                },
+                  new PieSeries
+                {
+                    Title="Khác",
+            Values= other,
+              Fill = (Brush)new BrushConverter().ConvertFrom("#DFE931"),
+              LabelPoint=chartPoint => string.Format("{0:N0}", chartPoint.Y)
+                }
+
+
+            };
+        }
+
+
 
         public void InitLineChart(ReportView parameter)
         {
@@ -316,6 +411,93 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
 
         }
+        public BitmapImage ConvertByteToBitmapImage(Byte[] image)
+        {
+            BitmapImage bi = new BitmapImage();
+            MemoryStream stream = new MemoryStream();
+            if (image == null)
+            {
+                return null;
+            }
+            stream.Write(image, 0, image.Length);
+            stream.Position = 0;
+            System.Drawing.Image img = System.Drawing.Image.FromStream(stream);
+            bi.BeginInit();
+            MemoryStream ms = new MemoryStream();
+            img.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+            ms.Seek(0, SeekOrigin.Begin);
+            bi.StreamSource = ms;
+            bi.EndInit();
+            return bi;
+        }
+        public void LoadTopSale(ReportView parameter)
+        {
+            string currentMonth = DateTime.Now.Month.ToString();
+    
+            string currentYear = DateTime.Now.Year.ToString();
+            List<Account> accounts = ReportDAL.Instance.QueryTopSaleMonth(currentMonth, currentYear);
+
+            if (accounts.Count==3)
+            {
+                parameter.top1.Title = accounts[0].Name;
+                parameter.top1.UpPrice = string.Format("{0:#,##0}", accounts[0].Tong).ToString()+" VND";
+                parameter.top1.avatarUser.Source =ConvertByteToBitmapImage( DatabaseHelper.LoadAvatar(accounts[0].IdAccount));
+      
+                parameter.top2.Title = accounts[1].Name;
+                parameter.top2.UpPrice = string.Format("{0:#,##0}", accounts[1].Tong).ToString() + " VND";
+                parameter.top2.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[1].IdAccount));
+
+
+                parameter.top3.Title = accounts[2].Name;
+                parameter.top3.UpPrice = string.Format("{0:#,##0}", accounts[2].Tong).ToString() + " VND";
+                parameter.top3.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[2].IdAccount));
+
+            }
+
+
+            if (accounts.Count == 2)
+            {
+                parameter.top1.Title = accounts[0].Name;
+                parameter.top1.UpPrice = string.Format("{0:#,##0}", accounts[0].Tong).ToString() + " VND";
+                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[0].IdAccount));
+
+
+                parameter.top2.Title = accounts[1].Name;
+                parameter.top2.UpPrice = string.Format("{0:#,##0}", accounts[1].Tong).ToString() + " VND";
+                parameter.top2.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[1].IdAccount));
+
+
+                parameter.top3.Visibility = Visibility.Hidden;
+            }
+
+
+            if (accounts.Count == 1)
+            {
+                parameter.top1.Title = accounts[0].Name;
+                parameter.top1.UpPrice = string.Format("{0:#,##0}", accounts[0].Tong).ToString() + " VND";
+                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[0].IdAccount));
+
+
+
+                parameter.top2.Visibility = Visibility.Hidden;
+
+                parameter.top3.Visibility = Visibility.Hidden;
+            }
+
+            if (accounts.Count == 0)
+            {
+
+                parameter.top1.Visibility = Visibility.Hidden;
+
+                parameter.top2.Visibility = Visibility.Hidden;
+
+                parameter.top3.Visibility = Visibility.Hidden;
+            }
+
+
+
+        }
+
 
 
     }
