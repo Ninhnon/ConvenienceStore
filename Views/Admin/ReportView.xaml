@@ -143,10 +143,15 @@
                             VerticalAlignment="Top"
                             >
                         <StackPanel Margin="0,0,0,-20">
+                            
                             <!--Titles-->
-
+                            <TextBlock Text="Cơ cấu loại hàng hóa bán được"
+                                       HorizontalAlignment="Center"
+                           Foreground="#083353" 
+            FontSize="20" 
+            FontWeight="Bold" />
                             <!--Middle Circle-->
-                            <Grid Margin="0 38 0 38">
+                            <Grid Margin="0 50 0 20">
                                 <lvc:PieChart 
                                       Series="{Binding PieSeriesCollection}"
                                     LegendLocation="None" InnerRadius="80" Hoverable="False"  Margin="0,10,0,56">

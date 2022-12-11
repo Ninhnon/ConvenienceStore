@@ -24,9 +24,10 @@
     <!--xmlns:uc="clr-namespace:ConvenienceStore.UserControlWPF"-->
     <i:Interaction.Triggers>
 
-        <i:EventTrigger EventName="SizeChanged">
-            <i:InvokeCommandAction Command="{Binding SizeChangedCommand}"
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"
                                CommandParameter="{Binding ElementName=wdMain}"/>
+           
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -54,7 +55,13 @@
                 <!-- Start: Button Close | Restore | Minimize -->
 
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1110,0,0,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft" Width="85">
-                    <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="btnClose_Click" Tag="IsCloseButton"/>
+                    <Button x:Name="btnClose" 
+                            
+                            Style="{StaticResource IconButtonsStyle}"
+                            
+                            Content="{DynamicResource close}" 
+                           Command="{Binding CloseCommand}"
+                            CommandParameter="{Binding ElementName=wdMain}"/>
                     <Button x:Name="btnMinimize" Style="{DynamicResource IconButtonsStyle}" Content="{DynamicResource minimize}" Click="btnMinimize_Click"/>
                 </StackPanel>
                 <!-- End: Button Close | Restore | Minimize -->

@@ -13,6 +13,7 @@
       Height="620"
       Width="1140"
       Style="{StaticResource Page_Style}"
+      
       Title="SupplierView"
       >
     <Page.Resources>
