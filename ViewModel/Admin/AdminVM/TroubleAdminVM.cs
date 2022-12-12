@@ -236,6 +236,10 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         {
             p.TitleErrorMessage.Text = string.Empty;
             p.CostErrorMessage.Text = string.Empty;
+            p.startErrorMessage.Text = string.Empty;
+            p.submitErrorMessage.Text = string.Empty;
+            p.finishErrorMessage.Text = string.Empty;
+
             // Pre Validation
             bool isValid = true;
 
