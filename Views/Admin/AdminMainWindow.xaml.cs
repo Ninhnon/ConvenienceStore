@@ -1,4 +1,6 @@
-﻿using ConvenienceStore.Views.Login;
+﻿using ConvenienceStore.ViewModel.Admin;
+using ConvenienceStore.ViewModel.Admin.AdminVM;
+using ConvenienceStore.Views.Login;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,10 +41,14 @@ namespace ConvenienceStore.Views.Admin
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
             LoginWindow login = new LoginWindow();
-            login.ShowDialog();
+
             this.Close();
+            login.ShowDialog();
+
+
+
+
         }
 
         private void btnRestore_Click(object sender, RoutedEventArgs e)

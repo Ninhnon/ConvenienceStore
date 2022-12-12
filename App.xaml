@@ -28,6 +28,7 @@
                 <ResourceDictionary Source="Resources/Styles/Lam/Color.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Lam/CustomComboBox.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Lam/LockToggleButton.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/DataGridThuong.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Lam/MyCustomCard.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Lam/SearchTextBox.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Lam/ShutdownButton.xaml"/>

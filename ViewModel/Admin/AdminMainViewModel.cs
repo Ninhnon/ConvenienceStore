@@ -10,6 +10,8 @@ using ConvenienceStore.Model;
 using ConvenienceStore.Utils.Helpers;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using ConvenienceStore.Views;
+using System.Windows;
 
 namespace ConvenienceStore.ViewModel.Admin
 {
@@ -63,8 +65,8 @@ namespace ConvenienceStore.ViewModel.Admin
         public ICommand InputInfoCommand { get; set; }
         public ICommand ShowPanelCommand { get; set; }
         public ICommand HidePanelCommand { get; set; }
-        public ICommand SizeChangedCommand { get; set; }
-
+        public ICommand LoadedCommand { get; set; }
+        public ICommand CloseCommand { get; set; }
 
         private string? _ten;
         public string? Ten
@@ -94,10 +96,12 @@ namespace ConvenienceStore.ViewModel.Admin
             }
         }
         public AdminMainViewModel()
-        {
-            Ten = CurrentAccount.Name;
+        { 
+
+             Ten = CurrentAccount.Name;
             Anh = DatabaseHelper.LoadAvatar(CurrentAccount.idAccount);
             Email = CurrentAccount.Email;
+          
             IsPanelVisible = 0;  //moi vo la no ko mo menu =hidden
             OpacityChange = 1;
             OpacityChange1 = 0.9;
@@ -142,7 +146,8 @@ namespace ConvenienceStore.ViewModel.Admin
 
             ShowPanelCommand = new RelayCommand<AdminMainWindow>(parameter => true, parameter => Show(parameter));
             HidePanelCommand = new RelayCommand<AdminMainWindow>(parameter => true, parameter => Hide(parameter));
-            SizeChangedCommand = new RelayCommand<AdminMainWindow>(parameter => true, parameter => SizeChanged(parameter));
+            LoadedCommand = new RelayCommand<AdminMainWindow>(parameter => true, parameter => Load(parameter));
+            CloseCommand = new RelayCommand<Window>(parameter => true, parameter => { parameter.Close(); });
         }
 
         public void Show(AdminMainWindow parameter)
@@ -159,10 +164,9 @@ namespace ConvenienceStore.ViewModel.Admin
         }
 
         
-        public void SizeChanged(AdminMainWindow parameter)
+        public void Load(AdminMainWindow parameter)
         {
-            wdHeight = parameter.ActualHeight;
-            wdWidth = parameter.ActualWidth;
+            parameter.DataContext = new AdminMainViewModel();
         }
 
     }

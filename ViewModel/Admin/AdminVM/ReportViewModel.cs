@@ -20,8 +20,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
     {
         public ReportViewModel()
         {
-            Hello = "Hello, " + CurrentAccount.Name;
-            ThisMonth1 = "0/0/0";
+         
             InitColumnChartTodayCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartToday(parameter));
             InitColumnChartMonthCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartMonth(parameter));
             InitColumnChartYearCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartYear(parameter));
@@ -71,6 +70,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public ICommand LoadCommand { get; set; }
         public void LoadDefaultChart(HomeView homeWindow)
         {
+            Hello = "Hello, " + CurrentAccount.Name;
+         
             ThisMonth = "This month Profit " + DateTime.Now.ToString("MM/yyyy");
             ThisMonth1 = DateTime.Now.ToString("MM/yyyy");
             string currentDay = DateTime.Now.Day.ToString();

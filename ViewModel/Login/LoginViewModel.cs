@@ -15,6 +15,7 @@ using ConvenienceStore.Views.Admin;
 using ConvenienceStore.Views.Login;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin.Command;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ConvenienceStore.ViewModel.Login
 {
@@ -34,11 +35,11 @@ namespace ConvenienceStore.ViewModel.Login
         {
             LogInCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => Login(parameter));
             PasswordChangedCommand = new RelayCommand<PasswordBox>((parameter) => true, (parameter) => EncodingPassword(parameter));
-            OpenForgotPasswordWindowCommand = new RelayCommand<Window>((parameter) => true, (parameter) => OpenForgotPasswordWindow(parameter));
+            OpenForgotPasswordWindowCommand = new RelayCommand<System.Windows.Window>((parameter) => true, (parameter) => OpenForgotPasswordWindow(parameter));
         }
         public void Login(LoginWindow parameter)
         {
-
+            isLogin = false;
             List<Account> accounts = AccountDAL.Instance.ConvertDataTableToList();
             if (string.IsNullOrEmpty(parameter.txtUsername.Text))
             {
@@ -58,7 +59,7 @@ namespace ConvenienceStore.ViewModel.Login
             int flag = 0;
             foreach (var account in accounts)
             {
-                isLogin = false;
+              
                 if (account.UserName == UserName && account.Password == Password)
                 {
                     CurrentAccount.UserRole = account.UserRole;
@@ -88,19 +89,23 @@ namespace ConvenienceStore.ViewModel.Login
             if (isLogin == true && CurrentAccount.UserRole == "1")
             {
                 AdminMainWindow home = new AdminMainWindow();
+  
                 parameter.Close();
-                
-                home.ShowDialog();
+           
+                home.Dispatcher.Invoke(home.ShowDialog);
+           
 
-                //parameter.Show();
+            
             }
             else if (isLogin == true && CurrentAccount.UserRole == "0")
             {
                 StaffMainWindow home = new StaffMainWindow();
+              
                 parameter.Close();
-                home.ShowDialog();
+                home.Dispatcher.Invoke(home.ShowDialog);
+             
 
-                //parameter.Show();
+          
             }
         }
 
@@ -109,7 +114,7 @@ namespace ConvenienceStore.ViewModel.Login
             password = parameter.Password;
             //  this.password = MD5Hash(this.password);
         }
-        public void OpenForgotPasswordWindow(Window parameter)
+        public void OpenForgotPasswordWindow(System.Windows.Window parameter)
         {
             ForgotPasswordWindow forgot=new ForgotPasswordWindow();
             

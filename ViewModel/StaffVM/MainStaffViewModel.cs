@@ -33,6 +33,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public ICommand? MouseMoveWindowCommand { get; set; }
         public ICommand? MaximizeWindowCommand { get; set; }
         public ICommand? SupplierCommand { get; set; }
+        public ICommand LoadCommand { get; set; }
         public static Grid MaskName { get; set; }
 
         #region commands
@@ -145,7 +146,11 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 Window w = Window.GetWindow(p);
                 w.Close();
             });
-
+            LoadCommand = new RelayCommand<StaffMainWindow>(parameter => true, parameter => { parameter.DataContext = new MainStaffViewModel(); });
+            
+                
+           
+            
             MinimizeWindowCommand = new RelayCommand<Grid>((p) => { return p == null ? false : true; }, (p) =>
             {
                 Window w = Window.GetWindow(p);

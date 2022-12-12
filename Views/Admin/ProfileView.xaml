@@ -12,7 +12,16 @@
       Style="{StaticResource Page_Style}"
       Title="ProfileView"
       Height="620"
+      x:Name="wdProfile"
       Width="1140">
+    <i:Interaction.Triggers>
+
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadCommand}"
+                               CommandParameter="{Binding ElementName=wdProfile}"/>
+
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Page.Resources>
 
         <ProfileCommand:UpdateAvatarCommand x:Key="UpdateAvatarCommand"/>
