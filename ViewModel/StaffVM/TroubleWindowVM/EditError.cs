@@ -67,7 +67,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             if (!isValid) return;
             // Pre Validation Done 
 
-
+            var t = SelectedItem.Image;
             var newReport = new Report()
             {
                 Title = p.TitleTextBox.Text,
@@ -76,18 +76,20 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 RepairCost = int.Parse(p.CostTextBox.Text),
                 SubmittedAt = DateTime.Now,
                 StaffId = CurrentAccount.idAccount,
+                Id = SelectedItem.Id,
             };
-            if (p.ImageReport.ImageSource != null)
+            //if (p.ImageReport.ImageSource != null)
+            //{
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(p.ImageProduct.ImageSource as BitmapImage));
+            using (MemoryStream ms = new MemoryStream())
             {
-                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(p.ImageReport.ImageSource as BitmapImage));
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    encoder.Save(ms);
-                    newReport.Image = ms.ToArray();
-                }
+                encoder.Save(ms);
+                newReport.Image = ms.ToArray();
             }
-            else newReport.Image = SelectedItem.Image;
+            //}
+            //else
+            //newReport.Image = SelectedItem.Image;
             ReportValidator validator = new ReportValidator();
 
             // Note For Me: stops executing a rule as soon as a validator fails

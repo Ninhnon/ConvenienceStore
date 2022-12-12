@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -218,17 +219,31 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 IsImageChanged = false;
 
             });
-            UploadImageCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            UploadImageCommand = new RelayCommand<ImageBrush>((p) => { return true; }, (p) =>
             {
-            OpenFileDialog openfile = new()
-            {
-                Title = "Select an image",
-                Filter = "Image File (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg; *.png"
-            };
-                if (openfile.ShowDialog() == DialogResult.OK)
+                OpenFileDialog openDialog = new OpenFileDialog();
+                openDialog.Filter = "Image files|*.jpeg;*.jpg;*.png";
+                openDialog.FilterIndex = -1;
+
+                BitmapImage bi = new BitmapImage();
+
+                if (openDialog.ShowDialog() == DialogResult.OK)
                 {
-                    filepath = openfile.FileName;
-                    ImageSource = new BitmapImage(new Uri(filepath));
+                    var bytes = File.ReadAllBytes(openDialog.FileName);
+                    string s = Convert.ToBase64String(bytes);
+
+                    bi.BeginInit();
+                    bi.StreamSource = new MemoryStream(Convert.FromBase64String(s));
+                    bi.EndInit();
+                }
+                try
+                {
+                    p.ImageSource = bi;
+                }
+                catch
+                {
+                    /* Chỗ này phải xài try catch để bắt lỗi
+                     * Người dùng mở File Exploer nhưng không chọn ảnh mà nhấn nút "Cancle" */
                 }
             });
             SaveNewTroubleCommand = new RelayCommand<AddTrouble>((p) => { return true; }, (p) =>
@@ -253,7 +268,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
             });
-            UpdateErrorCM = new RelayCommand<EditError>((p) => { if (IsSaving) return false; return true; }, async (p) =>
+            UpdateErrorCM = new RelayCommand<EditError>((p) => { return true; }, async (p) =>
             {
                 IsSaving = true;
                 UpdateErrorFunc(p);

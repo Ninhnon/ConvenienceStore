@@ -131,7 +131,7 @@ namespace ConvenienceStore.ViewModel.Admin
             });
             ReportCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                p.Content = new TroublePage();
+                p.Content = new TroubleView();
 
             });
             ChartCommand = new RelayCommand<Frame>(parameter => true, (parameter) =>

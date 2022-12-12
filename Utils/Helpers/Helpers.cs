@@ -92,6 +92,11 @@ namespace ConvenienceStore.Utils.Helpers
             return string.Format(CultureInfo.InvariantCulture,
                                 "{0:#,#} ₫", money);
         }
+        public static string? GetStaffName(int StaffId)
+        {
+
+            return DatabaseHelper.GetName(StaffId); 
+        }
         public static string FormatStatus(bool status)
         {
             if (status == true)

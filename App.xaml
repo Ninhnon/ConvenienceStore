@@ -3,6 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ConvenienceStore"
              StartupUri="Views/Login/LoginWindow.xaml">
+             <!--StartupUri="Views/Admin/TroubleView.xaml">-->
+             <!--StartupUri="Views/Admin/InputInfoView.xaml">-->
+             
+    
 
     <Application.Resources>
         <ResourceDictionary>
