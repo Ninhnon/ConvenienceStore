@@ -192,7 +192,7 @@
                                         BorderBrush="#808080"
                                         BorderThickness="2"
                                         Cursor="Hand"
-                                        Command="{StaticResource UploadImageCommand}"
+                                        Command="{Binding UploadImageCommand}"
                                         CommandParameter="{Binding ElementName=ImageProduct}"/>
                                 </Border>
                             </Grid>

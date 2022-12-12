@@ -32,5 +32,6 @@ namespace ConvenienceStore.Model.Staff
                 return Helpers.FormatStatus(Status);
             }
         }
+
     }
 }

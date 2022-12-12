@@ -56,11 +56,8 @@ namespace ConvenienceStore.Utils.Validation
         {
             RuleFor(p => p.Title)
                 .NotEmpty().WithMessage("Chưa nhập Tên vấn đề");
-
-
             RuleFor(p => p.RepairCost)
                 .Must(NonNegativeInteger).WithMessage("Chi phí dự kiến phải >= 0");
-
         }
 
         protected bool NonNegativeInteger(int Number)

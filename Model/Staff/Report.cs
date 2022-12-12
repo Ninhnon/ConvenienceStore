@@ -23,5 +23,13 @@
                 return Helpers.FormatVNMoney(RepairCost);
             }
         }
+        public string? StaffName
+        {
+            get
+            {
+                return Helpers.GetStaffName(StaffId);
+            }
+        }
+
     }
 }

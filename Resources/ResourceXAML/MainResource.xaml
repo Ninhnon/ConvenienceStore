@@ -12,7 +12,8 @@
     <vmAdminVM:SupplierVM x:Key="SupplierVM"/>
     <vmAdminVM:ProfileVM x:Key="AdminProfileVM"/>
     <vmAdminVM:VoucherVM x:Key="VoucherVM"/>
-
+    
+    <vmAdminVM:TroubleAdminVM x:Key="TroubleADVM"/>
     <vmLogin:ForgotPasswordViewModel x:Key="ForgotVM"/>
 
     <vmAdminVM:ReportViewModel x:Key="ReportVM"/>

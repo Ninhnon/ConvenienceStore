@@ -37,7 +37,8 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryInsertBillDetail = @"insert into BillDetail(BillId, ProductId, Quantity, TotalPrice) values (@billId, @productId, @quantity, @totalPrice)";
         static readonly string insertReport = "insert into Report(Title, Description, Status, SubmittedAt, RepairCost, StaffId, Image) values (@Title, @Description, @Status, @SubmittedAt,@RepairCost,@StaffId, @Image)";
         static readonly string insertBillData = @"insert into Bill(BillDate, CustomerId, UserId, Price) Values (@billDate, @cusId, @userId, @price)";
-        static readonly string updateReport = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost
+        static readonly string updateReport = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost ,Description = @Description                                                 where Id=@Id";
+        static readonly string updateReportAD = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost,Status = @Status,StartDate = @StartDate,FinishDate = @FinishDate,Description = @Description
                                                  where Id=@Id";
         public static List<Model.Staff.Bill> FetchingBillData()
         {
@@ -390,8 +391,31 @@ namespace ConvenienceStore.Utils.Helpers
             cmd.Parameters.AddWithValue("@Title", editedReport.Title);
             cmd.Parameters.AddWithValue("@Image", editedReport.Image);
             cmd.Parameters.AddWithValue("@RepairCost", editedReport.RepairCost);
+            cmd.Parameters.AddWithValue("@Description", editedReport.Description);
+
             cmd.Parameters.AddWithValue("@Id", editedReport.Id);
 
+            //cmd.Parameters.AddWithValue("@SubmittedAt", editedReport.SubmittedAt);
+            cmd.ExecuteNonQuery();
+
+            sqlCon.Close();
+        }
+        public static void UpdateReportAD(Report editedReport)
+        {
+            sqlCon.Open();
+
+            // Update values in Product table
+            var cmd = new SqlCommand(updateReportAD, sqlCon);
+
+            cmd.Parameters.AddWithValue("@Title", editedReport.Title);
+            cmd.Parameters.AddWithValue("@Image", editedReport.Image);
+            cmd.Parameters.AddWithValue("@RepairCost", editedReport.RepairCost);
+            cmd.Parameters.AddWithValue("@Status", editedReport.Status);
+            cmd.Parameters.AddWithValue("@StartDate", editedReport.StartDate);
+            cmd.Parameters.AddWithValue("@FinishDate", editedReport.FinishDate);
+            cmd.Parameters.AddWithValue("@Description", editedReport.Description);
+
+            cmd.Parameters.AddWithValue("@Id", editedReport.Id);
             //cmd.Parameters.AddWithValue("@SubmittedAt", editedReport.SubmittedAt);
             cmd.ExecuteNonQuery();
 
