@@ -13,7 +13,7 @@ namespace ConvenienceStore.ViewModel.Admin.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var num = (int)value;
-            return string.Format("{0:0,0} VND", num);
+            return string.Format("{0:n0} VND", num);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

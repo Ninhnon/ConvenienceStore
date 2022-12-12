@@ -32,7 +32,7 @@
             <!-- Start: GridColumn Right -->
             <Grid >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 

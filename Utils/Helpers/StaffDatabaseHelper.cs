@@ -1,6 +1,7 @@
 ﻿using ConvenienceStore.Model;
 using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Model.Staff;
+using ConvenienceStore.Views;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -35,6 +36,11 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string insertErorrs = "insert into Report(Title, Description, Status, RepairCost, SubmittedAt, StaffId, Image) select N'{0}',N'{1}',N'{2}',{3},N'{4}',N'{5}', BulkColumn FROM Openrowset(Bulk N'{6}', Single_Blob) as img";
         static readonly string insertReport = "insert Report values (@Title, @Description, @Status, @SubmittedAt,Null,Null,@RepairCost,@StaffId, @Image)";
         static readonly string queryInsertBillDetail = @"insert into BillDetail(BillId, ProductId, Quantity, TotalPrice) values (@billId, @productId, @quantity, @totalPrice)";
+        static readonly string querySearchVoucher = @"select Code, Status, TypeVoucher, ParValue, StartDate, FinishDate
+                                                        from Voucher v join BlockVoucher b on v.BlockId = b.Id
+                                                        where Code = @code AND Status = 0";
+        static readonly string queryUpdateVoucherStatus = @"update Voucher set Status = 1 where Code = @code";
+        static readonly string queryVoucherDetail = @"select Code, Status, TypeVoucher, ParValue, StartDate, FinishDate from Voucher v join BlockVoucher b on v.BlockId = b.Id";
 
         public static List<Model.Staff.Bill> FetchingBillData()
         {
@@ -161,13 +167,12 @@ namespace ConvenienceStore.Utils.Helpers
             {
                 vouchers.Add(new Vouchers()
                 {
-                    Id=reader.GetInt32(0),
                     ReleaseId = reader.GetString(1),
                     ReleaseName = reader.GetString(2),
                     StartDate = reader.GetDateTime(3),
                     FinishDate = reader.GetDateTime(4),
                     ParValue = reader.GetInt32(5),
-                    Status = reader.GetBoolean(6),
+                    Status = reader.GetInt32(6),
                 });
 
             }
@@ -255,7 +260,7 @@ namespace ConvenienceStore.Utils.Helpers
             return customers;
         }
 
-        public static void InsertBill(int? customerId, int price)
+        public static void InsertBill(int? customerId, int? price)
         {
             sqlCon.Open();
             SqlCommand cmd = new SqlCommand(queryInsertBill, sqlCon);
@@ -360,6 +365,63 @@ namespace ConvenienceStore.Utils.Helpers
                 i++;
             }
             sqlCon.Close();
+        }
+
+        public static int ApplyVoucher(int totalPrice, string code, ref int error) //Hàm lấy ra giá trị discount
+        {
+            sqlCon.Open();
+
+            //Tìm kiếm voucher
+            var cmd = new SqlCommand(querySearchVoucher, sqlCon);
+            cmd.Parameters.AddWithValue("@code", code);
+            List<Model.Staff.Vouchers> vouchers = new List<Model.Staff.Vouchers>();
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                vouchers.Add(new Model.Staff.Vouchers()
+                {
+                    ReleaseId = reader.GetString(0),
+                    Status = reader.GetInt32(1),
+                    Type = reader.GetInt32(2),
+                    ParValue = reader.GetInt32(3),
+                    StartDate = reader.GetDateTime(4),
+                    FinishDate = reader.GetDateTime(5),
+                });
+
+            }
+            reader.Close();
+
+            int discount = 0;
+            if (vouchers.Count != 0)
+            {
+                if (vouchers[0].Type == 0)  //Giảm tiền mặt
+                    discount = vouchers[0].ParValue.HasValue ? Convert.ToInt32(vouchers[0].ParValue) : 0;
+                else if (vouchers[0].Type == 1) //Giảm %
+                    discount = vouchers[0].ParValue.HasValue ? Convert.ToInt32(totalPrice * vouchers[0].ParValue / 100) : 0;
+
+                if (vouchers[0].FinishDate < System.DateTime.Now)  //Quá hạn sử dụng
+                    error = 1;
+            }
+            else
+                error = 0;
+
+            sqlCon.Close();
+            return discount;
+        }
+
+        public static void UpdateVoucherStatus(string code)
+        {
+            if (code != null)
+            {
+                sqlCon.Open();
+                //Tìm kiếm voucher
+                var cmd = new SqlCommand(queryUpdateVoucherStatus, sqlCon);
+                cmd.Parameters.AddWithValue("@code", code);
+                cmd.ExecuteNonQuery();
+                sqlCon.Close();
+            }
         }
     }
 }
