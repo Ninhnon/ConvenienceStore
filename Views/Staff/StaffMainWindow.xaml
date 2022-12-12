@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConvenienceStore.Views.Staff"
+          xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="660"
@@ -25,7 +26,14 @@
         WindowStartupLocation="CenterScreen"
         Background="Transparent">
     <!--xmlns:uc="clr-namespace:ConvenienceStore.UserControlWPF"-->
+    <i:Interaction.Triggers>
 
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadCommand}"
+                               CommandParameter="{Binding ElementName=mainWindow}"/>
+
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Border CornerRadius="8" 
             Background="{DynamicResource PrimaryBackgroundColor}">
         <Grid>
@@ -132,7 +140,19 @@
                                  Command="{Binding ReportCommand}"
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
                                  FontWeight="SemiBold"/>
-                </StackPanel>
+
+                        <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" 
+                                Cursor="Hand"
+                                Click="btnClose_Click"
+                                Margin="20 50 15 20">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Logout"/>
+                            </StackPanel>
+                        </Button>
+
+
+                    </StackPanel>
 
                     <StackPanel Grid.Row="3" VerticalAlignment="Bottom" Orientation="Horizontal" Width="200" Margin="0 0 0 20">
                         <Ellipse Width="40" Height="40" Margin="10 0 0 0">

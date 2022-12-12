@@ -2,14 +2,17 @@
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.AddNewSupplierCommand;
 using ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.SupplierCard;
+using ConvenienceStore.Views.Admin;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.Admin.AdminVM
 {
     public class SupplierVM : INotifyPropertyChanged
     {
+     
         public List<Supplier> suppliers { get; set; }
 
         public ObservableCollection<Supplier> ObservableSupplier { get; set; }
@@ -46,6 +49,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public AddSupplierButtonCommand AddSupplierButtonCommand { get; set; }
         public SaveNewSupplierCommand SaveNewSupplierCommand { get; set; }
         public DeleteSupplierButton DeleteSupplierButton { get; set; }
+        
         public SupplierVM()
         {
             suppliers = DatabaseHelper.FetchingSupplier();
@@ -58,6 +62,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             AddSupplierButtonCommand = new AddSupplierButtonCommand(this);
             SaveNewSupplierCommand = new SaveNewSupplierCommand(this);
             DeleteSupplierButton = new DeleteSupplierButton(this);
+        
         }
 
         public void SetSupplierCorespondSearch()
@@ -80,5 +85,6 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
     }
 }

@@ -15,8 +15,9 @@
       Style="{StaticResource Page_Style}"
       Height="620"
       Width="1140"
-
+x:Name="wdInputInfo"
       Background="Transparent">
+  
 
     <Page.Resources>
         <InputInfoCommand:HideOperateButtonsCommand x:Key="HideOperateButtonsCommand"/>

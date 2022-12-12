@@ -96,7 +96,11 @@ namespace ConvenienceStore.ViewModel.Admin
             }
         }
         public AdminMainViewModel()
-        {
+        { 
+
+             Ten = CurrentAccount.Name;
+            Anh = DatabaseHelper.LoadAvatar(CurrentAccount.idAccount);
+            Email = CurrentAccount.Email;
           
             IsPanelVisible = 0;  //moi vo la no ko mo menu =hidden
             OpacityChange = 1;
@@ -162,9 +166,7 @@ namespace ConvenienceStore.ViewModel.Admin
         
         public void Load(AdminMainWindow parameter)
         {
-            Ten = CurrentAccount.Name;
-            Anh = DatabaseHelper.LoadAvatar(CurrentAccount.idAccount);
-            Email = CurrentAccount.Email;
+            parameter.DataContext = new AdminMainViewModel();
         }
 
     }

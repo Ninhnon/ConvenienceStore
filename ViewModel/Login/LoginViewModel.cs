@@ -90,22 +90,22 @@ namespace ConvenienceStore.ViewModel.Login
             {
                 AdminMainWindow home = new AdminMainWindow();
   
-                parameter.Hide();
+                parameter.Close();
            
                 home.Dispatcher.Invoke(home.ShowDialog);
            
 
-                parameter.Show();
+            
             }
             else if (isLogin == true && CurrentAccount.UserRole == "0")
             {
                 StaffMainWindow home = new StaffMainWindow();
               
-                parameter.Hide();
+                parameter.Close();
                 home.Dispatcher.Invoke(home.ShowDialog);
              
 
-                parameter.Show();
+          
             }
         }
 
