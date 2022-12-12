@@ -28,7 +28,7 @@
     <Grid>
         <Border Background="Black"
                 Opacity="0.5"
-                CornerRadius="25">
+                CornerRadius="8">
         </Border>
 
         <Grid Width="600"
@@ -39,38 +39,38 @@
             </Grid.RowDefinitions>
 
             <Border Background="{StaticResource PrimaryColor}"
-                    CornerRadius="25 25 0 0">
+                    CornerRadius="8 8 0 0">
                 <Grid Margin="30 15"
-                          VerticalAlignment="Center">
+                      VerticalAlignment="Center">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="Edit Product"
-                           Foreground="White"
-                           FontSize="30"
-                           FontWeight="SemiBold"
-                           HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"/>
+                    <TextBlock Text="Chỉnh sửa sản phẩm"
+                               Foreground="White"
+                               FontSize="30"
+                               FontWeight="SemiBold"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
 
                     <StackPanel Grid.Column="1">
 
                         <TextBlock x:Name="BarcodeTextBlock"
                                    Text="{Binding Barcode}"
-                               Foreground="White"
-                               FontSize="24"
-                               FontWeight="SemiBold"
-                               HorizontalAlignment="Right"
-                               d:Text="4711577007571"/>
+                                   Foreground="White"
+                                   FontSize="24"
+                                   FontWeight="SemiBold"
+                                   HorizontalAlignment="Right"
+                                   d:Text="4711577007571"/>
 
                         <TextBlock x:Name="ProductionSiteTextBlock"
                                    Text="{Binding ProductionSite}"
                                    d:Text="Taiwan"
-                               Foreground="White"
-                               FontSize="18"
-                               HorizontalAlignment="Right"/>
+                                   Foreground="White"
+                                   FontSize="18"
+                                   HorizontalAlignment="Right"/>
                     </StackPanel>
 
                 </Grid>
@@ -81,7 +81,7 @@
 
             <Border Grid.Row="1"
                     Background="White"
-                    CornerRadius="0 0 25 25">
+                    CornerRadius="0 0 8 8">
 
                 <StackPanel Margin="30 20 30 30">
 
@@ -94,10 +94,10 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel>
 
-                            <TextBlock Text="Title"
-                                   FontSize="18"
-                                   FontWeight="SemiBold"
-                                   Height="24"/>
+                            <TextBlock Text="Tên"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       Height="24"/>
 
                             <TextBox x:Name="TitleTextBox"
                                  Text="{Binding Title, Mode=OneTime}"
@@ -117,15 +117,15 @@
                                 <StackPanel Grid.Column="0">
 
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Cost"
-                                               FontSize="18"
-                                               FontWeight="SemiBold"
-                                               Height="24"/>
+                                        <TextBlock Text="Giá nhập"
+                                                   FontSize="18"
+                                                   FontWeight="SemiBold"
+                                                   Height="24"/>
 
                                         <ToggleButton x:Name="CostToggleButton"
-                                                  Style="{StaticResource LockToggleButton}"
-                                                  Foreground="LightGray"
-                                                  Margin="5 0 0 0"/>
+                                                      Style="{StaticResource LockToggleButton}"
+                                                      Foreground="LightGray"
+                                                      Margin="5 0 0 0"/>
                                     </StackPanel>
 
                                     <Grid>
@@ -136,7 +136,6 @@
 
                                         <TextBox x:Name="CostTextBox"
                                              Text="{Binding Cost, Mode=OneTime}"
-                                             
                                              VerticalContentAlignment="Center"
                                              Background="White"
                                              Visibility="{Binding ElementName=CostToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
@@ -151,7 +150,7 @@
                                 <StackPanel Grid.Column="2">
 
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Price"
+                                        <TextBlock Text="Giá bán"
                                                FontWeight="SemiBold"
                                                FontSize="18"
                                                Height="24"/>
@@ -165,16 +164,15 @@
                                     <Grid>
 
                                         <TextBlock Text="{Binding ElementName=PriceTextBox, Path=Text}"
-                                               VerticalAlignment="Center"
-                                               Foreground="Gray"
-                                               Margin="1 0 0 0"/>
+                                                   VerticalAlignment="Center"
+                                                   Foreground="Gray"
+                                                   Margin="1 0 0 0"/>
 
                                         <TextBox x:Name="PriceTextBox"
-                                             Text="{Binding Price, Mode=OneTime}"
-                                             Height="26"
-                                             VerticalContentAlignment="Center"
-                                             Background="White"
-                                             Visibility="{Binding ElementName=PriceToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
+                                                 Text="{Binding Price, Mode=OneTime}"
+                                                 VerticalContentAlignment="Center"
+                                                 Background="White"
+                                                 Visibility="{Binding ElementName=PriceToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
 
                                     </Grid>
 
@@ -192,7 +190,7 @@
                                 VerticalAlignment="Top"
                                 BorderBrush="#808080"
                                 BorderThickness="2"
-                                CornerRadius="15"
+                                CornerRadius="8"
                                 MouseEnter="ImagePreview_MouseEnter">
 
                             <Border.Background>
@@ -208,10 +206,10 @@
                                 Width="142"
                                 Height="142"
                                 VerticalAlignment="Top"
-                                Background="#E9E9E9"
+                                Background="#CCE9E9E9"
                                 BorderBrush="#808080"
                                 BorderThickness="2"
-                                CornerRadius="15"
+                                CornerRadius="8"
                                 Visibility="Hidden"
                                 MouseLeave="MarkUploadImage_MouseLeave">
                             <Button Style="{StaticResource MaterialDesignOutlinedButton}"
@@ -219,7 +217,7 @@
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     Foreground="Black"
-                                    BorderBrush="#808080"
+                                    BorderBrush="Black"
                                     BorderThickness="2"
                                     Cursor="Hand"
                                     Command="{StaticResource ChangeImageCommand}"
@@ -238,7 +236,7 @@
 
                             <StackPanel Orientation="Horizontal">
 
-                                <TextBlock Text="ManufacturingDate"
+                                <TextBlock Text="Ngày sản xuất"
                                            FontSize="18"
                                            FontWeight="SemiBold"
                                            Height="24"/>
@@ -253,74 +251,72 @@
                             <Grid>
 
                                 <TextBlock Text="{Binding ElementName=ManufacturingDate,
-                                               Path=SelectedDate, StringFormat=dd-MM-yyyy}"
-                                               VerticalAlignment="Center"
-                                               Foreground="Gray"/>
+                                           Path=SelectedDate, StringFormat=dd-MM-yyyy}"
+                                           VerticalAlignment="Center"
+                                           Foreground="Gray"/>
 
                                 <Grid Background="White"
-                                          Visibility="{Binding ElementName=ManufacturingDateToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
+                                      Visibility="{Binding ElementName=ManufacturingDateToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
                                     <DatePicker x:Name="ManufacturingDate"
-                                                    SelectedDate="{Binding ManufacturingDate, Mode=OneTime}"
-                                                    SelectedDateFormat="Short"
-                                                    Height="26"
-                                                    VerticalContentAlignment="Center"
-                                                    FontSize="1"/>
+                                                SelectedDate="{Binding ManufacturingDate, Mode=OneTime}"
+                                                SelectedDateFormat="Short"
+                                                Height="26"
+                                                VerticalContentAlignment="Center"
+                                                FontSize="1"/>
                                     <TextBlock Text="{Binding ElementName=ManufacturingDate,
-                                                   Path=SelectedDate, StringFormat=dd-MM-yyyy}"
-                                                   Background="White"
-                                                   HorizontalAlignment="Left"
-                                                   VerticalAlignment="Top"
-                                                   Margin="0 4 0 0"
-                                                   Height="19" Width="230"/>
+                                               Path=SelectedDate, StringFormat=dd-MM-yyyy}"
+                                               Background="White"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Top"
+                                               Margin="0 5 0 0"
+                                               Height="19" Width="230"/>
                                 </Grid>
 
                             </Grid>
 
-
-
                             <TextBlock x:Name="ManufacturingDateErrorMessage"
-                                           Foreground="Red"/>
+                                       Foreground="Red"/>
 
                         </StackPanel>
+                        
                         <StackPanel Grid.Column="2">
 
                             <StackPanel Orientation="Horizontal">
 
-                                <TextBlock Text="ExpiryDate"
+                                <TextBlock Text="Hạn sử dụng"
                                            FontSize="18"
                                            FontWeight="SemiBold"
                                            Height="24"/>
 
                                 <ToggleButton x:Name="ExpiryDateToggleButton"
-                                                  Style="{StaticResource LockToggleButton}"
-                                                  Foreground="LightGray"
-                                                  Margin="5 0 0 0"/>
+                                              Style="{StaticResource LockToggleButton}"
+                                              Foreground="LightGray"
+                                              Margin="5 0 0 0"/>
 
                             </StackPanel>
 
                             <Grid>
 
                                 <TextBlock Text="{Binding ElementName=ExpiryDate,
-                                                     Path=SelectedDate, StringFormat=dd-MM-yyyy}"
-                                               VerticalAlignment="Center"
-                                               Foreground="Gray"
-                                               Margin="1 0 0 0"/>
+                                           Path=SelectedDate, StringFormat=dd-MM-yyyy}"
+                                           VerticalAlignment="Center"
+                                           Foreground="Gray"/>
 
                                 <Grid Background="White"
                                           Visibility="{Binding ElementName=ExpiryDateToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
 
                                     <DatePicker x:Name="ExpiryDate"
-                                                    SelectedDate="{Binding ExpiryDate, Mode=OneTime}"
-                                                    SelectedDateFormat="Short"
-                                                    Height="26"
-                                                    VerticalContentAlignment="Center"/>
+                                                SelectedDate="{Binding ExpiryDate, Mode=OneTime}"
+                                                SelectedDateFormat="Short"
+                                                Height="26"
+                                                VerticalContentAlignment="Center"/>
                                     <TextBlock x:Name="ExpiryDateTextBlock"
-                                                   Text="{Binding ElementName=ExpiryDate, Path=SelectedDate, StringFormat=dd-MM-yyyy}"
-                                                   Background="White"
-                                                   HorizontalAlignment="Left"
-                                                   VerticalAlignment="Top"
-                                                   Margin="0 4 0 0"
-                                                   Height="19" Width="230"/>
+                                               Text="{Binding ElementName=ExpiryDate, Path=SelectedDate, StringFormat=dd-MM-yyyy}"
+                                               Background="White"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Top"
+                                               Margin="0 5 0 0"
+                                               Height="19" Width="230"/>
                                 </Grid>
 
                             </Grid>
@@ -339,14 +335,13 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel>
-                            <TextBlock Text="Discount (%)"
-                                           FontSize="18"
-                                           FontWeight="SemiBold"
-                                           Height="24"/>
+                            <TextBlock Text="Giảm giá (%)"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       Height="24"/>
                             <TextBox x:Name="DiscountTextBox"
-                                         Text="{Binding Discount, Mode=OneTime}"
-                                         Height="25"
-                                         VerticalContentAlignment="Center"/>
+                                     Text="{Binding Discount, Mode=OneTime}"
+                                     VerticalContentAlignment="Center"/>
                             <TextBlock x:Name="DiscountErrorMessage"
                                            
                                            Foreground="Red"/>
@@ -355,29 +350,28 @@
                         <StackPanel Grid.Column="2">
 
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Stock"
+                                <TextBlock Text="Số lượng"
                                                FontSize="18"
                                                FontWeight="SemiBold"
                                                Height="24"/>
                                 <ToggleButton x:Name="StockToggleButton"
-                                                  Style="{StaticResource LockToggleButton}"
-                                                  Foreground="LightGray"
-                                                  Margin="5 0 0 0"/>
+                                              Style="{StaticResource LockToggleButton}"
+                                              Foreground="LightGray"
+                                              Margin="5 0 0 0"/>
                             </StackPanel>
 
                             <Grid>
 
                                 <TextBlock Text="{Binding ElementName=StockTextBox, Path=Text}"
-                                               VerticalAlignment="Center"
-                                               Foreground="Gray"
-                                               Margin="1 0 0 0"/>
+                                           VerticalAlignment="Top"
+                                           Foreground="Gray"
+                                           Margin="1 8 0 0"/>
 
                                 <TextBox x:Name="StockTextBox"
-                                             Text="{Binding Stock, Mode=OneTime}"
-                                             Background="White"
-                                             Height="25"
-                                             VerticalContentAlignment="Center"
-                                             Visibility="{Binding ElementName=StockToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
+                                         Text="{Binding Stock, Mode=OneTime}"
+                                         Background="White"
+                                         VerticalContentAlignment="Center"
+                                         Visibility="{Binding ElementName=StockToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
 
                             </Grid>
 
@@ -393,19 +387,19 @@
                         <StackPanel 
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Right">
-                            <Button Content="Cancle"
+                            <Button Content="Hủy"
                                     Foreground="{StaticResource PrimaryColor}"
                                     Style="{StaticResource MaterialDesignOutlinedButton}"
                                     BorderBrush="{StaticResource PrimaryColor}"
                                     Margin="0 0 20 0"
-                                    Width="80"
+                                    Width="75"
                                     Command="{StaticResource CloseAppCommand}"
                                     CommandParameter="{Binding ElementName=EditProductScreen}"/>
                             <Button x:Name="UpdateButton"
-                                    Content="Update"
+                                    Content="Cập nhật"
                                     Background="#3982E4"
                                     BorderThickness="0"
-                                    Width="80"
+                                    Width="90"
                                     Command="{StaticResource UpdateProductButtonCommand}"
                                     CommandParameter="{Binding ElementName=EditProductScreen}"/>
                         </StackPanel>

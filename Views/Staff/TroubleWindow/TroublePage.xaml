@@ -16,8 +16,8 @@
       TextElement.FontSize="13"
       xmlns:vm="clr-namespace:ConvenienceStore.ViewModel.StaffVM.TroubleWindowVM"
       x:Name="Trouble_Page"
-     Height="660"
-  Width="1100"
+      Height="638"
+      Width="1140"
       Margin="10 0 0 0"
       DataContext="{StaticResource TroubleVM}">
     <i:Interaction.Triggers>
@@ -104,7 +104,7 @@
                             </Button>
                         </Grid>
 
-                        <materialDesign:Card Grid.Row="1" Margin="60,10,120,20" Background="Transparent">
+                        <materialDesign:Card Grid.Row="1" Margin="60,10,60,30" Background="Transparent">
                             <ScrollViewer MouseWheel="ScrollViewer_PreviewMouseWheel"  VerticalScrollBarVisibility="Auto">
                                 <ListView ItemsSource="{Binding ListError}" 
                                   SelectedItem="{Binding SelectedItem}"

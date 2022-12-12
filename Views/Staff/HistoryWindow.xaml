@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:ConvenienceStore.Views.Staff"
         mc:Ignorable="d"
         Title="HistoryWindow" 
-        d:DesignHeight="600"
-        d:DesignWidth="1100"
+        Height="638"
+      Width="1140"
       x:Name="staffHistoryPage"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -223,6 +223,5 @@
             </StackPanel>
         </Grid>
     </Border>
-
 
 </Page>

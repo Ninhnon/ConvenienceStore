@@ -63,6 +63,7 @@
     <None Remove="Resources\Images\pencil.png" />
     <None Remove="Resources\Images\product.png" />
     <None Remove="Resources\Images\qr.png" />
+    <None Remove="Resources\Images\stones.jpg" />
     <None Remove="Resources\Images\Thuong1.png" />
     <None Remove="Resources\Images\trash_can.png" />
     <None Remove="Resources\Images\troubles.png" />
@@ -160,6 +161,7 @@
     <Resource Include="Resources\Images\Menu\troubles.png" />
     <Resource Include="Resources\Images\Login\user-icon.png" />
     <Resource Include="Resources\Images\Menu\voucher.png" />
+    <Resource Include="Resources\Images\stones.jpg" />
     <Resource Include="Resources\UserControlCustom\employee.png" />
     <Resource Include="Resources\UserControlCustom\home.png" />
     <Resource Include="Resources\UserControlCustom\product.png" />

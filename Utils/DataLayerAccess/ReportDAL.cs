@@ -1,12 +1,17 @@
-﻿using LiveCharts;
+﻿using ConvenienceStore.Model;
+using ConvenienceStore.Model.Admin;
+using ConvenienceStore.Model.Staff;
+using LiveCharts;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace ConvenienceStore.Utils.DataLayerAccess
 {
@@ -143,7 +148,117 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 CloseConnection();
             }
         }
-        public int QueryRevenueNumOfSoldBillInMonth(string month, string year)
+        public ChartValues< int> QueryRevenueNumOfSoldBillInYear(string year)
+        {
+            ChartValues<int> res = new ChartValues<int>();
+          
+         
+            List<string> list = QueryMonthInYearList(year);
+            OpenConnection();
+            foreach (string s in list)
+               {
+                   string queryString = string.Format("select count(Id) as numOfSoldBill from Bill " +
+             "where year(BillDate) = {0} and month(BillDate) = {1}", int.Parse(year), int.Parse(s));
+                   SqlCommand command = new SqlCommand(queryString, conn);
+
+                SqlDataReader rdr = command.ExecuteReader();
+                while (rdr.Read())
+                 {
+                     res.Add(int.Parse(rdr["numOfSoldBill"].ToString())); 
+                 }
+                rdr.Close();
+
+              }
+
+
+
+              return res;
+         
+             CloseConnection();
+            
+        }
+        public List<Account> QueryTopSaleMonth(string month,string year)
+        {
+            List<Account> accs = new List<Account>();
+            OpenConnection();
+            string queryString = string.Format("select users.id, Name, sum(price) as tong  from users inner join bill on bill.userid = users.id " +
+                "where  month(billdate) = {0} and year(billdate) = {1} "+
+                "group by users.id, name order by tong desc",int.Parse(month),int.Parse(year));
+            SqlCommand command = new SqlCommand(queryString, conn);
+
+            SqlDataReader read = command.ExecuteReader();
+            int i = 0;
+            while(read.Read() &&i<3)
+            {
+
+                accs.Add(new Account()
+
+                {
+                    IdAccount=read.GetInt32(0),
+                    Name=read.GetString(1),
+                    Tong=read.GetInt32(2)
+
+
+                }
+                );
+
+            }
+
+
+            return accs;
+        }
+        public string QueryFoodRevenueInMonth(string month,string year)
+        {
+            string s = "";
+            OpenConnection();
+            string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                "join product on billdetail.productid = product.barcode where product.type = N\'Đồ ăn\' and month(billdate)={0} and year(billdate) = {1}",int.Parse(month),int.Parse( year));
+            SqlCommand command = new SqlCommand(queryString, conn);
+
+            SqlDataReader rdr = command.ExecuteReader();
+            while (rdr.Read())
+            {
+                s= rdr.GetInt32(0).ToString();
+            }
+            CloseConnection();
+            
+            return s;
+        }
+        public string QueryDrinkRevenueInMonth(string month,string year)
+        {
+            string s = "";
+            OpenConnection();
+            string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                "join product on billdetail.productid = product.barcode where product.type = N\'Thức uống\' and month(billdate)={0} and year(billdate) = {1}", int.Parse(month), int.Parse(year));
+            SqlCommand command = new SqlCommand(queryString, conn);
+
+            SqlDataReader rdr = command.ExecuteReader();
+            while (rdr.Read())
+            {
+                s = rdr.GetInt32(0).ToString();
+            }
+            CloseConnection();
+
+            return s;
+        }
+        public string QueryOtherRevenueInMonth(string month,string year)
+        {
+            string s = "";
+            OpenConnection();
+            string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                "join product on billdetail.productid = product.barcode where product.type = N\'Khác\' and month(billdate)={0} and year(billdate) = {1}", int.Parse(month), int.Parse(year));
+            SqlCommand command = new SqlCommand(queryString, conn);
+
+            SqlDataReader rdr = command.ExecuteReader();
+            while (rdr.Read())
+            {
+                s = rdr.GetInt32(0).ToString();
+            }
+            CloseConnection();
+
+            return s;
+        }
+        public int QueryRevenueNumOfSoldBillInMonth( string month,string year)
         {
             int res = 0;
             try
@@ -194,6 +309,32 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 CloseConnection();
             }
         }
+        public List<string> QueryMonthInYearList (string year)
+        {
+            List<string> res = new List<string>();
+            try
+            {
+                OpenConnection();
+                string queryString = string.Format("select distinct month(BillDate) as month from Bill where year(BillDate) = {0} ", year);
+                SqlCommand command = new SqlCommand(queryString, conn);
+
+                SqlDataReader rdr = command.ExecuteReader();
+                while (rdr.Read())
+                {
+                    res.Add(rdr["month"].ToString());
+                }
+                return res;
+            }
+            catch
+            {
+                return res;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
         public ChartValues<long> QueryRevenueByYear(string year)
         {
             ChartValues<long> res = new ChartValues<long>();

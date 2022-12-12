@@ -24,22 +24,18 @@
     <!--xmlns:uc="clr-namespace:ConvenienceStore.UserControlWPF"-->
     <i:Interaction.Triggers>
 
-        <i:EventTrigger EventName="SizeChanged">
-            <i:InvokeCommandAction Command="{Binding SizeChangedCommand}"
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"
                                CommandParameter="{Binding ElementName=wdMain}"/>
+           
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
     </Window.Resources>
-    <Border  CornerRadius="8" >
-        <Border.Background>
-            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                <GradientStop Color='#E9E4F0' Offset="0"/>
-                <GradientStop Color='#D3CCE3' Offset="1"/>
-            </LinearGradientBrush>
-        </Border.Background>
+    <Border  CornerRadius="8" 
+             Background="{DynamicResource PrimaryBackgroundColor}">
         <i:Interaction.Triggers>
 
             <i:EventTrigger EventName="MouseUp">
@@ -52,14 +48,20 @@
 
             <Grid >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
                 <!-- Start: Button Close | Restore | Minimize -->
 
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1110,0,0,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft" Width="85">
-                    <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="btnClose_Click" Tag="IsCloseButton"/>
+                    <Button x:Name="btnClose" 
+                            
+                            Style="{StaticResource IconButtonsStyle}"
+                            
+                            Content="{DynamicResource close}" 
+                           Command="{Binding CloseCommand}"
+                            CommandParameter="{Binding ElementName=wdMain}"/>
                     <Button x:Name="btnMinimize" Style="{DynamicResource IconButtonsStyle}" Content="{DynamicResource minimize}" Click="btnMinimize_Click"/>
                 </StackPanel>
                 <!-- End: Button Close | Restore | Minimize -->
@@ -81,16 +83,14 @@
             </Grid>
 
             <!-- Start: GridColumn Right -->
-            <Border 
-                    CornerRadius="8"
+            <Border CornerRadius="8"
                     HorizontalAlignment="Left">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                        <GradientStop Color='#E9E4F0' Offset="0"/>
                         <GradientStop Color='#F5F7FA' Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                <Grid x:Name="gridMenu"  Width="58"   >
+                <Grid x:Name="gridMenu" Width="60"   >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="60"/>
                         <RowDefinition Height="80"/>

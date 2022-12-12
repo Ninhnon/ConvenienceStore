@@ -24,7 +24,7 @@
     <Grid>
         <Border Background="Black"
                 Opacity="0.4"
-                CornerRadius="25"/>
+                CornerRadius="8"/>
 
         <Grid Width="500"
               VerticalAlignment="Center">
@@ -33,7 +33,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Border Background="{StaticResource PrimaryColor}"
-                    CornerRadius="25 25 0 0">
+                    CornerRadius="8 8 0 0">
                 <TextBlock Text="Thêm nhà cung cấp"
                            Foreground="White"
                            FontSize="35"
@@ -43,11 +43,11 @@
             </Border>
             <Border Grid.Row="1"
                     Background="White"
-                    CornerRadius="0 0 25 25">
+                    CornerRadius="0 0 8 8">
                 <StackPanel Orientation="Vertical"
                             Margin="30 20 30 30">
 
-                    <TextBlock Text="Tên NCC"
+                    <TextBlock Text="Tên nhà cung cấp"
                                FontWeight="SemiBold"
                                FontSize="18"
                                Margin="0 0 0 5"/>
@@ -74,7 +74,7 @@
                                Height="16"
                                Margin="0 0 0 10"/>
 
-                    <Grid Margin="0 0 0 26">
+                    <Grid Margin="0 0 0 15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="25"/>
@@ -91,7 +91,7 @@
                         </StackPanel>
                         <StackPanel Grid.Column="2"
                                     Orientation="Vertical">
-                            <TextBlock Text="SĐT"
+                            <TextBlock Text="Số điện thoại"
                                        FontWeight="SemiBold"
                                        FontSize="18"
                                        Margin="0 0 0 5"/>
@@ -108,11 +108,15 @@
                                 HorizontalAlignment="Right">
                         <Button Content="Hủy"
                                 Style="{StaticResource MaterialDesignOutlinedButton}"
+                                Foreground="{StaticResource PrimaryColor}"
+                                BorderBrush="{StaticResource PrimaryColor}"
                                 Margin="0 0 20 0"
                                 Command="{StaticResource CloseAppCommand}"
                                 CommandParameter="{Binding ElementName=AddNewSupplierScreen}"/>
                         <Button Content="Xong"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
+                                Background="{StaticResource PrimaryColor}"
+                                BorderBrush="{StaticResource PrimaryColor}"
                                 Command="{Binding SaveNewSupplierCommand}"
                                 CommandParameter="{Binding ElementName=AddNewSupplierScreen}"/>
                     </StackPanel>

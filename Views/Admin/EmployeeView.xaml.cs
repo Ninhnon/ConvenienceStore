@@ -1,6 +1,6 @@
-﻿using System;
+﻿using ConvenienceStore.ViewModel.Admin.AdminVM;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,19 +13,28 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ConvenienceStore.Views.Admin
 {
     /// <summary>
     /// Interaction logic for EmployeeView.xaml
     /// </summary>
-    public partial class EmployeeView : System.Windows.Controls.Page
+    public partial class EmployeeView : Page
     {
         public EmployeeView()
         {
             InitializeComponent();
-          
+        }
+
+        private void enter(object sender, KeyEventArgs e)
+        {
+            var searchTextBox = (TextBox)sender;
+            if (e.Key == Key.Enter)
+            {
+                var VM = searchTextBox.DataContext as EmployeeViewModel;
+               
+                VM.Search();
+            }
         }
     }
 }

@@ -45,26 +45,33 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             </BeginStoryboard>
         </EventTrigger>
     </Page.Triggers>
-    <Grid  Background="#f0f2f5">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1017*"/>
-            <ColumnDefinition Width="118*"/>
-        </Grid.ColumnDefinitions>
+    <Border CornerRadius="0,0,20,0">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color='#E9E4F0' Offset="0"/>
+                <GradientStop Color='#D3CCE3' Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1017*"/>
+                <ColumnDefinition Width="118*"/>
+            </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="10*" />
-            <RowDefinition Height="89*" />
-            <RowDefinition Height="1*" />
-        </Grid.RowDefinitions>
-        <!--cong cu va cac button-->
-        <StackPanel Grid.Row="0"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*" />
+                <RowDefinition Height="89*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <!--cong cu va cac button-->
+            <StackPanel Grid.Row="0"
                     Orientation="Horizontal"
                     Margin="20,0,0,10" Grid.ColumnSpan="2">
-            <Button BorderThickness="0" Background="#f0f2f5" BorderBrush="Transparent" Height="40" Command="{Binding OpenQRCommand}">
-                <Image Width="25" Height="25" 
+                <Button BorderThickness="0" Background="#f0f2f5" BorderBrush="Transparent" Height="40" Command="{Binding OpenQRCommand}">
+                    <Image Width="25" Height="25" 
                 Source="/Resources/Images/Product/qr.png" Stretch="Fill"/>
-            </Button>
-            <TextBox materialDesign:HintAssist.Hint="Tìm kiếm"
+                </Button>
+                <TextBox materialDesign:HintAssist.Hint="Tìm kiếm"
                      FontSize="18"
                      Foreground="#DD000000"
                      FontFamily="Arial"
@@ -76,11 +83,11 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      x:Name="FilterBox"
                      TextChanged="TextBox_TextChanged"
                      VerticalAlignment="Bottom">
-            </TextBox>
-            <StackPanel Orientation="Horizontal"
+                </TextBox>
+                <StackPanel Orientation="Horizontal"
                         Margin="30,0,0,0"
                         VerticalAlignment="Bottom">
-                <!--<ComboBox FontFamily="junegull.ttf" Padding="30 0 30 0" FontSize="15"  
+                    <!--<ComboBox FontFamily="junegull.ttf" Padding="30 0 30 0" FontSize="15"  
                           materialDesign:HintAssist.Hint="Trạng Thái" 
                           x:Name="StatusViewMode"
                           SelectedItem="{Binding StatusName,Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
@@ -95,153 +102,154 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     <ComboBoxItem Content="Còn 10 ngày" />
                     <ComboBoxItem Content="Khác" />
                 </ComboBox>-->
-            </StackPanel>
-            <StackPanel Orientation="Horizontal"
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
                         Margin="30,0,0,0"
                         VerticalAlignment="Bottom">
-                <ComboBox x:Name="cbxViewMode"
+                    <ComboBox x:Name="cbxViewMode"
                     FontFamily="junegull.ttf" FontSize="15"  Padding="30 0 30 0"
                     SelectedItem="{Binding ItemViewMode,Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                     materialDesign:HintAssist.Hint="Loại" >
-                    <ComboBoxItem Content="Tất cả" />
-                    <ComboBoxItem Content="Thức uống" />
-                    <ComboBoxItem Content="Đồ ăn" />
-                    <ComboBoxItem Content="Khác" />
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction Command="{Binding FilterListProductCommand}"
+                        <ComboBoxItem Content="Tất cả" />
+                        <ComboBoxItem Content="Thức uống" />
+                        <ComboBoxItem Content="Đồ ăn" />
+                        <ComboBoxItem Content="Khác" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding FilterListProductCommand}"
                             CommandParameter="{Binding ElementName=cbxViewMode}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </ComboBox>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal"
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
                         Margin="30,0,0,0"
                         VerticalAlignment="Bottom" >
-                <!--<Button Command="{Binding ReportCommand}" Content="Báo cáo" ></Button>-->
-            </StackPanel>
-            <Button Command="{Binding RefreshWindowCM}"
+                    <!--<Button Command="{Binding ReportCommand}" Content="Báo cáo" ></Button>-->
+                </StackPanel>
+                <Button Command="{Binding RefreshWindowCM}"
                     Width="20" Height="20" Margin="0 10 0 -10"
   Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
   ToolTip="MaterialDesignFloatingActionMiniLightButton">
-                <materialDesign:PackIcon
+                    <materialDesign:PackIcon
     Kind="Refresh"
     Height="20" Width="20" Margin="-1 -1 0 0" />
-            </Button>
-            
-        </StackPanel>
+                </Button>
 
-        <!--SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"-->
-        <materialDesign:Card Grid.Row="1" Margin="2,2,2,2" Grid.ColumnSpan="2" >
-            <ScrollViewer MouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Auto">
-                <ListView  x:Name="ProductListView"
+            </StackPanel>
+
+            <!--SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"-->
+            <materialDesign:Card Grid.Row="1" Margin="2,2,2,2" Grid.ColumnSpan="2" >
+                <ScrollViewer MouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Auto">
+                    <ListView  x:Name="ProductListView"
                            ItemsSource="{Binding List}"
                            FontFamily="Bahnschrift SemiLight"
                            SelectedItem="{Binding SelectedItem}"
                            Visibility="Visible">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDoubleClick">
-                            <i:InvokeCommandAction Command="{Binding LoadDetailWindowCM}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <ListView.View >
-                        <GridView >
-                            <GridViewColumn Width="100">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Border CornerRadius="8" Width="50" Height="50">
-                                            <Border.Background>
-                                                <ImageBrush Stretch="Fill" ImageSource="{Binding Image}" />
-                                            </Border.Background>
-                                        </Border>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Id">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding BarCode}"  Margin="-15 15 0 0"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Title" >
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Title}"  Margin="15 15 0 0"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Origin" >
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding ProductionSite}"  Margin="15 15 0 0"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="HSD" Width="150">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding LoadDetailWindowCM}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ListView.View >
+                            <GridView >
+                                <GridViewColumn Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border CornerRadius="8" Width="50" Height="50">
+                                                <Border.Background>
+                                                    <ImageBrush Stretch="Fill" ImageSource="{Binding Image}" />
+                                                </Border.Background>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Id">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding BarCode}"  Margin="-15 15 0 0"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Title" >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Title}"  Margin="15 15 0 0"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Origin" >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ProductionSite}"  Margin="15 15 0 0"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="HSD" Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
 
-                                        <StackPanel Orientation="Horizontal">
-                                            <StackPanel Width="65">
-                                                <TextBlock Text="{Binding ExpiryDate,StringFormat=dd/MM/yyyy}" Margin="0 15 0 0"/>
-                                            </StackPanel>
-                                            <StackPanel  Orientation="Horizontal" VerticalAlignment="Center">
-                                                <Border Cursor="Hand"
+                                            <StackPanel Orientation="Horizontal">
+                                                <StackPanel Width="65">
+                                                    <TextBlock Text="{Binding ExpiryDate,StringFormat=dd/MM/yyyy}" Margin="0 15 0 0"/>
+                                                </StackPanel>
+                                                <StackPanel  Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <Border Cursor="Hand"
                                                         BorderThickness="1"
                                                         CornerRadius="10"
                                                         Background="Transparent"
                                                         HorizontalAlignment="Right"
                                                         VerticalAlignment="Center">
-                                                    <!--Visibility="{Binding Status,Converter={StaticResource EditConverter}}"-->
-                                                    <materialDesign:PackIcon Kind="AlertCircle" Foreground="{Binding HSDColor}" />
-                                                    <!--<i:Interaction.Triggers>
+                                                        <!--Visibility="{Binding Status,Converter={StaticResource EditConverter}}"-->
+                                                        <materialDesign:PackIcon Kind="AlertCircle" Foreground="{Binding HSDColor}" />
+                                                        <!--<i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="MouseLeftButtonUp">
                                                             <i:InvokeCommandAction Command="{Binding ElementName=ProductListView, Path=DataContext.L}" />
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>-->
-                                                </Border>
+                                                    </Border>
+                                                </StackPanel>
                                             </StackPanel>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Cost">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Cost}"  Margin="12 15 0 0"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Amount">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Stock}"   Margin="30 15 0 0" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Border Cursor="Hand" Margin="0,10,0,0"
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Cost">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Cost}"  Margin="12 15 0 0"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Amount">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Stock}"   Margin="30 15 0 0" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border Cursor="Hand" Margin="0,10,0,0"
                                         Background="Transparent" Width="30" Height="30">
-                                            <!--Visibility="{Binding Status,Converter={StaticResource EditConverter}}"-->
-                                            <materialDesign:PackIcon Kind="AlertCircleOutline"
+                                                <!--Visibility="{Binding Status,Converter={StaticResource EditConverter}}"-->
+                                                <materialDesign:PackIcon Kind="AlertCircleOutline"
                                             Width="30" Height="30"                         
                                              VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                    <i:InvokeCommandAction Command="{Binding ElementName=ProductListView, Path=DataContext.LoadDetailWindowCM}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Border>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </ScrollViewer>
-        </materialDesign:Card>
-    </Grid>
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=ProductListView, Path=DataContext.LoadDetailWindowCM}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ScrollViewer>
+            </materialDesign:Card>
+        </Grid>
+    </Border>
 </Page>

@@ -33,8 +33,8 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryBillData = @"select * from [Bill]";
         static readonly string queryInsertBill = @"insert into Bill(BillDate, CustomerId, UserId, Price) Values (@billDate, @cusId, @userId, @price)";
         static readonly string queryAvatar = @"select Avatar from [Users] where Id={0}";
+        static readonly string queryName = @"select Name from [Users] where Id={0}";
         static readonly string insertErorrs = "insert into Report(Title, Description, Status, RepairCost, SubmittedAt, StaffId, Image) select N'{0}',N'{1}',N'{2}',{3},N'{4}',N'{5}', BulkColumn FROM Openrowset(Bulk N'{6}', Single_Blob) as img";
-        static readonly string insertReport = "insert Report values (@Title, @Description, @Status, @SubmittedAt,Null,Null,@RepairCost,@StaffId, @Image)";
         static readonly string queryInsertBillDetail = @"insert into BillDetail(BillId, ProductId, Quantity, TotalPrice) values (@billId, @productId, @quantity, @totalPrice)";
         static readonly string querySearchVoucher = @"select Code, Status, TypeVoucher, ParValue, StartDate, FinishDate
                                                         from Voucher v join BlockVoucher b on v.BlockId = b.Id
@@ -42,6 +42,10 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryUpdateVoucherStatus = @"update Voucher set Status = 1 where Code = @code";
         static readonly string queryVoucherDetail = @"select Code, Status, TypeVoucher, ParValue, StartDate, FinishDate from Voucher v join BlockVoucher b on v.BlockId = b.Id";
 
+        static readonly string insertReport = "insert Report values (@Title, @Description, @Status, @SubmittedAt,@RepairCost,Null,Null,@StaffId, @Image)";
+        static readonly string insertBillData = @"insert into Bill(BillDate, CustomerId, UserId, Price) Values (@billDate, @cusId, @userId, @price)";
+        static readonly string updateReport = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost
+                                                 where SubmittedAt=@SubmittedAt";
         public static List<Model.Staff.Bill> FetchingBillData()
         {
             sqlCon.Open();
@@ -303,6 +307,21 @@ namespace ConvenienceStore.Utils.Helpers
 
             return Avatar;
         }
+        public static string GetName(int id)
+        {
+            var strCmd = string.Format(queryName, id);
+            sqlCon.Open();
+            string s="Nguyễn Trọng Ninh";
+            SqlCommand cmd = new(strCmd, sqlCon);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                s = reader.GetString(0);
+            }
+            reader.Close();
+            sqlCon.Close();
+            return s;
+        }
         public static void InsertReport(Report report)
         {
             sqlCon.Open();
@@ -422,6 +441,21 @@ namespace ConvenienceStore.Utils.Helpers
                 cmd.ExecuteNonQuery();
                 sqlCon.Close();
             }
+        }
+        public static void UpdateReport(Report editedReport)
+        {
+            sqlCon.Open();
+
+            // Update values in Product table
+            var cmd = new SqlCommand(updateReport, sqlCon);
+
+            cmd.Parameters.AddWithValue("@Title", editedReport.Title);
+            cmd.Parameters.AddWithValue("@Image", editedReport.Image);
+            cmd.Parameters.AddWithValue("@RepairCost", editedReport.RepairCost);
+            cmd.Parameters.AddWithValue("@SubmittedAt", editedReport.SubmittedAt);
+            cmd.ExecuteNonQuery();
+
+            sqlCon.Close();
         }
     }
 }

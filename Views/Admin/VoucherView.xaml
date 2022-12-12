@@ -14,7 +14,7 @@
       mc:Ignorable="d" 
       x:Name="VoucherScreen"
       Style="{StaticResource Page_Style}"
-      Height="638"
+      Height="620"
       Width="1140">
 
     <Page.Resources>
@@ -38,9 +38,11 @@
             </Grid.ColumnDefinitions>
 
             <Border x:Name="BlockVoucherS1"
-                    Grid.Column="0">
+                    Grid.Column="0"
+                    CornerRadius="8 0 0 8">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color='#E9E4F0' Offset="0"/>
                         <GradientStop Color='#D3CCE3' Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
@@ -205,7 +207,8 @@
 
             <Border x:Name="BlockVoucherS2"
                     Grid.Column="1"
-                    Background="#E9E4F0">
+                    Background="#E9E4F0"
+                    CornerRadius="0 8 8 0">
                 <StackPanel Grid.Column="1"
                     Margin="25 20 25 20">
                     <TextBlock Text="Phát hành Voucher"
@@ -378,12 +381,12 @@
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Ngày kết thúc"
-                        FontSize="18"
-                        FontWeight="SemiBold"
-                        Margin="0 0 0 4"/>
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   Margin="0 0 0 4"/>
                         <TextBlock Text=" *"
-                            Foreground="Red"
-                            FontSize="18"/>
+                                   Foreground="Red"
+                                   FontSize="18"/>
                     </StackPanel>
 
                     <Grid>
@@ -402,9 +405,14 @@
                         Foreground="Red"
                         Margin="0 0 0 10"/>
 
-                    <Button Content="Tạo"
-                    Command="{Binding GenerateBlockVoucher}"
-                    CommandParameter="{Binding ElementName=VoucherScreen}"/>
+                    <Button Command="{Binding GenerateBlockVoucher}"
+                            CommandParameter="{Binding ElementName=VoucherScreen}"
+                            Height="35">
+                        <Button.Content>
+                            <TextBlock Text="Tạo"
+                                       FontSize="16"/>
+                        </Button.Content>
+                    </Button>
 
                 </StackPanel>
             </Border>
@@ -413,7 +421,8 @@
 
             <Border x:Name="Voucher"
                     Grid.Column="0"
-                    Visibility="Hidden">
+                    Visibility="Hidden"
+                    CornerRadius="8 0 0 8">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                         <GradientStop Color='#D3CCE3' Offset="1"/>
@@ -514,10 +523,11 @@
             <Border x:Name="BlockVoucherDetail"
                     Grid.Column="1"
                     Background="#E9E4F0"
-                    Visibility="Hidden">
+                    Visibility="Hidden"
+                    CornerRadius="0 8 8 0">
                 <StackPanel VerticalAlignment="Center"
                             Margin="30 0">
-                    <Grid Margin="0 0 0 10">
+                    <Grid Margin="0 0 0 15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120"/>
                             <ColumnDefinition Width="25"/>
@@ -535,7 +545,7 @@
                                    d:Text="NOEL"/>
                     </Grid>
 
-                    <Grid Margin="0 0 0 10">
+                    <Grid Margin="0 0 0 15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120"/>
                             <ColumnDefinition Width="25"/>
@@ -553,7 +563,7 @@
                                    d:Text="Giảm theo phần trăm"/>
                     </Grid>
 
-                    <Grid Margin="0 0 0 10">
+                    <Grid Margin="0 0 0 15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120"/>
                             <ColumnDefinition Width="25"/>
@@ -571,7 +581,7 @@
                                    d:Text="20"/>
                     </Grid>
 
-                    <Grid Margin="0 0 0 10">
+                    <Grid Margin="0 0 0 15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120"/>
                             <ColumnDefinition Width="25"/>
@@ -589,7 +599,7 @@
                                    d:Text="100"/>
                     </Grid>
 
-                    <Grid Margin="0 0 0 10">
+                    <Grid Margin="0 0 0 15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120"/>
                             <ColumnDefinition Width="25"/>
@@ -607,7 +617,7 @@
                                    d:Text="15-01-2023"/>
                     </Grid>
 
-                    <Grid Margin="0 0 0 10">
+                    <Grid Margin="0 0 0 15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120"/>
                             <ColumnDefinition Width="25"/>

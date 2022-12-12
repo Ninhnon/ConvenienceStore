@@ -8,26 +8,27 @@
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
       xmlns:SupplierCard="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.SupplierCard"
+      DataContext="{StaticResource SupplierVM}"
       mc:Ignorable="d" 
-      Height="638"
+      Height="620"
       Width="1140"
-       Style="{StaticResource Page_Style}"
+      Style="{StaticResource Page_Style}"
+      
       Title="SupplierView"
       >
     <Page.Resources>
         <Converters:StringToVisibility x:Key="StringToVisibility"/>
         <SupplierCard:EditSupplierButton x:Key="EditSupplierButton"/>
     </Page.Resources>
-    <Border CornerRadius="0,0,20,0">
+    
+    <Border CornerRadius="8">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                 <GradientStop Color='#E9E4F0' Offset="0"/>
                 <GradientStop Color='#D3CCE3' Offset="1"/>
             </LinearGradientBrush>
         </Border.Background>
-        <Grid DataContext="{StaticResource SupplierVM}" HorizontalAlignment="Right" Width="1125"
-              >
-
+        <Grid>
             <StackPanel Margin="30 20">
                 <Grid Margin="0 0 0 20">
                     <Grid.ColumnDefinitions>
@@ -65,9 +66,9 @@
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Số lượng:  "
-                           FontSize="24"
-                           FontWeight="DemiBold"
-                           VerticalAlignment="Center"/>
+                                   FontSize="24"
+                                   FontWeight="DemiBold"
+                                   VerticalAlignment="Center"/>
                         <TextBlock Text="{Binding ObservableSupplier.Count}"
                            d:Text="10"
                            FontSize="24"
@@ -144,7 +145,7 @@
                       ScrollViewer.VerticalScrollBarVisibility="Hidden"
                       ScrollViewer.CanContentScroll="False"
                       VirtualizingPanel.IsVirtualizing="True"
-                      Height="434"
+                      Height="440"
                       CanUserAddRows="False"
                       AutoGenerateColumns="False">
 

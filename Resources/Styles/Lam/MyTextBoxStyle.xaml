@@ -16,7 +16,7 @@
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border x:Name="txtBorder"
                             Background="{TemplateBinding Background}"
-                            CornerRadius="5"
+                            CornerRadius="8"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             SnapsToDevicePixels="True">

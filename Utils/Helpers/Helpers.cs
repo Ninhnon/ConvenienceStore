@@ -83,7 +83,7 @@ namespace ConvenienceStore.Utils.Helpers
             return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\EmailTemplate", $"{fileName}" /*SelectedItem.Image*/);
         }
 
-        public static string? FormatVNMoney(decimal? money)
+        public static string? FormatVNMoney(int money)
         {
             if (money == 0)
             {

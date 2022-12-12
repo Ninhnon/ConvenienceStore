@@ -79,7 +79,12 @@ namespace ConvenienceStore.Model
         {
 
         }
-    
+        private int tong_;
+        public int Tong
+        {
+            get { return tong_; } set { tong_ = value; }
+        }
+
         public Account(int idAccount_,string userRole_, string name_, string address_, string phone_, string email_, string username_, string password_, byte[] avatar_,int managerId_)
         {
             this._idAccount = idAccount_;
@@ -107,6 +112,12 @@ namespace ConvenienceStore.Model
             this.avatar_ = avatar_;
             this.managerId_ = managerId_;
 
+        }
+        public Account(int idAccount,string name_, int tong_)
+        {
+            this._idAccount = idAccount;
+            this.name_= name_;
+            this.tong_= tong_;
         }
     }
 }

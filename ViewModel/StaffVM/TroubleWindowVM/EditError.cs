@@ -1,18 +1,17 @@
 ﻿
+using ConvenienceStore.Model;
+using ConvenienceStore.Model.Staff;
+using ConvenienceStore.Utils.Helpers;
+using ConvenienceStore.Utils.Validation;
 using ConvenienceStore.Views;
-using System.Threading.Tasks;
+using ConvenienceStore.Views.Staff.TroubleWindow;
+using FluentValidation;
+using System;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
-using ConvenienceStore.Views.Staff.TroubleWindow;
-using System.Collections.ObjectModel;
 using System.Windows.Media.Imaging;
-using System.Drawing;
-using System.IO;
-using System;
-using ConvenienceStore.ViewModel.StaffVM;
-using ConvenienceStore.Utils.Helpers;
-using ConvenienceStore.Model.Staff;
-using ConvenienceStore.Model;
 
 namespace ConvenienceStore.ViewModel.TroubleWindowVM
 {
@@ -28,21 +27,99 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             set { troubleID = value; }
         }
 
-        public void LoadEditError(EditError w1)
+        public void LoadEditError(EditTrouble w1)
         {
             IsImageChanged = false;
-            Title = SelectedItem.Title.ToString();
-            w1.staffname.Text = CurrentAccount.Name;
-            w1.cbxStatusError.Text = SelectedItem.Status;
+            w1.CostTextBox.Text = SelectedItem.RepairCost.ToString();
+            w1.StaffName.Text = DatabaseHelper.GetName(SelectedItem.StaffId);
+            w1.cbxStatus.Text = SelectedItem.Status;
             w1.submitdate.Text = SelectedItem.SubmittedAt.ToShortDateString();
             Description = SelectedItem.Description;
-            BitmapImage image = new BitmapImage();
-            image.BeginInit();
-            image.StreamSource = new MemoryStream(SelectedItem.Image);
-            image.EndInit();
-            ImageSource = image;
-            
+            //BitmapImage image = new BitmapImage();
+            //image.BeginInit();
+            //image.StreamSource = new MemoryStream(SelectedItem.Image);
+            //image.EndInit();
+            //ImageSource = image; 
             //ImageSource = new BitmapImage(new System.Uri(filepath)) ;
+        }
+        public void Update(EditTrouble p)
+        {
+            p.TitleErrorMessage.Text = string.Empty;
+            p.CostErrorMessage.Text = string.Empty;
+            // Pre Validation
+            bool isValid = true;
+
+            if (string.IsNullOrEmpty(p.CostTextBox.Text))
+            {
+                p.CostErrorMessage.Text = "Chưa nhập Chi phí dự kiến";
+                isValid = false;
+            }
+            else
+            {
+                if (!int.TryParse(p.CostTextBox.Text, out int a))
+                {
+                    p.CostErrorMessage.Text = "Chi phí dự kiến không hợp lệ";
+                    isValid = false;
+                }
+            }
+
+
+            if (!isValid) return;
+            // Pre Validation Done 
+
+
+            var newReport = new Report()
+            {
+                Title = p.TitleTextBox.Text,
+                Status = p.cbxStatus.Text,
+                Description = p.cbxDecription.Text,
+                RepairCost = int.Parse(p.CostTextBox.Text),
+                SubmittedAt = DateTime.Now,
+                StaffId = CurrentAccount.idAccount,
+            };
+            if (p.ImageReport.ImageSource != null)
+            {
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(p.ImageReport.ImageSource as BitmapImage));
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    encoder.Save(ms);
+                    newReport.Image = ms.ToArray();
+                }
+            }
+            else newReport.Image = SelectedItem.Image;
+            ReportValidator validator = new ReportValidator();
+
+            // Note For Me: stops executing a rule as soon as a validator fails
+            // See more: https://docs.fluentvalidation.net/en/latest/cascade.html
+            validator.RuleLevelCascadeMode = CascadeMode.Stop;
+
+            var results = validator.Validate(newReport);
+
+            if (results.IsValid == false)
+            {
+                foreach (var error in results.Errors)
+                {
+
+                    if (error.PropertyName == "Title")
+                        p.TitleErrorMessage.Text = error.ErrorMessage;
+
+                    if (error.PropertyName == "RepairCost")
+                        p.CostErrorMessage.Text = error.ErrorMessage;
+                    return;
+                }
+            }
+            if (tmpReport.Title != newReport.Title ||
+                tmpReport.Image != newReport.Image ||
+                tmpReport.RepairCost != newReport.RepairCost)
+            {
+                // Sau khi cửa sổ Edit đóng thì "currentProduct" đã được update
+                DatabaseHelper.UpdateReport(newReport);
+                ListError.Clear();
+                danhsach = DatabaseHelper.FetchingReportData();
+                ListError = new ObservableCollection<Report>(danhsach);
+            }
+            p.Close();
         }
         public void UpdateErrorFunc(EditError p)
         {
@@ -95,7 +172,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
 
                 //    await GetData();
 
-                
+
                 //    p.Close();
                 //}
                 //else

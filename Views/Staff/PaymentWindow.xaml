@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:ConvenienceStore.Views.Staff"
         mc:Ignorable="d"
         Title="PaymentWindow"
-        d:DesignHeight="600"
-        d:DesignWidth="1100"
+        Height="638"
+      Width="1140"
         x:Name="paymentWindow"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -23,6 +23,7 @@
       ShowsNavigationUI="False">
     <Border CornerRadius="8"
             Background="LightBlue">
+
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="Loaded">
                 <i:InvokeCommandAction Command="{Binding MaskNameCM}"

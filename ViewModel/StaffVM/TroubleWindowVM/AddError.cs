@@ -134,6 +134,6 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 DatabaseHelper.InsertReport(newReport);
                 p.Close();
             }
-                } 
-    }
+        }
+    } 
 }

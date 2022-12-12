@@ -26,7 +26,7 @@
 
         <Border Background="Black"
                 Opacity="0.4"
-                CornerRadius="25">
+                CornerRadius="8">
         </Border>
 
         <StackPanel Orientation="Vertical"
@@ -35,7 +35,7 @@
                     VerticalAlignment="Center">
 
             <Border Background="{StaticResource PrimaryColor}"
-                    CornerRadius="25 25 0 0">
+                    CornerRadius="8 8 0 0">
                 <TextBlock Text="Nhập kho"
                            Foreground="White"
                            FontSize="35"
@@ -47,7 +47,7 @@
 
             <Border Grid.Row="1"
                     Background="White"
-                    CornerRadius="0 0 20 25">
+                    CornerRadius="0 0 8 8">
 
                 <StackPanel Margin="30 25 30 30"
                         VerticalAlignment="Center">
@@ -107,7 +107,7 @@
 
                         <StackPanel Grid.Column="1">
                             <ComboBox x:Name="SupplierComboBox"
-                                      materialDesign:HintAssist.Hint="Select"
+                                      materialDesign:HintAssist.Hint="Chọn nhà cung cấp"
                                       materialDesign:HintAssist.HintOpacity=".26"
                                       materialDesign:ComboBoxAssist.MaxLength="2"
                                       VerticalAlignment="Top"
@@ -124,8 +124,8 @@
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Right">
                         <Button Content="Hủy"
-                                Foreground="{StaticResource PrimaryColor}"
                                 Style="{StaticResource MaterialDesignOutlinedButton}"
+                                Foreground="{StaticResource PrimaryColor}"
                                 BorderBrush="{StaticResource PrimaryColor}"
                                 Margin="0 0 20 0"
                                 Width="75"
@@ -134,7 +134,7 @@
 
                         <Button Content="Tạo"
                                 Background="{StaticResource PrimaryColor}"
-                                BorderThickness="0"
+                                BorderBrush="{StaticResource PrimaryColor}"
                                 Command="{Binding CreateInputInfoButtonCommand}"
                                 CommandParameter="{Binding ElementName=AddNewInputInfoScreen}"
                                 Width="75"/>
