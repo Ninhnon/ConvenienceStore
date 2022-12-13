@@ -6,7 +6,10 @@
                     xmlns:converter="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
                     xmlns:vmAdminVM="clr-namespace:ConvenienceStore.ViewModel.Admin.AdminVM"
                     xmlns:vmAdmin="clr-namespace:ConvenienceStore.ViewModel.Admin"
-                    xmlns:subViewModel="clr-namespace:ConvenienceStore.ViewModel.SubViewModel">
+                    xmlns:subViewModel="clr-namespace:ConvenienceStore.ViewModel.SubViewModels"
+                    
+                    
+                    >
     <!-- VM của Lâm đẹp troai -->
     <vmAdminVM:InputInfoVM x:Key="InputInfoVM"/>
     <vmAdminVM:SupplierVM x:Key="SupplierVM"/>
@@ -20,7 +23,8 @@
     <vmAdminVM:EmployeeViewModel x:Key="EmployeeVM"/>
     <vmAdmin:AdminMainViewModel x:Key="AdminMainWindowVM"/>
     <subViewModel:AddEmployeeViewModel x:Key="AddEmployeeVM"/>
-
+    <subViewModel:SettingViewModel x:Key="SettingVM"/>
+    <subViewModel:ChangePasswordViewModel x:Key="ChangePasswordVM"/>
     <vmLogin:LoginViewModel x:Key="LoginVM"/>
     <staffViewModel:MainStaffViewModel x:Key="MainStaffVM"/>
     <staffViewModel:VoucherVM x:Key="VoucherStaffVM"/>

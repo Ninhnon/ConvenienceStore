@@ -15,14 +15,13 @@ using System.Windows.Shapes;
 namespace ConvenienceStore.Views.Admin.SubViews
 {
     /// <summary>
-    /// Interaction logic for EditEmployeeView.xaml
+    /// Interaction logic for ChangePasswordView.xaml
     /// </summary>
-    public partial class EditEmployeeView : Window
+    public partial class ChangePasswordView : Window
     {
-        public EditEmployeeView()
+        public ChangePasswordView()
         {
             InitializeComponent();
         }
-       
     }
 }

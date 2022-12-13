@@ -36,5 +36,9 @@ namespace ConvenienceStore.Views.Staff
             WindowState = WindowState.Minimized;
         }
 
+        private void PagesNavigation_Navigated()
+        {
+
+        }
     }
 }

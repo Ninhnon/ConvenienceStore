@@ -15,14 +15,22 @@ using System.Windows.Shapes;
 namespace ConvenienceStore.Views.Admin.SubViews
 {
     /// <summary>
-    /// Interaction logic for EditEmployeeView.xaml
+    /// Interaction logic for Setting.xaml
     /// </summary>
-    public partial class EditEmployeeView : Window
+    public partial class Setting : Window
     {
-        public EditEmployeeView()
+        public Setting()
         {
             InitializeComponent();
         }
-       
+        private void ImagePreview_MouseEnter(object sender, MouseEventArgs e)
+        {
+            MarkUploadImage.Visibility = Visibility.Visible;
+        }
+
+        private void MarkUploadImage_MouseLeave(object sender, MouseEventArgs e)
+        {
+            MarkUploadImage.Visibility = Visibility.Hidden;
+        }
     }
 }
