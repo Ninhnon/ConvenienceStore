@@ -37,8 +37,13 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         // Doanh thu tháng này 
         private string thisMonth;
         public string ThisMonth { get => thisMonth; set { thisMonth = value; OnPropertyChanged(); } }
+
+
         private string thisMonth1;
         public string ThisMonth1 { get => thisMonth1; set { thisMonth1 = value; OnPropertyChanged(); } }
+
+        private string thisYear;
+        public string ThisYear{ get => thisYear; set { thisYear = value; OnPropertyChanged(); } }
 
         private string thisMonthRevenue = "0 đồng";
         public string ThisMonthRevenue { get => thisMonthRevenue; set { thisMonthRevenue = value; OnPropertyChanged(); } }
@@ -71,7 +76,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public void LoadDefaultChart(HomeView homeWindow)
         {
             Hello = "Hello, " + CurrentAccount.Name;
-         
+         ThisYear= DateTime.Now.ToString("yyyy");
             ThisMonth = "This month Profit " + DateTime.Now.ToString("MM/yyyy");
             ThisMonth1 = DateTime.Now.ToString("MM/yyyy");
             string currentDay = DateTime.Now.Day.ToString();

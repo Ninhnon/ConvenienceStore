@@ -159,7 +159,7 @@
                         <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" 
                                 Cursor="Hand"
                                 Click="btnClose_Click"
-                                Margin="20 50 15 20">
+                                Margin="0 20 0 20">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Logout"/>
