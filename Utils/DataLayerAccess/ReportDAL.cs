@@ -269,6 +269,57 @@ namespace ConvenienceStore.Utils.DataLayerAccess
 
             return accs;
         }
+        public string QueryFoodRevenueInYear( string year)
+        {
+            string s = "";
+            OpenConnection();
+            string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                "join product on billdetail.productid = product.barcode where product.type = N\'Đồ ăn\'  and year(billdate) = {0}", int.Parse(year));
+            SqlCommand command = new SqlCommand(queryString, conn);
+
+            SqlDataReader rdr = command.ExecuteReader();
+            while (rdr.Read())
+            {
+                s = rdr.GetInt32(0).ToString();
+            }
+            CloseConnection();
+
+            return s;
+        }
+        public string QueryDrinkRevenueInYear( string year)
+        {
+            string s = "";
+            OpenConnection();
+            string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                "join product on billdetail.productid = product.barcode where product.type = N\'Thức uống\'  and year(billdate) = {0}", int.Parse(year));
+            SqlCommand command = new SqlCommand(queryString, conn);
+
+            SqlDataReader rdr = command.ExecuteReader();
+            while (rdr.Read())
+            {
+                s = rdr.GetInt32(0).ToString();
+            }
+            CloseConnection();
+
+            return s;
+        }
+        public string QueryOtherRevenueInYear( string year)
+        {
+            string s = "";
+            OpenConnection();
+            string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                "join product on billdetail.productid = product.barcode where product.type = N\'Khác\'  and year(billdate) = {0}",  int.Parse(year));
+            SqlCommand command = new SqlCommand(queryString, conn);
+
+            SqlDataReader rdr = command.ExecuteReader();
+            while (rdr.Read())
+            {
+                s = rdr.GetInt32(0).ToString();
+            }
+            CloseConnection();
+
+            return s;
+        }
         public string QueryFoodRevenueInMonth(string month,string year)
         {
             string s = "";

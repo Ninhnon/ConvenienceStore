@@ -340,9 +340,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             string currentMonth = DateTime.Now.Month.ToString();
      
             string currentYear = DateTime.Now.Year.ToString();
-            FoodRevenue1 =(ReportDAL.Instance.QueryFoodRevenueInMonth(currentMonth, currentYear)).ToString();
-            DrinkRevenue1 = (ReportDAL.Instance.QueryDrinkRevenueInMonth(currentMonth, currentYear)).ToString();
-            OtherRevenue1 = (ReportDAL.Instance.QueryOtherRevenueInMonth(currentMonth, currentYear)).ToString();
+            FoodRevenue1 =(ReportDAL.Instance.QueryFoodRevenueInYear( currentYear)).ToString();
+            DrinkRevenue1 = (ReportDAL.Instance.QueryDrinkRevenueInYear( currentYear)).ToString();
+            OtherRevenue1 = (ReportDAL.Instance.QueryOtherRevenueInYear(currentYear)).ToString();
 
             ChartValues<long> food = new ChartValues<long>();
             food.Add(long.Parse(FoodRevenue1));
