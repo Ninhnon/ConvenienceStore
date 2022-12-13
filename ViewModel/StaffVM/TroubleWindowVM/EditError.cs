@@ -78,22 +78,15 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 StaffId = CurrentAccount.idAccount,
                 Id = SelectedItem.Id,
             };
-            //if (p.ImageReport.ImageSource != null)
-            //{
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(p.ImageProduct.ImageSource as BitmapImage));
+            BitmapSource src = (BitmapSource)p.ImageProduct.ImageSource;
+            encoder.Frames.Add(BitmapFrame.Create(src));
             using (MemoryStream ms = new MemoryStream())
             {
                 encoder.Save(ms);
                 newReport.Image = ms.ToArray();
             }
-            //}
-            //else
-            //newReport.Image = SelectedItem.Image;
             ReportValidator validator = new ReportValidator();
-
-            // Note For Me: stops executing a rule as soon as a validator fails
-            // See more: https://docs.fluentvalidation.net/en/latest/cascade.html
             validator.RuleLevelCascadeMode = CascadeMode.Stop;
 
             var results = validator.Validate(newReport);

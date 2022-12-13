@@ -87,7 +87,7 @@
 
                                 <ComboBox Style="{StaticResource CustomComboBox}"
                                           SelectedIndex="0"
-                                          SelectedItem="{Binding SelectedStatus, Mode=OneWayToSource}"
+                                          SelectedItem="{Binding SelectedStatus}"
                                           ItemsSource="{Binding Statuses}"
                                           Width="195">
                                     <ComboBox.ItemTemplate>

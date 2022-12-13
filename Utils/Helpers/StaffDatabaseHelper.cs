@@ -25,7 +25,7 @@ namespace ConvenienceStore.Utils.Helpers
         where c.ProductId=p.Barcode and h.ProductId=c.ProductId and h.e = c.ExpiryDate
         order by ExpiryDate";
         static readonly string queryVoucher = @"select * from [Voucher]";
-        static readonly string queryReport = @"select * from [Report]";
+        static readonly string queryReport = @"select * from [Report] order by SubmittedAt";
         static readonly string queryUser = @"select * from [Users]";
         static readonly string queryConsingment = @"select * from [Consignment]";
         static readonly string queryCustomerData = @"select * from [Customer]";
@@ -37,7 +37,7 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryInsertBillDetail = @"insert into BillDetail(BillId, ProductId, Quantity, TotalPrice) values (@billId, @productId, @quantity, @totalPrice)";
         static readonly string insertReport = "insert into Report(Title, Description, Status, SubmittedAt, RepairCost, StaffId, Image) values (@Title, @Description, @Status, @SubmittedAt,@RepairCost,@StaffId, @Image)";
         static readonly string insertBillData = @"insert into Bill(BillDate, CustomerId, UserId, Price) Values (@billDate, @cusId, @userId, @price)";
-        static readonly string updateReport = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost ,Description = @Description                                                 where Id=@Id";
+        static readonly string updateReport = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost ,Description = @Description where Id=@Id";
         static readonly string updateReportAD = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost,Status = @Status,StartDate = @StartDate,FinishDate = @FinishDate,Description = @Description
                                                  where Id=@Id";
         public static List<Model.Staff.Bill> FetchingBillData()

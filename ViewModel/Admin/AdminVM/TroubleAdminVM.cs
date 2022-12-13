@@ -4,6 +4,7 @@ using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Utils.Validation;
 using ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand.DeleteInputInfoCommand;
 using ConvenienceStore.Views.Admin.TroubleWindow;
+using Emgu.CV.Cuda;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -225,12 +226,6 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             if (SelectedReport.StartDate.HasValue) w1.startdate.Text = String.Format("{0:dd/MM/yyyy}", SelectedReport.StartDate);
             if (SelectedReport.FinishDate.HasValue) w1.finishdate.Text = String.Format("{0:dd/MM/yyyy}", SelectedReport.FinishDate);
             Description = SelectedReport.Description;
-            //BitmapImage image = new BitmapImage();
-            //image.BeginInit();
-            //image.StreamSource = new MemoryStream(SelectedReport.Image);
-            //image.EndInit();
-            //ImageSource = image; 
-            //ImageSource = new BitmapImage(new System.Uri(filepath)) ;
         }
         public void Update(EditTrouble p)
         {
@@ -274,17 +269,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             }
             if (!isValid) return;
             // Pre Validation Done 
-
             var t = SelectedReport.Image;
-            //var Title = p.TitleTextBox.Text;
-            //var Status = p.cbxStatus.Text;
-            //var Description = p.cbxDecription.Text;
-            //var SubmittedAt = DateTime.Now;
-            //var RepairCost = int.Parse(p.CostTextBox.Text);
-            //var StaffId = CurrentAccount.idAccount;
-            //var StartDate = (DateTime)p.StartDate.SelectedDate;
-            //var FinishDate = (DateTime)p.FinishDate.SelectedDate;
-            //var Id = SelectedReport.Id;
             var newReport = new Report()
             {
                 Title = p.TitleTextBox.Text,
@@ -297,10 +282,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 //FinishDate = (DateTime)p.FinishDate.SelectedDate == null ? SelectedReport.FinishDate : (DateTime)p.StartDate.SelectedDate,
                 Id = SelectedReport.Id,
             };
-            //if (p.ImageReport.ImageSource != null)
-            //{
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(p.ImageProduct.ImageSource as BitmapImage));
+            BitmapSource src = (BitmapSource)p.ImageProduct.ImageSource;
+            encoder.Frames.Add(BitmapFrame.Create(src));
             using (MemoryStream ms = new MemoryStream())
             {
                 encoder.Save(ms);
@@ -344,10 +328,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             {
                 // Sau khi cửa sổ Edit đóng thì "currentProduct" đã được update
                 DatabaseHelper.UpdateReportAD(newReport);
-                //ObservableReports.Clear();
-                Reports = DatabaseHelper.FetchingReportData();
-                ObservableReports = new ObservableCollection<Report>();
                 IsDesc = 0;
+                SetReportsCoresspondManager();
             }
             p.Close();
         }

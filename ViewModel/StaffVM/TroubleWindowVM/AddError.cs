@@ -100,7 +100,8 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 StaffId = CurrentAccount.idAccount,
             };
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(p.ImageProduct.ImageSource as BitmapImage));
+            BitmapSource src = (BitmapSource)p.ImageProduct.ImageSource;
+            encoder.Frames.Add(BitmapFrame.Create(src));
             using (MemoryStream ms = new MemoryStream())
             {
                 encoder.Save(ms);
