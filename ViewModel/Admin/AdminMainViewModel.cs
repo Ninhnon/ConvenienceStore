@@ -12,6 +12,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using ConvenienceStore.Views;
 using System.Windows;
+using ConvenienceStore.Views.Admin.SubViews;
+using System.IO;
+using System.Windows.Media.Imaging;
+using System;
 
 namespace ConvenienceStore.ViewModel.Admin
 {
@@ -67,6 +71,7 @@ namespace ConvenienceStore.ViewModel.Admin
         public ICommand HidePanelCommand { get; set; }
         public ICommand LoadedCommand { get; set; }
         public ICommand CloseCommand { get; set; }
+        public ICommand SettingCommand { get; set; }
 
         private string? _ten;
         public string? Ten
@@ -148,6 +153,7 @@ namespace ConvenienceStore.ViewModel.Admin
             HidePanelCommand = new RelayCommand<AdminMainWindow>(parameter => true, parameter => Hide(parameter));
             LoadedCommand = new RelayCommand<AdminMainWindow>(parameter => true, parameter => Load(parameter));
             CloseCommand = new RelayCommand<Window>(parameter => true, parameter => { parameter.Close(); });
+            SettingCommand = new RelayCommand<AdminMainWindow>(parameter => true, parameter => Setting(parameter));
         }
 
         public void Show(AdminMainWindow parameter)
@@ -168,6 +174,42 @@ namespace ConvenienceStore.ViewModel.Admin
         {
             parameter.DataContext = new AdminMainViewModel();
         }
+        public void Setting(AdminMainWindow parameter)
+        {
+            Setting s = new Setting();
+           
+            s.nameTxtbox.textBox.Text = CurrentAccount.Name;
+            s.emailTxtbox.textBox.Text = CurrentAccount.Email;
+            s.phoneTxtbox.textBox.Text = CurrentAccount.Phone;
+            s.addressTxtbox.textBox.Text = CurrentAccount.Address;
+            s.ImageProduct.ImageSource = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(CurrentAccount.idAccount));
+            s.ShowDialog();
+            Ten = CurrentAccount.Name;
+            Anh = DatabaseHelper.LoadAvatar(CurrentAccount.idAccount);
+            Email = CurrentAccount.Email;
+        }
+
+        public BitmapImage ConvertByteToBitmapImage(Byte[] image)
+        {
+            BitmapImage bi = new BitmapImage();
+            MemoryStream stream = new MemoryStream();
+            if (image == null)
+            {
+                return null;
+            }
+            stream.Write(image, 0, image.Length);
+            stream.Position = 0;
+            System.Drawing.Image img = System.Drawing.Image.FromStream(stream);
+            bi.BeginInit();
+            MemoryStream ms = new MemoryStream();
+            img.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+            ms.Seek(0, SeekOrigin.Begin);
+            bi.StreamSource = ms;
+            bi.EndInit();
+            return bi;
+        }
+
+
 
     }
 }

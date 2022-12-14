@@ -150,6 +150,11 @@
                            Foreground="#083353" 
             FontSize="20" 
             FontWeight="Bold" />
+                            <TextBlock Text="{Binding ThisYear}"
+                                       HorizontalAlignment="Center"
+                           Foreground="#D66D75" 
+            FontSize="12" 
+            FontWeight="Bold" />
                             <!--Middle Circle-->
                             <Grid Margin="0 50 0 20">
                                 <lvc:PieChart 

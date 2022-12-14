@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icons\account-key.png" />
     <None Remove="Resources\Images\IconForInputInfo\box.png" />
     <None Remove="Resources\Images\IconForInputInfo\calendar.png" />
     <None Remove="Resources\Images\IconForInputInfo\calendar_color.png" />
@@ -112,6 +113,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Icons\account-key.png" />
     <Resource Include="Resources\Images\IconForInputInfo\box.png" />
     <Resource Include="Resources\Images\IconForInputInfo\calendar.png" />
     <Resource Include="Resources\Images\IconForInputInfo\calendar_color.png" />

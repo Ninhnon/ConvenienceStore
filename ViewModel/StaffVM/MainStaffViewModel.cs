@@ -13,6 +13,10 @@ using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Views.Admin;
 using ConvenienceStore.Views.Staff;
+using ConvenienceStore.Views.Admin.SubViews;
+using System.IO;
+using System.Windows.Media.Imaging;
+using System;
 
 namespace ConvenienceStore.ViewModel.StaffVM
 {
@@ -34,6 +38,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public ICommand? MaximizeWindowCommand { get; set; }
         public ICommand? SupplierCommand { get; set; }
         public ICommand LoadCommand { get; set; }
+        public ICommand SettingCommand { get; set; }
         public static Grid MaskName { get; set; }
 
         #region commands
@@ -147,10 +152,10 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 w.Close();
             });
             LoadCommand = new RelayCommand<StaffMainWindow>(parameter => true, parameter => { parameter.DataContext = new MainStaffViewModel(); });
-            
-                
-           
-            
+            SettingCommand = new RelayCommand<StaffMainWindow>(parameter => true, parameter => Set(parameter));
+
+
+
             MinimizeWindowCommand = new RelayCommand<Grid>((p) => { return p == null ? false : true; }, (p) =>
             {
                 Window w = Window.GetWindow(p);
@@ -179,6 +184,46 @@ namespace ConvenienceStore.ViewModel.StaffVM
             });
 
         }
+
+        public void Set(StaffMainWindow parameter)
+        {
+            Setting s = new Setting();
+
+            s.nameTxtbox.textBox.Text = CurrentAccount.Name;
+            s.emailTxtbox.textBox.Text = CurrentAccount.Email;
+            s.phoneTxtbox.textBox.Text = CurrentAccount.Phone;
+            s.addressTxtbox.textBox.Text = CurrentAccount.Address;
+            s.ImageProduct.ImageSource = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(CurrentAccount.idAccount));
+            s.ShowDialog();
+            Ten = CurrentAccount.Name;
+            Anh = DatabaseHelper.LoadAvatar(CurrentAccount.idAccount);
+            Email = CurrentAccount.Email;
+        }
+
+        public BitmapImage ConvertByteToBitmapImage(Byte[] image)
+        {
+            BitmapImage bi = new BitmapImage();
+            MemoryStream stream = new MemoryStream();
+            if (image == null)
+            {
+                return null;
+            }
+            stream.Write(image, 0, image.Length);
+            stream.Position = 0;
+            System.Drawing.Image img = System.Drawing.Image.FromStream(stream);
+            bi.BeginInit();
+            MemoryStream ms = new MemoryStream();
+            img.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+            ms.Seek(0, SeekOrigin.Begin);
+            bi.StreamSource = ms;
+            bi.EndInit();
+            return bi;
+        }
+
+
+
+
+
     }
 }
 //LoadShowtimeDataCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>

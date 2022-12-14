@@ -69,6 +69,27 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             List<Account> accounts = DatabaseHelper.FetchingAccountData();
             return accounts;
         }
+        public void UpdatePassword(string newPass, int id)
+        {
+            OpenConnection();
+            string query = "Update Users set Password=@pass where id=@id";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@pass", newPass);
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.ExecuteNonQuery();
+            CloseConnection();
+
+        }
+        public void UpdateManager (int id, int newId)
+        {
+            OpenConnection();
+            string query = "Update Users set ManagerId=@newId where id=@id";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@newId", newId);
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.ExecuteNonQuery();
+            CloseConnection();
+        }
         public void AddIntoDataBase(Account account)
         {
             OpenConnection();

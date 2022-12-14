@@ -37,8 +37,13 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         // Doanh thu tháng này 
         private string thisMonth;
         public string ThisMonth { get => thisMonth; set { thisMonth = value; OnPropertyChanged(); } }
+
+
         private string thisMonth1;
         public string ThisMonth1 { get => thisMonth1; set { thisMonth1 = value; OnPropertyChanged(); } }
+
+        private string thisYear;
+        public string ThisYear{ get => thisYear; set { thisYear = value; OnPropertyChanged(); } }
 
         private string thisMonthRevenue = "0 đồng";
         public string ThisMonthRevenue { get => thisMonthRevenue; set { thisMonthRevenue = value; OnPropertyChanged(); } }
@@ -71,7 +76,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public void LoadDefaultChart(HomeView homeWindow)
         {
             Hello = "Hello, " + CurrentAccount.Name;
-         
+         ThisYear= DateTime.Now.ToString("yyyy");
             ThisMonth = "This month Profit " + DateTime.Now.ToString("MM/yyyy");
             ThisMonth1 = DateTime.Now.ToString("MM/yyyy");
             string currentDay = DateTime.Now.Day.ToString();
@@ -158,13 +163,13 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                             Fill = gradient,
                             Values = ReportDAL.Instance.QueryRevenueByDay(today,thismonth,thisyear),
                         }
-                       /* new ColumnSeries //cột chi phí
+                       ,
+                         new ColumnSeries 
                         {
-                            Title = "Chi phí",
-                            Fill = (Brush)new BrushConverter().ConvertFrom("#FFF44336"),
-                            Values = ReportDAL.Instance.QueryOutcomeByMonth(selectedMonth, currentYear),
+                            Title = "Đơn hàng",
+                      Fill=(Brush)new BrushConverter().ConvertFrom("#E44D26"),
+                            Values = ReportDAL.Instance.QueryNumOfSoldBillToday(today,thismonth),
                         }
-                       */
                     };
             List<string> res = new List<string>();
             res.Add(today);
@@ -191,14 +196,14 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                             Title = "Doanh thu",
                             Fill = gradient,
                             Values = ReportDAL.Instance.QueryRevenueByMonth(selectedMonth, currentYear),
-                        }
-                       /* new ColumnSeries //cột chi phí
-                        {
-                            Title = "Chi phí",
-                            Fill = (Brush)new BrushConverter().ConvertFrom("#FFF44336"),
-                            Values = ReportDAL.Instance.QueryOutcomeByMonth(selectedMonth, currentYear),
-                        }
-                       */
+                        },
+                         new ColumnSeries
+                      {
+                          Title="Đơn hàng",
+                          Fill=(Brush)new BrushConverter().ConvertFrom("#E44D26"),
+                          Values=ReportDAL.Instance.QueryRevenueNumOfSoldBillEachDayInMonth(selectedMonth,currentYear)
+        }
+
                     };
             Labels = ReportDAL.Instance.QueryDayInMonth(selectedMonth, currentYear);
             Formatter = value => string.Format("{0:N0}", value); //Format dấu ,
@@ -211,8 +216,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         {
 
             AxisXTitle = "Tháng";
-
+            
             string selectedYear = DateTime.Now.Year.ToString();
+            
             LinearGradientBrush gradient = new LinearGradientBrush();
             gradient.StartPoint = new Point(0.5, 0);
             gradient.EndPoint = new Point(0.5, 1);
@@ -225,6 +231,12 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                               Fill = gradient,
                               Values = ReportDAL.Instance.QueryRevenueByYear(selectedYear),
                           }
+                            , new ColumnSeries
+                      {
+                          Title="Đơn hàng",
+                          Fill=(Brush)new BrushConverter().ConvertFrom("#E44D26"),
+                          Values=ReportDAL.Instance.QueryRevenueNumOfSoldBillInYear(selectedYear)
+        }
             };
             /*
             new ColumnSeries
@@ -328,9 +340,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             string currentMonth = DateTime.Now.Month.ToString();
      
             string currentYear = DateTime.Now.Year.ToString();
-            FoodRevenue1 =(ReportDAL.Instance.QueryFoodRevenueInMonth(currentMonth, currentYear)).ToString();
-            DrinkRevenue1 = (ReportDAL.Instance.QueryDrinkRevenueInMonth(currentMonth, currentYear)).ToString();
-            OtherRevenue1 = (ReportDAL.Instance.QueryOtherRevenueInMonth(currentMonth, currentYear)).ToString();
+            FoodRevenue1 =(ReportDAL.Instance.QueryFoodRevenueInYear( currentYear)).ToString();
+            DrinkRevenue1 = (ReportDAL.Instance.QueryDrinkRevenueInYear( currentYear)).ToString();
+            OtherRevenue1 = (ReportDAL.Instance.QueryOtherRevenueInYear(currentYear)).ToString();
 
             ChartValues<long> food = new ChartValues<long>();
             food.Add(long.Parse(FoodRevenue1));
