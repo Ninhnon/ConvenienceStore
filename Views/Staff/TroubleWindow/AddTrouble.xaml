@@ -85,7 +85,6 @@
                                      HorizontalScrollBarVisibility="Disabled"
                                      materialDesign:HintAssist.Hint="Mô tả lỗi"
                                      FontSize="16"
-                                     Height="90"
                                      Margin="0,5,0,0"
                                      Foreground="Black"
                                      materialDesign:ValidationAssist.Background="White"

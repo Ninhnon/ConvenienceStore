@@ -103,132 +103,58 @@
 
                         </StackPanel>
                     </Grid>
-
-
-                    <ListBox x:Name="InputInfoCards"
-                             ItemsSource="{Binding ObservableReports}"
-                             SelectedValue="{Binding SelectedReport}"
-                             Margin="25 130 3 30"
-                             VerticalAlignment="Top"
-                             ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                             ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                             ScrollViewer.CanContentScroll="False"
-                             VirtualizingPanel.IsVirtualizing="True">
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="{x:Type ListBoxItem}">
+                    <ListView x:Name="ListViewProductCard"
+                              Margin="25 150 25 27"
+                              ItemsSource="{Binding ObservableReports}"
+                              SelectedValue="{Binding SelectedReport}"
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                              ScrollViewer.CanContentScroll="False"
+                              VirtualizingPanel.IsVirtualizing="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
                                 <Setter Property="Template">
                                     <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
                                             <Border>
                                                 <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                                             </Border>
                                         </ControlTemplate>
                                     </Setter.Value>
                                 </Setter>
-                                
                             </Style>
-                            
-                        </ListBox.ItemContainerStyle>
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                
-                                <UniformGrid Columns="3"/>
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
+                        </ListView.ItemContainerStyle>
+
+                        <ListView.ItemTemplate>
                             <DataTemplate>
-
                                 <Grid>
-                                    <UserControls:TroubleCard ReportItem="{Binding}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseEnter">
-                                                <i:ChangePropertyAction TargetObject="{Binding ElementName=OperateButtons}"
-                                                                    PropertyName="Visibility"
-                                                                    Value="Visible"/>
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="MouseLeave">
-                                                <i:InvokeCommandAction Command="{StaticResource HideOperateButtonsCommand}"
-                                                                    CommandParameter="{Binding ElementName=OperateButtons}"/>
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding Source={StaticResource TroubleADVM}, Path=LoadEditErrorCM}"
-                                                                       CommandParameter="{Binding }"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </UserControls:TroubleCard>
+                                    <UserControls:TroubleCard ReportItem="{Binding}"/>
+                                    <StackPanel HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"
+                                                Orientation="Horizontal">
 
-                                    <Grid x:Name="OperateButtons"
-                                        VerticalAlignment="Top"
-                                        Visibility="Hidden">
-                                        
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="40"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="40"/>
-                                        </Grid.ColumnDefinitions>
+                                        <Button Style="{StaticResource MaterialDesignFlatLightButton}"
+                                                Content="{materialDesign:PackIcon Kind=Edit, Size=24}"
+                                                Foreground="#4B0082"
+                                                Height="38"
+                                                Padding="6 4"
+                                                Command="{Binding ElementName=ListViewProductCard, Path=DataContext.LoadEditErrorCM}"
+                                                CommandParameter="{Binding}"/>
 
-                                        <Border x:Name="DetailButton"
-                                            Margin="15 15 0 0"
-                                            CornerRadius="2"
-                                            Cursor="Hand">
-                                            <Image Source="/Resources/Images/IconForInputInfo/info_32.png"
-                                                Height="20"
-                                                Width="20"/>
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseEnter">
-                                                    <i:ChangePropertyAction PropertyName="Background"
-                                                                        Value="#D9D9D9"/>
-                                                </i:EventTrigger>
-
-                                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                    <i:ChangePropertyAction TargetObject="{Binding ElementName=InputInfoCards}"
-                                                                        PropertyName="SelectedItem"
-                                                                        Value="{Binding}"/>
-                                                </i:EventTrigger>
-
-                                                <i:EventTrigger EventName="MouseLeave">
-                                                    <i:ChangePropertyAction PropertyName="Background"
-                                                                        Value="Transparent"/>
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Border>
-
-
-                                        <Border x:Name="DeleteButton"
-                                            Grid.Column="2"
-                                            Margin="0 14 14 0"
-                                            CornerRadius="2"
-                                            Cursor="Hand">
-
-                                            <Image Source="/Resources/Images/IconForInputInfo/close_box.png"
-                                                Opacity="0.4"
-                                                Height="24"/>
-
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseEnter">
-                                                    <i:ChangePropertyAction PropertyName="Background"
-                                                                            Value="#D9D9D9"/>
-                                                </i:EventTrigger>
-
-                                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                    <i:InvokeCommandAction Command="{Binding Source={StaticResource InputInfoVM}, Path=OpenAlertDialog}"
-                                                                            CommandParameter="{Binding}"/>
-                                                </i:EventTrigger>
-
-                                                <i:EventTrigger EventName="MouseLeave">
-                                                    <i:ChangePropertyAction PropertyName="Background"
-                                                                            Value="Transparent"/>
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Border>
-
-                                    </Grid>
+                                        <Button Style="{StaticResource MaterialDesignFlatLightButton}"
+                                                Content="{materialDesign:PackIcon Kind=Delete, Size=24}"
+                                                Height="38"
+                                                Foreground="#CF0A0A"
+                                                Padding="6 4"
+                                                Margin="0 0 30 0"
+                                                HorizontalAlignment="Right"
+                                                Command="{Binding Source={StaticResource InputInfoVM}, Path=DeleteProductCommand}"
+                                                CommandParameter="{Binding}"/>
+                                    </StackPanel>
                                 </Grid>
                             </DataTemplate>
-                        </ListBox.ItemTemplate>
+                        </ListView.ItemTemplate>
 
-                    </ListBox>
-
+                    </ListView>
                 </Grid>
             </Border>
 
@@ -244,7 +170,7 @@
                 <StackPanel DataContext="{Binding SelectedReport}"
                             VerticalAlignment="Center"
                             Margin="30 0"
-                            Visibility="{Binding ElementName=InputInfoCards, Path=SelectedItem, Converter={StaticResource HasOjectConverter}}">
+                            Visibility="{Binding ElementName=ListViewProductCard, Path=SelectedItem, Converter={StaticResource HasOjectConverter}}">
 
                     <Ellipse Stroke="Transparent"
                              Width="200"

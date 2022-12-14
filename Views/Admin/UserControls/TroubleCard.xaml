@@ -4,90 +4,52 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ConvenienceStore.Views.Admin.UserControls"
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             mc:Ignorable="d" >
-    <Border Style="{StaticResource InputInfoCard}"
-            Cursor="Hand">
-        <i:Interaction.Triggers>
-            <i:EventTrigger EventName="MouseLeftButtonDown">
-                <!--<i:ChangePropertyAction TargetObject="{Binding ElementName=ProductS1}"
-                                        PropertyName="Visibility"
-                                        Value="Visible"/>
-                <i:ChangePropertyAction TargetObject="{Binding ElementName=ProductS2}"
-                                        PropertyName="Visibility"
-                                        Value="Visible"/>-->
-            </i:EventTrigger>
-        </i:Interaction.Triggers>
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
+    <materialDesign:Card Style="{StaticResource ProductCard}"
+                         Cursor="Hand">
+        <Grid Height="100">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="95"/>
+            </Grid.ColumnDefinitions>
 
-
-        <Border.Effect>
-            <DropShadowEffect BlurRadius="5"
-                              Direction="270"
-                              Opacity="0.45"
-                              RenderingBias="Performance"
-                              ShadowDepth="1.5"/>
-        </Border.Effect>
-
-        <Grid>
-
-            <Image Source="/Resources/Images/IconForTrouble/error-page.png"
-                   Width="75"
-                   VerticalAlignment="Top"
-                   Margin="0 23 0 0"/>
-
-            <Border Background="White"
-                    Height="80"
-                    VerticalAlignment="Bottom"
-                    CornerRadius="0 0 10 10">
-
-
-                <StackPanel Orientation="Vertical"
-                        Margin="10 0"
-                        VerticalAlignment="Center">
-
-                    <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Left"
-                            Margin="0 0 0 4">
-                        <Image Source="/Resources/Images/IconForInputInfo/calendar.png"
-                               Width="18"
-                               Opacity="0.6"/>
-                        <Border Width="15"/>
-                        <TextBlock Text="{Binding SubmittedAt, StringFormat=dd-MM-yyyy}"
-                                   VerticalAlignment="Center"
-                                   FontSize="14"
-                                   d:Text="26-11-2022"
-                                   FontWeight="SemiBold"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Left"
-                            Margin="0 0 0 6">
-                        <Image Source="/Resources/Images/IconForTrouble/label.png"
-                           Width="18"
-                           Opacity="0.6"/>
-                        <Border Width="15"/>
-                        <TextBlock Text="{Binding Title}"
-                               VerticalAlignment="Center"
-                               FontSize="14"
-                               d:Text="Ngủ Trong giờ làm"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Left">
-                        <Image Source="/Resources/Images/IconForTrouble/clipboard.png"
-                        Width="18"
-                        Opacity="0.6"/>
-                        <Border Width="15"/>
-                        <TextBlock Text="{Binding Status}"
-                               VerticalAlignment="Center"
-                               FontSize="14"
-                               d:Text="Chờ tiếp nhận"/>
-                    </StackPanel>
-
-                </StackPanel>
+            <Border CornerRadius="5 0 0 5">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding Image}"
+                                Stretch="UniformToFill"/>
+                </Border.Background>
 
             </Border>
+
+            <StackPanel Grid.Column="2"
+                        VerticalAlignment="Center">
+                <TextBlock Text="{Binding Title}"
+                           TextWrapping="Wrap"
+                           Foreground="Black"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"
+                           Margin="0 0 0 5"/>
+                <TextBlock Text="{Binding Status}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="3"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Margin="60 0 0 0">
+                <TextBlock Text="Report At: "
+                           Foreground="Gray"/>
+                <TextBlock Text="{Binding SubmittedAt, StringFormat=dd-MM-yyyy}"
+                           Foreground="Gray"
+                           d:Text="22-11-2022"/>
+            </StackPanel>
+
         </Grid>
-    </Border>
+    </materialDesign:Card>
 </UserControl>
