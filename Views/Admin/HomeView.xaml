@@ -43,10 +43,11 @@
 
             <StackPanel Orientation="Vertical" 
                     DataContext="{StaticResource ReportVM}" Margin="0,0,0,0">
+                
                 <StackPanel Orientation="Horizontal" 
                     DataContext="{StaticResource ReportVM}"
-                    HorizontalAlignment="Center" 
-                    Width="1135"
+                    HorizontalAlignment="Left" 
+                    Width="1088"
                     
                     Margin="40,0,0,0">
                     <TextBlock FontSize="26" Foreground="#B06AB3" Margin="50 35 0 20" Text="{Binding Hello}" HorizontalAlignment="Left"/>
@@ -162,7 +163,7 @@
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Margin="20,0,0,0" Orientation="Horizontal"
-                            Height="195" Width="430">
+                            Height="188" Width="430">
 
                             <Border Style="{StaticResource socialCard}" VerticalAlignment="Top"
                            Width="200"
