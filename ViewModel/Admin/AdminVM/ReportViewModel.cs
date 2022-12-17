@@ -13,6 +13,7 @@ using ConvenienceStore.Model;
 using ConvenienceStore.Utils.Helpers;
 using System.IO;
 using System.Windows.Media.Imaging;
+using System.Windows.Ink;
 
 namespace ConvenienceStore.ViewModel.Admin.AdminVM
 {
@@ -392,16 +393,16 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                      new LineSeries
                           {
                               Title="Đơn hàng",
-                               
+                               PointForeground=(Brush)new BrushConverter().ConvertFrom("#ffffff00"),
                               Values=ReportDAL.Instance.QueryRevenueNumOfSoldBillInYear(selectedYear),
-                             Stroke=(Brush)new BrushConverter().ConvertFrom("#0000ffff")
+                        
                           },
                           new LineSeries
                           {
                               Title = "Doanh thu",
                               PointForeground=(Brush)new BrushConverter().ConvertFrom("#FE6C47"),
                                Stroke=(Brush)new BrushConverter().ConvertFrom("#FE6C47"),
-                             Fill = (Brush)new BrushConverter().ConvertFrom("#0000ffff"),
+                             Fill = (Brush)new BrushConverter().ConvertFrom("#FE6C47"),
                               Values = ReportDAL.Instance.QueryRevenueByYear(selectedYear),
                           }
 

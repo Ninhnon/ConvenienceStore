@@ -165,8 +165,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 {
                     res.Add(int.Parse(rdr["numOfSoldBill"].ToString()));
                 }
-                rdr.Close();
-
+         
            
 
 
@@ -194,7 +193,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 {
                     res.Add(int.Parse(rdr["numOfSoldBill"].ToString()));
                 }
-                rdr.Close();
+               
 
             }
 
@@ -223,7 +222,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                  {
                      res.Add(int.Parse(rdr["numOfSoldBill"].ToString())); 
                  }
-                rdr.Close();
+             
 
               }
 
@@ -266,7 +265,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
 
             }
 
-
+            CloseConnection();
             return accs;
         }
         public string QueryFoodRevenueInYear( string year)
@@ -374,8 +373,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         public int QueryRevenueNumOfSoldBillInMonth( string month,string year)
         {
             int res = 0;
-            try
-            {
+         
                 OpenConnection();
                 string queryString = string.Format("select count(Id) as numOfSoldBill from Bill " +
                     "where year(BillDate) = {0} and month(BillDate) = {1}", int.Parse(year), int.Parse(month));
@@ -387,21 +385,14 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                     res = int.Parse(rdr["numOfSoldBill"].ToString());
                 }
                 return res;
-            }
-            catch
-            {
-                return res;
-            }
-            finally
-            {
+         
                 CloseConnection();
-            }
+            
         }
         public string[] QueryMonthInYear(string year)
         {
             List<string> res = new List<string>();
-            try
-            {
+        
                 OpenConnection();
                 string queryString = string.Format("select distinct month(BillDate) as month from Bill where year(BillDate) = {0} ", year);
                 SqlCommand command = new SqlCommand(queryString, conn);
@@ -412,21 +403,14 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                     res.Add(rdr["month"].ToString());
                 }
                 return res.ToArray();
-            }
-            catch
-            {
-                return res.ToArray();
-            }
-            finally
-            {
+          
                 CloseConnection();
-            }
+            
         }
         public List<string> QueryMonthInYearList (string year)
         {
             List<string> res = new List<string>();
-            try
-            {
+           
                 OpenConnection();
                 string queryString = string.Format("select distinct month(BillDate) as month from Bill where year(BillDate) = {0} ", year);
                 SqlCommand command = new SqlCommand(queryString, conn);
@@ -437,15 +421,9 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                     res.Add(rdr["month"].ToString());
                 }
                 return res;
-            }
-            catch
-            {
-                return res;
-            }
-            finally
-            {
+          
                 CloseConnection();
-            }
+            
         }
 
         public ChartValues<long> QueryRevenueByYear(string year)

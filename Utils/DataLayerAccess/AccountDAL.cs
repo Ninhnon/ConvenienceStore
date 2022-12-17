@@ -4,11 +4,14 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using ConvenienceStore.Model;
 using ConvenienceStore.Utils.Helpers;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace ConvenienceStore.Utils.DataLayerAccess
 {
@@ -69,13 +72,13 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             List<Account> accounts = DatabaseHelper.FetchingAccountData();
             return accounts;
         }
-        public void UpdatePassword(string newPass, int id)
+        public void UpdatePassword(string newPass, string email)
         {
             OpenConnection();
-            string query = "Update Users set Password=@pass where id=@id";
+            string query = "Update Users set Password=@pass where email=@email";
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@pass", newPass);
-            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@email", email);
             cmd.ExecuteNonQuery();
             CloseConnection();
 
@@ -119,6 +122,26 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 CloseConnection();
             
         }
+        public void SetNewAuthenCode(int code,string email)
+        {
+           
+            OpenConnection();
+            string query = string.Format("update users set Authencode={0} where email=\'{1}\'",code.ToString(),email);
+            SqlCommand command = new SqlCommand(query, conn);
+            command.ExecuteNonQuery();
+            CloseConnection();
+        }
+        public void setNewPass(string pass, string email)
+        {
+            OpenConnection();
+            string query = String.Format("Update Users set Password=\'{0}\' where Email=\'{1}\'",pass , email);
+           
+
+          
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.ExecuteNonQuery();
+            CloseConnection();
+        } 
         public int SetNewID()
         {
             try

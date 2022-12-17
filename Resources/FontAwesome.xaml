@@ -644,13 +644,13 @@
                 <Setter Property="Background" Value="#623ED0"/>
                 <Setter Property="Foreground" Value="#ffffff"/>
             </Trigger>
-            <MultiTrigger>
+            <!--<MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsSelected" Value="true"/>
                     <Condition Property="Selector.IsSelectionActive" Value="false"/>
                 </MultiTrigger.Conditions>
                 <Setter Property="Background" Value="#dfdfdf"/>
-            </MultiTrigger>
+            </MultiTrigger>-->
         </Style.Triggers>
     </Style>
 
