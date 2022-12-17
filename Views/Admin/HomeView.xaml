@@ -10,7 +10,8 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
       xmlns:Uc="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
-        Height="620"
+     xmlns:fa1="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+      Height="620"
       Width="1140"
         mc:Ignorable="d"
         x:Name="wdHome" 
@@ -84,7 +85,7 @@
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                                 <GradientStop Offset="0" Color="#ff9068"/>
-                                <GradientStop Offset="1" Color="#CFDEF3"/>
+                                <GradientStop Offset="1" Color="#C5796D"/>
                             </LinearGradientBrush>
                         </Border.Background>
                         <Grid>
@@ -158,66 +159,175 @@
                         </i:Interaction.Triggers>
                     </RadioButton>
                 </StackPanel>
-                <Border CornerRadius="20"  
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal"
+                            Height="195" Width="430">
+
+                            <Border Style="{StaticResource socialCard}" VerticalAlignment="Top"
+                           Width="200"
+                            Height="182"
+           >
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                                        <GradientStop Offset="0" Color="#FFAFBD"/>
+                                        <GradientStop Offset="1" Color="#E8CBC0"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <StackPanel>
+
+                                    <StackPanel Margin="0,30,0,0"  Style="{StaticResource socialCardStack}">
+                                        <fa1:IconImage Icon="Burger" Foreground="Red" Style="{StaticResource socialCardIconTitle}" />
+                                        <TextBlock Text="Đồ ăn" Style="{StaticResource socialCardTitle}" />
+                                    </StackPanel>
+
+                                    <TextBlock Text="{Binding FoodRevenue}" FontSize="25" Style="{StaticResource socialCardCounterTitle}" />
+                                    <TextBlock Text="Doanh thu đồ ăn" Style="{StaticResource socialCardCounterText}" />
+
+
+                                    <Grid Margin="0 0 0 15">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+                            <Border  Width="200"
+                            Height="182" 
+                             VerticalAlignment="Top"
+                        Style="{StaticResource socialCard}">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                                        <GradientStop Offset="0" Color="#FFAFBD"/>
+                                        <GradientStop Offset="1" Color="#E8CBC0"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <StackPanel>
+
+                                    <StackPanel Margin="0,30,0,0" Style="{StaticResource socialCardStack}">
+                                        <fa1:IconImage Icon="MugHot" Foreground="#512DA8" Style="{StaticResource socialCardIconTitle}" Height="31" Width="32" />
+                                        <TextBlock Text="Thức uống" Style="{StaticResource socialCardTitle}" />
+                                    </StackPanel>
+
+                                    <TextBlock Text="{Binding DrinkRevenue}" 
+                                       FontSize="25"
+                                       Style="{StaticResource socialCardCounterTitle}" />
+                                    <TextBlock Text="Doanh thu thức uống" Style="{StaticResource socialCardCounterText}" />
+
+
+                                    <Grid Margin="0 0 0 15">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+
+                        </StackPanel>
+                        <Border  Width="200"
+                            Height="182"
+                        Style="{StaticResource socialCard}">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                                    <GradientStop Offset="0" Color="#FFAFBD"/>
+                                    <GradientStop Offset="1" Color="#E8CBC0"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <StackPanel>
+
+                                <StackPanel Margin="0,30,0,0" Style="{StaticResource socialCardStack}">
+                                    <fa1:IconImage Icon="QuestionCircle" Foreground="#999966" Style="{StaticResource socialCardIconTitle}" Height="31" Width="32" />
+                                    <TextBlock Text="Khác" Style="{StaticResource socialCardTitle}" />
+                                </StackPanel>
+
+                                <TextBlock Text="{Binding OtherRevenue}" 
+                                       FontSize="25"
+                                       Style="{StaticResource socialCardCounterTitle}" />
+                                <TextBlock Text="Doanh thu thức uống" Style="{StaticResource socialCardCounterText}" />
+
+
+                                <Grid Margin="0 0 0 15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                    </StackPanel>
+
+
+                    <Border CornerRadius="20"  
                     BorderThickness="1"
-                    HorizontalAlignment="Center"
-                    Height="404" Width="884" 
+                    Height="372" Width="686" 
                  
                     
                    
                     >
-                    <Border.Background>
-                        <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                            <GradientStop Color='#E9E4F0' Offset="0.3"/>
-                            <GradientStop Color='#D3CCE3' Offset="1"/>
-                        </LinearGradientBrush>
-                    </Border.Background>
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                                <GradientStop Color='#E9E4F0' Offset="0.3"/>
+                                <GradientStop Color='#D3CCE3' Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
 
-                    <Grid 
+                        <Grid 
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Height="384" 
                         Width="756">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="39*"/>
-                            <ColumnDefinition Width="106*"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel           
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="39*"/>
+                                <ColumnDefinition Width="106*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel           
                             Orientation="Horizontal"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Left" 
-                            Margin="60,20,0,0" Grid.ColumnSpan="2"/>
-                        <lvc:CartesianChart
+                             Grid.ColumnSpan="2"/>
+                            <lvc:CartesianChart
                             x:Name="lvcColumnChart" 
                             DataContext="{StaticResource ReportVM}"
                             Series="{Binding ColumnSeriesCollection, UpdateSourceTrigger=PropertyChanged}" 
                             LegendLocation="Bottom"
-                            Width="756" 
-                            Height="364" 
+                            Width="673" 
+                            Height="300" 
                             HorizontalAlignment="Left" 
-                            VerticalAlignment="Bottom" Grid.ColumnSpan="2" >
-                            <lvc:CartesianChart.DataTooltip>
-                                <lvc:DefaultTooltip Background="Red" Foreground="#ffffff" Opacity="0.7" BulletSize="10">
-                                </lvc:DefaultTooltip>
-                            </lvc:CartesianChart.DataTooltip>
+                            VerticalAlignment="Bottom" Grid.ColumnSpan="2" Margin="44,0,0,64" >
+                                <lvc:CartesianChart.DataTooltip>
+                                    <lvc:DefaultTooltip Background="Red" Foreground="#ffffff" Opacity="0.7" BulletSize="10">
+                                    </lvc:DefaultTooltip>
+                                </lvc:CartesianChart.DataTooltip>
 
 
-                            <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Foreground="#90A3B2" ShowLabels="True"
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Foreground="#90A3B2" ShowLabels="True"
                              x:Name="AxisXchart"
                                     Title="{Binding AxisXTitle, Mode=TwoWay}" 
                                     Labels="{Binding Labels, Mode=TwoWay}" 
                                    
                                     FontSize="14">
-                                    
-                                    
-                                    <lvc:Axis.Separator>
-                                        <lvc:Separator StrokeThickness="0" Step="1"/>
-                                    </lvc:Axis.Separator>
-                                </lvc:Axis>
-                            </lvc:CartesianChart.AxisX>
-                            <lvc:CartesianChart.AxisY>
-                                <lvc:Axis 
+
+
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator StrokeThickness="0" Step="1"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis 
                            x:Name="AxisYchart"
                                     Title="{Binding AxisYTitle, Mode=TwoWay}" 
                                     LabelFormatter="{Binding Formatter}"
@@ -225,15 +335,16 @@
                                 MinValue="0"
                                     FontSize="14">
 
-                                    <lvc:Axis.Separator>
-                                        <lvc:Separator StrokeThickness="0"/>
-                                    </lvc:Axis.Separator>
-                                </lvc:Axis>
-                            </lvc:CartesianChart.AxisY>
-                   
-                        </lvc:CartesianChart>
-                    </Grid>
-                </Border>
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator StrokeThickness="0"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisY>
+
+                            </lvc:CartesianChart>
+                        </Grid>
+                    </Border>
+                </StackPanel>
             </StackPanel>
 
         </Grid>
