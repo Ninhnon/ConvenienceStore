@@ -13,9 +13,10 @@
       Height="620"
       Width="1140"
       Style="{StaticResource Page_Style}"
-      
+      x:Name="wdSupplier"
       Title="SupplierView"
       >
+    
     <Page.Resources>
         <Converters:StringToVisibility x:Key="StringToVisibility"/>
         <SupplierCard:EditSupplierButton x:Key="EditSupplierButton"/>

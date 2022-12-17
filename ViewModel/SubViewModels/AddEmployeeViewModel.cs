@@ -1,34 +1,33 @@
 ﻿using ConvenienceStore.Model;
 using ConvenienceStore.Utils.DataLayerAccess;
-using ConvenienceStore.ViewModel.Admin;
+using ConvenienceStore.ViewModel.Admin.AdminVM;
 using ConvenienceStore.Views.Admin.SubViews;
 using System;
-using System.IO.Packaging;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
-using System.Reflection.Metadata;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
-using System.IO;
-using System.Net.Mail;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using System.Runtime.CompilerServices;
-using ConvenienceStore.ViewModel.Admin.AdminVM;
+using ConvenienceStore.ViewModel.Admin;
 
-namespace ConvenienceStore.ViewModel.SubViewModel
+namespace ConvenienceStore.ViewModel.SubViewModels
 {
     public class AddEmployeeViewModel : BaseViewModel
     {
         private OpenFileDialog openDialog;
-        
+
         private ObservableCollection<string> itemSourceManager_;
         public ObservableCollection<string> ItemSourceManager
         {
             get { return itemSourceManager_; }
-            set { itemSourceManager_ = value;
+            set
+            {
+                itemSourceManager_ = value;
                 OnPropertyChanged();
             }
         }
@@ -40,7 +39,7 @@ namespace ConvenienceStore.ViewModel.SubViewModel
         {
             BackCommand = new RelayCommand<AddEmployeeView>(parameter => true, parameter => Back(parameter));
             SaveCommand = new RelayCommand<AddEmployeeView>(parameter => true, parameter => Save(parameter));
-            UploadImageCommand=new RelayCommand<AddEmployeeView>(parameter => true, parameter => UploadImage(parameter));
+            UploadImageCommand = new RelayCommand<AddEmployeeView>(parameter => true, parameter => UploadImage(parameter));
             InitManagerCommand = new RelayCommand<AddEmployeeView>(parameter => true, parameter => AddManagerItemSource(parameter));
         }
 
@@ -64,7 +63,7 @@ namespace ConvenienceStore.ViewModel.SubViewModel
             }
             else
             {
-                if(parameter.nameTxtbox.textBox.Text.Any(char.IsDigit))
+                if (parameter.nameTxtbox.textBox.Text.Any(char.IsDigit))
                 {
                     parameter.nameTxtbox.ErrorMessage.Text = "Tên không hợp lệ";
                     isValid = false;
@@ -82,10 +81,10 @@ namespace ConvenienceStore.ViewModel.SubViewModel
             }
             else
             {
-                if(!parameter.phoneTxtbox.textBox.Text.All(char.IsDigit))
+                if (!parameter.phoneTxtbox.textBox.Text.All(char.IsDigit))
                 {
                     parameter.phoneTxtbox.ErrorMessage.Text = "Số điện thoại không hợp lệ";
-                    isValid=false;
+                    isValid = false;
                 }
             }
             if (string.IsNullOrEmpty(parameter.addressTxtbox.textBox.Text))
@@ -93,96 +92,96 @@ namespace ConvenienceStore.ViewModel.SubViewModel
                 parameter.addressTxtbox.ErrorMessage.Text = "Xin nhập Địa Chỉ";
                 isValid = false;
             }
-            if(string.IsNullOrEmpty(parameter.usernameTxtbox.textBox.Text))
+            if (string.IsNullOrEmpty(parameter.usernameTxtbox.textBox.Text))
             {
                 parameter.usernameTxtbox.ErrorMessage.Text = "Xin nhập tên đăng nhập";
                 isValid = false;
             }
-            if(string.IsNullOrEmpty(parameter.passwordTxtbox.passwordBox.Password))
+            if (string.IsNullOrEmpty(parameter.passwordTxtbox.passwordBox.Password))
             {
                 parameter.passwordTxtbox.ErrorMessage.Text = "Xin nhập mật khẩu";
                 isValid = false;
             }
-            if(string.IsNullOrEmpty(parameter.confirmPasswordTxtbox.passwordBox.Password))
+            if (string.IsNullOrEmpty(parameter.confirmPasswordTxtbox.passwordBox.Password))
             {
                 parameter.confirmPasswordTxtbox.ErrorMessage.Text = "Xin xác nhận mật khẩu";
                 isValid = false;
             }
             else
             {
-                if(parameter.confirmPasswordTxtbox.passwordBox.Password !=parameter.passwordTxtbox.passwordBox.Password)
+                if (parameter.confirmPasswordTxtbox.passwordBox.Password != parameter.passwordTxtbox.passwordBox.Password)
                 {
                     parameter.confirmPasswordTxtbox.ErrorMessage.Text = "Mật khẩu xác nhận không đúng, thử lại";
                     isValid = false;
-                }    
+                }
             }
-            if (parameter.ManagerCombobox.SelectedValue==null)
+            if (parameter.ManagerCombobox.SelectedValue == null)
             {
                 parameter.ManagerErrorMessage.Text = "Xin chọn người quản lý";
                 isValid = false;
             }
-            if(parameter.ImageProduct.ImageSource==null)
+            if (parameter.ImageProduct.ImageSource == null)
             {
                 parameter.ImageErrorMessage.Text = "Xin chọn ảnh";
                 isValid = false;
             }
             List<Account> accounts = AccountDAL.Instance.ConvertDataTableToList();
-            foreach(var account in accounts)
+            foreach (var account in accounts)
             {
-                if(parameter.usernameTxtbox.textBox.Text== account.UserName)
+                if (parameter.usernameTxtbox.textBox.Text == account.UserName)
                 {
                     parameter.usernameTxtbox.ErrorMessage.Text = "Tên đăng nhập đã tồn tại";
                     isValid = false;
                     break;
                 }
-                if(parameter.phoneTxtbox.textBox.Text==account.Phone)
+                if (parameter.phoneTxtbox.textBox.Text == account.Phone)
                 {
                     parameter.phoneTxtbox.ErrorMessage.Text = "Số điện thoại đã được đăng ký";
                     isValid = false;
                     break;
                 }
-                if(parameter.emailTxtbox.textBox.Text==account.Email)
+                if (parameter.emailTxtbox.textBox.Text == account.Email)
                 {
                     parameter.emailTxtbox.ErrorMessage.Text = "Email đã được đăng ký";
                     isValid = false;
                     break;
                 }
-               
-                    
+
+
             }
 
             if (isValid)
             {
                 int i = 0;
-              
-                     foreach (var account in accounts)
+
+                foreach (var account in accounts)
                 {
-                    
-                    if (account.Name == parameter.ManagerCombobox.SelectedValue.ToString() )
+
+                    if (account.Name == parameter.ManagerCombobox.SelectedValue.ToString())
                     {
                         i = account.IdAccount;
-                    }    
-                        }
-                        Account acc = new Account(accounts[accounts.Count-1].IdAccount+1,"0",
-                                   parameter.nameTxtbox.textBox.Text.ToString(),
-                                   parameter.addressTxtbox.textBox.Text.ToString(),
-                                   parameter.phoneTxtbox.textBox.Text.ToString(),
-                                   parameter.emailTxtbox.textBox.Text.ToString(),
-                                   parameter.usernameTxtbox.textBox.Text.ToString(),
-                                   parameter.passwordTxtbox.passwordBox.Password.ToString()
-                                   ,ConvertImageToBytes(openDialog.FileName).ToArray(),
-                                  i
-                                   );
+                    }
+                }
+                Account acc = new Account(accounts[accounts.Count - 1].IdAccount + 1, "0",
+                           parameter.nameTxtbox.textBox.Text.ToString(),
+                           parameter.addressTxtbox.textBox.Text.ToString(),
+                           parameter.phoneTxtbox.textBox.Text.ToString(),
+                           parameter.emailTxtbox.textBox.Text.ToString(),
+                           parameter.usernameTxtbox.textBox.Text.ToString(),
+                           parameter.passwordTxtbox.passwordBox.Password.ToString()
+                           , ConvertImageToBytes(openDialog.FileName).ToArray(),
+                          i
+                           );
                 acc.Number = accounts[accounts.Count - 1].Number + 1;
                 AccountDAL.Instance.AddIntoDataBase(acc);
-               EmployeeViewModel. accounts.Add(acc);
-                
+                EmployeeViewModel.accounts.Add(acc);
+
                 MessageBox.Show("them thanh cong");
             }
 
 
 
-            }
+        }
         public void Back(AddEmployeeView parameter)
         {
             parameter.Close();
@@ -203,22 +202,22 @@ namespace ConvenienceStore.ViewModel.SubViewModel
         }
         public void UploadImage(AddEmployeeView parameter)
         {
-             openDialog = new OpenFileDialog();
+            openDialog = new OpenFileDialog();
             openDialog.Filter = "Image files|*.jpeg;*.jpg;*.png";
             openDialog.FilterIndex = -1;
 
             BitmapImage bi = new BitmapImage();
-          
-                
 
-            if (openDialog.ShowDialog()== DialogResult.OK)
+
+
+            if (openDialog.ShowDialog() == DialogResult.OK)
             {
                 var bytes = System.IO.File.ReadAllBytes(openDialog.FileName);
-        string s = Convert.ToBase64String(bytes);
+                string s = Convert.ToBase64String(bytes);
 
-        bi.BeginInit();
+                bi.BeginInit();
                 bi.StreamSource = new MemoryStream(System.Convert.FromBase64String(s));
-        bi.EndInit();
+                bi.EndInit();
             }
             var imageBrush = (ImageBrush)parameter.ImageProduct;
             try
@@ -227,16 +226,16 @@ namespace ConvenienceStore.ViewModel.SubViewModel
             }
             catch
             {
-    /* Chỗ này phải xài try catch để bắt lỗi
-     * Người dùng mở File Exploer nhưng không chọn ảnh mà nhấn nút "Cancle" */
+                /* Chỗ này phải xài try catch để bắt lỗi
+                 * Người dùng mở File Exploer nhưng không chọn ảnh mà nhấn nút "Cancle" */
             }
-            
+
         }
 
         public void AddManagerItemSource(AddEmployeeView parameter)
         {
-            
-        
+
+
             ItemSourceManager = new ObservableCollection<string>(AccountDAL.Instance.ConvertDBToListString());
         }
 

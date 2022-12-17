@@ -133,7 +133,8 @@ Style="{StaticResource Page_Style}"
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="{Binding BgColor}">
-                                        <Image Source="{Binding Avatar}" />
+                                        <Image Stretch="Fill"
+                                            Source="{Binding Avatar}" />
                                     </Border>
 
                                     <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>

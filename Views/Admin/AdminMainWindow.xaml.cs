@@ -45,8 +45,10 @@ namespace ConvenienceStore.Views.Admin
 
             this.Close();
             login.ShowDialog();
-            this.DataContext = null;
-           
+
+
+
+
         }
 
         private void btnRestore_Click(object sender, RoutedEventArgs e)

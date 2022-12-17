@@ -11,6 +11,7 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
+            xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         DataContext="{StaticResource AdminMainWindowVM}"
         Title="MainWindow" Height="660" Width="1200" MouseDown="ok"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -60,8 +61,8 @@
                             Style="{StaticResource IconButtonsStyle}"
                             
                             Content="{DynamicResource close}" 
-                           Command="{Binding CloseCommand}"
-                            CommandParameter="{Binding ElementName=wdMain}"/>
+                          Click="btnClose_Click"
+                            />
                     <Button x:Name="btnMinimize" Style="{DynamicResource IconButtonsStyle}" Content="{DynamicResource minimize}" Click="btnMinimize_Click"/>
                 </StackPanel>
                 <!-- End: Button Close | Restore | Minimize -->
@@ -101,7 +102,14 @@
                     <!-- Logo -->
                     <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
                         <Path Data="{DynamicResource logo}" Margin="16 0 0 0" Stretch="Fill" Fill="{DynamicResource PrimaryBlueColor}" Width="25" Height="25" HorizontalAlignment="Left"/>
+                       
                         <Label Content="Store" Foreground="{DynamicResource PrimaryBlueColor}" FontWeight="Bold" FontSize="20" VerticalAlignment="Center" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="14 0 0 0"/>
+                        <Button Style="{StaticResource topButton}" Margin="50 0 0 0" Background="#dcdcdc"
+                                Cursor="Hand"
+                                Command="{Binding SettingCommand}"
+                                >
+                            <Icon:PackIconMaterial Kind="Cog"/>
+                        </Button>
                     </StackPanel>
 
                     <!-- Menu -->
@@ -155,13 +163,13 @@
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
                                  Margin="0 5 0 5"
                                  FontWeight="SemiBold"/>
-                        <!--<RadioButton x:Name="rdReport" Content="Report"
+                        <RadioButton x:Name="rdReport" Content="Report"
                                  Style="{DynamicResource MenuRadioButtonStyle}"
                                  Tag="{DynamicResource report}" 
                                  Margin="0 5 0 5" 
                                  Command="{Binding ReportCommand}"
                         CommandParameter="{Binding ElementName=PagesNavigation}"
-                                    FontWeight="SemiBold"/>-->
+                                    FontWeight="SemiBold"/>
                         <RadioButton x:Name="rdChart" Content="Chart"
                                  Style="{DynamicResource MenuRadioButtonStyle}"
                                  Tag="{DynamicResource chart}" 
@@ -181,14 +189,23 @@
                                  FontWeight="SemiBold"/>
                         <!--<RadioButton x:Name="rdVoucher" Content="Voucher" Style
                     ="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource voucher}" Margin="0 5 0 5" Click="rdVoucher_Click" FontWeight="SemiBold"/>-->
-                     
+                        <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" 
+                                Cursor="Hand"
+                                Click="btnClose_Click"
+                                Margin="0 20 0 20">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Logout"/>
+                            </StackPanel>
+                        </Button>
 
                     </StackPanel>
 
                     <StackPanel Grid.Row="3" VerticalAlignment="Bottom" Orientation="Horizontal" Width="200" Margin="0 0 0 20">
                         <Ellipse Width="40" Height="40" Margin="10 0 0 0">
                             <Ellipse.Fill>
-                                <ImageBrush ImageSource="{Binding Anh}"/>
+                                <ImageBrush  
+                                    ImageSource="{Binding Anh}"/>
                             </Ellipse.Fill>
                         </Ellipse>
                         <StackPanel Orientation="Vertical" Margin="8 0 0 0">

@@ -1,6 +1,7 @@
 ﻿using ConvenienceStore.Model;
 using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Utils.Helpers;
+using ConvenienceStore.Views.Admin;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.Admin.AdminVM
 {
@@ -27,16 +29,18 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         }
 
         public ObservableCollection<Member> MyTeam { get; set; }
+        public ICommand LoadCommand { get; set; }
 
         public ProfileVM()
         {
             ManagerId = CurrentAccount.idAccount;
-            Name = CurrentAccount.Name; 
+            Name = CurrentAccount.Name;
             Address = CurrentAccount.Address;
             Email = CurrentAccount.Email;
             Phone = CurrentAccount.Phone;
             Avatar = CurrentAccount.Avatar;
             MyTeam = DatabaseHelper.QueryStaffOnTeam(CurrentAccount.idAccount);
+            LoadCommand = new RelayCommand<ProfileView>(parameter => true, parameter => Load(parameter));
         }
 
 
@@ -45,6 +49,11 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void Load(ProfileView parameter)
+        {
+            parameter.DataContext = new ProfileVM();
         }
     }
 }

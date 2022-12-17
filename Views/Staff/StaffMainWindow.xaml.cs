@@ -16,10 +16,11 @@ namespace ConvenienceStore.Views.Staff
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
             LoginWindow login = new LoginWindow();
-            login.ShowDialog();
+
             this.Close();
+            login.ShowDialog();
+          
         }
 
         private void btnRestore_Click(object sender, RoutedEventArgs e)
@@ -35,5 +36,9 @@ namespace ConvenienceStore.Views.Staff
             WindowState = WindowState.Minimized;
         }
 
+        private void PagesNavigation_Navigated()
+        {
+
+        }
     }
 }

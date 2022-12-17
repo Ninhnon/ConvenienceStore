@@ -266,7 +266,8 @@
                                              Grid.Row="0"
                                              Grid.RowSpan="2">
                                                     <Ellipse.Fill>
-                                                        <ImageBrush ImageSource="{Binding Image}"
+                                                        <ImageBrush 
+                                                            ImageSource="{Binding Image}"
                                                                     Stretch="UniformToFill"/>
                                                     </Ellipse.Fill>
 

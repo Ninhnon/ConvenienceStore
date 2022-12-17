@@ -26,7 +26,7 @@ namespace ConvenienceStore.Utils.Helpers
         where c.ProductId=p.Barcode and h.ProductId=c.ProductId and h.e = c.ExpiryDate
         order by ExpiryDate";
         static readonly string queryVoucher = @"select * from [Voucher]";
-        static readonly string queryReport = @"select * from [Report]";
+        static readonly string queryReport = @"select * from [Report] order by SubmittedAt";
         static readonly string queryUser = @"select * from [Users]";
         static readonly string queryConsingment = @"select * from [Consignment]";
         static readonly string queryCustomerData = @"select * from [Customer]";
@@ -53,6 +53,8 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryBillDetailsData = @"select bd.Quantity, p.Title, bd.TotalPrice
                                                         from BillDetail bd join Product p on bd.ProductId = p.Barcode
                                                         where BillId = @id";
+        static readonly string updateReportAD = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost,Status = @Status,StartDate = @StartDate,FinishDate = @FinishDate,Description = @Description
+                                                 where Id=@Id";
 
         public static List<Model.Staff.Bill> FetchingBillData()
         {
@@ -149,6 +151,7 @@ namespace ConvenienceStore.Utils.Helpers
             {
                 reports.Add(new Report()
                 {
+                    Id = reader.GetInt32(0),
                     Title = reader.GetString(1),
                     Description = reader.GetString(2),
                     Status = reader.GetString(3),
@@ -369,12 +372,13 @@ namespace ConvenienceStore.Utils.Helpers
             //{
                 cmd = new SqlCommand(insertReport, sqlCon);
                 cmd.Parameters.AddWithValue("@Title", report.Title);
+                cmd.Parameters.AddWithValue("@Description", report.Description);
+                cmd.Parameters.AddWithValue("@Status", report.Status);
+                cmd.Parameters.AddWithValue("@SubmittedAt", report.SubmittedAt);
                 cmd.Parameters.AddWithValue("@RepairCost", report.RepairCost);
                 cmd.Parameters.AddWithValue("@StaffId", report.StaffId);
-                cmd.Parameters.AddWithValue("@Status", report.Status);
-                cmd.Parameters.AddWithValue("@Description", report.Description);
                 cmd.Parameters.AddWithValue("@Image", report.Image);
-                cmd.Parameters.AddWithValue("@SubmittedAt", report.SubmittedAt);
+                
 
                 cmd.ExecuteNonQuery();
             //}
@@ -462,7 +466,32 @@ namespace ConvenienceStore.Utils.Helpers
             cmd.Parameters.AddWithValue("@Title", editedReport.Title);
             cmd.Parameters.AddWithValue("@Image", editedReport.Image);
             cmd.Parameters.AddWithValue("@RepairCost", editedReport.RepairCost);
-            cmd.Parameters.AddWithValue("@SubmittedAt", editedReport.SubmittedAt);
+            cmd.Parameters.AddWithValue("@Description", editedReport.Description);
+
+            cmd.Parameters.AddWithValue("@Id", editedReport.Id);
+
+            //cmd.Parameters.AddWithValue("@SubmittedAt", editedReport.SubmittedAt);
+            cmd.ExecuteNonQuery();
+
+            sqlCon.Close();
+        }
+        public static void UpdateReportAD(Report editedReport)
+        {
+            sqlCon.Open();
+
+            // Update values in Product table
+            var cmd = new SqlCommand(updateReportAD, sqlCon);
+
+            cmd.Parameters.AddWithValue("@Title", editedReport.Title);
+            cmd.Parameters.AddWithValue("@Image", editedReport.Image);
+            cmd.Parameters.AddWithValue("@RepairCost", editedReport.RepairCost);
+            cmd.Parameters.AddWithValue("@Status", editedReport.Status);
+            cmd.Parameters.AddWithValue("@StartDate", editedReport.StartDate);
+            cmd.Parameters.AddWithValue("@FinishDate", editedReport.FinishDate);
+            cmd.Parameters.AddWithValue("@Description", editedReport.Description);
+
+            cmd.Parameters.AddWithValue("@Id", editedReport.Id);
+            //cmd.Parameters.AddWithValue("@SubmittedAt", editedReport.SubmittedAt);
             cmd.ExecuteNonQuery();
 
             sqlCon.Close();
