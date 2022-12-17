@@ -27,6 +27,12 @@ namespace ConvenienceStore.ViewModel.Login
             get { return email; }
             set { email = value; }
         }
+        private int authen;
+        public int Authencode
+        {
+            get { return authen; }
+            set { authen = value; }
+        }
         public ICommand ForgotPasswordCommand { get; set; }
         public ICommand BackCommand { get; set; }
         public ICommand BackAuthenCommand { get; set; }
@@ -53,8 +59,8 @@ namespace ConvenienceStore.ViewModel.Login
             {
                 Email = parameter.textEmail.textBox.Text.ToString();
                 Random rnd = new Random();
-                int code = rnd.Next(100000, 999999);
-                AccountDAL.Instance.SetNewAuthenCode(code,Email);
+                Authencode = rnd.Next(100000, 999999);
+                AccountDAL.Instance.SetNewAuthenCode(Authencode,Email);
                 string cs = @ConfigurationManager.ConnectionStrings["Default"].ToString();
                 string query = "select* from Users where Email=" + "\'" + parameter.textEmail.textBox.Text.ToString() + "\'";
 
@@ -78,7 +84,7 @@ namespace ConvenienceStore.ViewModel.Login
                     mail.From = new MailAddress("minhku031103@gmail.com");
                     mail.To.Add(email);
                     mail.Subject = "Your Authentication Code";
-                    mail.Body = "Mã xác minh của bạn là: " + code;
+                    mail.Body = "Mã xác minh của bạn là: " + Authencode;
                     client.Send(mail);
                     client.Dispose();
                     AuthenCodeWindow authen = new AuthenCodeWindow();
@@ -126,32 +132,21 @@ namespace ConvenienceStore.ViewModel.Login
                 parameter.textAuthen.ErrorMessage.Text = "Hãy nhập mã xác nhận chỉ gồm 6 chữ số";
                 parameter.textAuthen.Focus();
             }
-            else
+            else if(int.Parse(parameter.textAuthen.textBox.Text)==Authencode )
             {
               
-                string cs = @ConfigurationManager.ConnectionStrings["Default"].ToString();
-                string query = "select* from Users where AuthenCode="  + parameter.textAuthen.textBox.Text.ToString();
-
-                SqlConnection con = new SqlConnection(cs);
-                con.Close();
-                con.Open();
-                SqlCommand cmd = new SqlCommand(query, con);
-                SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows == true)
-                {
+                
                     NewPasswordWindow newpass = new NewPasswordWindow();
                  
                     newpass.ShowDialog();
                
-                }
-                else
-                {
-                    MessageBoxCustom mb = new("Cảnh báo", "Mã xác nhận không chính xác!", MessageType.Warning, MessageButtons.OK);
-                    mb.ShowDialog();
-                }
-                reader.Close();
-                con.Close();
-
+                
+              
+            }
+            else
+            {
+                MessageBoxCustom mb = new("Cảnh báo", "Mã xác nhận không chính xác!", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
             }
         }
 
@@ -174,7 +169,7 @@ namespace ConvenienceStore.ViewModel.Login
             }
             else if ((parameter.newpass.passwordBox.Password.ToString())== (parameter.confirmpass.passwordBox.Password.ToString()))
                    {
-                AccountDAL.Instance.UpdatePassword(parameter.newpass.passwordBox.Password.ToString(), Email);
+                AccountDAL.Instance.UpdatePassword(parameter.newpass.passwordBox.Password.ToString(), "4");
 
                 MessageBoxCustom mb = new("Thành công", "Đã thay đổi mật khẩu mới", MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();

@@ -52,6 +52,7 @@ Style="{StaticResource Page_Style}"
                       DataContext="{StaticResource EmployeeVM}"
           Margin="0,0,30,0"
                 Command="{Binding AddEmployeeCommand}"
+                    CommandParameter="{Binding ElementName=wdEmployee}"
                     Grid.Row="1"
                     >
                 <StackPanel Orientation="Horizontal" >
@@ -126,8 +127,8 @@ Style="{StaticResource Page_Style}"
                       Grid.Row="5"
                       Style="{DynamicResource DataGridStyle2}">
                 <DataGrid.Columns>
-
-                    <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding Number}"/>
+                
+                <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding Number}"/>
                     <DataGridTemplateColumn Header="Nhân viên" IsReadOnly="True" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
