@@ -30,6 +30,13 @@
         </Border.Background>
         <Grid>
 
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <i:InvokeCommandAction Command="{Binding LoadHistoryPageCM}"/>
+                    <i:InvokeCommandAction Command="{Binding MaskNameCM}"
+                                       CommandParameter="{Binding ElementName=shadowMask}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <StackPanel Margin="30 20">
                 <Grid Margin="0 0 0 20">
                     <TextBlock Text="Chi tiết hóa đơn"
@@ -44,16 +51,18 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Column="0">
                         
                         <TextBlock Text="Số lượng:  "
                            FontSize="24"
                            FontWeight="DemiBold"
                            VerticalAlignment="Center"/>
                         
-                        <TextBlock Text="23"
+                        <TextBlock Text="{Binding BillList.Count}"
                            d:Text="10"
                            FontSize="24"
                            FontWeight="DemiBold"
@@ -77,16 +86,25 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="60"/>
-
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
-
-                                <TextBlock Text="Search here ..."
+                                <TextBlock
                                     FontSize="14"
                                     Foreground="#9ea4ad"
                                     Margin="22 0 15 0"
                                     VerticalAlignment="Center"
-                                    IsHitTestVisible="False"/>
+                                    IsHitTestVisible="False">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Text" Value=""/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=SearchTextBox, Path=Text}" Value="">
+                                                    <Setter Property="Text" Value="Tìm kiếm..."/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
 
                                 <TextBox x:Name="SearchTextBox"
                                          Text="{Binding SearchContent, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
@@ -95,6 +113,10 @@
                                          Style="{StaticResource SearchTextBox}"
                                          Height="30"
                                          VerticalContentAlignment="Center">
+
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding SearchBillCM}"/>
+                                    </TextBox.InputBindings>
                                 </TextBox>
                             </Grid>
 
@@ -102,10 +124,10 @@
                                 Background="#B06AB3"
                                 CornerRadius="0 20 20 0"
                                 Cursor="Hand">
-                                
+
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseLeftButtonDown">
-                                        <i:InvokeCommandAction Command="{Binding SearchBill}"/>
+                                        <i:InvokeCommandAction Command="{Binding SearchBillCM}"/>
                                     </i:EventTrigger>
 
                                 </i:Interaction.Triggers>
@@ -120,21 +142,49 @@
                         </Grid>
                     </Border>
 
+                    <ComboBox Grid.Column="3"
+                    FontSize="14"
+                              Height="40"
+                      Width="160"
+                      SelectedIndex="0"
+                      x:Name="cboxFilter"
+                      VerticalContentAlignment="Bottom"
+                      HorizontalAlignment="Left"
+                              DataContext="{StaticResource HistoryVM}"
+                      SelectedItem="{Binding ComboBoxCategory, Mode=TwoWay}"
+                              Margin="10 0 0 0"
+                      VerticalAlignment="Top"
+                              materialDesign:HintAssist.Hint="Loại tìm kiếm"
+                              Style="{StaticResource CustomComboBoxHasBorder}">
+                        <ComboBoxItem Content="Số hóa đơn" Foreground="Black"/>
+                        <ComboBoxItem Content="Tên khách hàng" Foreground="Black"/>
+                        <ComboBoxItem Content="Tên nhân viên" Foreground="Black"/>
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SearchBillCM}"
+                                                       CommandParameter="{Binding ElementName=SearchTextBox}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        
+                    </ComboBox>
                 </Grid>
 
-                <DataGrid x:Name="billsDataGrid" 
+                <DataGrid x:Name="billsDataGrid"
                           Background="Transparent"
-                      CellStyle="{DynamicResource DataGridCellStyle1}" 
-                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
-                      RowStyle="{DynamicResource DataGridRowStyle1}"
-                      ItemsSource="{Binding BillList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      CellStyle="{DynamicResource DataGridCellStyle2}" 
+                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}" 
+                      RowStyle="{DynamicResource DataGridRowStyle2}"
+                      ItemsSource="{Binding BillList, Mode=TwoWay}"
+                          SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                       ScrollViewer.VerticalScrollBarVisibility="Hidden"
                       ScrollViewer.CanContentScroll="False"
                       VirtualizingPanel.IsVirtualizing="True"
                       Height="434"
                       CanUserAddRows="False"
-                      AutoGenerateColumns="False">
+                      AutoGenerateColumns="False"
+                      Style="{DynamicResource DataGridStyle2}">
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Số hóa đơn" 
@@ -187,14 +237,14 @@
                                         IsReadOnly="True"
                                         CanUserResize="False"
                                         Width="140"
-                                        Binding="{Binding TotalPrice}"/>
+                                        Binding="{Binding TotalPrice, Converter={StaticResource MoneyToVNDCurrency}}"/>
 
                         <DataGridTemplateColumn Header="Thao tác"
                                             IsReadOnly="True"
                                             CanUserResize="False"
                                             Width="Auto">
                             <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
+                                <!--<DataTemplate>
                                     <StackPanel Orientation="Horizontal" DataContext="{StaticResource SupplierVM}">
                                         <Button Style="{StaticResource MaterialDesignFlatLightButton}"
                                             Content="{materialDesign:PackIcon Kind=Edit, Size=24}"
@@ -210,17 +260,47 @@
                                             Padding="6 4"
                                             Margin="15 0 0 0"
                                             HorizontalAlignment="Right"
-                                                DataContext="{StaticResource EmployeeVM}"
-                                            Command="{Binding DeleteEmployeeCommand }"
-                                            CommandParameter="{Binding ElementName=wdEmployee}"/>
+                                                DataContext="{StaticResource HistoryVM}"
+                                            Command="{Binding GetMoreBillDetailCM }"
+                                            CommandParameter="{Binding ElementName=billsDataGrid}"/>
 
                                     </StackPanel>
+                                </DataTemplate>-->
+                                <DataTemplate>
+                                    <Border Cursor="Hand"
+                                            Background="Transparent" 
+                                            Width="30"
+                                            Height="30"
+                                            DataContext="{StaticResource HistoryVM}"
+                                            ToolTip="Thông tin chi tiết">
+                                        <materialDesign:PackIcon Kind="AlertCircleOutline"
+                                                                 Width="30"
+                                                                 Height="30"                         
+                                                                 VerticalAlignment="Center" 
+                                                                 HorizontalAlignment="Center"/>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding GetMoreBillDetailCM}"
+                                                                        CommandParameter="{Binding ElementName=billsDataGrid}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Border>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
+                            
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
+
+            <Grid Background="Transparent"
+                  Visibility="Collapsed"
+                  x:Name="shadowMask" >
+                <Border CornerRadius="8"
+                        BorderThickness="8" 
+                        Background="Gray"
+                        Opacity="0.5"/>
+            </Grid>
         </Grid>
     </Border>
 

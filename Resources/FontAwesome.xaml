@@ -639,11 +639,12 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#623ED0"/>
                 <Setter Property="Foreground" Value="#ffffff"/>
+                <Setter Property="IsSelected" Value="True"/>
             </Trigger>
-            <Trigger Property="IsSelected" Value="True">
+            <!--<Trigger Property="IsSelected" Value="True">
                 <Setter Property="Background" Value="#623ED0"/>
                 <Setter Property="Foreground" Value="#ffffff"/>
-            </Trigger>
+            </Trigger>-->
             <!--<MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsSelected" Value="true"/>

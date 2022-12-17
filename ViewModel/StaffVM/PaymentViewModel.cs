@@ -11,6 +11,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using ZXing.Maxicode;
 
 namespace ConvenienceStore.ViewModel.StaffVM
 {
@@ -33,6 +34,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public ICommand CancelReceiptCM { get; set; }
         public ICommand PrintBillCM { get; set; }
         public ICommand SearchCustomerIdCM { get; set; }
+        public ICommand SearchVoucherCM { get; set; }
         public ICommand CompleteReceiptCM { get; set; }
         #endregion
 
@@ -67,8 +69,21 @@ namespace ConvenienceStore.ViewModel.StaffVM
         private int _TotalBill;
         public int TotalBill { get { return _TotalBill; } set { _TotalBill = value; OnPropertyChanged(); } }
 
+        private int _Discount;
+        public int Discount { get { return _Discount; } set { _Discount = value; OnPropertyChanged(); } }
+
+        private string _VoucherCode;
+        public string VoucherCode { get { return _VoucherCode; } set { _VoucherCode = value; OnPropertyChanged(); } }
+
         private int? _CustomerId;
         public int? CustomerId { get { return _CustomerId; } set { _CustomerId = value; OnPropertyChanged(); } }
+
+        //2 thuộc tính để quản lý việc lost focus
+        private string _PrevVoucherCode;
+        public string PrevVoucherCode { get { return _PrevVoucherCode; } set { _PrevVoucherCode = value; OnPropertyChanged(); } }
+
+        private int? _PrevCustomerId;
+        public int? PrevCustomerId { get { return _PrevCustomerId; } set { _PrevCustomerId = value; OnPropertyChanged(); } }
 
         private Receipt _ReceiptPage;
         public Receipt ReceiptPage { get { return _ReceiptPage; } set { _ReceiptPage = value; OnPropertyChanged(); } }
@@ -79,8 +94,8 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public List<Customer> customers = new List<Customer>();
         public List<ConvenienceStore.Model.Staff.Bill> bill = new List<ConvenienceStore.Model.Staff.Bill>();
 
-        private Model.Staff.Bill _ReceiptBill;
-        public Model.Staff.Bill ReceiptBill { get { return _ReceiptBill; } set { _ReceiptBill = value; OnPropertyChanged(); } }
+        private Model.Staff.Bill? _ReceiptBill;
+        public Model.Staff.Bill? ReceiptBill { get { return _ReceiptBill; } set { _ReceiptBill = value; OnPropertyChanged(); } }
 
         #region Staff Info
         private int _StaffId;
@@ -221,7 +236,10 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 //Receipt wd = new Receipt();
                 ReceiptPage = new Receipt();
                 MaskName.Visibility = Visibility.Visible;
+
                 TotalBill = 0;
+                Discount = 0;
+
                 foreach (BillDetails bd in ShoppingCart)
                 {
                     TotalBill += (int)bd.TotalPrice;
@@ -264,24 +282,102 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 return true;
             }, (p) =>
             {
-                customers = DatabaseHelper.FetchingCustomerData();
-                var checkCustomerId = customers.Where(x => Convert.ToString(x.Id) == p.Text);
-
-                if (p.Text == null)
-                    CustomerId = null;
-
-                if (checkCustomerId.Count() == 1)
+                try
                 {
-                    CustomerId = Convert.ToInt32(p.Text);
-                    MessageBoxCustom mbSuccess = new MessageBoxCustom("Thông báo", "Mã khách hàng hợp lệ", MessageType.Success, MessageButtons.OK);
-                    mbSuccess.ShowDialog();
+                    if (PrevCustomerId == CustomerId && CustomerId != null) //Xử lý lost focus
+                        return;
+
+                    if (p.Text == "")
+                    {
+                        PrevCustomerId = CustomerId = null;
+                        return;
+                    }
+
+                    customers = DatabaseHelper.FetchingCustomerData();
+                    var checkCustomerId = customers.Where(x => Convert.ToString(x.Id) == p.Text);
+
+                    if (checkCustomerId.Count() == 1)   //Kiểm tra mã khách hàng hợp lệ
+                    {
+                        if (CustomerId != Convert.ToInt32(p.Text))   //Xử lí việc nhập cùng 1 mã nhiều lần
+                            PrevCustomerId = CustomerId;
+                        else
+                            return;
+                        CustomerId = Convert.ToInt32(p.Text);
+                        MessageBoxCustom mbSuccess = new MessageBoxCustom("Thông báo", "Mã khách hàng hợp lệ", MessageType.Success, MessageButtons.OK);
+                        mbSuccess.ShowDialog();
+                    }
+                    else
+                    {
+                        p.Text = null;
+                        CustomerId = null;
+                        MessageBoxCustom mbFailed = new MessageBoxCustom("Cảnh báo", "Mã khách hàng không hợp lệ", MessageType.Warning, MessageButtons.OK);
+                        mbFailed.ShowDialog();
+                    }
                 }
-                else
+                catch
                 {
-                    p.Text = null;
-                    CustomerId = null;
-                    MessageBoxCustom mbFailed = new MessageBoxCustom("Cảnh báo", "Mã khách hàng không hợp lệ", MessageType.Error, MessageButtons.OK);
-                    mbFailed.ShowDialog();
+                    MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Có lỗi xảy ra, vui lòng thử lại", MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
+            });
+
+            SearchVoucherCM = new RelayCommand<TextBox>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                try
+                {
+                    if (p.Text != "")
+                    {
+                        //Xử lý lost focus
+                        if (VoucherCode == p.Text)
+                            return;
+                        if (PrevVoucherCode == VoucherCode && VoucherCode != null) //Xử lí lost focus
+                            return;
+                        //Lấy lại TotalBill
+                        //Tạo một biến int trả về mã lỗi
+                        //0: Mã giảm giá không tồn tại hoặc đã được sử dụng
+                        //1: Mã giảm giá hết hạn
+                        MessageBoxCustom mb;
+
+                        int err = -1;
+                        TotalBill += Discount;
+                        Discount = DatabaseHelper.ApplyVoucher(TotalBill, p.Text, ref err);
+
+                        if (err == 0)
+                        {
+                            mb = new MessageBoxCustom("Áp dụng mã giảm giá thất bại", "Mã giảm giá không tồn tại hoặc đã được sử dụng", MessageType.Warning, MessageButtons.OK);
+                            mb.ShowDialog();
+                            p.Text = "";
+                        }    
+                        else if (err == 1)
+                        {
+                            mb = new MessageBoxCustom("Áp dụng mã giảm giá thất bại", "Mã giảm giá đã quá hạn sử dụng, vui lòng thử lại với mã giảm giá khác", MessageType.Warning, MessageButtons.OK);
+                            mb.ShowDialog();
+                            p.Text = "";
+                        }
+                        else
+                        {
+                            PrevVoucherCode = VoucherCode;
+                            VoucherCode = p.Text;
+
+                            //Xử lí trường hợp nhập nhiều mã voucher
+                            if (TotalBill - Discount < 0)
+                                TotalBill = 0;
+                            else
+                                TotalBill -= Discount;
+                            mb = new MessageBoxCustom("Áp dụng mã giảm giá thành công", "Hóa đơn sẽ được giảm giá khi thanh toán thành công", MessageType.Success, MessageButtons.OK);
+                            mb.ShowDialog();
+                        }
+                    }
+                    else
+                        return;
+                }
+                catch
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Có lỗi xảy ra, vui lòng thử lại", MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
                 }
             });
 
@@ -292,7 +388,8 @@ namespace ConvenienceStore.ViewModel.StaffVM
             {
                 try
                 {
-                    DatabaseHelper.InsertBill(CustomerId, TotalBill);
+                    //Xử lý phần tổng hóa đơn khi có áp dụng voucher
+                        DatabaseHelper.InsertBill(CustomerId, TotalBill, Discount);
                     ReceiptBill = DatabaseHelper.FetchingBillData().LastOrDefault();
                     if (ReceiptBill == null)
                         return;
@@ -304,8 +401,11 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         DatabaseHelper.InsertBillDetail(bd);
                     }
 
+                    //Sửa trạng thái voucher trong database
+                    DatabaseHelper.UpdateVoucherStatus(VoucherCode);
                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Thanh toán thành công", MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
+
                     //Disable nút thanh toán
                     p.IsEnabled = false;
                 }
