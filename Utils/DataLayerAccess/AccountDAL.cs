@@ -75,11 +75,11 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         public void UpdatePassword(string newPass, string email)
         {
             OpenConnection();
-            string query = "Update Users set Password=@pass where email=@email";
+            string query = "use conveniencestore Update Users set Password=@pass where id=@email";
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@pass", newPass);
             cmd.Parameters.AddWithValue("@email", email);
-            cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQueryAsync();
             CloseConnection();
 
         }

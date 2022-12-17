@@ -17,6 +17,7 @@ using ConvenienceStore.Utils.Helpers;
 
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Views;
+using System.Windows.Controls;
 
 namespace ConvenienceStore.ViewModel.Admin.AdminVM
 {
@@ -105,6 +106,13 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             AddEmployeeView addView = new AddEmployeeView();
            
             addView.ShowDialog();
+            int i = 1;
+            foreach(var account in accounts)
+            {
+                account.Number = i;
+                i++;
+            }    
+          
         }
         public void Search()
         {
@@ -120,17 +128,27 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         }
         public void Delete(EmployeeView parameter)
         {
+            int i = 1;
             foreach (var account in accounts)
             {
 
                 if(account.IdAccount== ((Account)parameter.AccountsDataGrid.SelectedItem).IdAccount)
                 {
                     ObservableEmployee.Remove(account);
+                    foreach (var e in ObservableEmployee)
+                    {
+                        e.Number = i;
+                        i++;
+                    }
+                    parameter.AccountsDataGrid.Items.Refresh();
                     accounts.Remove(account);
                     AccountDAL.Instance.DeleteAccount(account.IdAccount);
+                
+                   
                     break;
                 }
             }
+            
             
         }
 
@@ -409,7 +427,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             try
             {
                 imageBrush.ImageSource = bi;
-            }
+            }       
             catch
             {
                 /* Chỗ này phải xài try catch để bắt lỗi
