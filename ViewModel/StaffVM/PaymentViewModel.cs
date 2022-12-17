@@ -389,7 +389,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 try
                 {
                     //Xử lý phần tổng hóa đơn khi có áp dụng voucher
-                        DatabaseHelper.InsertBill(CustomerId, TotalBill);
+                        DatabaseHelper.InsertBill(CustomerId, TotalBill, Discount);
                     ReceiptBill = DatabaseHelper.FetchingBillData().LastOrDefault();
                     if (ReceiptBill == null)
                         return;

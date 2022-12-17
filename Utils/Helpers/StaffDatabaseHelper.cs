@@ -31,7 +31,7 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryConsingment = @"select * from [Consignment]";
         static readonly string queryCustomerData = @"select * from [Customer]";
         static readonly string queryBillData = @"select * from [Bill]";
-        static readonly string queryInsertBill = @"insert into Bill(BillDate, CustomerId, UserId, Price) Values (@billDate, @cusId, @userId, @price)";
+        static readonly string queryInsertBill = @"insert into Bill(BillDate, CustomerId, UserId, Price, Discount) Values (@billDate, @cusId, @userId, @price, @discount)";
         static readonly string queryAvatar = @"select Avatar from [Users] where Id={0}";
         static readonly string queryName = @"select Name from [Users] where Id={0}";
         static readonly string insertErorrs = "insert into Report(Title, Description, Status, RepairCost, SubmittedAt, StaffId, Image) select N'{0}',N'{1}',N'{2}',{3},N'{4}',N'{5}', BulkColumn FROM Openrowset(Bulk N'{6}', Single_Blob) as img";
@@ -46,6 +46,14 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string insertBillData = @"insert into Bill(BillDate, CustomerId, UserId, Price) Values (@billDate, @cusId, @userId, @price)";
         static readonly string updateReport = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost
                                                  where SubmittedAt=@SubmittedAt";
+        static readonly string queryBillsData = @"select b.Id, u.Name, c.Name, b.BillDate, b.Price, u.Id, c.Id, b.Discount
+                                                    from Bill b left join Customer c on b.CustomerId = c.Id
+                                                                left join Users u on b.UserId = u.Id
+                                                    order by b.Id DESC";
+        static readonly string queryBillDetailsData = @"select bd.Quantity, p.Title, bd.TotalPrice
+                                                        from BillDetail bd join Product p on bd.ProductId = p.Barcode
+                                                        where BillId = @id";
+
         public static List<Model.Staff.Bill> FetchingBillData()
         {
             sqlCon.Open();
@@ -264,7 +272,7 @@ namespace ConvenienceStore.Utils.Helpers
             return customers;
         }
 
-        public static void InsertBill(int? customerId, int? price)
+        public static void InsertBill(int? customerId, int? price, int? discount)
         {
             sqlCon.Open();
             SqlCommand cmd = new SqlCommand(queryInsertBill, sqlCon);
@@ -272,6 +280,8 @@ namespace ConvenienceStore.Utils.Helpers
             cmd.Parameters.AddWithValue("@cusId", (customerId == null ? DBNull.Value : customerId));
             cmd.Parameters.AddWithValue("@userId", CurrentAccount.idAccount);
             cmd.Parameters.AddWithValue("@price", price);
+            cmd.Parameters.AddWithValue("@discount", discount);
+
 
             cmd.ExecuteNonQuery();
             sqlCon.Close();
@@ -456,6 +466,52 @@ namespace ConvenienceStore.Utils.Helpers
             cmd.ExecuteNonQuery();
 
             sqlCon.Close();
+        }
+        public static List<Model.Staff.Bills> FetchingBillsData()
+        {
+            sqlCon.Open();
+            SqlCommand command = new SqlCommand(queryBillsData, sqlCon);
+            List<Model.Staff.Bills> list = new List<Model.Staff.Bills>();
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                list.Add(new Model.Staff.Bills()
+                {
+                    BillId = reader.GetInt32(0),
+                    UserName = reader.IsDBNull(1) ? null : reader.GetString(1),
+                    CustomerName = reader.IsDBNull(2) ? "Khách vãng lai" : reader.GetString(2),
+                    BillDate = reader.IsDBNull(3) ? null : reader.GetDateTime(3),
+                    TotalPrice = reader.IsDBNull(4) ? null : reader.GetInt32(4),
+                    UserId = reader.IsDBNull(5) ? null : reader.GetInt32(5),
+                    CustomerId = reader.IsDBNull(6) ? null : reader.GetInt32(6),
+                    Discount = reader.IsDBNull(7) ? 0 : reader.GetInt32(7),
+                });
+            }
+
+            sqlCon.Close();
+            return list;
+        }
+        public static List<Model.Staff.BillDetails> FetchingBillDetailsData(Bills BillInfo)
+        {
+            sqlCon.Open();
+            SqlCommand command = new SqlCommand(queryBillDetailsData, sqlCon);
+            command.Parameters.AddWithValue("@id", BillInfo.BillId);
+            List<Model.Staff.BillDetails> list = new List<Model.Staff.BillDetails>();
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                list.Add(new Model.Staff.BillDetails()
+                {
+                    Quantity = reader.IsDBNull(0) ? null : reader.GetInt32(0),
+                    Title = reader.IsDBNull(1) ? null : reader.GetString(1),
+                    TotalPrice = reader.IsDBNull(2) ? null : reader.GetInt32(2),
+                });
+            }
+
+            sqlCon.Close();
+            return list;
         }
     }
 }
