@@ -88,9 +88,11 @@ namespace ConvenienceStore.ViewModel.Login
                     client.Send(mail);
                     client.Dispose();
                     AuthenCodeWindow authen = new AuthenCodeWindow();
-              
+                    reader.Close();
+                    con.Close();
+                    parameter.Hide();
                     authen.ShowDialog();
-                 
+                 parameter.Show();
 
 
 
@@ -103,8 +105,7 @@ namespace ConvenienceStore.ViewModel.Login
                     MessageBoxCustom mb = new("Cảnh báo", "Email không tồn tại!", MessageType.Warning, MessageButtons.OK);
                     mb.ShowDialog();
                 }
-                reader.Close();
-                con.Close();
+               
             }
         }
         public void Back(ForgotPasswordWindow parameter)
@@ -169,7 +170,9 @@ namespace ConvenienceStore.ViewModel.Login
             }
             else if ((parameter.newpass.passwordBox.Password.ToString())== (parameter.confirmpass.passwordBox.Password.ToString()))
                    {
-                AccountDAL.Instance.UpdatePassword(parameter.newpass.passwordBox.Password.ToString(), "4");
+                string pass = parameter.newpass.passwordBox.Password.ToString();
+                string mail = Email;
+                AccountDAL.Instance.UpdatePassword(pass, mail);
 
                 MessageBoxCustom mb = new("Thành công", "Đã thay đổi mật khẩu mới", MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();
