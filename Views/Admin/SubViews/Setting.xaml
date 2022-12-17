@@ -27,8 +27,14 @@
         </Grid.ColumnDefinitions>
 
         <!--Left Section-->
-        <Border Background="#FFD500" Padding="30"
+        <Border  Padding="30"
                 CornerRadius="25 0 0 25">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color='#E9E4F0' Offset="0"/>
+                    <GradientStop Color='#D3CCE3' Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
             <StackPanel VerticalAlignment="Center">
                 <Grid Width="200" Height="200">
                     <StackPanel Orientation="Vertical">
@@ -126,7 +132,7 @@
 
                     <Button  Cursor="Hand"
                         Margin="20"
-                        Command="{Binding ChangePassCommand}"
+                        Command="{Binding ChangePassCommand}" 
 CommandParameter="{Binding ElementName=wdSetting}"
                         Style="{StaticResource buttonBlack}" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <fa:ImageAwesome Icon="AngleRight" Width="25" Height="25" Foreground="#FFD500" Margin="3 0 0 0"/>
