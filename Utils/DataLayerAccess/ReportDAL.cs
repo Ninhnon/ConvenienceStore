@@ -35,7 +35,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             try
             {
                 OpenConnection();
-                string queryString = string.Format("select day(BillDate) as day from Bill " +
+                string queryString = string.Format("select distinct day(BillDate) as day from Bill " +
                     "where month(BillDate) = {0} and year(BillDate) = {1} ", month, year);
                 SqlCommand command = new SqlCommand(queryString, conn);
 
@@ -387,7 +387,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             
             return s;
         }
-        public string QueryDrinkRevenueInMonth(string month,string year)
+        public string QueryDrinkRevenueInMonth(string month,string year) 
         {
             string s = "";
             OpenConnection();
