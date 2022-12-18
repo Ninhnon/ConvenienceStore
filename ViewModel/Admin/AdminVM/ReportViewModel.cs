@@ -51,6 +51,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
         private string consignment = "0 đồng";
         public string Consignment { get => consignment; set { consignment = value; OnPropertyChanged(); } }
+        private string repairCost = "0 đồng";
+        public string RepairCost { get => repairCost; set { repairCost = value; OnPropertyChanged(); } }
 
         //Doanh thu tháng này
 
@@ -89,6 +91,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             string currentYear = DateTime.Now.Year.ToString();
             ThisMonthRevenue = string.Format("{0:n0}", ReportDAL.Instance.QueryRevenueInMonth(currentMonth, currentYear)).ToString() + " đồng";
             Consignment= string.Format("{0:n0}", ReportDAL.Instance.QueryConsignment()).ToString()+ " đồng";
+            RepairCost= string.Format("{0:n0}", ReportDAL.Instance.QueryRepairCost()).ToString() + " đồng";
             try
             {
                 double res = 0;
@@ -165,7 +168,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                             Title = "Doanh thu",
                             Fill = gradient,
                             Values = ReportDAL.Instance.QueryRevenueByDay(today,thismonth,thisyear),
-                        }
+                        } 
                        ,
                          new ColumnSeries 
                         {

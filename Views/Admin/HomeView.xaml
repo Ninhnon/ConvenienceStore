@@ -50,7 +50,7 @@
                     Width="1088"
                     
                     Margin="40,0,0,0">
-                    <Border Margin="15" CornerRadius="5" Width="295" Height="150">
+                    <Border Margin="15" CornerRadius="5" Width="220" Height="150">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                                 <GradientStop Offset="0" Color="#BA5370"/>
@@ -81,7 +81,7 @@
                         </Grid>
 
                     </Border>
-                    <Border Margin="15" CornerRadius="5" Width="295" Height="150">
+                    <Border Margin="15" CornerRadius="5" Width="220" Height="150">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                                 <GradientStop Offset="0" Color="#BA5370"/>
@@ -112,7 +112,7 @@
                         </Grid>
 
                     </Border>
-                    <Border Margin="15" CornerRadius="5" Width="295" Height="150">
+                    <Border Margin="15" CornerRadius="5" Width="220" Height="150">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                                 <GradientStop Offset="0" Color="#ff9068"/>
@@ -137,6 +137,38 @@
 
                             <TextBlock Text="{Binding ThisMonth1}" Grid.Row="1" VerticalAlignment="Center" FontSize="16" Margin="10 0 0 0" Foreground="White"/>
                             <TextBlock Text="{Binding NumOfSoldBill}" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="3" FontSize="22" Margin="10 0 0 0" Foreground="White"/>
+
+
+
+                            <Canvas ClipToBounds="True" Grid.RowSpan="4">
+                                <Border Canvas.Right="-40" Canvas.Top="10" Grid.RowSpan="4" Width="110" Height="110"  CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Top"  HorizontalAlignment="Right"/>
+                                <Border Canvas.Right="-10" Canvas.Top="100" Grid.RowSpan="4" Width="110" Height="110" CornerRadius="100" Background="#ffffff" Opacity="0.2" VerticalAlignment="Bottom"  HorizontalAlignment="Right"/>
+                            </Canvas>
+
+                        </Grid>
+
+                    </Border>
+
+                    <Border Margin="15" CornerRadius="5" Width="220" Height="150">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                                <GradientStop Offset="0" Color="#F2994A"/>
+                                <GradientStop Offset="1" Color="#F16529"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
+
+                            <fa:IconImage Icon="Tools" HorizontalAlignment="Left"
+                                          Width="41"
+                                          Margin="10,0,0,19" Foreground="AliceBlue" Grid.RowSpan="2"/>
+                            <TextBlock Text="Tổng chi phí sửa chữa:" Grid.Row="1" VerticalAlignment="Center" FontSize="16" Margin="10 0 0 0" Foreground="White"/>
+                            <TextBlock Text="{Binding RepairCost}" FontWeight="Bold" VerticalAlignment="Bottom" Grid.Row="1" FontSize="22" Margin="10,0,0,43" Foreground="White" Grid.RowSpan="3" Height="34"/>
 
 
 

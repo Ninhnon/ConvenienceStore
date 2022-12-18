@@ -174,6 +174,31 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 CloseConnection();
             }
         }
+        public int QueryRepairCost()
+        {
+            int res = 0;
+            try
+            {
+                OpenConnection();
+                string queryString = string.Format("select sum(repaircost) as tong from report where status=N\'Đã giải quyết\' ");
+                SqlCommand command = new SqlCommand(queryString, conn);
+
+                SqlDataReader rdr = command.ExecuteReader();
+                while (rdr.Read())
+                {
+                    res = int.Parse(rdr["tong"].ToString());
+                }
+                return res;
+            }
+            catch
+            {
+                return res;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
         public ChartValues<int> QueryNumOfSoldBillToday(string today, string month)
         {
             ChartValues<int> res = new ChartValues<int>();
