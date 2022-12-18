@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace ConvenienceStore.Utils.DataLayerAccess
 {
@@ -148,6 +149,31 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 CloseConnection();
             }
         }
+        public int QueryConsignment()
+        {
+            int res = 0;
+            try
+            {
+                OpenConnection();
+                string queryString = string.Format("select sum(inputprice) as tong  from inputinfo inner join consignment on inputinfo.id=consignment.inputinfoid ");
+                SqlCommand command = new SqlCommand(queryString, conn);
+
+                SqlDataReader rdr = command.ExecuteReader();
+                while (rdr.Read())
+                {
+                    res = int.Parse(rdr["tong"].ToString());
+                }
+                return res;
+            }
+            catch
+            {
+                return res;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
         public ChartValues<int> QueryNumOfSoldBillToday(string today, string month)
         {
             ChartValues<int> res = new ChartValues<int>();
@@ -272,7 +298,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         {
             string s = "";
             OpenConnection();
-            string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+            string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
                 "join product on billdetail.productid = product.barcode where product.type = N\'Đồ ăn\'  and year(billdate) = {0}", int.Parse(year));
             SqlCommand command = new SqlCommand(queryString, conn);
 
@@ -289,7 +315,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         {
             string s = "";
             OpenConnection();
-            string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+            string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
                 "join product on billdetail.productid = product.barcode where product.type = N\'Thức uống\'  and year(billdate) = {0}", int.Parse(year));
             SqlCommand command = new SqlCommand(queryString, conn);
 
@@ -306,7 +332,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         {
             string s = "";
             OpenConnection();
-            string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+            string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
                 "join product on billdetail.productid = product.barcode where product.type = N\'Khác\'  and year(billdate) = {0}",  int.Parse(year));
             SqlCommand command = new SqlCommand(queryString, conn);
 
@@ -323,7 +349,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         {
             string s = "";
             OpenConnection();
-            string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+            string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
                 "join product on billdetail.productid = product.barcode where product.type = N\'Đồ ăn\' and month(billdate)={0} and year(billdate) = {1}",int.Parse(month),int.Parse( year));
             SqlCommand command = new SqlCommand(queryString, conn);
 
@@ -340,7 +366,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         {
             string s = "";
             OpenConnection();
-            string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+            string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
                 "join product on billdetail.productid = product.barcode where product.type = N\'Thức uống\' and month(billdate)={0} and year(billdate) = {1}", int.Parse(month), int.Parse(year));
             SqlCommand command = new SqlCommand(queryString, conn);
 
@@ -357,7 +383,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         {
             string s = "";
             OpenConnection();
-            string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+            string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
                 "join product on billdetail.productid = product.barcode where product.type = N\'Khác\' and month(billdate)={0} and year(billdate) = {1}", int.Parse(month), int.Parse(year));
             SqlCommand command = new SqlCommand(queryString, conn);
 
@@ -370,6 +396,94 @@ namespace ConvenienceStore.Utils.DataLayerAccess
 
             return s;
         }
+
+        public string QueryFoodRevenueInDay(string day,string month, string year)
+        {
+            string s = "";
+            OpenConnection();
+            string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                "join product on billdetail.productid = product.barcode where product.type = N\'Đồ ăn\' and day(billdate)={0} and month(billdate)={1} and year(billdate) = {2}",int.Parse(day), int.Parse(month), int.Parse(year));
+            SqlCommand command = new SqlCommand(queryString, conn);
+            DataTable dt = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(dt);
+            if (dt.Rows[0].IsNull(0))
+            {
+                s = "0";
+                return s;
+            }
+            else
+            {
+                SqlDataReader rdr = command.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    s = rdr.GetInt32(0).ToString();
+                }
+                CloseConnection();
+
+                return s;
+            }
+        }
+        public string QueryDrinkRevenueInDay(string day,string month, string year)
+        {
+
+            string s = "";
+            OpenConnection();
+            string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                "join product on billdetail.productid = product.barcode where product.type = N\'Thức uống\' and day(billdate)={0} and month(billdate)={1} and year(billdate) = {2}", int.Parse(day), int.Parse(month), int.Parse(year));
+            SqlCommand command = new SqlCommand(queryString, conn);
+            DataTable dt = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(dt);
+            if (dt.Rows[0].IsNull(0))
+            {
+                s = "0";
+                return s;
+            }
+            else
+            {
+                SqlDataReader rdr = command.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    s = rdr.GetInt32(0).ToString();
+                }
+                CloseConnection();
+
+                return s;
+            }
+        }
+        public string QueryOtherRevenueInDay(string day,string month, string year)
+        {
+
+            string s = "";
+            OpenConnection();
+            string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                "join product on billdetail.productid = product.barcode where product.type = N\'Khác\' and day(billdate)={0} and month(billdate)={1} and year(billdate) = {2}", int.Parse(day), int.Parse(month), int.Parse(year));
+            SqlCommand command = new SqlCommand(queryString, conn);
+            DataTable dt = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(dt);
+            if (dt.Rows[0].IsNull(0))
+            {
+                s = "0";
+                return s;
+            }
+            else
+            {
+                SqlDataReader rdr = command.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    s = rdr.GetInt32(0).ToString();
+                }
+                CloseConnection();
+
+                return s;
+            }
+        }
+
         public int QueryRevenueNumOfSoldBillInMonth( string month,string year)
         {
             int res = 0;

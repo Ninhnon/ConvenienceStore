@@ -49,6 +49,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         private string thisMonthRevenue = "0 đồng";
         public string ThisMonthRevenue { get => thisMonthRevenue; set { thisMonthRevenue = value; OnPropertyChanged(); } }
 
+        private string consignment = "0 đồng";
+        public string Consignment { get => consignment; set { consignment = value; OnPropertyChanged(); } }
+
         //Doanh thu tháng này
 
         //Số đơn bán được
@@ -78,13 +81,14 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         {
             Hello = "Hello, " + CurrentAccount.Name;
          ThisYear= DateTime.Now.ToString("yyyy");
-            ThisMonth = "This month Profit " + DateTime.Now.ToString("MM/yyyy");
+            ThisMonth = "This month Revenue " + DateTime.Now.ToString("MM/yyyy");
             ThisMonth1 = DateTime.Now.ToString("MM/yyyy");
             string currentDay = DateTime.Now.Day.ToString();
             string currentMonth = DateTime.Now.Month.ToString();
             string lastMonth = (int.Parse(currentMonth) - 1).ToString();
             string currentYear = DateTime.Now.Year.ToString();
             ThisMonthRevenue = string.Format("{0:n0}", ReportDAL.Instance.QueryRevenueInMonth(currentMonth, currentYear)).ToString() + " đồng";
+            Consignment= string.Format("{0:n0}", ReportDAL.Instance.QueryConsignment()).ToString()+ " đồng";
             try
             {
                 double res = 0;
@@ -103,9 +107,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 IncreasingPercent = "100%";
             }
             NumOfSoldBill = ReportDAL.Instance.QueryRevenueNumOfSoldBillInMonth(currentMonth, currentYear).ToString() + " đơn";
-            FoodRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryFoodRevenueInMonth(currentMonth,currentYear)) ).ToString() +" VND";
-            DrinkRevenue= string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryDrinkRevenueInMonth(currentMonth,currentYear))).ToString()+" VND";
-            OtherRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryOtherRevenueInMonth(currentMonth,currentYear))).ToString()+" VND";
+    
 
 
         }
@@ -171,12 +173,18 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                       Fill=(Brush)new BrushConverter().ConvertFrom("#E44D26"),
                             Values = ReportDAL.Instance.QueryNumOfSoldBillToday(today,thismonth),
                         }
+                        
+
                     };
             List<string> res = new List<string>();
             res.Add(today);
 
             Labels = res.ToArray();
             Formatter = value => string.Format("{0:N0}", value); //Format dấu ,
+            FoodRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryFoodRevenueInDay(today,thismonth, currentYear))).ToString() + " VND";
+            DrinkRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryDrinkRevenueInDay(today,thismonth, currentYear))).ToString() + " VND";
+            OtherRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryOtherRevenueInDay(today,thismonth, currentYear))).ToString() + " VND";
+
 
         }
         public void InitColumnChartMonth(HomeView homeWindow)
@@ -208,6 +216,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                     };
             Labels = ReportDAL.Instance.QueryDayInMonth(selectedMonth, currentYear);
             Formatter = value => string.Format("{0:N0}", value); //Format dấu ,
+            FoodRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryFoodRevenueInMonth(selectedMonth, currentYear))).ToString() + " VND";
+            DrinkRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryDrinkRevenueInMonth(selectedMonth, currentYear))).ToString() + " VND";
+            OtherRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryOtherRevenueInMonth(selectedMonth, currentYear))).ToString() + " VND";
             /*
                   
        */
@@ -251,7 +262,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             */
             Labels = ReportDAL.Instance.QueryMonthInYear(selectedYear);
             Formatter = value => string.Format("{0:N0}", value);
-
+            FoodRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryFoodRevenueInYear(selectedYear))).ToString() + " VND";
+            DrinkRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryDrinkRevenueInYear(selectedYear))).ToString() + " VND";
+            OtherRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryOtherRevenueInYear(selectedYear))).ToString() + " VND";
 
         }
 
