@@ -50,6 +50,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProfileCommand
             try
             {
                 imageBrush.ImageSource = bi;
+                CurrentAccount.Avatar = bytes;
             }
             catch
             {
