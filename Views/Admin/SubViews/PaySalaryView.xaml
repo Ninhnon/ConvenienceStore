@@ -173,11 +173,15 @@
 
                                 </uc:TextBoxUC>
 
-                                <uc:TextBoxUC Caption="Thưởng thêm (đơn vị VND)">
+                                <uc:TextBoxUC
+                                    x:Name="plusSalary"
+                                    Caption="Thưởng thêm (đơn vị VND)">
 
                                 </uc:TextBoxUC>
 
-                                <uc:TextBoxUC Caption="Trừ Lương (đơn vị -VND)">
+                                <uc:TextBoxUC 
+                                    x:Name="minusSalary"
+                                    Caption="Trừ Lương (đơn vị -VND)">
 
 
                                 </uc:TextBoxUC>

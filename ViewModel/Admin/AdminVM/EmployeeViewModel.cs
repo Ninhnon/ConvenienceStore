@@ -472,9 +472,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             Selectedid = ((Account)parameter.AccountsDataGrid.SelectedItem).IdAccount;
             PaySalaryView payView = new PaySalaryView();
 
-
-            int j = ((Account)parameter.AccountsDataGrid.SelectedItem).ManagerId;
-            Selected = DatabaseHelper.FetchingAccounAdminWithIdData(j).Name;
+         
             payView.salaryTxtbox.textBox.Text = AccountDAL.Instance.GetSalary(((Account)parameter.AccountsDataGrid.SelectedItem).IdAccount).ToString();
 
 
