@@ -60,7 +60,7 @@ namespace ConvenienceStore.ViewModel.Login
                 Email = parameter.textEmail.textBox.Text.ToString();
                 Random rnd = new Random();
                 Authencode = rnd.Next(100000, 999999);
-                AccountDAL.Instance.SetNewAuthenCode(Authencode,Email);
+    
                 string cs = @ConfigurationManager.ConnectionStrings["Default"].ToString();
                 string query = "select* from Users where Email=" + "\'" + parameter.textEmail.textBox.Text.ToString() + "\'";
 

@@ -44,12 +44,7 @@
             </Setter.Value>
         </Setter>
         <!--Chinh margin khi luot chuot ngang qua-->
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-
-                <Setter Property="Margin" Value="8,0,0,5"></Setter>
-            </Trigger>
-        </Style.Triggers>
+       
     </Style>
     <!--RADIO BUTTON STYLE-->
     <Style x:Key="BtnStyle"

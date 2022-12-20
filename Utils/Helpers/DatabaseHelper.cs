@@ -345,7 +345,7 @@ namespace ConvenienceStore.Utils.Helpers
                     Password = read.GetString(7),
                     Avatar = (byte[])(read["Avatar"]),
                       ManagerId = read.GetInt32(9),
-
+                      Salary = read.GetInt32(10)
 
                 });
                 accounts[i - 1].Number = i;

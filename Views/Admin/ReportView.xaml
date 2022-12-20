@@ -141,80 +141,12 @@
                 <StackPanel Margin="20,0,0,0"
                             HorizontalAlignment="Left" Orientation="Horizontal"
                             Height="308" Width="1093">
-                    <Border Background="#eef2f3" 
-                            Grid.Row="1" Padding="30 20 30 20" 
-                            CornerRadius="20" 
-                            Margin="20 0 20 10" 
-                            Height="291" Width="749"
-                            VerticalAlignment="Top"
-                            >
-                        <StackPanel Margin="0,0,0,-20">
-
-                            <!--Titles-->
-                            <TextBlock Text="Cơ cấu loại hàng hóa bán được"
-                                       HorizontalAlignment="Center"
-                           Foreground="#083353" 
-            FontSize="20" 
-            FontWeight="Bold" />
-                            <TextBlock Text="{Binding ThisYear}"
-                                       HorizontalAlignment="Center"
-                           Foreground="#D66D75" 
-            FontSize="12" 
-            FontWeight="Bold" />
-                            <!--Middle Circle-->
-                            <Grid Margin="0 50 0 20">
-                                <lvc:PieChart 
-                                      Series="{Binding PieSeriesCollection}"
-                                    LegendLocation="None" InnerRadius="80" Hoverable="False"  Margin="0,10,0,56">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Loaded">
-                                            <i:InvokeCommandAction Command="{Binding InitPieChartCommand}"
-                                                CommandParameter="{Binding ElementName=wdReport}"/>
-
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-
-                                    <lvc:PieChart.DataTooltip>
-                                        <lvc:DefaultTooltip ContentStringFormat="0:#,##0" Background="#D3CCE3" Foreground="Red" Opacity="0.7" BulletSize="10">
-                                        </lvc:DefaultTooltip>
-                                    </lvc:PieChart.DataTooltip>
-
-
-                                </lvc:PieChart>
-                            </Grid>
-
-                            <!--Bottom Informations-->
-                            <Grid >
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <uc:CircleInfo Color="#6254F9" Title="Đồ ăn" />
-                                <uc:CircleInfo Grid.Column="1" Color="#FFBE41" Title="Thức uống" />
-                                <uc:CircleInfo Grid.Column="2" Color="#DFE931" Title="Khác" />
-                            </Grid>
-                        </StackPanel>
-                    </Border>
+                    
 
 
 
 
-                    <Border VerticalAlignment="Top" Margin="50,20,50,0"
-                        Style="{StaticResource whiteBorder}" Height="249"  Width="236">
-                        <StackPanel Margin="0,-20,0,-19" Width="272">
-                            <TextBlock Text="Sales Top List This Month" HorizontalAlignment="Left"
-                                        Height="28" FontSize="16" FontWeight="Bold"
-                                       Foreground="Black"
-                                       />
-
-
-                            <uc:UserCard x:Name="top1"  IsActive="True"   Width="280"/>
-                            <uc:UserCard x:Name="top2" />
-                            <uc:UserCard x:Name="top3" />
-                        </StackPanel>
-                    </Border>
+                   
                     <!--Social Card-->
                 </StackPanel>
               
