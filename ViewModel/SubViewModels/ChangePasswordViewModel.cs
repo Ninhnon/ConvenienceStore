@@ -71,7 +71,7 @@ namespace ConvenienceStore.ViewModel.SubViewModels
             if(isValid)
             {
 
-                AccountDAL.Instance.UpdatePassword(parameter.NewPasswordBox.passwordBox.Password.ToString(), CurrentAccount.idAccount);
+                AccountDAL.Instance.UpdatePassword(parameter.NewPasswordBox.passwordBox.Password.ToString(), CurrentAccount.Email);
                 MessageBoxCustom mb = new("Thông báo", "Thay đổi mật khẩu thành công", MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();
             }

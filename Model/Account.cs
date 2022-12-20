@@ -75,6 +75,14 @@ namespace ConvenienceStore.Model
         private int managerId_;
         public int ManagerId
         { get { return managerId_; } set { managerId_ = value; } }
+
+        private int salary;
+        public int Salary
+        {
+            get { return salary; }
+            set { salary = value; }
+        }
+
         public Account()
         {
 

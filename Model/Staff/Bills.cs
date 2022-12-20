@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace ConvenienceStore.Model.Staff
 {
     public class Bills : BaseViewModel
@@ -26,6 +27,15 @@ namespace ConvenienceStore.Model.Staff
         private int? _TotalPrice;
         public int? TotalPrice { get { return _TotalPrice; } set { _TotalPrice = value; OnPropertyChanged(); } }
 
-        #nullable disable
+        private int? _Discount;
+        public int? Discount { get { return _Discount; } set { _Discount = value; OnPropertyChanged(); } }
+
+        private int? _UserId;
+        public int? UserId { get { return _UserId; } set { _UserId = value; OnPropertyChanged(); } }
+
+        private int? _CustomerId;
+        public int? CustomerId { get { return _CustomerId; } set { _CustomerId = value; OnPropertyChanged(); } }
+
+#nullable disable
     }
 }

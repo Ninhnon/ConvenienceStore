@@ -129,7 +129,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
             ObservableCollection<Vouchers> temp = new();
             foreach (Vouchers item in danhsach)
             {
-                if (item.Status == true)
+                if (item.Status == 1)
                     temp.Add(item);
             }
             List = new ObservableCollection<Vouchers>(temp);
@@ -139,7 +139,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
             ObservableCollection<Vouchers> temp = new();
             foreach (Vouchers item in danhsach)
             {
-                if (item.Status != true)
+                if (item.Status != 1)
                     temp.Add(item);
             }
             List = new ObservableCollection<Vouchers>(temp);

@@ -1,6 +1,7 @@
 ﻿using ConvenienceStore.Model;
 using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Model.Staff;
+using ConvenienceStore.Views;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -30,16 +31,31 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryConsingment = @"select * from [Consignment]";
         static readonly string queryCustomerData = @"select * from [Customer]";
         static readonly string queryBillData = @"select * from [Bill]";
-        static readonly string queryInsertBill = @"insert into Bill(BillDate, CustomerId, UserId, Price) Values (@billDate, @cusId, @userId, @price)";
+        static readonly string queryInsertBill = @"insert into Bill(BillDate, CustomerId, UserId, Price, Discount) Values (@billDate, @cusId, @userId, @price, @discount)";
         static readonly string queryAvatar = @"select Avatar from [Users] where Id={0}";
         static readonly string queryName = @"select Name from [Users] where Id={0}";
         static readonly string insertErorrs = "insert into Report(Title, Description, Status, RepairCost, SubmittedAt, StaffId, Image) select N'{0}',N'{1}',N'{2}',{3},N'{4}',N'{5}', BulkColumn FROM Openrowset(Bulk N'{6}', Single_Blob) as img";
         static readonly string queryInsertBillDetail = @"insert into BillDetail(BillId, ProductId, Quantity, TotalPrice) values (@billId, @productId, @quantity, @totalPrice)";
-        static readonly string insertReport = "insert into Report(Title, Description, Status, SubmittedAt, RepairCost, StaffId, Image) values (@Title, @Description, @Status, @SubmittedAt,@RepairCost,@StaffId, @Image)";
+        static readonly string querySearchVoucher = @"select Code, Status, TypeVoucher, ParValue, StartDate, FinishDate
+                                                        from Voucher v join BlockVoucher b on v.BlockId = b.Id
+                                                        where Code = @code AND Status = 0";
+        static readonly string queryUpdateVoucherStatus = @"update Voucher set Status = 1 where Code = @code";
+        static readonly string queryVoucherDetail = @"select Code, Status, TypeVoucher, ParValue, StartDate, FinishDate from Voucher v join BlockVoucher b on v.BlockId = b.Id";
+
+        static readonly string insertReport = "insert Report values (@Title, @Description, @Status, @SubmittedAt,@RepairCost,Null,Null,@StaffId, @Image)";
         static readonly string insertBillData = @"insert into Bill(BillDate, CustomerId, UserId, Price) Values (@billDate, @cusId, @userId, @price)";
-        static readonly string updateReport = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost ,Description = @Description where Id=@Id";
+        static readonly string updateReport = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost
+                                                 where SubmittedAt=@SubmittedAt";
+        static readonly string queryBillsData = @"select b.Id, u.Name, c.Name, b.BillDate, b.Price, u.Id, c.Id, b.Discount
+                                                    from Bill b left join Customer c on b.CustomerId = c.Id
+                                                                left join Users u on b.UserId = u.Id
+                                                    order by b.Id DESC";
+        static readonly string queryBillDetailsData = @"select bd.Quantity, p.Title, bd.TotalPrice
+                                                        from BillDetail bd join Product p on bd.ProductId = p.Barcode
+                                                        where BillId = @id";
         static readonly string updateReportAD = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost,Status = @Status,StartDate = @StartDate,FinishDate = @FinishDate,Description = @Description
                                                  where Id=@Id";
+
         public static List<Model.Staff.Bill> FetchingBillData()
         {
             sqlCon.Open();
@@ -171,7 +187,7 @@ namespace ConvenienceStore.Utils.Helpers
                     StartDate = reader.GetDateTime(3),
                     FinishDate = reader.GetDateTime(4),
                     ParValue = reader.GetInt32(5),
-                    Status = reader.GetBoolean(6),
+                    Status = reader.GetInt32(6),
                 });
 
             }
@@ -259,7 +275,7 @@ namespace ConvenienceStore.Utils.Helpers
             return customers;
         }
 
-        public static void InsertBill(int? customerId, int price)
+        public static void InsertBill(int? customerId, int? price, int? discount)
         {
             sqlCon.Open();
             SqlCommand cmd = new SqlCommand(queryInsertBill, sqlCon);
@@ -267,6 +283,8 @@ namespace ConvenienceStore.Utils.Helpers
             cmd.Parameters.AddWithValue("@cusId", (customerId == null ? DBNull.Value : customerId));
             cmd.Parameters.AddWithValue("@userId", CurrentAccount.idAccount);
             cmd.Parameters.AddWithValue("@price", price);
+            cmd.Parameters.AddWithValue("@discount", discount);
+
 
             cmd.ExecuteNonQuery();
             sqlCon.Close();
@@ -381,6 +399,63 @@ namespace ConvenienceStore.Utils.Helpers
             }
             sqlCon.Close();
         }
+
+        public static int ApplyVoucher(int totalPrice, string code, ref int error) //Hàm lấy ra giá trị discount
+        {
+            sqlCon.Open();
+
+            //Tìm kiếm voucher
+            var cmd = new SqlCommand(querySearchVoucher, sqlCon);
+            cmd.Parameters.AddWithValue("@code", code);
+            List<Model.Staff.Vouchers> vouchers = new List<Model.Staff.Vouchers>();
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                vouchers.Add(new Model.Staff.Vouchers()
+                {
+                    ReleaseId = reader.GetString(0),
+                    Status = reader.GetInt32(1),
+                    Type = reader.GetInt32(2),
+                    ParValue = reader.GetInt32(3),
+                    StartDate = reader.GetDateTime(4),
+                    FinishDate = reader.GetDateTime(5),
+                });
+
+            }
+            reader.Close();
+
+            int discount = 0;
+            if (vouchers.Count != 0)
+            {
+                if (vouchers[0].Type == 0)  //Giảm tiền mặt
+                    discount = vouchers[0].ParValue.HasValue ? Convert.ToInt32(vouchers[0].ParValue) : 0;
+                else if (vouchers[0].Type == 1) //Giảm %
+                    discount = vouchers[0].ParValue.HasValue ? Convert.ToInt32(totalPrice * vouchers[0].ParValue / 100) : 0;
+
+                if (vouchers[0].FinishDate < System.DateTime.Now)  //Quá hạn sử dụng
+                    error = 1;
+            }
+            else
+                error = 0;
+
+            sqlCon.Close();
+            return discount;
+        }
+
+        public static void UpdateVoucherStatus(string code)
+        {
+            if (code != null)
+            {
+                sqlCon.Open();
+                //Tìm kiếm voucher
+                var cmd = new SqlCommand(queryUpdateVoucherStatus, sqlCon);
+                cmd.Parameters.AddWithValue("@code", code);
+                cmd.ExecuteNonQuery();
+                sqlCon.Close();
+            }
+        }
         public static void UpdateReport(Report editedReport)
         {
             sqlCon.Open();
@@ -420,6 +495,52 @@ namespace ConvenienceStore.Utils.Helpers
             cmd.ExecuteNonQuery();
 
             sqlCon.Close();
+        }
+        public static List<Model.Staff.Bills> FetchingBillsData()
+        {
+            sqlCon.Open();
+            SqlCommand command = new SqlCommand(queryBillsData, sqlCon);
+            List<Model.Staff.Bills> list = new List<Model.Staff.Bills>();
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                list.Add(new Model.Staff.Bills()
+                {
+                    BillId = reader.GetInt32(0),
+                    UserName = reader.IsDBNull(1) ? null : reader.GetString(1),
+                    CustomerName = reader.IsDBNull(2) ? "Khách vãng lai" : reader.GetString(2),
+                    BillDate = reader.IsDBNull(3) ? null : reader.GetDateTime(3),
+                    TotalPrice = reader.IsDBNull(4) ? null : reader.GetInt32(4),
+                    UserId = reader.IsDBNull(5) ? null : reader.GetInt32(5),
+                    CustomerId = reader.IsDBNull(6) ? null : reader.GetInt32(6),
+                    Discount = reader.IsDBNull(7) ? 0 : reader.GetInt32(7),
+                });
+            }
+
+            sqlCon.Close();
+            return list;
+        }
+        public static List<Model.Staff.BillDetails> FetchingBillDetailsData(Bills BillInfo)
+        {
+            sqlCon.Open();
+            SqlCommand command = new SqlCommand(queryBillDetailsData, sqlCon);
+            command.Parameters.AddWithValue("@id", BillInfo.BillId);
+            List<Model.Staff.BillDetails> list = new List<Model.Staff.BillDetails>();
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                list.Add(new Model.Staff.BillDetails()
+                {
+                    Quantity = reader.IsDBNull(0) ? null : reader.GetInt32(0),
+                    Title = reader.IsDBNull(1) ? null : reader.GetString(1),
+                    TotalPrice = reader.IsDBNull(2) ? null : reader.GetInt32(2),
+                });
+            }
+
+            sqlCon.Close();
+            return list;
         }
     }
 }

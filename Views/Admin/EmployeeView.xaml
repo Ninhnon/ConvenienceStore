@@ -52,6 +52,7 @@ Style="{StaticResource Page_Style}"
                       DataContext="{StaticResource EmployeeVM}"
           Margin="0,0,30,0"
                 Command="{Binding AddEmployeeCommand}"
+                    CommandParameter="{Binding ElementName=wdEmployee}"
                     Grid.Row="1"
                     >
                 <StackPanel Orientation="Horizontal" >
@@ -126,14 +127,15 @@ Style="{StaticResource Page_Style}"
                       Grid.Row="5"
                       Style="{DynamicResource DataGridStyle2}">
                 <DataGrid.Columns>
-
-                    <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding Number}"/>
-                    <DataGridTemplateColumn Header="Nhân viên" IsReadOnly="True" Width="*">
+                
+                <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding Number}"/>
+                    <DataGridTemplateColumn Header="Nhân viên" IsReadOnly="True" Width="220">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="{Binding BgColor}">
-                                        <Image Source="{Binding Avatar}" />
+                                        <Image Stretch="Fill"
+                                            Source="{Binding Avatar}" />
                                     </Border>
 
                                     <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
@@ -144,7 +146,7 @@ Style="{StaticResource Page_Style}"
                     <DataGridTemplateColumn Header="Địa chỉ" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
-                                        Width="*">
+                                        Width="250">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Address}"
@@ -152,12 +154,20 @@ Style="{StaticResource Page_Style}"
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Email " Binding="{Binding Email}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Email " Binding="{Binding Email}" IsReadOnly="True" Width="280"/>
                     <DataGridTextColumn Header="Phone " Binding="{Binding Phone}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Salary " Binding="{Binding Salary}" IsReadOnly="True" Width="100"/>
                     <DataGridTemplateColumn Header="Thao tác" IsReadOnly="True" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
+                                    <Button Margin="0 0 5 0"  
+                                        Command="{Binding PaySalaryCommand }"
+                                            CommandParameter="{Binding ElementName=wdEmployee}" 
+                                         DataContext="{StaticResource EmployeeVM}"
+                                        Style="{StaticResource gridPayButton}">
+                                        <Icon:PackIconMaterial Kind="HandCoin" Style="{StaticResource gridButtonIcon}"/>
+                                    </Button>
                                     <Button    Command="{Binding EditEmployeeCommand }"
                                             CommandParameter="{Binding ElementName=wdEmployee}" 
                                          DataContext="{StaticResource EmployeeVM}"
