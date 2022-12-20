@@ -122,15 +122,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 CloseConnection();
             
         }
-        public void SetNewAuthenCode(int code,string email)
-        {
-           
-            OpenConnection();
-            string query = string.Format("update users set Authencode={0} where email=\'{1}\'",code.ToString(),email);
-            SqlCommand command = new SqlCommand(query, conn);
-            command.ExecuteNonQuery();
-            CloseConnection();
-        }
+     
         public void setNewPass(string pass, string email)
         {
             OpenConnection();
@@ -141,7 +133,43 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.ExecuteNonQuery();
             CloseConnection();
-        } 
+        }
+        public int GetSalary(int id)
+        {
+            int salary = 0;
+            try
+            {
+                OpenConnection();
+                string queryString = String.Format("select salary from Users where id={0}",id.ToString());
+                SqlCommand command = new SqlCommand(queryString, conn);
+                SqlDataReader reader = command.ExecuteReader();
+               while(reader.Read())
+                {
+                    salary = reader.GetInt32(0);
+                }    
+
+
+                    return salary;
+                
+            }
+            catch
+            {
+                return 0;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+        public void SetNewSalary(int salary, int id)
+        {
+
+            OpenConnection();
+            string query = string.Format("update users set salary={0} where id={1}", salary.ToString(), id.ToString());
+            SqlCommand command = new SqlCommand(query, conn);
+            command.ExecuteNonQuery();
+            CloseConnection();
+        }
         public int SetNewID()
         {
             try

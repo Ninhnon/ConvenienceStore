@@ -129,7 +129,7 @@ Style="{StaticResource Page_Style}"
                 <DataGrid.Columns>
                 
                 <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding Number}"/>
-                    <DataGridTemplateColumn Header="Nhân viên" IsReadOnly="True" Width="*">
+                    <DataGridTemplateColumn Header="Nhân viên" IsReadOnly="True" Width="220">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -146,7 +146,7 @@ Style="{StaticResource Page_Style}"
                     <DataGridTemplateColumn Header="Địa chỉ" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
-                                        Width="*">
+                                        Width="250">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Address}"
@@ -154,14 +154,15 @@ Style="{StaticResource Page_Style}"
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Email " Binding="{Binding Email}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Email " Binding="{Binding Email}" IsReadOnly="True" Width="280"/>
                     <DataGridTextColumn Header="Phone " Binding="{Binding Phone}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Salary " Binding="{Binding Salary}" IsReadOnly="True" Width="100"/>
                     <DataGridTemplateColumn Header="Thao tác" IsReadOnly="True" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Button Margin="0 0 5 0"  
-                                        Command="{Binding EditEmployeeCommand }"
+                                        Command="{Binding PaySalaryCommand }"
                                             CommandParameter="{Binding ElementName=wdEmployee}" 
                                          DataContext="{StaticResource EmployeeVM}"
                                         Style="{StaticResource gridPayButton}">
