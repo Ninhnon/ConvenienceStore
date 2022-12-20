@@ -24,6 +24,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public ICommand RemoveProduct { get; set; }
         public ICommand SearchProductName { get; set; }
         public ICommand FilterType { get; set; }
+
         public ICommand MaskNameCM { get; set; }
         public ICommand OpenReceiptPage { get; set; }
         public ICommand ScrollToEndListBox { get; set; }
@@ -109,12 +110,11 @@ namespace ConvenienceStore.ViewModel.StaffVM
         {
             StaffName = CurrentAccount.Name;
             StaffId = CurrentAccount.idAccount;
-
             products = DatabaseHelper.FetchingProductData();
             List = new ObservableCollection<Products>(products);
-
             FilteredList = List;
             ShoppingCart = new ObservableCollection<BillDetails>();
+            TotalBill = 0;
 
             // Thêm sản phẩm vào giỏ hàng
             AddToCart = new RelayCommand<BillDetail>((p) =>
@@ -136,6 +136,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                     billDetail.Title = SelectedItem.Title;
                     billDetail.Image = SelectedItem.Image;
 
+                    TotalBill += (int)billDetail.TotalPrice;
                     SelectedBillDetail = billDetail;
                     ShoppingCart.Add(billDetail);
                 }
@@ -151,7 +152,9 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 BillDetails item = SelectedBillDetail;
                 if (item != null)
                 {
+                    TotalBill -= (int)item.TotalPrice;
                     item.TotalPrice = item.TotalPrice / item.Quantity * (item.Quantity + 1);
+                    TotalBill += (int)item.TotalPrice;
                     item.Quantity++;
                 }
             }
@@ -168,7 +171,9 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         item.Quantity = 1;
                     else
                     {
+                        TotalBill -= (int)item.TotalPrice;
                         item.TotalPrice = item.TotalPrice / item.Quantity * (item.Quantity - 1);
+                        TotalBill += (int)item.TotalPrice;
                         item.Quantity--;
                     }
                 }
@@ -183,6 +188,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 if (item != null)
                 {
                     ShoppingCart.Remove(item);
+                    TotalBill -= (int)item.TotalPrice;
                 }
             }
             );

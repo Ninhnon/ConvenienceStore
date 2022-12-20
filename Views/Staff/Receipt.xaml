@@ -129,7 +129,8 @@
                          TextAlignment="Center"
                          HorizontalAlignment="Left"/>
 
-                        <TextBlock Text="{Binding ReceiptBill.BillDate, StringFormat={}{0:dddd, dd MMMM yyyy, HH:mm:ss}}"                         FontWeight="Light"
+                        <TextBlock Text="{Binding ReceiptBill.BillDate, StringFormat={}{0:dddd, dd MMMM yyyy, HH:mm:ss}}"
+                                   FontWeight="Light"
                          FontSize="13"
                          TextAlignment="Center"
                          HorizontalAlignment="Left"
