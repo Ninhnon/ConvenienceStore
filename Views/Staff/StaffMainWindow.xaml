@@ -40,7 +40,7 @@
             <!-- Start: GridColumn Right -->
             <Grid >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="22"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 

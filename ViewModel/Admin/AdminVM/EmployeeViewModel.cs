@@ -17,6 +17,7 @@ using ConvenienceStore.Utils.Helpers;
 
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Views;
+using System.Windows.Controls;
 
 namespace ConvenienceStore.ViewModel.Admin.AdminVM
 {
@@ -51,6 +52,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public ICommand InitManagerCommand { get; set; }
         public ICommand BackCommand { get; set; }
         public ICommand BackCommandEdit { get; set; }
+        public ICommand BackCommandPay { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand SaveCommandEdit { get; set; }
         public ICommand UploadImageCommand { get; set; }
@@ -80,6 +82,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public ICommand AddEmployeeCommand { get; set; }
         public ICommand DeleteEmployeeCommand { get; set; }
         public ICommand EditEmployeeCommand { get; set; }
+        public ICommand PaySalaryCommand { get; set; }
 
         public EmployeeViewModel()
         {
@@ -87,17 +90,22 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             AddEmployeeCommand = new RelayCommand<EmployeeView>(parameter => true, parameter => AddEmployee(parameter));
             SearchCommand = new RelayCommand<EmployeeView>(parameter => true, parameter => Search());
             DeleteEmployeeCommand = new RelayCommand<EmployeeView>(parameter => true, parameter => Delete(parameter));
+
             ObservableEmployee = new ObservableCollection<Account>(accounts);
+
+
             BackCommand = new RelayCommand<AddEmployeeView>(parameter => true, parameter => Back(parameter));
             BackCommandEdit = new RelayCommand<EditEmployeeView>(parameter => true, parameter => BackEdit(parameter));
+            BackCommandPay = new RelayCommand<PaySalaryView>(parameter => true, parameter => BackPay(parameter));
             SaveCommand = new RelayCommand<AddEmployeeView>(parameter => true, parameter => Save(parameter));
             SaveCommandEdit = new RelayCommand<EditEmployeeView>(parameter => true, parameter => SaveEdit(parameter));
             UploadImageCommand = new RelayCommand<AddEmployeeView>(parameter => true, parameter => UploadImage(parameter));
           
-            ObservableEmployee = new ObservableCollection<Account>(accounts);
+
            InitManagerCommand = new RelayCommand<AddEmployeeView>(parameter => true, parameter => AddManagerItemSource(parameter));
             InitManagerCommandEdit = new RelayCommand<EditEmployeeView>(parameter => true, parameter => AddManagerItemSourceEdit(parameter));
             EditEmployeeCommand=new RelayCommand<EmployeeView>(parameter=>true, parameter => Edit(parameter));
+            PaySalaryCommand = new RelayCommand<EmployeeView>(parameter => true, parameter => OpenPay(parameter));
         
         }
         public void AddEmployee(EmployeeView parameter)
@@ -105,6 +113,13 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             AddEmployeeView addView = new AddEmployeeView();
            
             addView.ShowDialog();
+            int i = 1;
+            foreach(var account in accounts)
+            {
+                account.Number = i;
+                i++;
+            }    
+          
         }
         public void Search()
         {
@@ -120,17 +135,27 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         }
         public void Delete(EmployeeView parameter)
         {
+            int i = 1;
             foreach (var account in accounts)
             {
 
                 if(account.IdAccount== ((Account)parameter.AccountsDataGrid.SelectedItem).IdAccount)
                 {
                     ObservableEmployee.Remove(account);
+                    foreach (var e in ObservableEmployee)
+                    {
+                        e.Number = i;
+                        i++;
+                    }
+                    parameter.AccountsDataGrid.Items.Refresh();
                     accounts.Remove(account);
                     AccountDAL.Instance.DeleteAccount(account.IdAccount);
+                
+                   
                     break;
                 }
             }
+            
             
         }
 
@@ -142,7 +167,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
             int j = ((Account)parameter.AccountsDataGrid.SelectedItem).ManagerId;
             Selected = DatabaseHelper.FetchingAccounAdminWithIdData(j).Name;
-           
+            editView.salaryTxtbox.textBox.Text = AccountDAL.Instance.GetSalary(((Account)parameter.AccountsDataGrid.SelectedItem).IdAccount).ToString();
 
 
 
@@ -288,7 +313,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 AccountDAL.Instance.AddIntoDataBase(acc);
                 EmployeeViewModel.accounts.Add(acc);
 
-                MessageBox.Show("them thanh cong");
+                MessageBoxCustom mb = new("Thông báo", "Thêm thành công", MessageType.Success, MessageButtons.OK);
+                mb.ShowDialog();
                 ObservableEmployee = new ObservableCollection<Account>(accounts);
 
                 parameter.Close();
@@ -301,24 +327,28 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
         public void SaveEdit(EditEmployeeView parameter)
         {
-            bool isValid = true;
-           
-          
+            List<Account> accounts1 = AccountDAL.Instance.ConvertDataTableToList();
+
             parameter.ManagerErrorMessage.Text = "";
-        
+            parameter.salaryTxtbox.ErrorMessage.Text = "";
           
           
             if (parameter.ManagerCombobox.SelectedValue == null)
             {
                 parameter.ManagerErrorMessage.Text = "Xin chọn người quản lý";
-                isValid = false;
+                parameter.ManagerCombobox.Focus();
+              
             }
-           
-            List<Account> accounts1 = AccountDAL.Instance.ConvertDataTableToList();
+           else if(string.IsNullOrEmpty(parameter.salaryTxtbox.textBox.Text))
+            {
+                parameter.salaryTxtbox.ErrorMessage.Text = "Xin nhập mức lương mới";
+                parameter.salaryTxtbox.textBox.Focus();
+            }
+            
           
 
            
-            if (isValid)
+            else 
             {
                 int i = 0;
 
@@ -331,10 +361,11 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                     }
                 }
                 AccountDAL.Instance.UpdateManager(Selectedid, i);
-              
-                  
-                    
-                MessageBox.Show("Sua thanh cong");
+                AccountDAL.Instance.SetNewSalary(int.Parse(parameter.salaryTxtbox.textBox.Text), Selectedid);
+
+
+                MessageBoxCustom mb = new("Thông báo", "Sửa thành công", MessageType.Success, MessageButtons.OK);
+                mb.ShowDialog();
                 ObservableEmployee.Clear();
                 accounts = AccountDAL.Instance.ConvertDataTableToListEmployee();
                 ObservableEmployee = new ObservableCollection<Account>(accounts);
@@ -409,7 +440,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             try
             {
                 imageBrush.ImageSource = bi;
-            }
+            }       
             catch
             {
                 /* Chỗ này phải xài try catch để bắt lỗi
@@ -431,5 +462,28 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
             ItemSourceManager = new ObservableCollection<string>(admins);
         }
+
+        public void BackPay(PaySalaryView parameter)
+        {
+            parameter.Close();
+        }
+        public void OpenPay(EmployeeView parameter)
+        {
+            Selectedid = ((Account)parameter.AccountsDataGrid.SelectedItem).IdAccount;
+            PaySalaryView payView = new PaySalaryView();
+
+         
+            payView.salaryTxtbox.textBox.Text = AccountDAL.Instance.GetSalary(((Account)parameter.AccountsDataGrid.SelectedItem).IdAccount).ToString();
+
+
+
+
+
+            payView.ShowDialog();
+
+        }
+
+
+
     }
 }

@@ -62,7 +62,7 @@ namespace ConvenienceStore.ViewModel.Admin
         public ICommand ProductCommand { get; set; }
         public ICommand ProfileCommand { get; set; }
         public ICommand ReportCommand { get; set; }
-        public ICommand ChartCommand { get; set; }
+
 
         public ICommand VoucherCommand { get; set; }
         public ICommand SupplierCommand { get; set; }
@@ -139,10 +139,7 @@ namespace ConvenienceStore.ViewModel.Admin
                 p.Content = new TroubleView();
 
             });
-            ChartCommand = new RelayCommand<Frame>(parameter => true, (parameter) =>
-            {
-                parameter.Content = new ReportView();
-            });
+           
             VoucherCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 p.Content = new VoucherView();

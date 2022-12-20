@@ -13,6 +13,7 @@ using ConvenienceStore.Model;
 using ConvenienceStore.Utils.Helpers;
 using System.IO;
 using System.Windows.Media.Imaging;
+using System.Windows.Ink;
 
 namespace ConvenienceStore.ViewModel.Admin.AdminVM
 {
@@ -24,36 +25,39 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             InitColumnChartTodayCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartToday(parameter));
             InitColumnChartMonthCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartMonth(parameter));
             InitColumnChartYearCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartYear(parameter));
-            InitLineChartCommand = new RelayCommand<ReportView>(parameter => true, parameter => InitLineChart(parameter));
-            LoadCommand = new RelayCommand<HomeView>(parameter => true, parameter => LoadDefaultChart(parameter));
-            InitTopSaleCommand = new RelayCommand<ReportView>(parameter => true, parameter => LoadTopSale(parameter));
-            InitPieChartCommand = new RelayCommand<ReportView>(parameter => true, parameter => InitPieChart(parameter));
+            LoadTodayCommand = new RelayCommand<HomeView>(parameter => true, parameter => LoadToday(parameter));
+            LoadMonthCommand = new RelayCommand<HomeView>(parameter => true, parameter => LoadMonth(parameter));
 
+            LoadYearCommand = new RelayCommand<HomeView>(parameter => true, parameter => LoadYear(parameter));
+
+            InitTopSaleTodayCommand = new RelayCommand<HomeView>(parameter => true, parameter => LoadTopSaleToday(parameter));
+            InitTopSaleMonthCommand = new RelayCommand<HomeView>(parameter => true, parameter => LoadTopSaleMonth(parameter));
+            InitTopSaleYearCommand = new RelayCommand<HomeView>(parameter => true, parameter => LoadTopSaleYear(parameter));
+
+            InitPieChartTodayCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitPieChartToday(parameter));
+            InitPieChartMonthCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitPieChartMonth(parameter));
+            InitPieChartYearCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitPieChartYear(parameter));
         }
 
 
-        private string _hello;
-        public string Hello { get => _hello; set { _hello = value; OnPropertyChanged(); } }
-        // Doanh thu tháng này 
-        private string thisMonth;
-        public string ThisMonth { get => thisMonth; set { thisMonth = value; OnPropertyChanged(); } }
-
-
-        private string thisMonth1;
-        public string ThisMonth1 { get => thisMonth1; set { thisMonth1 = value; OnPropertyChanged(); } }
-
+     
         private string thisYear;
         public string ThisYear{ get => thisYear; set { thisYear = value; OnPropertyChanged(); } }
 
-        private string thisMonthRevenue = "0 đồng";
-        public string ThisMonthRevenue { get => thisMonthRevenue; set { thisMonthRevenue = value; OnPropertyChanged(); } }
+        private string revenue = "0 đồng";
+        public string Revenue { get => revenue; set { revenue = value; OnPropertyChanged(); } }
+
+        private string consignment = "0 đồng";
+        public string Consignment { get => consignment; set { consignment = value; OnPropertyChanged(); } }
+        private string repairCost = "0 đồng";
+        public string RepairCost { get => repairCost; set { repairCost = value; OnPropertyChanged(); } }
 
         //Doanh thu tháng này
 
         //Số đơn bán được
 
-        private string numOfSoldBill;
-        public string NumOfSoldBill { get => numOfSoldBill; set { numOfSoldBill = value; OnPropertyChanged(); } }
+        private string salary= "0 đồng";
+        public string Salary { get => salary; set { salary = value; OnPropertyChanged(); } }
 
 
 
@@ -61,50 +65,72 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         //Số đơn bán được
 
 
-        //Phần trăm tăng trưởng
-        private string increasingPercent = "0%";
-        public string IncreasingPercent { get => increasingPercent; set { increasingPercent = value; OnPropertyChanged(); } }
 
 
-        //Phần trăm tăng trưởng
+
 
 
         //Constructor
 
         //Định nghĩa command gộp cả 3 miếng
-        public ICommand LoadCommand { get; set; }
-        public void LoadDefaultChart(HomeView homeWindow)
+        public ICommand LoadTodayCommand { get; set; }
+        public ICommand LoadMonthCommand { get; set; }
+        public ICommand LoadYearCommand { get; set; }
+        public void LoadToday(HomeView homeWindow)
         {
-            Hello = "Hello, " + CurrentAccount.Name;
+          
          ThisYear= DateTime.Now.ToString("yyyy");
-            ThisMonth = "This month Profit " + DateTime.Now.ToString("MM/yyyy");
-            ThisMonth1 = DateTime.Now.ToString("MM/yyyy");
+        
+
             string currentDay = DateTime.Now.Day.ToString();
             string currentMonth = DateTime.Now.Month.ToString();
-            string lastMonth = (int.Parse(currentMonth) - 1).ToString();
+  
             string currentYear = DateTime.Now.Year.ToString();
-            ThisMonthRevenue = string.Format("{0:n0}", ReportDAL.Instance.QueryRevenueInMonth(currentMonth, currentYear)).ToString() + " đồng";
-            try
-            {
-                double res = 0;
-                if (currentMonth != "1")
-                {
-                    res = ReportDAL.Instance.QueryRevenueInMonth(currentMonth, currentYear) / (double)ReportDAL.Instance.QueryRevenueInMonth(lastMonth, currentYear) * 100;
-                }
-                else
-                {
-                    res = ReportDAL.Instance.QueryRevenueInMonth("1", currentYear) / (double)ReportDAL.Instance.QueryRevenueInMonth("12", (int.Parse(currentYear) - 1).ToString()) * 100;
-                }
-                IncreasingPercent = "Increased by " + Math.Round(res, 2).ToString() + "%";
-            }
-            catch
-            {
-                IncreasingPercent = "100%";
-            }
-            NumOfSoldBill = ReportDAL.Instance.QueryRevenueNumOfSoldBillInMonth(currentMonth, currentYear).ToString() + " đơn";
-            FoodRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryFoodRevenueInMonth(currentMonth,currentYear)) ).ToString() +" VND";
-            DrinkRevenue= string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryDrinkRevenueInMonth(currentMonth,currentYear))).ToString()+" VND";
-            OtherRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryOtherRevenueInMonth(currentMonth,currentYear))).ToString()+" VND";
+            Revenue = string.Format("{0:n0}", ReportDAL.Instance.QueryRevenueInToday(currentDay,currentMonth, currentYear)).ToString() + " đồng";
+            Consignment= string.Format("{0:n0}", ReportDAL.Instance.QueryConsignmentInToday(currentDay,currentMonth,currentYear)).ToString()+ " đồng";
+            RepairCost= string.Format("{0:n0}", ReportDAL.Instance.QueryRepairCostToday(currentDay,currentMonth,currentYear)).ToString() + " đồng";
+         
+            Salary = ReportDAL.Instance.QueryRevenueNumOfSoldBillInMonth(currentMonth, currentYear).ToString() + " đồng";
+    
+
+
+        }
+
+        public void LoadMonth(HomeView homeWindow)
+        {
+
+            ThisYear = DateTime.Now.ToString("yyyy");
+
+
+            string currentMonth = DateTime.Now.Month.ToString();
+
+            string currentYear = DateTime.Now.Year.ToString();
+            Revenue = string.Format("{0:n0}", ReportDAL.Instance.QueryRevenueInMonth( currentMonth, currentYear)).ToString() + " đồng";
+            Consignment = string.Format("{0:n0}", ReportDAL.Instance.QueryConsignmentInMonth( currentMonth, currentYear)).ToString() + " đồng";
+            RepairCost = string.Format("{0:n0}", ReportDAL.Instance.QueryRepairCostMonth( currentMonth, currentYear)).ToString() + " đồng";
+
+            Salary = ReportDAL.Instance.QueryRevenueNumOfSoldBillInMonth(currentMonth, currentYear).ToString() + " đồng";
+
+
+
+        }
+
+        public void LoadYear(HomeView homeWindow)
+        {
+
+            ThisYear = DateTime.Now.ToString("yyyy");
+
+
+
+            string currentMonth = DateTime.Now.Month.ToString();
+
+            string currentYear = DateTime.Now.Year.ToString();
+            Revenue = string.Format("{0:n0}", ReportDAL.Instance.QueryRevenueInYear( currentYear)).ToString() + " đồng";
+            Consignment = string.Format("{0:n0}", ReportDAL.Instance.QueryConsignmentInYear( currentYear)).ToString() + " đồng";
+            RepairCost = string.Format("{0:n0}", ReportDAL.Instance.QueryRepairCostYear( currentYear)).ToString() + " đồng";
+
+            Salary = ReportDAL.Instance.QueryRevenueNumOfSoldBillInMonth(currentMonth, currentYear).ToString() + " đồng";
+
 
 
         }
@@ -136,7 +162,11 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public ICommand InitColumnChartMonthCommand { get; set; }
         public ICommand InitColumnChartYearCommand { get; set; }
 
-        public ICommand InitTopSaleCommand { get; set; }
+        public ICommand InitTopSaleTodayCommand { get; set; }
+
+        public ICommand InitTopSaleMonthCommand { get; set; }
+
+        public ICommand InitTopSaleYearCommand { get; set; }
         
 
         //Khởi tạo biểu đồ cột
@@ -162,7 +192,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                             Title = "Doanh thu",
                             Fill = gradient,
                             Values = ReportDAL.Instance.QueryRevenueByDay(today,thismonth,thisyear),
-                        }
+                        } 
                        ,
                          new ColumnSeries 
                         {
@@ -170,12 +200,18 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                       Fill=(Brush)new BrushConverter().ConvertFrom("#E44D26"),
                             Values = ReportDAL.Instance.QueryNumOfSoldBillToday(today,thismonth),
                         }
+                        
+
                     };
             List<string> res = new List<string>();
             res.Add(today);
 
             Labels = res.ToArray();
             Formatter = value => string.Format("{0:N0}", value); //Format dấu ,
+            FoodRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryFoodRevenueInDay(today,thismonth, currentYear))).ToString() + " VND";
+            DrinkRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryDrinkRevenueInDay(today,thismonth, currentYear))).ToString() + " VND";
+            OtherRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryOtherRevenueInDay(today,thismonth, currentYear))).ToString() + " VND";
+
 
         }
         public void InitColumnChartMonth(HomeView homeWindow)
@@ -207,6 +243,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                     };
             Labels = ReportDAL.Instance.QueryDayInMonth(selectedMonth, currentYear);
             Formatter = value => string.Format("{0:N0}", value); //Format dấu ,
+            FoodRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryFoodRevenueInMonth(selectedMonth, currentYear))).ToString() + " VND";
+            DrinkRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryDrinkRevenueInMonth(selectedMonth, currentYear))).ToString() + " VND";
+            OtherRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryOtherRevenueInMonth(selectedMonth, currentYear))).ToString() + " VND";
             /*
                   
        */
@@ -238,19 +277,15 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                           Values=ReportDAL.Instance.QueryRevenueNumOfSoldBillInYear(selectedYear)
         }
             };
-            /*
-            new ColumnSeries
-            {
-                Title = "Chi phí",
-                Fill = (Brush)new BrushConverter().ConvertFrom("#FFF44336"),
-                Values = ReportDAL.Instance.QueryOutcomeByYear(selectedYear)
-            }
+         
 
-        };
-            */
+
+
             Labels = ReportDAL.Instance.QueryMonthInYear(selectedYear);
             Formatter = value => string.Format("{0:N0}", value);
-
+            FoodRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryFoodRevenueInYear(selectedYear))).ToString() + " VND";
+            DrinkRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryDrinkRevenueInYear(selectedYear))).ToString() + " VND";
+            OtherRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryOtherRevenueInYear(selectedYear))).ToString() + " VND";
 
         }
 
@@ -319,8 +354,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         }
 
 
-        private SeriesCollection lineSeriesCollection;
-        public SeriesCollection LineSeriesCollection { get => lineSeriesCollection; set { lineSeriesCollection = value; OnPropertyChanged(); } }
+        
         private SeriesCollection pieSeriesCollection_;
         public SeriesCollection PieSeriesCollection
         {
@@ -328,14 +362,105 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             set { pieSeriesCollection_ = value; OnPropertyChanged(); }
         }
 
-        public ICommand InitLineChartCommand { get; set; }
-        private string[] lineLabels;
-        public string[] LineLabels { get => lineLabels; set { lineLabels = value; OnPropertyChanged(); } }
 
-       public ICommand InitPieChartCommand { get; set; }
+        public ICommand InitPieChartTodayCommand { get; set; }
+        public ICommand InitPieChartMonthCommand { get; set; }
+        public ICommand InitPieChartYearCommand { get; set; }
+
+        public void InitPieChartToday(HomeView parameter)
+        {
+            string today = DateTime.Now.Day.ToString();
+            string currentMonth = DateTime.Now.Month.ToString();
+
+            string currentYear = DateTime.Now.Year.ToString();
+            FoodRevenue1 = (ReportDAL.Instance.QueryFoodRevenueInDay(today,currentMonth,currentYear)).ToString();
+            DrinkRevenue1 = (ReportDAL.Instance.QueryDrinkRevenueInDay(today, currentMonth, currentYear)).ToString();
+            OtherRevenue1 = (ReportDAL.Instance.QueryOtherRevenueInDay(today, currentMonth, currentYear)).ToString();
+
+            ChartValues<long> food = new ChartValues<long>();
+            food.Add(long.Parse(FoodRevenue1));
+            ChartValues<long> drink = new ChartValues<long>();
+            drink.Add(long.Parse(DrinkRevenue1));
+            ChartValues<long> other = new ChartValues<long>();
+            other.Add(long.Parse(OtherRevenue1));
+            PieSeriesCollection = new SeriesCollection()
+            {
+
+                 new PieSeries
+                {
+                    Title="Thức uống",
+            Values= drink,
+              Fill = (Brush)new BrushConverter().ConvertFrom("#FFBE41"),
+              LabelPoint=chartPoint => string.Format("{0:N0}", chartPoint.Y)
+                },
+                  new PieSeries
+                {
+                    Title="Khác",
+            Values= other,
+              Fill = (Brush)new BrushConverter().ConvertFrom("#DFE931"),
+              LabelPoint=chartPoint => string.Format("{0:N0}", chartPoint.Y)
+                },
+                  new PieSeries
+                {
+                    Title="Đồ ăn",
+            Values= food,
+              Fill = (Brush)new BrushConverter().ConvertFrom("#6254F9"),
+              LabelPoint=chartPoint => string.Format("{0:N0}", chartPoint.Y)
+                }
 
 
-        public void InitPieChart(ReportView parameter)
+            };
+        }
+
+
+        public void InitPieChartMonth(HomeView parameter)
+        {
+            string currentMonth = DateTime.Now.Month.ToString();
+
+            string currentYear = DateTime.Now.Year.ToString();
+            FoodRevenue1 = (ReportDAL.Instance.QueryFoodRevenueInMonth(currentMonth,currentYear)).ToString();
+            DrinkRevenue1 = (ReportDAL.Instance.QueryDrinkRevenueInMonth(currentMonth,currentYear)).ToString();
+            OtherRevenue1 = (ReportDAL.Instance.QueryOtherRevenueInMonth(currentMonth,currentYear)).ToString();
+
+            ChartValues<long> food = new ChartValues<long>();
+            food.Add(long.Parse(FoodRevenue1));
+            ChartValues<long> drink = new ChartValues<long>();
+            drink.Add(long.Parse(DrinkRevenue1));
+            ChartValues<long> other = new ChartValues<long>();
+            other.Add(long.Parse(OtherRevenue1));
+            PieSeriesCollection = new SeriesCollection()
+            {
+
+                 new PieSeries
+                {
+                    Title="Thức uống",
+            Values= drink,
+              Fill = (Brush)new BrushConverter().ConvertFrom("#FFBE41"),
+              LabelPoint=chartPoint => string.Format("{0:N0}", chartPoint.Y)
+                },
+                  new PieSeries
+                {
+                    Title="Khác",
+            Values= other,
+              Fill = (Brush)new BrushConverter().ConvertFrom("#DFE931"),
+              LabelPoint=chartPoint => string.Format("{0:N0}", chartPoint.Y)
+                },
+                  new PieSeries
+                {
+                    Title="Đồ ăn",
+            Values= food,
+              Fill = (Brush)new BrushConverter().ConvertFrom("#6254F9"),
+              LabelPoint=chartPoint => string.Format("{0:N0}", chartPoint.Y)
+                }
+
+
+            };
+        }
+
+
+
+
+        public void InitPieChartYear(HomeView parameter)
         {
             string currentMonth = DateTime.Now.Month.ToString();
      
@@ -352,13 +477,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             other.Add(long.Parse(OtherRevenue1));
             PieSeriesCollection = new SeriesCollection()
             {
-                new PieSeries
-                {
-                    Title="Đồ ăn",
-            Values= food,
-              Fill = (Brush)new BrushConverter().ConvertFrom("#6254F9"),
-              LabelPoint=chartPoint => string.Format("{0:N0}", chartPoint.Y)
-                },
+                
                  new PieSeries
                 {
                     Title="Thức uống",
@@ -372,6 +491,13 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             Values= other,
               Fill = (Brush)new BrushConverter().ConvertFrom("#DFE931"),
               LabelPoint=chartPoint => string.Format("{0:N0}", chartPoint.Y)
+                },
+                  new PieSeries
+                {
+                    Title="Đồ ăn",
+            Values= food,
+              Fill = (Brush)new BrushConverter().ConvertFrom("#6254F9"),
+              LabelPoint=chartPoint => string.Format("{0:N0}", chartPoint.Y)
                 }
 
 
@@ -380,50 +506,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
 
 
-        public void InitLineChart(ReportView parameter)
-        {
-
-
-
-            string selectedYear = DateTime.Now.Year.ToString();
-
-            LineSeriesCollection = new SeriesCollection
-                      {
-                     new LineSeries
-                          {
-                              Title="Đơn hàng",
-                               
-                              Values=ReportDAL.Instance.QueryRevenueNumOfSoldBillInYear(selectedYear),
-                             Stroke=(Brush)new BrushConverter().ConvertFrom("#0000ffff")
-                          },
-                          new LineSeries
-                          {
-                              Title = "Doanh thu",
-                              PointForeground=(Brush)new BrushConverter().ConvertFrom("#FE6C47"),
-                               Stroke=(Brush)new BrushConverter().ConvertFrom("#FE6C47"),
-                             Fill = (Brush)new BrushConverter().ConvertFrom("#0000ffff"),
-                              Values = ReportDAL.Instance.QueryRevenueByYear(selectedYear),
-                          }
-
-                     
-
-
-        };
-            /*
-            new ColumnSeries
-            {
-                Title = "Chi phí",
-                Fill = (Brush)new BrushConverter().ConvertFrom("#FFF44336"),
-                Values = ReportDAL.Instance.QueryOutcomeByYear(selectedYear)
-            }
-
-        };
-            */
-            LineLabels = ReportDAL.Instance.QueryMonthInYear(selectedYear);
-            Formatter = value => string.Format("{0:N0}", value);
-
-
-        }
+       
         public BitmapImage ConvertByteToBitmapImage(Byte[] image)
         {
             BitmapImage bi = new BitmapImage();
@@ -443,8 +526,13 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             bi.EndInit();
             return bi;
         }
-        public void LoadTopSale(ReportView parameter)
+        public void LoadTopSaleMonth(HomeView parameter)
         {
+            parameter.top1.Visibility = Visibility.Visible;
+
+            parameter.top2.Visibility = Visibility.Visible;
+
+            parameter.top3.Visibility = Visibility.Visible;
             string currentMonth = DateTime.Now.Month.ToString();
     
             string currentYear = DateTime.Now.Year.ToString();
@@ -510,6 +598,157 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
 
         }
+
+        public void LoadTopSaleToday(HomeView parameter)
+        {
+            parameter.top1.Visibility = Visibility.Visible;
+
+            parameter.top2.Visibility = Visibility.Visible;
+
+            parameter.top3.Visibility = Visibility.Visible;
+            string today = DateTime.Now.Day.ToString();
+            string currentMonth = DateTime.Now.Month.ToString();
+
+            string currentYear = DateTime.Now.Year.ToString();
+            List<Account> accounts = ReportDAL.Instance.QueryTopSaleToday(today,currentMonth, currentYear);
+
+            if (accounts.Count == 3)
+            {
+                parameter.top1.Title = accounts[0].Name;
+                parameter.top1.UpPrice = string.Format("{0:#,##0}", accounts[0].Tong).ToString() + " VND";
+                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[0].IdAccount));
+
+                parameter.top2.Title = accounts[1].Name;
+                parameter.top2.UpPrice = string.Format("{0:#,##0}", accounts[1].Tong).ToString() + " VND";
+                parameter.top2.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[1].IdAccount));
+
+
+                parameter.top3.Title = accounts[2].Name;
+                parameter.top3.UpPrice = string.Format("{0:#,##0}", accounts[2].Tong).ToString() + " VND";
+                parameter.top3.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[2].IdAccount));
+
+            }
+
+
+            if (accounts.Count == 2)
+            {
+                parameter.top1.Title = accounts[0].Name;
+                parameter.top1.UpPrice = string.Format("{0:#,##0}", accounts[0].Tong).ToString() + " VND";
+                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[0].IdAccount));
+
+
+                parameter.top2.Title = accounts[1].Name;
+                parameter.top2.UpPrice = string.Format("{0:#,##0}", accounts[1].Tong).ToString() + " VND";
+                parameter.top2.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[1].IdAccount));
+
+
+                parameter.top3.Visibility = Visibility.Hidden;
+            }
+
+
+            if (accounts.Count == 1)
+            {
+                parameter.top1.Title = accounts[0].Name;
+                parameter.top1.UpPrice = string.Format("{0:#,##0}", accounts[0].Tong).ToString() + " VND";
+                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[0].IdAccount));
+
+
+
+                parameter.top2.Visibility = Visibility.Hidden;
+
+                parameter.top3.Visibility = Visibility.Hidden;
+            }
+
+            if (accounts.Count == 0)
+            {
+
+                parameter.top1.Visibility = Visibility.Hidden;
+
+                parameter.top2.Visibility = Visibility.Hidden;
+
+                parameter.top3.Visibility = Visibility.Hidden;
+            }
+
+
+
+        }
+
+        public void LoadTopSaleYear(HomeView parameter)
+        {
+            parameter.top1.Visibility = Visibility.Visible;
+
+            parameter.top2.Visibility = Visibility.Visible;
+
+            parameter.top3.Visibility = Visibility.Visible;
+
+            string currentYear = DateTime.Now.Year.ToString();
+            List<Account> accounts = ReportDAL.Instance.QueryTopSaleYear(currentYear);
+
+            if (accounts.Count == 3)
+            {
+                parameter.top1.Title = accounts[0].Name;
+                parameter.top1.UpPrice = string.Format("{0:#,##0}", accounts[0].Tong).ToString() + " VND";
+                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[0].IdAccount));
+
+                parameter.top2.Title = accounts[1].Name;
+                parameter.top2.UpPrice = string.Format("{0:#,##0}", accounts[1].Tong).ToString() + " VND";
+                parameter.top2.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[1].IdAccount));
+
+
+                parameter.top3.Title = accounts[2].Name;
+                parameter.top3.UpPrice = string.Format("{0:#,##0}", accounts[2].Tong).ToString() + " VND";
+                parameter.top3.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[2].IdAccount));
+
+            }
+
+
+            if (accounts.Count == 2)
+            {
+                parameter.top1.Title = accounts[0].Name;
+                parameter.top1.UpPrice = string.Format("{0:#,##0}", accounts[0].Tong).ToString() + " VND";
+                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[0].IdAccount));
+
+
+                parameter.top2.Title = accounts[1].Name;
+                parameter.top2.UpPrice = string.Format("{0:#,##0}", accounts[1].Tong).ToString() + " VND";
+                parameter.top2.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[1].IdAccount));
+
+
+                parameter.top3.Visibility = Visibility.Hidden;
+            }
+
+
+            if (accounts.Count == 1)
+            {
+                parameter.top1.Title = accounts[0].Name;
+                parameter.top1.UpPrice = string.Format("{0:#,##0}", accounts[0].Tong).ToString() + " VND";
+                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[0].IdAccount));
+
+
+
+                parameter.top2.Visibility = Visibility.Hidden;
+
+                parameter.top3.Visibility = Visibility.Hidden;
+            }
+
+            if (accounts.Count == 0)
+            {
+
+                parameter.top1.Visibility = Visibility.Hidden;
+
+                parameter.top2.Visibility = Visibility.Hidden;
+
+                parameter.top3.Visibility = Visibility.Hidden;
+            }
+
+
+
+        }
+
+
+
+
+
 
 
 

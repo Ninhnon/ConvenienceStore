@@ -197,6 +197,7 @@ namespace ConvenienceStore.Utils.Helpers
                         Email = reader.GetString(4),
                     });
             }
+            reader.Close();
 
             for (int i = 0; i < suppliers.Count; ++i)
             {
@@ -228,7 +229,7 @@ namespace ConvenienceStore.Utils.Helpers
                     Email = reader.GetString(5),
                 });
             }
-
+            reader.Close();
             sqlCon.Close();
             return managers;
         }
@@ -295,7 +296,7 @@ namespace ConvenienceStore.Utils.Helpers
             var strCmd = string.Format(queryAccountAdmin, Id);
             var cmd = new SqlCommand(strCmd, sqlCon);
            
-           Account account = new Account();
+            Account account = new Account();
           
             SqlDataReader read = cmd.ExecuteReader();
 
@@ -315,9 +316,8 @@ namespace ConvenienceStore.Utils.Helpers
                     Avatar = (byte[])(read["Avatar"]),
                     ManagerId = read.GetInt32(9),
                 };
-             
-               
             }
+            read.Close();
 
             sqlCon.Close();
             return account;
@@ -345,12 +345,13 @@ namespace ConvenienceStore.Utils.Helpers
                     Password = read.GetString(7),
                     Avatar = (byte[])(read["Avatar"]),
                       ManagerId = read.GetInt32(9),
-
+                      Salary = read.GetInt32(10)
 
                 });
                 accounts[i - 1].Number = i;
                 i++;
             }
+            read.Close();
 
             sqlCon.Close();
             return accounts;
@@ -381,6 +382,7 @@ namespace ConvenienceStore.Utils.Helpers
                 accounts[i - 1].Number = i;
                 i++;
             }
+            read.Close();
 
             sqlCon.Close();
             return accounts;
@@ -516,8 +518,6 @@ namespace ConvenienceStore.Utils.Helpers
 
                 cmd.ExecuteNonQuery();
             }
-
-            reader.Close();
 
             // Xử lí trường hợp trong Title có dấu nháy đơn (')
             int i = 0;

@@ -6,10 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using static Emgu.CV.ML.KNearest;
 
 namespace ConvenienceStore.ViewModel.Admin.AdminVM
 {
@@ -25,8 +28,21 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public byte[] Avatar
         {
             get { return avatar; }
-            set { avatar = value; OnPropertyChanged("Avatar"); }
+            set
+            {
+                avatar = value;
+                OnPropertyChanged("Avatar");
+            }
         }
+
+        //private BitmapImage avatar;
+
+        //public BitmapImage Avatar
+        //{
+        //    get { return avatar; }
+        //    set { avatar = value; OnPropertyChanged("Avatar"); }
+        //}
+
 
         public ObservableCollection<Member> MyTeam { get; set; }
         public ICommand LoadCommand { get; set; }
@@ -39,6 +55,13 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             Email = CurrentAccount.Email;
             Phone = CurrentAccount.Phone;
             Avatar = CurrentAccount.Avatar;
+
+            //avatar = new BitmapImage();
+            //string s = Convert.ToBase64String(CurrentAccount.Avatar);
+            //avatar.BeginInit();
+            //avatar.StreamSource = new MemoryStream(System.Convert.FromBase64String(s));
+            //avatar.EndInit();
+
             MyTeam = DatabaseHelper.QueryStaffOnTeam(CurrentAccount.idAccount);
             LoadCommand = new RelayCommand<ProfileView>(parameter => true, parameter => Load(parameter));
         }
