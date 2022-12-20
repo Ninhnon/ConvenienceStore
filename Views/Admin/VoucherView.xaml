@@ -29,7 +29,11 @@
     </Page.Resources>
 
     <Border>
-
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding RefreshData}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
 
         <Grid x:Name="BlockVoucherScreen">
             <Grid.ColumnDefinitions>

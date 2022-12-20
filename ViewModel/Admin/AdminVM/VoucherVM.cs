@@ -1,6 +1,7 @@
 ﻿using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
+using ConvenienceStore.ViewModel.Admin.Command.VoucherCommand;
 using ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCommand;
 using ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCommand.DeleteBlockVoucherCommand;
 using System;
@@ -70,7 +71,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public OpenVoucherCommand OpenVoucherCommand { get; set; }
         public FilterActiveVoucherCommand FilterActiveVoucherCommand { get; set; }
         public FilterAllVoucherCommand FilterAllVoucherCommand { get; set; }
-
+        public RefreshData RefreshData { get; set; }
         public VoucherVM()
         {
             blockVouchers = DatabaseHelper.FetchingBlockVoucherData();
@@ -90,6 +91,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             OpenVoucherCommand = new OpenVoucherCommand(this);
             FilterActiveVoucherCommand = new FilterActiveVoucherCommand(this);
             FilterAllVoucherCommand = new FilterAllVoucherCommand(this);
+            RefreshData = new RefreshData(this);
         }
 
         public void SetBlockVoucherCorespondSearch()
