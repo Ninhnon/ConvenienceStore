@@ -25,7 +25,7 @@ namespace ConvenienceStore.Utils.Helpers
         where c.ProductId=p.Barcode and h.ProductId=c.ProductId and h.e = c.ExpiryDate
         order by ExpiryDate";
         static readonly string queryVoucher = @"select * from [Voucher]";
-        static readonly string queryReport = @"select * from [Report] order by SubmittedAt";
+        static readonly string queryReport = @"select * from [Report] order by SubmittedAt desc";
         static readonly string queryUser = @"select * from [Users]";
         static readonly string queryConsingment = @"select * from [Consignment]";
         static readonly string queryCustomerData = @"select * from [Customer]";
@@ -320,54 +320,15 @@ namespace ConvenienceStore.Utils.Helpers
         public static void InsertReport(Report report)
         {
             sqlCon.Open();
-
-            // Bảng Consignment chứa khóa ngoại tham chiếu với khóa chính Barcode trong bảng Product
-
-            // Xem thử loại sản phẩm đó đã tồn tại trong bảng Product hay chưa
-            var strCmd = $"select * from Report where Title = '{report.Title}'";
-            var cmd = new SqlCommand(strCmd, sqlCon);
-            SqlDataReader reader = cmd.ExecuteReader();
-
-            bool isExisted;
-            try
-            {
-                isExisted = reader.Read();
-            }
-            catch
-            {
-                isExisted = false;
-            }
-            reader.Close();
-
-            //if (isExisted) // Nếu đã tồn tại, chỉ cần update lại 1 vài thông tin về loại sản phẩm
-            //{
-            //    cmd = new SqlCommand(updateProduct, sqlCon);
-            //    cmd.Parameters.AddWithValue("@RepairCost", report.RepairCost);
-            //    cmd.Parameters.AddWithValue("@StaffId", report.StaffId);
-            //    cmd.Parameters.AddWithValue("@Status", report.Status);
-            //    cmd.Parameters.AddWithValue("@Description", report.Description);
-            //    cmd.Parameters.AddWithValue("@Image", report.Image);
-            //    cmd.Parameters.AddWithValue("@SubmittedAt", report.SubmittedAt);
-            //    cmd.ExecuteNonQuery();
-            //}
-            //else // Nếu chưa, tạo mới loại sản phẩm
-            //{
-                cmd = new SqlCommand(insertReport, sqlCon);
-                cmd.Parameters.AddWithValue("@Title", report.Title);
-                cmd.Parameters.AddWithValue("@Description", report.Description);
-                cmd.Parameters.AddWithValue("@Status", report.Status);
-                cmd.Parameters.AddWithValue("@SubmittedAt", report.SubmittedAt);
-                cmd.Parameters.AddWithValue("@RepairCost", report.RepairCost);
-                cmd.Parameters.AddWithValue("@StaffId", report.StaffId);
-                cmd.Parameters.AddWithValue("@Image", report.Image);
-                
-
-                cmd.ExecuteNonQuery();
-            //}
-
-            reader.Close();
-
-            // Xử lí trường hợp trong Title có dấu nháy đơn (')
+            var cmd = new SqlCommand(insertReport, sqlCon);
+            cmd.Parameters.AddWithValue("@Title", report.Title);
+            cmd.Parameters.AddWithValue("@Description", report.Description);
+            cmd.Parameters.AddWithValue("@Status", report.Status);
+            cmd.Parameters.AddWithValue("@SubmittedAt", report.SubmittedAt);
+            cmd.Parameters.AddWithValue("@RepairCost", report.RepairCost);
+            cmd.Parameters.AddWithValue("@StaffId", report.StaffId);
+            cmd.Parameters.AddWithValue("@Image", report.Image);
+            cmd.ExecuteNonQuery();
             int i = 0;
             string title = report.Title;
             while (i < title.Length)
@@ -384,29 +345,21 @@ namespace ConvenienceStore.Utils.Helpers
         public static void UpdateReport(Report editedReport)
         {
             sqlCon.Open();
-
-            // Update values in Product table
             var cmd = new SqlCommand(updateReport, sqlCon);
-
             cmd.Parameters.AddWithValue("@Title", editedReport.Title);
             cmd.Parameters.AddWithValue("@Image", editedReport.Image);
             cmd.Parameters.AddWithValue("@RepairCost", editedReport.RepairCost);
             cmd.Parameters.AddWithValue("@Description", editedReport.Description);
-
             cmd.Parameters.AddWithValue("@Id", editedReport.Id);
-
             //cmd.Parameters.AddWithValue("@SubmittedAt", editedReport.SubmittedAt);
             cmd.ExecuteNonQuery();
-
             sqlCon.Close();
         }
         public static void UpdateReportAD(Report editedReport)
         {
             sqlCon.Open();
-
-            // Update values in Product table
             var cmd = new SqlCommand(updateReportAD, sqlCon);
-
+            //cmd.Parameters.AddWithValue("@StartDate", null);
             cmd.Parameters.AddWithValue("@Title", editedReport.Title);
             cmd.Parameters.AddWithValue("@Image", editedReport.Image);
             cmd.Parameters.AddWithValue("@RepairCost", editedReport.RepairCost);
@@ -414,11 +367,10 @@ namespace ConvenienceStore.Utils.Helpers
             cmd.Parameters.AddWithValue("@StartDate", editedReport.StartDate);
             cmd.Parameters.AddWithValue("@FinishDate", editedReport.FinishDate);
             cmd.Parameters.AddWithValue("@Description", editedReport.Description);
-
             cmd.Parameters.AddWithValue("@Id", editedReport.Id);
             //cmd.Parameters.AddWithValue("@SubmittedAt", editedReport.SubmittedAt);
+            //Fetch lại nội dung
             cmd.ExecuteNonQuery();
-
             sqlCon.Close();
         }
     }

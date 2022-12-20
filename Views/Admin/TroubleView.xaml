@@ -303,7 +303,7 @@
                                        VerticalAlignment="Center"
                                    d:Text="100 đ"/>
                         </Grid>
-                        <Grid Margin="0 0 0 5">
+                        <Grid  Visibility="{Binding StartDate, Converter={StaticResource HasOjectConverter}}"  Margin="0 0 0 5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="50"/>
                                 <ColumnDefinition Width="15"/>
@@ -319,7 +319,9 @@
                                        VerticalAlignment="Center"
                                    d:Text="100 đ"/>
                         </Grid>
-                        <Grid Margin="0 0 0 5">
+                        <Grid 
+                              Visibility="{Binding FinishDate, Converter={StaticResource HasOjectConverter}}"
+                              Margin="0 0 0 5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="50"/>
                                 <ColumnDefinition Width="15"/>

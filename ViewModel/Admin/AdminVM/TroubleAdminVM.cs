@@ -252,19 +252,19 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 }
             }
 
-            if (p.StartDate.SelectedDate.HasValue && p.FinishDate.SelectedDate.HasValue && p.StartDate.SelectedDate >= p.FinishDate.SelectedDate)
+            if (p.StartDate.SelectedDate.HasValue && p.FinishDate.SelectedDate.HasValue && p.StartDate.SelectedDate > p.FinishDate.SelectedDate)
             {
                 p.startErrorMessage.Text = "Ngày bắt đầu phải bé hơn ngày kết thúc";
                 isValid = false;
             }
             if (p.FinishDate.SelectedDate.HasValue && p.FinishDate.SelectedDate < SelectedReport.SubmittedAt)
             {
-                p.finishErrorMessage.Text = "Ngày kết thúc phải bé hơn ngày báo cáo";
+                p.finishErrorMessage.Text = "Ngày kết thúc phải lớn hơn ngày báo cáo";
                 isValid = false;
             }
             if (p.StartDate.SelectedDate.HasValue && p.StartDate.SelectedDate < SelectedReport.SubmittedAt)
             {
-                p.startErrorMessage.Text = "Ngày bắt đầu phải bé hơn ngày báo cáo";
+                p.startErrorMessage.Text = "Ngày bắt đầu phải lớn hơn ngày báo cáo";
                 isValid = false;
             }
             if (!isValid) return;

@@ -23,6 +23,24 @@
                 return Helpers.FormatVNMoney(RepairCost);
             }
         }
+        public string? checkStart
+        {
+            get
+            {
+                if (Status == "Đang giải quyết" || Status == "Đã giải quyết")
+                    return "1";
+                return null;
+            }
+        }
+        public string? checkFinish
+        {
+            get
+            {
+                if (Status == "Đã giải quyết")
+                    return "1";
+                return null;
+            }
+        }
         public string? StaffName
         {
             get
