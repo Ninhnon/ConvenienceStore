@@ -80,7 +80,7 @@
                                     <Style TargetType="TextBlock">
                                         <Setter Property="Text" Value=""/>
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ElementName=SearchTextBox, Path=Text}" Value="">
+                                            <DataTrigger Binding="{Binding ElementName=SearchBox, Path=Text}" Value="">
                                                 <Setter Property="Text" Value="Tìm kiếm..."/>
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -277,7 +277,7 @@
                                                 </Ellipse>
 
                                                 <materialDesign:Card Width="170"
-                                                         Height="140"
+                                                         Height="160"
                                                          Panel.ZIndex="1"
                                                          UniformCornerRadius="15"
                                                          Grid.RowSpan="2" Margin="0,40,0,0">
@@ -299,27 +299,61 @@
                                                         <Grid Grid.Row="1"
                                                   Margin="5 0 5 0"
                                                   Grid.ColumnSpan="2">
-                                                            <StackPanel Orientation="Horizontal">
-                                                                <Image Source="/Resources/Icons/money.png"
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition/>
+                                                                <RowDefinition/>
+                                                            </Grid.RowDefinitions>
+
+                                                            <StackPanel Orientation="Horizontal"
+                                                                        Grid.Row="0">
+                                                                
+                                                                <Image Source="/Resources/Icons/boxes.png"
+                                                           HorizontalAlignment="Left"
+                                                                       Margin="5 0 5 0"
+                                                           Width="20" />
+
+                                                                <TextBlock FontWeight="Bold"
+                                                               VerticalAlignment="Center" 
+                                                               Margin="5 5 5 0">
+                                                                    <Run Text="Số lượng:"/>
+                                                                    <Run Text="{Binding Stock}"/>
+                                                                </TextBlock>
+                                                            </StackPanel>
+
+                                                            <Grid Grid.Row="1">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="150"/>
+                                                                    <ColumnDefinition Width="auto"/>
+                                                                </Grid.ColumnDefinitions>
+
+                                                                <StackPanel Orientation="Horizontal"
+                                                                        Grid.Column="0">
+                                                                    <Image Source="/Resources/Icons/money.png"
                                                            HorizontalAlignment="Left"
                                                                        Margin="5 5 5 0"
                                                            Width="20" />
-                                                                
-                                                                <TextBlock Text="{Binding Price, Converter={StaticResource MoneyToVNDCurrency}}" 
+
+                                                                    <TextBlock Text="{Binding Price, Converter={StaticResource MoneyToVNDCurrency}}" 
                                                                FontWeight="Bold"
                                                                VerticalAlignment="Center" 
                                                                Margin="5 0 5 0"/>
-                                                            </StackPanel>
+
+
+                                                                </StackPanel>
+                                                            </Grid>
 
                                                             <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                                                            Grid.Column="1"
+                                                                            Grid.RowSpan="2"
+                                                                            Grid.ColumnSpan="2"
+                                                                    Margin="0 10 0 0"
                                                             x:Name="addButton"
                                                             ToolTip="Thêm vào giỏ hàng"
                                                             Width="30"
                                                             Height="30"
                                                             Content="{materialDesign:PackIcon Kind=PlusThick}" 
                                                             HorizontalAlignment="Right"
-                                                            Margin="0,7,5,0" 
-                                                            VerticalAlignment="Top"
+                                                            VerticalAlignment="Center"
                                                             Command="{Binding ElementName=listBox, Path=DataContext.AddToCart}"
                                                                 Cursor="Hand" />
 
@@ -500,9 +534,12 @@
                             <Grid Grid.Row="2">
                                 <Button Style="{StaticResource MaterialDesignRaisedButton}"
                                     materialDesign:ButtonAssist.CornerRadius="10"
-                                    Content="Thanh toán"
                                     Margin="5 10 5 5"
                                         Command="{Binding OpenReceiptPage}">
+                                    <TextBlock>
+                                        <Run Text="THANH TOÁN"/>
+                                        <Run Text="{Binding TotalBill, Converter={StaticResource MoneyToVNDCurrency}}"/>
+                                    </TextBlock>
                                 </Button>
                             </Grid>
                         </Grid>
