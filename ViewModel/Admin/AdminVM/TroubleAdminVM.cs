@@ -3,6 +3,7 @@ using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Utils.Validation;
 using ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand.DeleteInputInfoCommand;
+using ConvenienceStore.Views;
 using ConvenienceStore.Views.Admin.TroubleWindow;
 using Emgu.CV.Cuda;
 using FluentValidation;
@@ -132,6 +133,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             LoadEditErrorCM = new RelayCommand<Report>((p) => { return true; }, (p) =>
             {
                 SelectedReport = p;
+                tmpReport = SelectedReport;
                 EditTrouble w1 = new();
                 LoadEditError(w1);
                 //MaskName.Visibility = Visibility.Visible;
@@ -219,13 +221,13 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public string Description { get; set; }
         public void LoadEditError(EditTrouble w1)
         {
-            w1.CostTextBox.Text = SelectedReport.RepairCost.ToString();
-            w1.StaffName.Text = DatabaseHelper.GetName(SelectedReport.StaffId);
-            w1.cbxStatus.Text = SelectedReport.Status;
-            w1.submitdate.Text = SelectedReport.SubmittedAt.ToShortDateString();
-            if (SelectedReport.StartDate.HasValue) w1.startdate.Text = String.Format("{0:dd/MM/yyyy}", SelectedReport.StartDate);
-            if (SelectedReport.FinishDate.HasValue) w1.finishdate.Text = String.Format("{0:dd/MM/yyyy}", SelectedReport.FinishDate);
-            Description = SelectedReport.Description;
+            w1.CostTextBox.Text = tmpReport.RepairCost.ToString();
+            w1.StaffName.Text = DatabaseHelper.GetName(tmpReport.StaffId);
+            w1.cbxStatus.Text = tmpReport.Status;
+            w1.submitdate.Text = tmpReport.SubmittedAt.ToShortDateString();
+            if (tmpReport.StartDate.HasValue) w1.startdate.Text = String.Format("{0:dd/MM/yyyy}", tmpReport.StartDate);
+            if (tmpReport.FinishDate.HasValue) w1.finishdate.Text = String.Format("{0:dd/MM/yyyy}", tmpReport.FinishDate);
+            Description = tmpReport.Description;
         }
         public void Update(EditTrouble p)
         {
@@ -280,7 +282,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 StaffId = CurrentAccount.idAccount,
                 //StartDate = (DateTime)p.StartDate.SelectedDate==null?SelectedReport.StartDate: (DateTime)p.StartDate.SelectedDate,
                 //FinishDate = (DateTime)p.FinishDate.SelectedDate == null ? SelectedReport.FinishDate : (DateTime)p.StartDate.SelectedDate,
-                Id = SelectedReport.Id,
+                Id = tmpReport.Id,
             };
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
             BitmapSource src = (BitmapSource)p.ImageProduct.ImageSource;
@@ -326,10 +328,17 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 tmpReport.StartDate != newReport.StartDate ||
                 tmpReport.FinishDate != newReport.FinishDate)
             {
-                // Sau khi cửa sổ Edit đóng thì "currentProduct" đã được update
                 DatabaseHelper.UpdateReportAD(newReport);
-                IsDesc = 0;
-                SetReportsCoresspondManager();
+                for(int i=0;i<ObservableReports.Count;i++)
+                {
+                    if (ObservableReports[i].Id== newReport.Id)
+                    {
+                        ObservableReports[i] = newReport;
+                        break;
+                    }
+                }
+                MessageBoxCustom mb = new MessageBoxCustom("", "Cập nhật thành công!", MessageType.Success, MessageButtons.OK);
+                mb.ShowDialog();
             }
             p.Close();
         }

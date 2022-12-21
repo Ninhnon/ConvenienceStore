@@ -25,37 +25,6 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             get { return getCurrentDate; }
             set { getCurrentDate = value; OnPropertyChanged(); }
         }
-        public ICommand SaveErrorCM { get; set; }
-
-        public void SaveErrorFunc(AddError p)
-        {
-            if (filepath != null && Title != null && Level != null && Description != null && IsValidData())
-            {
-                Report trouble = new()
-                {
-                    Title = Title,
-                    Status = Status,
-                    Description = Description,
-                    RepairCost = 100,
-                    SubmittedAt = DateTime.Now,
-                    Image = Image,
-                    StaffId = CurrentAccount.idAccount,
-                };
-
-                IsSaving = false;
-                MessageBoxCustom mb = new("Thông báo", "Thêm sự cố thành công", MessageType.Success, MessageButtons.OK);
-                DatabaseHelper.ThemErorr(trouble, filepath);
-                ListError.Add(trouble);
-                mb.ShowDialog();
-                MaskName.Visibility = Visibility.Collapsed;
-                p.Close();
-            }
-            else
-            {
-                MessageBoxCustom mb = new("Cảnh báo", "Vui lòng nhập đủ thông tin!", MessageType.Warning, MessageButtons.OK);
-                mb.ShowDialog();
-            }
-        }
         public void Save(AddTrouble p)
         {
             p.TitleErrorMessage.Text = string.Empty;
@@ -131,7 +100,6 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             else
             {
                 ListError.Add(newReport);
-
                 DatabaseHelper.InsertReport(newReport);
                 p.Close();
             }

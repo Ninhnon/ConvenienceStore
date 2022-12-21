@@ -7,6 +7,7 @@
         xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
         xmlns:EditProductCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.ProductCommand.EditProductCommand"
         xmlns:AddNewProductCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductCommand"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         x:Name="EditReportScreen"
         mc:Ignorable="d"
         Height="660" Width="1200"
@@ -134,8 +135,9 @@
                                         Height="22"/>
  
                                     <ComboBox Style="{StaticResource CustomComboBox}" x:Name="cbxStatus"
-                                          SelectedItem="{Binding SelectedReport.Status}"
+                                          SelectedItem="{Binding tmpReport.Status}"
                                           ItemsSource="{Binding Statuses}"
+                                              SelectionChanged="cbxStatus_SelectionChanged"
                                           Width="144">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
@@ -237,11 +239,13 @@
                             </Grid>
                             <TextBlock x:Name="CostErrorMessage"
                                            Foreground="Red"/>
-                            <TextBlock Text="Start Date"
+                            <TextBlock Text="Start Date" IsEnabled="False" 
+                                       x:Name="_start"
                                         FontSize="16"
                                         FontWeight="SemiBold"
+                                       Visibility="{Binding SelectedReport.StartDate, Converter={StaticResource HasOjectConverter}}"
                                         Height="22"/>
-                            <Grid Visibility="{Binding SelectedReport.checkStart, Converter={StaticResource HasOjectConverter}}">
+                            <Grid x:Name="_start1" IsEnabled="False"  Visibility="{Binding SelectedReport.StartDate, Converter={StaticResource HasOjectConverter}}">
 
                                 <DatePicker x:Name="StartDate"
                                             SelectedDateFormat="Short"/>
@@ -279,11 +283,13 @@
                             <TextBlock x:Name="submitErrorMessage"
                                            Foreground="Red"/>
                             <TextBlock Margin="0 10 0 0"
+                                       x:Name="_finish" IsEnabled="False" 
                                 Text="Finish Date"
                                         FontSize="16"
                                         FontWeight="SemiBold"
+                                       Visibility="{Binding SelectedReport.StartDate, Converter={StaticResource HasOjectConverter}}"
                                         Height="22"/>
-                            <Grid Visibility="{Binding SelectedReport.checkFinish, Converter={StaticResource HasOjectConverter}}">
+                            <Grid x:Name="_finish1" IsEnabled="False" Visibility="{Binding SelectedReport.FinishDate, Converter={StaticResource HasOjectConverter}}">
 
                                 <DatePicker x:Name="FinishDate"
                                             SelectedDateFormat="Short"/>
@@ -301,11 +307,18 @@
                                            Foreground="Red"/>
                             <StackPanel Grid.Row="1">
 
-                                <StackPanel
+                                
+
+                            </StackPanel>
+
+                        </StackPanel>
+                        
+                    </Grid>
+                    <StackPanel
                                     Margin="0 20 0 0"
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Right">
-                                    <Button Content="Cancle"
+                        <Button Content="Cancle"
                                     Foreground="{StaticResource PrimaryColor}"
                                     Style="{StaticResource MaterialDesignOutlinedButton}"
                                     BorderBrush="{StaticResource PrimaryColor}"
@@ -313,19 +326,14 @@
                                     Width="80"
                                     Command="{Binding CloseCM}"
                                     CommandParameter="{Binding ElementName=EditReportScreen}"/>
-                                    <Button x:Name="UpdateButton"
+                        <Button x:Name="UpdateButton"
                                     Content="Confirm"
                                     Background="#3982E4"
                                     BorderThickness="0"
                                     Width="84"
                                     Command="{Binding UpdateReportButtonCommand}"
                                     CommandParameter="{Binding ElementName=EditReportScreen}"/>
-                                </StackPanel>
-
-                            </StackPanel>
-
-                        </StackPanel>
-                    </Grid>
+                    </StackPanel>
                 </StackPanel>
             </Border>
         </Grid>

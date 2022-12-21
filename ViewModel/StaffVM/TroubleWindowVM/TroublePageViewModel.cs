@@ -97,14 +97,11 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         public ICommand LoadDetailWindowCM { get; set; }
         public ICommand OpenAddErrorCommand { get; set; }
         public ICommand MaskNameCM { get; set; }
-        public ICommand UploadImageCM { get; set; }
         public ICommand UploadImageCommand { get; set; }
         public ICommand CloseCM { get; set; }
         public ICommand MouseMoveCommand { get; set; }
         public ICommand SaveNewTroubleCommand { get; set; }
         public ICommand UpdateReportButtonCommand { get; set; }
-        string? filepath;
-        bool IsImageChanged = false;
         public static Grid MaskName { get; set; }
 
         public List<Report> danhsach = new();
@@ -150,18 +147,12 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 
                 if (SelectedItem.RepairCost == null)
                 {
-                    //w._Finishday.IsEnabled = false;
                     w._cost.IsEnabled = false;
-                    //w._Finishday.Visibility = Visibility.Collapsed;
-                    //w._startday.Visibility = Visibility.Collapsed;
                     w._cost.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    //w._Finishday.IsEnabled = true;
                     w._cost.IsEnabled = true;
-                    //w._Finishday.Visibility = Visibility.Visible;
-                    //w._startday.Visibility = Visibility.Visible;
                     w._cost.Visibility = Visibility.Visible;
                 }
                 if (SelectedItem.FinishDate == null)
@@ -196,29 +187,6 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 w1.cbxStatus.Text = "Chờ tiếp nhận";
                 w1.ShowDialog();
             });
-            SaveErrorCM = new RelayCommand<AddError>((p) => { if (IsSaving) return false; return true; }, (p) =>
-            {
-                IsSaving = true;
-                SaveErrorFunc(p);
-                IsSaving = false;
-            });
-            UploadImageCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
-            {
-                OpenFileDialog openfile = new()
-                {
-                    Title = "Select an image",
-                    Filter = "Image File (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg; *.png"
-                };
-                if (openfile.ShowDialog() == DialogResult.OK)
-                {
-                    filepath = openfile.FileName;
-                    ImageSource = new BitmapImage(new Uri(filepath));
-                    Image = File.ReadAllBytes(filepath);
-                    IsImageChanged = true;
-                }
-                IsImageChanged = false;
-
-            });
             UploadImageCommand = new RelayCommand<ImageBrush>((p) => { return true; }, (p) =>
             {
                 OpenFileDialog openDialog = new OpenFileDialog();
@@ -242,8 +210,6 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 }
                 catch
                 {
-                    /* Chỗ này phải xài try catch để bắt lỗi
-                     * Người dùng mở File Exploer nhưng không chọn ảnh mà nhấn nút "Cancle" */
                 }
             });
             SaveNewTroubleCommand = new RelayCommand<AddTrouble>((p) => { return true; }, (p) =>
@@ -261,18 +227,12 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 MaskName.Visibility = Visibility.Collapsed;
                 IsSaving = false;
             });
-            LoadEditErrorCM = new RelayCommand<EditTrouble>((p) => { return true; }, (p) =>
+            LoadEditErrorCM = new RelayCommand<EditTrouble>((p) => { return SelectedItem.StaffId==CurrentAccount.idAccount; }, (p) =>
             {
                 EditTrouble w1 = new();
                 LoadEditError(w1);
                 MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
-            });
-            UpdateErrorCM = new RelayCommand<EditError>((p) => { return true; }, async (p) =>
-            {
-                IsSaving = true;
-                UpdateErrorFunc(p);
-                isSaving = false;
             });
 
             MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
@@ -315,17 +275,11 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 }
             }
         }
-        //public async Task GetData()
-        //{
-        //    //GetAllError = new ObservableCollection<Report>(await Task.Run(() => TroubleService.Ins.GetAllTrouble()));
-        //    ListError = new ObservableCollection<Report>(GetAllError);
-        //}
         void RenewWindowData()
         {
             Title = null;
             Description = null;
             ImageSource = null;
-            filepath = null;
         }
 
         public bool IsValidData()

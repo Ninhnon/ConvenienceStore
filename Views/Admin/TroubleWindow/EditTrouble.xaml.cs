@@ -32,5 +32,60 @@ namespace ConvenienceStore.Views.Admin.TroubleWindow
         {
             MarkUploadImage.Visibility = Visibility.Hidden;
         }
+
+        private void cbxStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbxStatus.SelectedIndex == 2)
+            {
+                if (_start != null && _start1 != null)
+                {
+                    _start.IsEnabled = true;
+                    _start1.IsEnabled = true;
+                    _start.Visibility = Visibility.Visible;
+                    _start1.Visibility = Visibility.Visible;
+                }
+                if (_finish != null && _finish1 != null)
+                {
+                    _finish.IsEnabled = true;
+                    _finish1.IsEnabled = true;
+                    _finish.Visibility = Visibility.Visible;
+                    _finish1.Visibility = Visibility.Visible;
+                }
+            }
+            else if (cbxStatus.SelectedIndex == 1)
+            {
+                if (_start != null && _start1 != null)
+                {
+                    _start.IsEnabled = true;
+                    _start1.IsEnabled = true;
+                    _start.Visibility = Visibility.Visible;
+                    _start1.Visibility = Visibility.Visible;
+                }
+                if (_finish != null && _finish1 != null)
+                {
+                    _finish.IsEnabled = false;
+                    _finish1.IsEnabled = false;
+                    _finish.Visibility = Visibility.Collapsed;
+                    _finish1.Visibility = Visibility.Collapsed;
+                }
+            }
+            else if (cbxStatus.SelectedIndex == 0)
+            {
+                if (_start != null && _start1 != null)
+                {
+                    _start.IsEnabled = false;
+                    _start1.IsEnabled = false;
+                    _start.Visibility = Visibility.Collapsed;
+                    _start1.Visibility = Visibility.Collapsed;
+                }
+                if (_finish != null && _finish1 != null)
+                {
+                    _finish.IsEnabled = false;
+                    _finish1.IsEnabled = false;
+                    _finish.Visibility = Visibility.Collapsed;
+                    _finish1.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
     }
 }

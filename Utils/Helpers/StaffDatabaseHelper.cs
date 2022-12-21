@@ -1,15 +1,8 @@
 ﻿using ConvenienceStore.Model;
-using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Model.Staff;
-using ConvenienceStore.Views;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ZXing;
 
 namespace ConvenienceStore.Utils.Helpers
 {
@@ -44,8 +37,8 @@ namespace ConvenienceStore.Utils.Helpers
 
         static readonly string insertReport = "insert Report values (@Title, @Description, @Status, @SubmittedAt,@RepairCost,Null,Null,@StaffId, @Image)";
         static readonly string insertBillData = @"insert into Bill(BillDate, CustomerId, UserId, Price) Values (@billDate, @cusId, @userId, @price)";
-        static readonly string updateReport = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost
-                                                 where SubmittedAt=@SubmittedAt";
+        static readonly string updateReport = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost, Description = @Description
+                                                 where Id=@Id";
         static readonly string queryBillsData = @"select b.Id, u.Name, c.Name, b.BillDate, b.Price, u.Id, c.Id, b.Discount
                                                     from Bill b left join Customer c on b.CustomerId = c.Id
                                                                 left join Users u on b.UserId = u.Id
@@ -53,9 +46,13 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryBillDetailsData = @"select bd.Quantity, p.Title, bd.TotalPrice
                                                         from BillDetail bd join Product p on bd.ProductId = p.Barcode
                                                         where BillId = @id";
-        static readonly string updateReportAD = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost,Status = @Status,StartDate = @StartDate,FinishDate = @FinishDate,Description = @Description
+        static readonly string updateReportAD = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost,Description = @Description
                                                  where Id=@Id";
-
+        static readonly string updateReportADS = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost,Status = @Status,StartDate = @StartDate,Description = @Description
+                                                 where Id=@Id";
+        static readonly string updateReportADSF = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost,Status = @Status,StartDate = @StartDate,FinishDate = @FinishDate,Description = @Description
+                                                 where Id=@Id";
+        
         public static List<Model.Staff.Bill> FetchingBillData()
         {
             sqlCon.Open();
@@ -231,7 +228,7 @@ namespace ConvenienceStore.Utils.Helpers
 
         public static void ThemErorr(Report t, string filepath)
         {
-            var strCmd = string.Format(insertErorrs, t.Title, t.Description,t.Status, t.RepairCost, t.SubmittedAt, t.StaffId, filepath);
+            var strCmd = string.Format(insertErorrs, t.Title, t.Description, t.Status, t.RepairCost, t.SubmittedAt, t.StaffId, filepath);
             sqlCon.Open();
             SqlCommand cmd = new(strCmd, sqlCon);
             cmd.ExecuteNonQuery();
@@ -324,7 +321,7 @@ namespace ConvenienceStore.Utils.Helpers
         {
             var strCmd = string.Format(queryName, id);
             sqlCon.Open();
-            string s="Nguyễn Trọng Ninh";
+            string s = "Nguyễn Trọng Ninh";
             SqlCommand cmd = new(strCmd, sqlCon);
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -433,18 +430,25 @@ namespace ConvenienceStore.Utils.Helpers
         public static void UpdateReportAD(Report editedReport)
         {
             sqlCon.Open();
-            var cmd = new SqlCommand(updateReportAD, sqlCon);
-            //cmd.Parameters.AddWithValue("@StartDate", null);
+            var cmd = new SqlCommand();
+            if (editedReport.StartDate == null && editedReport.FinishDate == null)
+            cmd = new SqlCommand(updateReportAD, sqlCon);
+            else if(editedReport.StartDate != null && editedReport.FinishDate == null)
+            {
+                cmd = new SqlCommand(updateReportADS, sqlCon);
+                cmd.Parameters.AddWithValue("@StartDate", editedReport.StartDate);
+            }else
+            {
+                cmd = new SqlCommand(updateReportADSF, sqlCon);
+                cmd.Parameters.AddWithValue("@StartDate", editedReport.StartDate);
+                cmd.Parameters.AddWithValue("@FinishDate", editedReport.FinishDate);
+            }
             cmd.Parameters.AddWithValue("@Title", editedReport.Title);
             cmd.Parameters.AddWithValue("@Image", editedReport.Image);
             cmd.Parameters.AddWithValue("@RepairCost", editedReport.RepairCost);
             cmd.Parameters.AddWithValue("@Status", editedReport.Status);
-            cmd.Parameters.AddWithValue("@StartDate", editedReport.StartDate);
-            cmd.Parameters.AddWithValue("@FinishDate", editedReport.FinishDate);
             cmd.Parameters.AddWithValue("@Description", editedReport.Description);
             cmd.Parameters.AddWithValue("@Id", editedReport.Id);
-            //cmd.Parameters.AddWithValue("@SubmittedAt", editedReport.SubmittedAt);
-            //Fetch lại nội dung
             cmd.ExecuteNonQuery();
             sqlCon.Close();
         }
