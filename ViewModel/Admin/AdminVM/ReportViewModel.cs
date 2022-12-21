@@ -89,8 +89,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             Revenue = string.Format("{0:n0}", ReportDAL.Instance.QueryRevenueInToday(currentDay,currentMonth, currentYear)).ToString() + " đồng";
             Consignment= string.Format("{0:n0}", ReportDAL.Instance.QueryConsignmentInToday(currentDay,currentMonth,currentYear)).ToString()+ " đồng";
             RepairCost= string.Format("{0:n0}", ReportDAL.Instance.QueryRepairCostToday(currentDay,currentMonth,currentYear)).ToString() + " đồng";
-         
-            Salary = ReportDAL.Instance.QueryRevenueNumOfSoldBillInMonth(currentMonth, currentYear).ToString() + " đồng";
+
+            Salary = ReportDAL.Instance.QuerySalaryToday((int.Parse(currentDay) +1).ToString(),currentMonth, currentYear).ToString() + " đồng";
     
 
 
@@ -109,8 +109,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             Consignment = string.Format("{0:n0}", ReportDAL.Instance.QueryConsignmentInMonth( currentMonth, currentYear)).ToString() + " đồng";
             RepairCost = string.Format("{0:n0}", ReportDAL.Instance.QueryRepairCostMonth( currentMonth, currentYear)).ToString() + " đồng";
 
-            Salary = ReportDAL.Instance.QueryRevenueNumOfSoldBillInMonth(currentMonth, currentYear).ToString() + " đồng";
-
+            Salary = ReportDAL.Instance.QuerySalaryMonth(currentMonth, currentYear).ToString() + " đồng";
 
 
         }
@@ -129,7 +128,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             Consignment = string.Format("{0:n0}", ReportDAL.Instance.QueryConsignmentInYear( currentYear)).ToString() + " đồng";
             RepairCost = string.Format("{0:n0}", ReportDAL.Instance.QueryRepairCostYear( currentYear)).ToString() + " đồng";
 
-            Salary = ReportDAL.Instance.QueryRevenueNumOfSoldBillInMonth(currentMonth, currentYear).ToString() + " đồng";
+            Salary = ReportDAL.Instance.QuerySalaryYear(currentYear).ToString() + " đồng";
 
 
 

@@ -33,6 +33,12 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 OnPropertyChanged();
             }
         }
+        private static int salary;
+        public static int Salary
+        {
+            get { return salary; }
+            set { salary = value; }
+        }
         private List<string> admins = AccountDAL.Instance.ConvertDBToListString();
         public static List<Account> accounts = new List<Account>();
 
@@ -53,19 +59,27 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public ICommand BackCommand { get; set; }
         public ICommand BackCommandEdit { get; set; }
         public ICommand BackCommandPay { get; set; }
+        public ICommand PayCommand { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand SaveCommandEdit { get; set; }
         public ICommand UploadImageCommand { get; set; }
         public ICommand UploadImageCommandEdit { get; set; }
+        public ICommand LoadCommand { get; set; }
         private string searchContent_;
         public string SearchContent
         {
             get { return searchContent_; }
-            set { searchContent_ = value;
+            set
+            {
+                searchContent_ = value;
                 OnPropertyChanged();
                 if (SearchContent == "")
+                {
+
+                    accounts = AccountDAL.Instance.ConvertDataTableToListEmployeeAdmin();
                     ObservableEmployee = new ObservableCollection<Account>(accounts);
 
+                }
             }
         }
         private ObservableCollection<Account> observableEmployee_;
@@ -74,6 +88,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             get { return observableEmployee_; }
             set { observableEmployee_ = value;
                 OnPropertyChanged();
+             
             }
         }
 
@@ -86,13 +101,15 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
         public EmployeeViewModel()
         {
-            accounts = AccountDAL.Instance.ConvertDataTableToListEmployee();
+            accounts = AccountDAL.Instance.ConvertDataTableToListEmployeeAdmin();
+            ObservableEmployee = new ObservableCollection<Account>(accounts);
+            
             AddEmployeeCommand = new RelayCommand<EmployeeView>(parameter => true, parameter => AddEmployee(parameter));
             SearchCommand = new RelayCommand<EmployeeView>(parameter => true, parameter => Search());
             DeleteEmployeeCommand = new RelayCommand<EmployeeView>(parameter => true, parameter => Delete(parameter));
 
-            ObservableEmployee = new ObservableCollection<Account>(accounts);
 
+            LoadCommand = new RelayCommand<EmployeeView>(parameter => true, parameter => Load(parameter));
 
             BackCommand = new RelayCommand<AddEmployeeView>(parameter => true, parameter => Back(parameter));
             BackCommandEdit = new RelayCommand<EditEmployeeView>(parameter => true, parameter => BackEdit(parameter));
@@ -106,8 +123,15 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             InitManagerCommandEdit = new RelayCommand<EditEmployeeView>(parameter => true, parameter => AddManagerItemSourceEdit(parameter));
             EditEmployeeCommand=new RelayCommand<EmployeeView>(parameter=>true, parameter => Edit(parameter));
             PaySalaryCommand = new RelayCommand<EmployeeView>(parameter => true, parameter => OpenPay(parameter));
+            PayCommand = new RelayCommand<PaySalaryView>(parameter => true, parameter => Pay(parameter));
         
         }
+        public void Load(EmployeeView parameter)
+        {
+            accounts = AccountDAL.Instance.ConvertDataTableToListEmployeeAdmin();
+            ObservableEmployee = new ObservableCollection<Account>(accounts);
+            parameter.AccountsDataGrid.ItemsSource = ObservableEmployee;
+          }
         public void AddEmployee(EmployeeView parameter)
         {
             AddEmployeeView addView = new AddEmployeeView();
@@ -174,7 +198,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
 
             editView.ShowDialog();
-
+            parameter.AccountsDataGrid.Items.Refresh();
 
         }
 
@@ -367,8 +391,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 MessageBoxCustom mb = new("Thông báo", "Sửa thành công", MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();
                 ObservableEmployee.Clear();
-                accounts = AccountDAL.Instance.ConvertDataTableToListEmployee();
+                accounts = AccountDAL.Instance.ConvertDataTableToListEmployeeAdmin();
                 ObservableEmployee = new ObservableCollection<Account>(accounts);
+
                 parameter.Close();
 
             }
@@ -470,11 +495,25 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public void OpenPay(EmployeeView parameter)
         {
             Selectedid = ((Account)parameter.AccountsDataGrid.SelectedItem).IdAccount;
+            int daywork = 0;
+
+            string salaryday = AccountDAL.Instance.GetSalaryDay(((Account)parameter.AccountsDataGrid.SelectedItem).IdAccount);
+            if (string.IsNullOrEmpty(salaryday))
+            {
+                daywork = AccountDAL.Instance.GetWorkDayNull(((Account)parameter.AccountsDataGrid.SelectedItem).IdAccount);
+            }
+            else
+            {
+                 daywork = AccountDAL.Instance.GetWorkDay(((Account)parameter.AccountsDataGrid.SelectedItem).IdAccount);
+            }
+            Salary = ((int)(((AccountDAL.Instance.GetSalary(((Account)parameter.AccountsDataGrid.SelectedItem).IdAccount)) / 30f * daywork)));
             PaySalaryView payView = new PaySalaryView();
 
-         
-            payView.salaryTxtbox.textBox.Text = AccountDAL.Instance.GetSalary(((Account)parameter.AccountsDataGrid.SelectedItem).IdAccount).ToString();
+            payView.DayWork.textBox.Text = daywork.ToString();
+            payView.DayGet.textBox.Text = salaryday;
 
+            payView.salaryTxtbox.textBox.Text = Salary.ToString();
+        
 
 
 
@@ -482,7 +521,22 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             payView.ShowDialog();
 
         }
-
+        public void Pay(PaySalaryView parameter)
+        {
+            if (int.Parse(parameter.salaryTxtbox.textBox.Text) <= 0)
+            {
+                MessageBoxCustom mb = new("Thông báo", "Lương không hợp lệ", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
+            }
+            else
+            {
+                AccountDAL.Instance.SetSalaryDate(Selectedid);
+                AccountDAL.Instance.InsertSalaryBill(Selectedid, int.Parse(parameter.salaryTxtbox.textBox.Text));
+                MessageBoxCustom mb = new("Thông báo", "Trả lương thành công", MessageType.Success, MessageButtons.OK);
+                mb.ShowDialog();
+                parameter.Close();
+            }
+        }
 
 
     }

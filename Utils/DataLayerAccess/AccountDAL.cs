@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -65,6 +66,11 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         public List<Account> ConvertDataTableToListEmployee()
         {
             List<Account> accounts = DatabaseHelper.FetchingAccountEmployeeData();
+            return accounts;
+        }
+        public List<Account> ConvertDataTableToListEmployeeAdmin()
+        {
+            List<Account> accounts = DatabaseHelper.FetchingAccountEmployeeAdminData();
             return accounts;
         }
         public List<Account> ConvertDataTableToList()
@@ -134,6 +140,91 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             cmd.ExecuteNonQuery();
             CloseConnection();
         }
+        public int GetWorkDay(int id)
+        {
+            int day = 0;
+            try
+            {
+                OpenConnection();
+                string queryString = String.Format("select count(distinct day(billdate)) as ngay,billdate from bill inner join salarybill on salarybill.userid=bill.userid " +
+                    " where bill.userid={0} group by billdate having billdate>max(salarybilldate)", id.ToString());
+                SqlCommand command = new SqlCommand(queryString, conn);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    day = reader.GetInt32(0);
+                }
+
+
+                return day;
+
+            }
+            catch
+            {
+                return 0;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+        public int GetWorkDayNull(int id)
+        {
+            int day = 0;
+            try
+            {
+                OpenConnection();
+                string queryString = String.Format("select count(distinct day(billdate)) as ngay,billdate from bill full outer join salarybill on salarybill.userid=bill.userid " +
+                    " where bill.userid={0} group by billdate", id.ToString());
+                SqlCommand command = new SqlCommand(queryString, conn);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    day = reader.GetInt32(0);
+                }
+
+
+                return day;
+
+            }
+            catch
+            {
+                return 0;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+        public string GetSalaryDay(int id)
+        {
+            string s = "";
+            try
+            {
+                OpenConnection();
+                string queryString = String.Format("select SalaryBillDate from salarybill inner join users on users.id=salarybill.userid where userid={0} ", id.ToString());
+                SqlCommand command = new SqlCommand(queryString, conn);
+
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    string a= reader.GetDateTime(0).ToString();
+                    s = a.Split(" ")[0];
+                }
+
+
+                return s;
+
+            }
+            catch
+            {
+                return "";
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
         public int GetSalary(int id)
         {
             int salary = 0;
@@ -161,11 +252,27 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 CloseConnection();
             }
         }
+        public void SetSalaryDate(int id)
+        {
+            OpenConnection();
+            string query =string.Format("update users set SalaryDate=GetDate() where id={0}",id);
+            SqlCommand command = new SqlCommand(query, conn);
+            command.ExecuteNonQuery();
+            CloseConnection();
+        }
         public void SetNewSalary(int salary, int id)
         {
 
             OpenConnection();
             string query = string.Format("update users set salary={0} where id={1}", salary.ToString(), id.ToString());
+            SqlCommand command = new SqlCommand(query, conn);
+            command.ExecuteNonQuery();
+            CloseConnection();
+        }
+        public void InsertSalaryBill(int id, int money)
+        {
+            OpenConnection();
+            string query = string.Format("INSERT INTO salarybill  Values (DATEADD(day, 1, GetDate()),{0},{1})", id,money);
             SqlCommand command = new SqlCommand(query, conn);
             command.ExecuteNonQuery();
             CloseConnection();

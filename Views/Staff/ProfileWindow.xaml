@@ -23,14 +23,14 @@
       xmlns:ProfileCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.ProfileCommand"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
-    <!--<i:Interaction.Triggers>
+    <i:Interaction.Triggers>
 
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadCommand}"
                                CommandParameter="{Binding ElementName=wdProfile}"/>
 
         </i:EventTrigger>
-    </i:Interaction.Triggers>-->
+    </i:Interaction.Triggers>
 
     <Page.Resources>
 

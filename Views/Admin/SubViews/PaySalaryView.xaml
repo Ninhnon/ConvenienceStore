@@ -16,11 +16,11 @@
   Height="660" Width="1200"
         x:Name="wdSalary"
     DataContext="{StaticResource EmployeeVM}">
+    
 
 
 
-
-    <i:Interaction.Triggers>
+        <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding InitManagerCommandEdit}" 
                                            CommandParameter="{Binding ElementName=wdEditEmployee}"
@@ -30,7 +30,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Window.Resources>
-
+       <BooleanToVisibilityConverter x:Key="MyBoolToVisibilityConverter" />
         <Converters:HasImageConverter x:Key="HasImageConverter"/>
     </Window.Resources>
     <Grid Background="Transparent" Margin="0,0,0,-83">
@@ -38,7 +38,7 @@
                 Opacity="0.4"
                 CornerRadius="25">
         </Border>
-        <Border CornerRadius="20" Width="650" Margin="275,0,275,0" VerticalAlignment="Center" Height="521" RenderTransformOrigin="0.5,0.5"
+        <Border CornerRadius="20" Width="650" Margin="275,0,275,0" VerticalAlignment="Center" Height="568" RenderTransformOrigin="0.5,0.5"
                  >
             <Border.RenderTransform>
                 <TransformGroup>
@@ -68,7 +68,7 @@
 
 
                         <Border HorizontalAlignment="Center"
-                            CornerRadius="7" Margin="0,0,0,0" Height="3653" Width="646" >
+                            CornerRadius="7" Margin="0,0,0,0" Height="3718" Width="646" >
                             <Border.Effect>
                                 <DropShadowEffect Direction="-130" BlurRadius="30" ShadowDepth="5" Opacity="0.1"/>
                             </Border.Effect>
@@ -167,31 +167,63 @@
                         <Grid  Background="Transparent" Margin="0,30,0,0" Width="323">
                             <StackPanel >
                                 <uc:TextBoxUC 
+                                    Caption="Ngày nhận lương gần nhất"
+                                    
+                                    x:Name="DayGet" IsEnabled="False" Width="321">
+
+                                </uc:TextBoxUC>
+                                <uc:TextBoxUC 
                                     Caption="Số ngày làm việc (đơn vị Ngày)"
                                     
                                     x:Name="DayWork" IsEnabled="False" Width="321">
 
                                 </uc:TextBoxUC>
+                                <StackPanel Margin="20 10 20 0">
+                                    <TextBlock Text="Thưởng thêm (đơn vị VND)" Foreground="#97A5B4"
+                       FontSize="13" Margin="0 0 0 0"/>
 
-                                <uc:TextBoxUC
-                                    x:Name="plusSalary"
-                                    Caption="Thưởng thêm (đơn vị VND)">
+                                    <Grid>
+                                        <TextBlock 
+                     VerticalAlignment="Center" Foreground="#868686" IsHitTestVisible="False" Panel.ZIndex="1"
+                   Text="0" FontSize="14"
+                   Visibility="{Binding ElementName=plustextBox, Path=Text.IsEmpty, Converter={StaticResource MyBoolToVisibilityConverter}}" />
 
-                                </uc:TextBoxUC>
-
-                                <uc:TextBoxUC 
-                                    x:Name="minusSalary"
-                                    Caption="Trừ Lương (đơn vị -VND)">
+                                        <TextBox Name="plustextBox" TextChanged="plusTextChanged"/>
 
 
-                                </uc:TextBoxUC>
+                                    </Grid>
+                                    <TextBlock x:Name="ErrorMessage"
+                                   
+                                        Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Margin="20 20 20 0">
+                                    <TextBlock Text="Trừ lương (đơn vị -VND)" Foreground="#97A5B4"
+                       FontSize="13" Margin="0 0 0 0"/>
+
+                                    <Grid>
+                                        <TextBlock 
+                     VerticalAlignment="Center" Foreground="#868686" IsHitTestVisible="False" Panel.ZIndex="1"
+                   Text="0" FontSize="14"
+                   Visibility="{Binding ElementName=minustextBox, Path=Text.IsEmpty, Converter={StaticResource MyBoolToVisibilityConverter}}" />
+
+                                        <TextBox Name="minustextBox" TextChanged="minusTextChanged"/>
+
+
+                                    </Grid>
+                                    <TextBlock x:Name="MinusErrorMessage"
+                                   
+                                        Foreground="Red"/>
+                                </StackPanel>
+
 
                                 <uc:TextBoxUC IsEnabled="False"  
                                     x:Name="salaryTxtbox" Hint="VND" Caption="Mức lương nhận được (đơn vị VND)" Width="321">
 
-                                </uc:TextBoxUC>
-                            </StackPanel>
+                                    </uc:TextBoxUC>
+                                </StackPanel>
+                            
                         </Grid>
+                            
 
                     </StackPanel>
 
