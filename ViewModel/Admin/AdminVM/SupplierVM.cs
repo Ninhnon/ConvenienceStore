@@ -41,7 +41,11 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
                 if (searchContent == "")
                 {
-                    SetSupplierCorespondSearch();
+                    ObservableSupplier.Clear();
+                    for (int i = 0; i < suppliers.Count; i++)
+                    {
+                        ObservableSupplier.Add(suppliers[i]);
+                    }
                 }
             }
         }
@@ -54,10 +58,6 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         {
             suppliers = DatabaseHelper.FetchingSupplier();
             ObservableSupplier = new ObservableCollection<Supplier>();
-            for (int i = 0; i < suppliers.Count; i++)
-            {
-                ObservableSupplier.Add(suppliers[i]);
-            }
 
             AddSupplierButtonCommand = new AddSupplierButtonCommand(this);
             SaveNewSupplierCommand = new SaveNewSupplierCommand(this);

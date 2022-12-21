@@ -125,13 +125,13 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 CloseConnection();
             }
         }
-        public int QueryRevenueInToday(string day,string month, string year)
+        public int QueryRevenueInToday(string day, string month, string year)
         {
             int res = 0;
             try
             {
                 OpenConnection();
-                string queryString = string.Format("select sum(Price) as revenue from Bill where day(billdate)={0} and year(BillDate) = {1} and month(BillDate) = {2}", day,year, month);
+                string queryString = string.Format("select sum(Price) as revenue from Bill where day(billdate)={0} and year(BillDate) = {1} and month(BillDate) = {2}", day, year, month);
                 SqlCommand command = new SqlCommand(queryString, conn);
 
                 SqlDataReader rdr = command.ExecuteReader();
@@ -175,7 +175,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 CloseConnection();
             }
         }
-        public int QueryRevenueInYear( string year)
+        public int QueryRevenueInYear(string year)
         {
             int res = 0;
             try
@@ -200,14 +200,14 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 CloseConnection();
             }
         }
-        public int QueryConsignmentInToday(string day,string month, string year)
+        public int QueryConsignmentInToday(string day, string month, string year)
         {
             int res = 0;
             try
             {
                 OpenConnection();
                 string queryString = string.Format("select sum(inputprice) as tong  from inputinfo inner join consignment" +
-                    " on inputinfo.id=consignment.inputinfoid where day(inputdate)={0} and month(inputdate)={1} and year(inputdate)={2} ",day, month, year);
+                    " on inputinfo.id=consignment.inputinfoid where day(inputdate)={0} and month(inputdate)={1} and year(inputdate)={2} ", day, month, year);
                 SqlCommand command = new SqlCommand(queryString, conn);
 
                 SqlDataReader rdr = command.ExecuteReader();
@@ -233,7 +233,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             {
                 OpenConnection();
                 string queryString = string.Format("select sum(inputprice) as tong  from inputinfo inner join consignment " +
-                    "on inputinfo.id=consignment.inputinfoid where month(inputdate)={0} and year(inputdate)={1} ",month,year);
+                    "on inputinfo.id=consignment.inputinfoid where month(inputdate)={0} and year(inputdate)={1} ", month, year);
                 SqlCommand command = new SqlCommand(queryString, conn);
 
                 SqlDataReader rdr = command.ExecuteReader();
@@ -258,7 +258,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             try
             {
                 OpenConnection();
-                string queryString = string.Format("select sum(inputprice) as tong  from inputinfo inner join consignment on inputinfo.id=consignment.inputinfoid  where year(inputdate)={0}",year);
+                string queryString = string.Format("select sum(inputprice) as tong  from inputinfo inner join consignment on inputinfo.id=consignment.inputinfoid  where year(inputdate)={0}", year);
                 SqlCommand command = new SqlCommand(queryString, conn);
 
                 SqlDataReader rdr = command.ExecuteReader();
@@ -284,7 +284,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             {
                 OpenConnection();
                 string queryString = string.Format("select sum(repaircost) as tong from report where status=N\'Đã giải quyết\' " +
-                    "and day(finishdate)={0} and month(finishdate)={1} and year(finishdate)={2} ",day,month,year);
+                    "and day(finishdate)={0} and month(finishdate)={1} and year(finishdate)={2} ", day, month, year);
                 SqlCommand command = new SqlCommand(queryString, conn);
 
                 SqlDataReader rdr = command.ExecuteReader();
@@ -359,20 +359,20 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             ChartValues<int> res = new ChartValues<int>();
 
 
-           
-            OpenConnection();
-         
-                string queryString = string.Format("select count(Id) as numOfSoldBill from Bill " +
-          "where day(BillDate) = {0} and month(BillDate) = {1}", int.Parse(today), int.Parse(month));
-                SqlCommand command = new SqlCommand(queryString, conn);
 
-                SqlDataReader rdr = command.ExecuteReader();
-                while (rdr.Read())
-                {
-                    res.Add(int.Parse(rdr["numOfSoldBill"].ToString()));
-                }
-         
-           
+            OpenConnection();
+
+            string queryString = string.Format("select count(Id) as numOfSoldBill from Bill " +
+      "where day(BillDate) = {0} and month(BillDate) = {1}", int.Parse(today), int.Parse(month));
+            SqlCommand command = new SqlCommand(queryString, conn);
+
+            SqlDataReader rdr = command.ExecuteReader();
+            while (rdr.Read())
+            {
+                res.Add(int.Parse(rdr["numOfSoldBill"].ToString()));
+            }
+
+
 
 
 
@@ -381,12 +381,12 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             CloseConnection();
 
         }
-        public ChartValues<int> QueryRevenueNumOfSoldBillEachDayInMonth(string month,string year)
+        public ChartValues<int> QueryRevenueNumOfSoldBillEachDayInMonth(string month, string year)
         {
             ChartValues<int> res = new ChartValues<int>();
 
 
-            List<string> list = QueryDayInMonth(month, year).ToList() ;
+            List<string> list = QueryDayInMonth(month, year).ToList();
             OpenConnection();
             foreach (string s in list)
             {
@@ -399,7 +399,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 {
                     res.Add(int.Parse(rdr["numOfSoldBill"].ToString()));
                 }
-               
+
 
             }
 
@@ -410,47 +410,47 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             CloseConnection();
 
         }
-        public ChartValues< int> QueryRevenueNumOfSoldBillInYear(string year)
+        public ChartValues<int> QueryRevenueNumOfSoldBillInYear(string year)
         {
             ChartValues<int> res = new ChartValues<int>();
-          
-         
+
+
             List<string> list = QueryMonthInYearList(year);
             OpenConnection();
             foreach (string s in list)
-               {
-                   string queryString = string.Format("select count(Id) as numOfSoldBill from Bill " +
-             "where year(BillDate) = {0} and month(BillDate) = {1}", int.Parse(year), int.Parse(s));
-                   SqlCommand command = new SqlCommand(queryString, conn);
+            {
+                string queryString = string.Format("select count(Id) as numOfSoldBill from Bill " +
+          "where year(BillDate) = {0} and month(BillDate) = {1}", int.Parse(year), int.Parse(s));
+                SqlCommand command = new SqlCommand(queryString, conn);
 
                 SqlDataReader rdr = command.ExecuteReader();
                 while (rdr.Read())
-                 {
-                     res.Add(int.Parse(rdr["numOfSoldBill"].ToString())); 
-                 }
-             
-
-              }
+                {
+                    res.Add(int.Parse(rdr["numOfSoldBill"].ToString()));
+                }
 
 
+            }
 
-              return res;
-         
-             CloseConnection();
-            
+
+
+            return res;
+
+            CloseConnection();
+
         }
         //public ChartValues<int > QueryNumofSoldBillEachMonth(string year)
         //{
         //    ChartValues<int> res = new ChartValues<int>();
 
         //}
-        public List<Account> QueryTopSaleToday(string day,string month, string year)
+        public List<Account> QueryTopSaleToday(string day, string month, string year)
         {
             List<Account> accs = new List<Account>();
             OpenConnection();
             string queryString = string.Format("select users.id, Name, sum(price) as tong  from users inner join bill on bill.userid = users.id " +
                 "where day(billdate)={0} and month(billdate) = {1} and year(billdate) = {2} " +
-                "group by users.id, name order by tong desc",day ,month, year);
+                "group by users.id, name order by tong desc", day, month, year);
             SqlCommand command = new SqlCommand(queryString, conn);
 
             SqlDataReader read = command.ExecuteReader();
@@ -474,26 +474,26 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             CloseConnection();
             return accs;
         }
-        public List<Account> QueryTopSaleMonth(string month,string year)
+        public List<Account> QueryTopSaleMonth(string month, string year)
         {
             List<Account> accs = new List<Account>();
             OpenConnection();
             string queryString = string.Format("select users.id, Name, sum(price) as tong  from users inner join bill on bill.userid = users.id " +
-                "where  month(billdate) = {0} and year(billdate) = {1} "+
-                "group by users.id, name order by tong desc",int.Parse(month),int.Parse(year));
+                "where  month(billdate) = {0} and year(billdate) = {1} " +
+                "group by users.id, name order by tong desc", int.Parse(month), int.Parse(year));
             SqlCommand command = new SqlCommand(queryString, conn);
 
             SqlDataReader read = command.ExecuteReader();
             int i = 0;
-            while(read.Read() &&i<3)
+            while (read.Read() && i < 3)
             {
 
                 accs.Add(new Account()
 
                 {
-                    IdAccount=read.GetInt32(0),
-                    Name=read.GetString(1),
-                    Tong=read.GetInt32(2)
+                    IdAccount = read.GetInt32(0),
+                    Name = read.GetString(1),
+                    Tong = read.GetInt32(2)
 
 
                 }
@@ -534,193 +534,427 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             CloseConnection();
             return accs;
         }
-        public string QueryFoodRevenueInYear( string year)
+        public string QueryFoodRevenueInYear(string year)
         {
-            string s = "";
-            OpenConnection();
-            string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
-                "join product on billdetail.productid = product.barcode where product.type = N\'Đồ ăn\'  and year(billdate) = {0}", int.Parse(year));
-            SqlCommand command = new SqlCommand(queryString, conn);
-
-            SqlDataReader rdr = command.ExecuteReader();
-            while (rdr.Read())
+            string s = "0";
+            try
             {
-                s = rdr.GetInt32(0).ToString();
-            }
-            CloseConnection();
 
-            return s;
-        }
-        public string QueryDrinkRevenueInYear( string year)
-        {
-            string s = "";
-            OpenConnection();
-            string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
-                "join product on billdetail.productid = product.barcode where product.type = N\'Thức uống\'  and year(billdate) = {0}", int.Parse(year));
-            SqlCommand command = new SqlCommand(queryString, conn);
-
-            SqlDataReader rdr = command.ExecuteReader();
-            while (rdr.Read())
-            {
-                s = rdr.GetInt32(0).ToString();
-            }
-            CloseConnection();
-
-            return s;
-        }
-        public string QueryOtherRevenueInYear( string year)
-        {
-            string s = "";
-            OpenConnection();
-            string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
-                "join product on billdetail.productid = product.barcode where product.type = N\'Khác\'  and year(billdate) = {0}",  int.Parse(year));
-            SqlCommand command = new SqlCommand(queryString, conn);
-
-            SqlDataReader rdr = command.ExecuteReader();
-            while (rdr.Read())
-            {
-                s = rdr.GetInt32(0).ToString();
-            }
-            CloseConnection();
-
-            return s;
-        }
-        public string QueryFoodRevenueInMonth(string month,string year)
-        {
-            string s = "";
-            OpenConnection();
-            string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
-                "join product on billdetail.productid = product.barcode where product.type = N\'Đồ ăn\' and month(billdate)={0} and year(billdate) = {1}",int.Parse(month),int.Parse( year));
-            SqlCommand command = new SqlCommand(queryString, conn);
-
-            SqlDataReader rdr = command.ExecuteReader();
-            while (rdr.Read())
-            {
-                s= rdr.GetInt32(0).ToString();
-            }
-            CloseConnection();
-            
-            return s;
-        }
-        public string QueryDrinkRevenueInMonth(string month,string year) 
-        {
-            string s = "";
-            OpenConnection();
-            string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
-                "join product on billdetail.productid = product.barcode where product.type = N\'Thức uống\' and month(billdate)={0} and year(billdate) = {1}", int.Parse(month), int.Parse(year));
-            SqlCommand command = new SqlCommand(queryString, conn);
-
-            SqlDataReader rdr = command.ExecuteReader();
-            while (rdr.Read())
-            {
-                s = rdr.GetInt32(0).ToString();
-            }
-            CloseConnection();
-
-            return s;
-        }
-        public string QueryOtherRevenueInMonth(string month,string year)
-        {
-            string s = "";
-            OpenConnection();
-            string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
-                "join product on billdetail.productid = product.barcode where product.type = N\'Khác\' and month(billdate)={0} and year(billdate) = {1}", int.Parse(month), int.Parse(year));
-            SqlCommand command = new SqlCommand(queryString, conn);
-
-            SqlDataReader rdr = command.ExecuteReader();
-            while (rdr.Read())
-            {
-                s = rdr.GetInt32(0).ToString();
-            }
-            CloseConnection();
-
-            return s;
-        }
-
-        public string QueryFoodRevenueInDay(string day,string month, string year)
-        {
-            string s = "";
-            OpenConnection();
-            string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
-                "join product on billdetail.productid = product.barcode where product.type = N\'Đồ ăn\' and day(billdate)={0} and month(billdate)={1} and year(billdate) = {2}",int.Parse(day), int.Parse(month), int.Parse(year));
-            SqlCommand command = new SqlCommand(queryString, conn);
-            DataTable dt = new DataTable();
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            adapter.Fill(dt);
-            if (dt.Rows[0].IsNull(0))
-            {
-                s = "0";
-                return s;
-            }
-            else
-            {
+                OpenConnection();
+                string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                       "join product on billdetail.productid = product.barcode where product.type = N\'Đồ ăn\'  and year(billdate) = {0}", int.Parse(year));
+                SqlCommand command = new SqlCommand(queryString, conn);
                 SqlDataReader rdr = command.ExecuteReader();
 
                 while (rdr.Read())
                 {
                     s = rdr.GetInt32(0).ToString();
                 }
+                return s;
+            }
+
+            catch
+            {
+                return s;
+
+            }
+
+
+
+            finally
+            {
+
                 CloseConnection();
 
+
+            }
+            
+        }
+        public string QueryDrinkRevenueInYear(string year)
+        {
+            string s = "0";
+            try
+            {
+
+                OpenConnection();
+                string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                  "join product on billdetail.productid = product.barcode where product.type = N\'Thức uống\'  and year(billdate) = {0}", int.Parse(year));
+                SqlCommand command = new SqlCommand(queryString, conn);
+                SqlDataReader rdr = command.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    s = rdr.GetInt32(0).ToString();
+                }
                 return s;
+            }
+
+            catch
+            {
+                return s;
+
+            }
+
+
+
+            finally
+            {
+
+                CloseConnection();
+
+
+            }
+          
+        }
+        public string QueryOtherRevenueInYear(string year)
+        {
+            string s = "0";
+            try
+            {
+
+                OpenConnection();
+                string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+              "join product on billdetail.productid = product.barcode where product.type = N\'Khác\'  and year(billdate) = {0}", int.Parse(year));
+                SqlCommand command = new SqlCommand(queryString, conn);
+                SqlDataReader rdr = command.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    s = rdr.GetInt32(0).ToString();
+                }
+                return s;
+            }
+
+            catch
+            {
+                return s;
+
+            }
+
+
+
+            finally
+            {
+
+                CloseConnection();
+
+
+            }
+          
+        }
+        public string QueryFoodRevenueInMonth(string month, string year)
+        {
+            string s = "0";
+            try
+            {
+
+                OpenConnection();
+                string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                 "join product on billdetail.productid = product.barcode where product.type = N\'Đồ ăn\' and month(billdate)={0} and year(billdate) = {1}", int.Parse(month), int.Parse(year));
+                SqlCommand command = new SqlCommand(queryString, conn);
+                SqlDataReader rdr = command.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    s = rdr.GetInt32(0).ToString();
+                }
+                return s;
+            }
+
+            catch
+            {
+                return s;
+
+            }
+
+
+
+            finally
+            {
+
+                CloseConnection();
+
+
+            }
+           
+        }
+        public string QueryDrinkRevenueInMonth(string month, string year)
+        {
+
+            string s = "0";
+            try
+            {
+
+                OpenConnection();
+                string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                  "join product on billdetail.productid = product.barcode where product.type = N\'Thức uống\' and month(billdate)={0} and year(billdate) = {1}", int.Parse(month), int.Parse(year));
+
+                SqlCommand command = new SqlCommand(queryString, conn);
+                SqlDataReader rdr = command.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    s = rdr.GetInt32(0).ToString();
+                }
+                return s;
+            }
+
+            catch
+            {
+                return s;
+
+            }
+
+
+
+            finally
+            {
+
+                CloseConnection();
+
+
+            }
+        }
+        public string QueryOtherRevenueInMonth(string month,string year)
+        {
+            string s = "0";
+            try
+            {
+
+                OpenConnection();
+                string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+              "join product on billdetail.productid = product.barcode where product.type = N\'Khác\' and month(billdate)={0} and year(billdate) = {1}", int.Parse(month), int.Parse(year));
+                SqlCommand command = new SqlCommand(queryString, conn);
+                SqlDataReader rdr = command.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    s = rdr.GetInt32(0).ToString();
+                }
+                return s;
+            }
+            catch
+            {
+                return s;
+
+            }
+
+
+
+            finally
+            {
+
+                CloseConnection();
+
+
+            }
+          
+        }
+
+        public string QueryFoodRevenueInDay(string day,string month, string year)
+        {
+            string s = "0";
+            try
+            {
+
+                OpenConnection();
+                string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                    "join product on billdetail.productid = product.barcode where product.type = N\'Đồ ăn\' and day(billdate)={0} and month(billdate)={1} and year(billdate) = {2}", int.Parse(day), int.Parse(month), int.Parse(year));
+                SqlCommand command = new SqlCommand(queryString, conn);
+                SqlDataReader rdr = command.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    s = rdr.GetInt32(0).ToString();
+                }
+                return s;
+            }
+            catch
+            {
+                return s;
+
+            }
+
+
+
+            finally
+            {
+
+                CloseConnection();
+
+
             }
         }
         public string QueryDrinkRevenueInDay(string day,string month, string year)
         {
 
-            string s = "";
-            OpenConnection();
-            string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
-                "join product on billdetail.productid = product.barcode where product.type = N\'Thức uống\' and day(billdate)={0} and month(billdate)={1} and year(billdate) = {2}", int.Parse(day), int.Parse(month), int.Parse(year));
-            SqlCommand command = new SqlCommand(queryString, conn);
-            DataTable dt = new DataTable();
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            adapter.Fill(dt);
-            if (dt.Rows[0].IsNull(0))
-            {
-                s = "0";
-                return s;
-            }
-            else
-            {
+            string s = "0";
+            try {
+
+                OpenConnection();
+                string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                    "join product on billdetail.productid = product.barcode where product.type = N\'Thức uống\' and day(billdate)={0} and month(billdate)={1} and year(billdate) = {2}", int.Parse(day), int.Parse(month), int.Parse(year));
+                SqlCommand command = new SqlCommand(queryString, conn);
                 SqlDataReader rdr = command.ExecuteReader();
 
                 while (rdr.Read())
                 {
                     s = rdr.GetInt32(0).ToString();
                 }
+                return s;
+            }
+            catch
+            {
+                return s;
+
+            }
+
+
+
+            finally
+            {
+               
                 CloseConnection();
 
-                return s;
+              
             }
         }
         public string QueryOtherRevenueInDay(string day,string month, string year)
         {
 
-            string s = "";
-            OpenConnection();
-            string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
-                "join product on billdetail.productid = product.barcode where product.type = N\'Khác\' and day(billdate)={0} and month(billdate)={1} and year(billdate) = {2}", int.Parse(day), int.Parse(month), int.Parse(year));
-            SqlCommand command = new SqlCommand(queryString, conn);
-            DataTable dt = new DataTable();
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            adapter.Fill(dt);
-            if (dt.Rows[0].IsNull(0))
+            string s = "0";
+            try
             {
-                s = "0";
-                return s;
-            }
-            else
-            {
+
+                OpenConnection();
+                string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                    "join product on billdetail.productid = product.barcode where product.type = N\'Khác\' and day(billdate)={0} and month(billdate)={1} and year(billdate) = {2}", int.Parse(day), int.Parse(month), int.Parse(year));
+                SqlCommand command = new SqlCommand(queryString, conn);
                 SqlDataReader rdr = command.ExecuteReader();
 
                 while (rdr.Read())
                 {
                     s = rdr.GetInt32(0).ToString();
                 }
+                return s;
+            }
+            catch
+            {
+                return s;
+
+            }
+
+
+
+            finally
+            {
+
                 CloseConnection();
 
+
+            }
+        }
+
+        public string QuerySalaryToday(string day, string month, string year)
+        {
+
+            string s = "0";
+            try
+            {
+
+                OpenConnection();
+                string queryString = string.Format("select sum(totalmoney) as tong from salarybill where day(salarybilldate)={0} and month(salarybilldate)={1} and year(salarybilldate)={2}", int.Parse(day), int.Parse(month), int.Parse(year));
+                SqlCommand command = new SqlCommand(queryString, conn);
+                SqlDataReader rdr = command.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    s = rdr.GetInt32(0).ToString();
+                }
                 return s;
+            }
+            catch
+            {
+                return s;
+
+            }
+
+
+
+            finally
+            {
+
+                CloseConnection();
+
+
+            }
+        }
+        public string QuerySalaryMonth(string month, string year)
+        {
+
+            string s = "0";
+            try
+            {
+
+                OpenConnection();
+                string queryString = string.Format("select sum(totalmoney) as tong from salarybill where month(salarybilldate)={0} and year(salarybilldate)={1}", int.Parse(month), int.Parse(year));
+                SqlCommand command = new SqlCommand(queryString, conn);
+                SqlDataReader rdr = command.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    s = rdr.GetInt32(0).ToString();
+                }
+                return s;
+            }
+            catch
+            {
+                return s;
+
+            }
+
+
+
+            finally
+            {
+
+                CloseConnection();
+
+
+            }
+        }
+        public string QuerySalaryYear( string year)
+        {
+
+            string s = "0";
+            try
+            {
+
+                OpenConnection();
+                string queryString = string.Format("select sum(totalmoney) as tong from salarybill where year(salarybilldate)={0}",  int.Parse(year));
+                SqlCommand command = new SqlCommand(queryString, conn);
+                SqlDataReader rdr = command.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    s = rdr.GetInt32(0).ToString();
+                }
+                return s;
+            }
+            catch
+            {
+                return s;
+
+            }
+
+
+
+            finally
+            {
+
+                CloseConnection();
+
+
             }
         }
 

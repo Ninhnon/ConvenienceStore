@@ -16,7 +16,14 @@ Style="{StaticResource Page_Style}"
            Height="620"
       Width="1140"
       >
+    <i:Interaction.Triggers>
 
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadCommand}"
+                               CommandParameter="{Binding ElementName=wdEmployee}"/>
+
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Page.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </Page.Resources>
@@ -126,6 +133,7 @@ Style="{StaticResource Page_Style}"
                     x:Name="AccountsDataGrid"
                       Grid.Row="5"
                       Style="{DynamicResource DataGridStyle2}">
+                
                 <DataGrid.Columns>
                 
                 <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding Number}"/>

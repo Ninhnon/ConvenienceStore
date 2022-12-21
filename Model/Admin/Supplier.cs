@@ -11,7 +11,13 @@ namespace ConvenienceStore.Model.Admin
     {
 
         public int Id { get; set; }
-        public int Number { get; set; } 
+
+        private int number;
+        public int Number 
+        {
+            get { return number; }
+            set { number = value; OnPropertyChanged("Number"); }
+        } 
 
         private string name;
         public string Name

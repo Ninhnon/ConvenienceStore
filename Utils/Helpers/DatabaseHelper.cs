@@ -356,6 +356,41 @@ namespace ConvenienceStore.Utils.Helpers
             sqlCon.Close();
             return accounts;
         }
+        public static List<Account> FetchingAccountEmployeeAdminData()
+        {
+            string query = string.Format("select * from users where managerid={0}", CurrentAccount.idAccount);
+            sqlCon.Open();
+            var cmd = new SqlCommand(query, sqlCon);
+            List<Account> accounts = new List<Account>();
+            int i = 1;
+            SqlDataReader read = cmd.ExecuteReader();
+
+            while (read.Read())
+            {
+                accounts.Add(new Account()
+                {
+                    IdAccount = read.GetInt32(0),
+
+                    UserRole = read.GetString(1),
+                    Name = read.GetString(2),
+                    Address = read.GetString(3),
+                    Phone = read.GetString(4),
+                    Email = read.GetString(5),
+                    UserName = read.GetString(6),
+                    Password = read.GetString(7),
+                    Avatar = (byte[])(read["Avatar"]),
+                    ManagerId = read.GetInt32(9),
+                    Salary = read.GetInt32(10)
+
+                });
+                accounts[i - 1].Number = i;
+                i++;
+            }
+            read.Close();
+
+            sqlCon.Close();
+            return accounts;
+        }
         public static List<Account> FetchingAccountData()
         {
             sqlCon.Open();
