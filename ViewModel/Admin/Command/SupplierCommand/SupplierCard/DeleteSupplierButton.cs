@@ -30,22 +30,26 @@ namespace ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.SupplierCard
 
         public bool CanExecute(object parameter)
         {
-            var supplier = parameter as Supplier;
-            if (supplier != null)
+            if (parameter != null && (int)parameter - 1 < VM.suppliers.Count)
             {
-                return DatabaseHelper.CanDeleteSupplier(supplier.Id);
+                return DatabaseHelper.CanDeleteSupplier(VM.suppliers[(int)parameter - 1].Id);
             }
             return false;
         }
 
         public void Execute(object parameter)
         {
-            var supplier = parameter as Supplier;
+            var indexOfSupplier = (int)parameter - 1;
 
-            VM.ObservableSupplier.Remove(supplier);
-            VM.suppliers.Remove(supplier);
+            DatabaseHelper.DeleteSupplier(VM.suppliers[indexOfSupplier].Id);
 
-            DatabaseHelper.DeleteSupplier(supplier.Id);
+            VM.ObservableSupplier.RemoveAt(indexOfSupplier);
+            VM.suppliers.RemoveAt(indexOfSupplier);
+
+            for (int i = indexOfSupplier; i < VM.suppliers.Count; ++i)
+            {
+                VM.suppliers[i].Number = i + 1;
+            }
         }
     }
 }

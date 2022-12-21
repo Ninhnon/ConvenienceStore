@@ -498,7 +498,7 @@ x:Name="wdInputInfo"
                                 Background="White"
                                 Height="40"
                                 Width="250"
-                                CornerRadius="20">
+                                CornerRadius="8">
                             <Border.Effect>
                                 <DropShadowEffect BlurRadius="5"
                                                 Direction="270"
@@ -536,7 +536,7 @@ x:Name="wdInputInfo"
 
                                 <Border Grid.Column="1"
                                         Background="{StaticResource PrimaryColor}"
-                                        CornerRadius="0 20 20 0"
+                                        CornerRadius="0 8 8 0"
                                         Cursor="Hand">
                                     <materialDesign:PackIcon Kind="Search"
                                                              Foreground="White"

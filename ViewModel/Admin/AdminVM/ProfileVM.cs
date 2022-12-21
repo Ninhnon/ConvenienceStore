@@ -35,14 +35,6 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             }
         }
 
-        //private BitmapImage avatar;
-
-        //public BitmapImage Avatar
-        //{
-        //    get { return avatar; }
-        //    set { avatar = value; OnPropertyChanged("Avatar"); }
-        //}
-
 
         public ObservableCollection<Member> MyTeam { get; set; }
         public ICommand LoadCommand { get; set; }
@@ -55,12 +47,6 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             Email = CurrentAccount.Email;
             Phone = CurrentAccount.Phone;
             Avatar = CurrentAccount.Avatar;
-
-            //avatar = new BitmapImage();
-            //string s = Convert.ToBase64String(CurrentAccount.Avatar);
-            //avatar.BeginInit();
-            //avatar.StreamSource = new MemoryStream(System.Convert.FromBase64String(s));
-            //avatar.EndInit();
 
             MyTeam = DatabaseHelper.QueryStaffOnTeam(CurrentAccount.idAccount);
             LoadCommand = new RelayCommand<ProfileView>(parameter => true, parameter => Load(parameter));
