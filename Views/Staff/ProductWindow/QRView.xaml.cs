@@ -1,9 +1,11 @@
 ﻿using Emgu.CV;
 using Emgu.CV.CvEnum;
-using Emgu.CV.Structure;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Media;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
@@ -11,6 +13,9 @@ using System.Windows.Media.Imaging;
 using ZXing;
 using ZXing.Common;
 using ZXing.Windows.Compatibility;
+using Emgu.CV.Structure;
+using System.Windows.Controls;
+using System.Text.RegularExpressions;
 
 namespace ConvenienceStore.Views.Staff.ProductWindow
 {
@@ -28,6 +33,7 @@ namespace ConvenienceStore.Views.Staff.ProductWindow
 
             //init the camera
             capture = new VideoCapture();
+
             //set the captured frame width and height (default 640x480)
             capture.Set(CapProp.FrameWidth, 1024);
             capture.Set(CapProp.FrameHeight, 768);
@@ -41,66 +47,68 @@ namespace ConvenienceStore.Views.Staff.ProductWindow
             timer.Elapsed += new ElapsedEventHandler(timer_Tick);
         }
 
-        //async
-        private void timer_Tick(object sender, ElapsedEventArgs e)
+
+        private async void timer_Tick(object sender, ElapsedEventArgs e)
         {
             //there is a qr code image visible
-            //if (feedImage.Visibility == Visibility.Collapsed)
-            //{
-            //    timer.Stop();
-
-            //    //the delay time you want to display the qr code in the ui for
-            //    await Task.Run(() => Task.Delay(2500));
-
-            //    //set the image visibility
-            //    this.Dispatcher.Invoke(() =>
-            //    {
-            //        feedImage.Visibility = Visibility.Visible;
-            //        Image1.Visibility = Visibility.Collapsed;
-            //    });
-
-            //    timer.Start();
-            //}
-            Dispatcher.Invoke(() =>
+            if (feedImage.Visibility == Visibility.Collapsed)
             {
-                var mat1 = capture.QueryFrame();
-                var mat2 = new Mat();
+                timer.Stop();
 
-                //flip the image horizontally
-                CvInvoke.Flip(mat1, mat2, FlipType.Horizontal);
+                //the delay time you want to display the qr code in the ui for
+                await Task.Run(() => Task.Delay(2500));
 
-                //convert the mat to a bitmap
-                //var bmp = BitmapExtension.ToBitmap(mat2);
-
-                var bmp = mat2.ToImage<Bgr, byte>().ToBitmap();
-                //copy the bitmap to a memorystream
-                var ms = new MemoryStream();
-                bmp.Save(ms, ImageFormat.Bmp);
-
-                //display the image on the ui
-                feedImage.Source = BitmapFrame.Create(ms);
-
-                //try to find a qr code in the feed
-                string? qrcode = FindQrCodeInImage(bmp);
-
-                if (!string.IsNullOrEmpty(qrcode))
+                //set the image visibility
+                this.Dispatcher.Invoke(() =>
                 {
-                    //set the found text in the qr code in the ui
-                    TextBlock1.Text = qrcode;
-                    //play a sound to indicate qr code found
-                    //var player_ok = new SoundPlayer(GetStreamFromResource("sound_ok.wav"));
-                    //player_ok.Play();
+                    feedImage.Visibility = Visibility.Visible;
+                    Image1.Visibility = Visibility.Collapsed;
+                });
 
-                    //hide the feed image
-                    feedImage.Visibility = Visibility.Collapsed;
-                    //if (capture != null) capture.Dispose();
-                    Close();
-                }
-            });
+                timer.Start();
+            }
+
+            if (capture != null)
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    var mat1 = capture.QueryFrame();
+                    var mat2 = new Mat();
+
+                    //flip the image horizontally
+                    CvInvoke.Flip(mat1, mat2, FlipType.Horizontal);
+
+                    //convert the mat to a bitmap
+                    //var bmp = BitmapExtension.ToBitmap(mat2);
+
+                    var bmp = mat2.ToImage<Bgr, byte>().ToBitmap();
+                    //copy the bitmap to a memorystream
+                    var ms = new MemoryStream();
+                    bmp.Save(ms, ImageFormat.Bmp);
+
+                    //display the image on the ui
+                    feedImage.Source = BitmapFrame.Create(ms);
+
+                    //try to find a qr code in the feed
+                    string qrcode = FindQrCodeInImage(bmp);
+
+                    if (!string.IsNullOrEmpty(qrcode))
+                    {
+                        //set the found text in the qr code in the ui
+                        TextBlock1.Text = qrcode;
+                        //play a sound to indicate qr code found
+                        //var player_ok = new SoundPlayer(GetStreamFromResource("sound_ok.wav"));
+                        //player_ok.Play();
+
+                        //hide the feed image
+                        feedImage.Visibility = Visibility.Collapsed;
+                    }
+                });
+            }
         }
 
 
-        private string? FindQrCodeInImage(Bitmap bmp)
+        private string FindQrCodeInImage(Bitmap bmp)
         {
             //decode the bitmap and try to find a qr code
             var source = new BitmapLuminanceSource(bmp);
@@ -152,9 +160,12 @@ namespace ConvenienceStore.Views.Staff.ProductWindow
             return result.Text;
         }
 
-        private void Window_Closed(object sender, System.EventArgs e)
+        private void TurnOff_Click(object sender, RoutedEventArgs e)
         {
-            //capture.Dispose();
+            timer.Stop();
+
+            if (capture != null) capture.Dispose();
+            Close();
         }
 
 
@@ -165,4 +176,3 @@ namespace ConvenienceStore.Views.Staff.ProductWindow
         //}
     }
 }
-

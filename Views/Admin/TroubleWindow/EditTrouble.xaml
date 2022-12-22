@@ -205,7 +205,7 @@
                         </Border>
                     </Grid>
 
-                    <Grid Margin="0 0 0 10">
+                    <Grid Margin="0 0 0 10" Height="150">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="50"/>
@@ -245,7 +245,7 @@
                                         FontWeight="SemiBold"
                                        Visibility="{Binding SelectedReport.StartDate, Converter={StaticResource HasOjectConverter}}"
                                         Height="22"/>
-                            <Grid x:Name="_start1" IsEnabled="False"  Visibility="{Binding SelectedReport.StartDate, Converter={StaticResource HasOjectConverter}}">
+                            <Grid x:Name="_start1" IsEnabled="True"  Visibility="{Binding SelectedReport.StartDate, Converter={StaticResource HasOjectConverter}}">
 
                                 <DatePicker x:Name="StartDate"
                                             SelectedDateFormat="Short"/>
@@ -287,9 +287,9 @@
                                 Text="Finish Date"
                                         FontSize="16"
                                         FontWeight="SemiBold"
-                                       Visibility="{Binding SelectedReport.StartDate, Converter={StaticResource HasOjectConverter}}"
+                                       Visibility="{Binding SelectedReport.FinishDate, Converter={StaticResource HasOjectConverter}}"
                                         Height="22"/>
-                            <Grid x:Name="_finish1" IsEnabled="False" Visibility="{Binding SelectedReport.FinishDate, Converter={StaticResource HasOjectConverter}}">
+                            <Grid x:Name="_finish1" IsEnabled="True" Visibility="{Binding SelectedReport.FinishDate, Converter={StaticResource HasOjectConverter}}">
 
                                 <DatePicker x:Name="FinishDate"
                                             SelectedDateFormat="Short"/>

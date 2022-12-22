@@ -68,6 +68,7 @@ namespace ConvenienceStore.Views.Admin.TroubleWindow
                     _finish.Visibility = Visibility.Collapsed;
                     _finish1.Visibility = Visibility.Collapsed;
                 }
+                FinishDate.SelectedDate = null;
             }
             else if (cbxStatus.SelectedIndex == 0)
             {
@@ -85,6 +86,8 @@ namespace ConvenienceStore.Views.Admin.TroubleWindow
                     _finish.Visibility = Visibility.Collapsed;
                     _finish1.Visibility = Visibility.Collapsed;
                 }
+                FinishDate.SelectedDate = null;
+                StartDate.SelectedDate = null;
             }
         }
     }

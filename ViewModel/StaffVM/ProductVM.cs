@@ -90,6 +90,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 if (Text != null)
                 {
                     List<Products> Search = new();
+                    danhsach = DatabaseHelper.FetchingProductData();
                     foreach (Products s in danhsach)
                     {
                         if (s.BarCode == Text) Search.Add(s);

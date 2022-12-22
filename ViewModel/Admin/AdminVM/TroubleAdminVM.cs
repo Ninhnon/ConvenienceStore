@@ -184,7 +184,6 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                     }
                 }
             }
-
         }
 
         public void OrderBySubmittedAt()
@@ -269,6 +268,16 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 p.startErrorMessage.Text = "Ngày bắt đầu phải lớn hơn ngày báo cáo";
                 isValid = false;
             }
+            if (!p.StartDate.SelectedDate.HasValue && (p.cbxStatus.Text =="Đang giải quyết" || p.cbxStatus.Text == "Đã giải quyết"))
+            {
+                p.startErrorMessage.Text = "Chưa nhập ngày bắt đầu";
+                isValid = false;
+            }
+            if (!p.FinishDate.SelectedDate.HasValue && p.cbxStatus.Text == "Đã giải quyết")
+            {
+                p.finishErrorMessage.Text = "Chưa nhập ngày kết thúc";
+                isValid = false;
+            }
             if (!isValid) return;
             // Pre Validation Done 
             var t = SelectedReport.Image;
@@ -329,14 +338,15 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 tmpReport.FinishDate != newReport.FinishDate)
             {
                 DatabaseHelper.UpdateReportAD(newReport);
-                for(int i=0;i<ObservableReports.Count;i++)
+                for(int i=0;i<Reports.Count;i++)
                 {
-                    if (ObservableReports[i].Id== newReport.Id)
+                    if (Reports[i].Id== newReport.Id)
                     {
-                        ObservableReports[i] = newReport;
+                        Reports[i] = newReport;
                         break;
                     }
                 }
+                SetReportsCoresspondManager();
                 MessageBoxCustom mb = new MessageBoxCustom("", "Cập nhật thành công!", MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();
             }

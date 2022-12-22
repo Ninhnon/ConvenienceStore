@@ -6,16 +6,18 @@
         mc:Ignorable="d"
         Title="QR" 
         Height="380" 
-    
         Width="370"
-        Background="#566895" DataContext="{StaticResource ProductVM}" Closed="Window_Closed" >
+        WindowStartupLocation="CenterScreen"
+        Background="#566895" DataContext="{StaticResource ProductVM}">
     <StackPanel>
         <Image Name="feedImage" Grid.Row="0" Grid.Column="0" Stretch="Fill" />
         <Image Name="Image1" Grid.Row="0" Grid.Column="0" Stretch="Fill" Visibility="Collapsed" />
-        <TextBlock Name="TextBlock1" Grid.Row="1" Grid.Column="0"
+        <TextBox Name="TextBlock1" Grid.Row="1" Grid.Column="0"
                    Foreground="White" Margin="10, 20, 10, 0" 
                    HorizontalAlignment="Center"
                    TextAlignment="Center" FontWeight="Bold"
-                   FontSize="12" Text="{Binding Text,Mode=TwoWay}" />
+                   FontSize="12" Text="{Binding Text,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                 />
+        <Button Margin="10, 20, 10, 0" VerticalAlignment="Bottom" x:Name="TurnOff" Click="TurnOff_Click">OK</Button>
     </StackPanel>
 </Window>
