@@ -206,7 +206,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             try
             {
                 OpenConnection();
-                string queryString = string.Format("select sum(inputprice) as tong  from inputinfo inner join consignment" +
+                string queryString = string.Format("select sum(inputprice*stock) as tong  from inputinfo inner join consignment" +
                     " on inputinfo.id=consignment.inputinfoid where day(inputdate)={0} and month(inputdate)={1} and year(inputdate)={2} ", day, month, year);
                 SqlCommand command = new SqlCommand(queryString, conn);
 
@@ -232,7 +232,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             try
             {
                 OpenConnection();
-                string queryString = string.Format("select sum(inputprice) as tong  from inputinfo inner join consignment " +
+                string queryString = string.Format("select sum(inputprice*stock) as tong from inputinfo inner join consignment " +
                     "on inputinfo.id=consignment.inputinfoid where month(inputdate)={0} and year(inputdate)={1} ", month, year);
                 SqlCommand command = new SqlCommand(queryString, conn);
 
@@ -258,7 +258,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             try
             {
                 OpenConnection();
-                string queryString = string.Format("select sum(inputprice) as tong  from inputinfo inner join consignment on inputinfo.id=consignment.inputinfoid  where year(inputdate)={0}", year);
+                string queryString = string.Format("select sum(inputprice*stock) as tong  from inputinfo inner join consignment on inputinfo.id=consignment.inputinfoid  where year(inputdate)={0}", year);
                 SqlCommand command = new SqlCommand(queryString, conn);
 
                 SqlDataReader rdr = command.ExecuteReader();

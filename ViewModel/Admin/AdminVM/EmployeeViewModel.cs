@@ -235,7 +235,14 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 parameter.emailTxtbox.ErrorMessage.Text = "Xin nhập email";
                 isValid = false;
             }
+            else
+            if (!parameter.emailTxtbox.textBox.Text.Contains('@'))
+            {
+                parameter.emailTxtbox.ErrorMessage.Text = "Email không hợp lệ";
+                isValid = false;
+            }
             if (string.IsNullOrEmpty(parameter.phoneTxtbox.textBox.Text))
+
             {
                 parameter.phoneTxtbox.ErrorMessage.Text = "Xin nhập số điện thoại";
                 isValid = false;
@@ -334,11 +341,13 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                           i
                            );
                 acc.Number = accounts1[accounts1.Count - 1].Number + 1;
+                acc.Salary = 0;
                 AccountDAL.Instance.AddIntoDataBase(acc);
                 EmployeeViewModel.accounts.Add(acc);
 
                 MessageBoxCustom mb = new("Thông báo", "Thêm thành công", MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();
+                accounts = AccountDAL.Instance.ConvertDataTableToListEmployeeAdmin();
                 ObservableEmployee = new ObservableCollection<Account>(accounts);
 
                 parameter.Close();
