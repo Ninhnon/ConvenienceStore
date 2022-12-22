@@ -141,7 +141,7 @@ Style="{StaticResource Page_Style}"
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="{Binding BgColor}">
+                                    <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" >
                                         <Image Stretch="Fill"
                                             Source="{Binding Avatar}" />
                                     </Border>

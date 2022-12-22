@@ -102,7 +102,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         public void AddIntoDataBase(Account account)
         {
             OpenConnection();
-            string query = "INSERT INTO Users(UserRole,Name,Address,Phone,Email,UserName,Password,Avatar,ManagerId) VALUES (@userrole, @name,@address,@phone,@email,@username,@pass,@avatar,@managerid)";
+            string query = "INSERT INTO Users(UserRole,Name,Address,Phone,Email,UserName,Password,Avatar,ManagerId,Salary) VALUES (@userrole, @name,@address,@phone,@email,@username,@pass,@avatar,@managerid,@salary)";
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@userrole", account.UserRole.ToString());
             cmd.Parameters.AddWithValue("@name", account.Name);
@@ -113,6 +113,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             cmd.Parameters.AddWithValue("@pass", account.Password);
             cmd.Parameters.AddWithValue("@avatar", account.Avatar);
             cmd.Parameters.AddWithValue("@managerid", account.ManagerId);
+            cmd.Parameters.AddWithValue("@salary", account.Salary);
             cmd.ExecuteNonQuery();
             CloseConnection();
         }
