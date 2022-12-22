@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,6 +20,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
     {
         #region ICommand Payment
         public ICommand AddToCart { get; set; }
+        public ICommand AddToCartBarCode { get; set; }
         public ICommand IncreaseProductAmount { get; set; }
         public ICommand DecreaseProductAmount { get; set; }
         public ICommand RemoveProduct { get; set; }
@@ -28,6 +30,8 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public ICommand MaskNameCM { get; set; }
         public ICommand OpenReceiptPage { get; set; }
         public ICommand ScrollToEndListBox { get; set; }
+        public ICommand OpenBarCodeCommand { get; set; }
+     
         #endregion
 
         #region Icommand Receipt
@@ -106,6 +110,15 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public string StaffName { get { return _StaffName; } set { _StaffName = value; OnPropertyChanged(); } }
         #endregion
 
+        public void AddBarCode(BarCodeUC parameter)
+        {
+            SearchContent = parameter.txtBarcode.Text;
+         
+        }
+        public void ShowBarCodeQR(PaymentWindow parameter)
+        {
+            parameter.barcodeUC.Visibility=Visibility.Visible;
+        }
         public PaymentViewModel()
         {
             StaffName = CurrentAccount.Name;
@@ -121,7 +134,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
             {
                 return true;
             }, (p) =>
-            {
+             {
                 //Kiểm tra trong giỏ hàng đã có hay chưa, có rồi thì không thêm vào
                 var checkExistItem = ShoppingCart.Where(x => x.ProductId == SelectedItem.BarCode);
                 if (checkExistItem.Count() != 0 || checkExistItem == null)
@@ -142,7 +155,9 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 }
             }
             );
-
+            AddToCartBarCode = new RelayCommand<BarCodeUC>(parameter => true, parameter => AddBarCode(parameter));
+            OpenBarCodeCommand = new RelayCommand<PaymentWindow>(parameter => true, parameter => ShowBarCodeQR(parameter));
+          
             //Tăng giảm số lượng, xóa khỏi giỏ hàng
             IncreaseProductAmount = new RelayCommand<BillDetail>((p) =>
             {
@@ -197,12 +212,20 @@ namespace ConvenienceStore.ViewModel.StaffVM
             SearchProductName = new RelayCommand<TextBox>((p) =>
             {
                 return true;
-            }, (p) =>
+            },
+            
+            
+            (p) =>
             {
                 TextBox? tbx = p;
 
                 FilteredList = List;
                 if (tbx.Text != "")
+                if(long.TryParse(tbx.Text, out long n))
+                    {
+                        FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.BarCode.ToLower().Contains(tbx.Text.ToLower())).ToList());
+                    }
+                else
                 {
                     FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.Title.ToLower().Contains(tbx.Text.ToLower())).ToList());
                 }

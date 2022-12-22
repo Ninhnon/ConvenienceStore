@@ -11,7 +11,8 @@
         Background="#566895" DataContext="{StaticResource ProductVM}">
     <StackPanel>
         <Image Name="feedImage" Grid.Row="0" Grid.Column="0" Stretch="Fill" />
-        <Image Name="Image1" Grid.Row="0" Grid.Column="0" Stretch="Fill" Visibility="Collapsed" />
+        <Image Name="Image1" Grid.Row="0" Grid.Column="0" Stretch="Fill" 
+               Visibility="Collapsed" />
         <TextBox Name="TextBlock1" Grid.Row="1" Grid.Column="0"
                    Foreground="White" Margin="10, 20, 10, 0" 
                    HorizontalAlignment="Center"
