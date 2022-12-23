@@ -59,7 +59,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
             }
             else
             {
-                if (!int.TryParse(window.CostTextBox.Text, out int Stock))
+                if (!int.TryParse(window.CostTextBox.Text, out _))
                 {
                     window.CostErrorMessage.Text = "Giá nhập không hợp lệ";
                     isValid = false;
@@ -73,12 +73,23 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
             }
             else
             {
-                if (!int.TryParse(window.PriceTextBox.Text, out int Stock))
+                if (!int.TryParse(window.PriceTextBox.Text, out _))
                 {
                     window.PriceErrorMessage.Text = "Giá bán không hợp lệ";
                     isValid = false;
                 }
             }
+
+            // Update CHK_Cost_Price Cost < Price
+            if (int.TryParse(window.CostTextBox.Text, out int cost) && int.TryParse(window.PriceTextBox.Text, out int price))
+            {
+                if (cost >= price)
+                {
+                    window.PriceErrorMessage.Text = "Giá bán phải > Giá nhập";
+                    isValid = false;
+                }
+            }
+
 
             if (string.IsNullOrEmpty(window.StockTextBox.Text))
             {
@@ -106,6 +117,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
                 isValid = false;
             }
 
+            
             // Update CHK_Date NSX < HSD 
             if (window.ManufacturingDate.SelectedDate.HasValue && window.ExpiryDate.SelectedDate.HasValue && window.ManufacturingDate.SelectedDate >= window.ExpiryDate.SelectedDate)
             {
