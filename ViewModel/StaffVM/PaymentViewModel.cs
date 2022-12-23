@@ -120,12 +120,10 @@ namespace ConvenienceStore.ViewModel.StaffVM
         {
             parameter.barcodeUC.Visibility=Visibility.Visible;
         }
-        public void Load(PaymentWindow parameter)
-        {
-            parameter.DataContext = new PaymentViewModel();
-        }
+    
         public PaymentViewModel()
         {
+            SearchContent = "cc";
             StaffName = CurrentAccount.Name;
             StaffId = CurrentAccount.idAccount;
             products = DatabaseHelper.FetchingProductData();
@@ -162,7 +160,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
             );
             AddToCartBarCode = new RelayCommand<BarCodeUC>(parameter => true, parameter => AddBarCode(parameter));
             OpenBarCodeCommand = new RelayCommand<PaymentWindow>(parameter => true, parameter => ShowBarCodeQR(parameter));
-            LoadCommand = new RelayCommand<PaymentWindow>(parameter => true, parameter => Load(parameter));
+    
             //Tăng giảm số lượng, xóa khỏi giỏ hàng
             IncreaseProductAmount = new RelayCommand<BillDetail>((p) =>
             {

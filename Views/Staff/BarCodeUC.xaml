@@ -11,38 +11,43 @@
         
       DataContext="{StaticResource PaymentVM}"
        
-        Background="#566895" Loaded="Window_Loaded">
-    <StackPanel>
-        <ComboBox x:Name="cboCamera" Margin="0,50,0,0" Width="300">
+         Loaded="Window_Loaded"
+             
+             >
+    <Border CornerRadius="30" Background="#566895">
+        <StackPanel>
+            <ComboBox x:Name="cboCamera" Margin="0,50,0,0" Width="300">
 
-        </ComboBox>
-        <Image x:Name="pictureBox" Height="172" Width="367">
+            </ComboBox>
+            <Image x:Name="pictureBox" Height="172" Width="367">
 
-        </Image>
-        <TextBox Name="txtBarcode" Grid.Row="1" Grid.Column="0"
+            </Image>
+            <TextBox Name="txtBarcode" Grid.Row="1" Grid.Column="0"
                    Foreground="White" Margin="10, 20, 10, 0" 
                    HorizontalAlignment="Center"
                    TextAlignment="Center" FontWeight="Bold"
-                   FontSize="12" Text=""
+                   FontSize="12"     Text="{Binding SearchContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  />
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Close" Width="80" Click="btnClose_Click">
-            </Button>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Close" Width="80" Click="btnClose_Click">
+                </Button>
 
-            <Button Margin="30,0,0,0" Content="Start" Width="80" Click="btnStart_Click">
-            </Button>
+                <Button Margin="30,0,0,0" Content="Start" Width="80" Click="btnStart_Click">
+                </Button>
 
-        </StackPanel>
-        <Button 
+            </StackPanel>
+            <Button 
             Command="{Binding AddToCartBarCode}"
             CommandParameter="{Binding ElementName=wdBarcode}"
             Margin="0,10,0,0" Content="Find" Width="80" 
             IsDefault="True"
                  >
-        </Button>
+            </Button>
 
 
 
 
-    </StackPanel>
+        </StackPanel>
+    </Border>
+   
 </UserControl>
