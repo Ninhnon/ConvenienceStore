@@ -64,8 +64,8 @@
                     <Border Margin="15" CornerRadius="5" Width="220" Height="150">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                                <GradientStop Offset="0" Color="#BA5370"/>
-                                <GradientStop Offset="1" Color="#d9a7c7"/>
+                                <GradientStop Offset="0" Color="#ff9068"/>
+                                <GradientStop Offset="1" Color="#C5796D"/>
                             </LinearGradientBrush>
                         </Border.Background>
                         <Grid>
@@ -95,8 +95,8 @@
                     <Border Margin="15" CornerRadius="5" Width="220" Height="150">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                                <GradientStop Offset="0" Color="#BA5370"/>
-                                <GradientStop Offset="1" Color="#FFC100"/>
+                                <GradientStop Offset="0" Color="#ff9068"/>
+                                <GradientStop Offset="1" Color="#C5796D"/>
                             </LinearGradientBrush>
                         </Border.Background>
                         <Grid>
@@ -107,11 +107,11 @@
                                 <RowDefinition Height="2*"/>
                             </Grid.RowDefinitions>
 
-                            <fa:IconImage Icon="SackDollar" HorizontalAlignment="Left"
+                            <fa:IconImage Icon="Tools" HorizontalAlignment="Left"
                                           Width="41"
                                           Margin="10,0,0,19" Foreground="AliceBlue" Grid.RowSpan="2"/>
-                            <TextBlock Text="Doanh thu:" Grid.Row="1" VerticalAlignment="Center" FontSize="16" Margin="10 0 0 0" Foreground="White"/>
-                            <TextBlock Text="{Binding Revenue}" FontWeight="Bold" VerticalAlignment="Bottom" Grid.Row="1" FontSize="22" Margin="10,0,0,43" Foreground="White" Grid.RowSpan="3" Height="34"/>
+                            <TextBlock Text="Tổng chi phí sửa chữa:" Grid.Row="1" VerticalAlignment="Center" FontSize="16" Margin="10 0 0 0" Foreground="White"/>
+                            <TextBlock Text="{Binding RepairCost}" FontWeight="Bold" VerticalAlignment="Bottom" Grid.Row="1" FontSize="22" Margin="10,0,0,43" Foreground="White" Grid.RowSpan="3" Height="34"/>
 
 
 
@@ -123,6 +123,8 @@
                         </Grid>
 
                     </Border>
+
+                   
                     <Border Margin="15" CornerRadius="5" Width="220" Height="150">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
@@ -157,12 +159,11 @@
                         </Grid>
 
                     </Border>
-
                     <Border Margin="15" CornerRadius="5" Width="220" Height="150">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                                 <GradientStop Offset="0" Color="#F2994A"/>
-                                <GradientStop Offset="1" Color="#F16529"/>
+                                <GradientStop Offset="1" Color="#F2C94C"/>
                             </LinearGradientBrush>
                         </Border.Background>
                         <Grid>
@@ -173,11 +174,11 @@
                                 <RowDefinition Height="2*"/>
                             </Grid.RowDefinitions>
 
-                            <fa:IconImage Icon="Tools" HorizontalAlignment="Left"
+                            <fa:IconImage Icon="SackDollar" HorizontalAlignment="Left"
                                           Width="41"
                                           Margin="10,0,0,19" Foreground="AliceBlue" Grid.RowSpan="2"/>
-                            <TextBlock Text="Tổng chi phí sửa chữa:" Grid.Row="1" VerticalAlignment="Center" FontSize="16" Margin="10 0 0 0" Foreground="White"/>
-                            <TextBlock Text="{Binding RepairCost}" FontWeight="Bold" VerticalAlignment="Bottom" Grid.Row="1" FontSize="22" Margin="10,0,0,43" Foreground="White" Grid.RowSpan="3" Height="34"/>
+                            <TextBlock Text="Doanh thu:" Grid.Row="1" VerticalAlignment="Center" FontSize="16" Margin="10 0 0 0" Foreground="White"/>
+                            <TextBlock Text="{Binding Revenue}" FontWeight="Bold" VerticalAlignment="Bottom" Grid.Row="1" FontSize="22" Margin="10,0,0,43" Foreground="White" Grid.RowSpan="3" Height="34"/>
 
 
 
@@ -523,9 +524,9 @@
                                 <uc:UserCard x:Name="top3" Margin="20,0,0,0" />
                             </StackPanel>
                             <Border.Background>
-                                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                                    <GradientStop Offset="0.5" Color="#BA5370"/>
-                                    <GradientStop Offset="1" Color="#c94b4b"/>
+                                <LinearGradientBrush StartPoint="0,4" EndPoint="1,1">
+                                    <GradientStop Offset="0.5" Color="#ff9966"/>
+                                    <GradientStop Offset="1" Color="#d9a7c7"/>
                                 </LinearGradientBrush>
                             </Border.Background>
 
