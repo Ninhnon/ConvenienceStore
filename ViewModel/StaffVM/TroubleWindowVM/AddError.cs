@@ -99,6 +99,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             }
             else
             {
+                danhsach.Add(newReport);
                 ListError.Add(newReport);
                 DatabaseHelper.InsertReport(newReport);
                 p.Close();
