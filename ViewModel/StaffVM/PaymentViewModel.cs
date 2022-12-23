@@ -32,6 +32,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public ICommand ScrollToEndListBox { get; set; }
         public ICommand OpenBarCodeCommand { get; set; }
         public ICommand LoadCommand { get; set; }
+        public ICommand FindProductCommand { get; set; }
      
         #endregion
 
@@ -118,7 +119,21 @@ namespace ConvenienceStore.ViewModel.StaffVM
         }
         public void ShowBarCodeQR(PaymentWindow parameter)
         {
+         
             parameter.barcodeUC.Visibility=Visibility.Visible;
+        }
+        public void FindProduct(BarCodeUC parameter)
+        {
+            FilteredList = List;
+                if (parameter.txtBarcode.Text != "")
+                if(long.TryParse(parameter.txtBarcode.Text, out long n))
+                    {
+                        FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.BarCode.ToLower().Contains(parameter.txtBarcode.Text.ToLower())).ToList());
+                    }
+                else
+                {
+                    FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.Title.ToLower().Contains(parameter.txtBarcode.Text.ToLower())).ToList());
+                }
         }
     
         public PaymentViewModel()
@@ -160,6 +175,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
             );
             AddToCartBarCode = new RelayCommand<BarCodeUC>(parameter => true, parameter => AddBarCode(parameter));
             OpenBarCodeCommand = new RelayCommand<PaymentWindow>(parameter => true, parameter => ShowBarCodeQR(parameter));
+            FindProductCommand = new RelayCommand<BarCodeUC>(parameter => true, parameter => FindProduct(parameter));
     
             //Tăng giảm số lượng, xóa khỏi giỏ hàng
             IncreaseProductAmount = new RelayCommand<BillDetail>((p) =>

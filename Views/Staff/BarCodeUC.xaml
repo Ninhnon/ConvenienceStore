@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              Height="380" 
              x:Name="wdBarcode"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         Width="370"
         
       DataContext="{StaticResource PaymentVM}"
@@ -32,8 +33,20 @@
                    Foreground="White" Margin="10, 20, 10, 0" 
                    HorizontalAlignment="Center"
                    TextAlignment="Center" FontWeight="Bold"
-                   FontSize="12"     Text="{Binding SearchContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 />
+                   FontSize="12"     Text="{Binding SearchContent, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                 >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction
+                        Command="{Binding FindProductCommand}"
+                                     CommandParameter="{Binding ElementName=wdBarcode}"
+                        />
+                        
+
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </TextBox>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button
                       Style="{StaticResource addButton}" VerticalAlignment="Center"
