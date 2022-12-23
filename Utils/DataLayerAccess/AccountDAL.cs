@@ -10,7 +10,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using ConvenienceStore.Model;
+using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Utils.Helpers;
+using ZXing;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
@@ -77,6 +79,66 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         {
             List<Account> accounts = DatabaseHelper.FetchingAccountData();
             return accounts;
+        }
+        public  List<SalaryBill> LoadSalaryBill()
+        {
+            string query = string.Format("select * from salarybill");
+            OpenConnection();
+            var cmd = new SqlCommand(query, conn);
+            List<SalaryBill> bills = new List<SalaryBill>();
+     
+            SqlDataReader read = cmd.ExecuteReader();
+            string a;
+            string s;
+            while (read.Read())
+            {
+                SalaryBill bill = new SalaryBill();
+                bill.IdBill = read.GetInt32(0);
+                a = read.GetDateTime(1).ToString();
+                s = a.Split(" ")[0];
+                bill.BillDate = s;
+                bill.IdAccount =read.GetInt32(2);
+                bill.Price = read.GetInt32(3);
+                bills.Add(bill);
+              
+            }
+        for(int i=0; i < bills.Count; i++)
+            {
+                bills[i].EmployeeName = GetUserNameById(bills[i].IdAccount);
+            }
+
+            CloseConnection();
+            return bills;
+        }
+        public string GetUserNameById(int id)
+        {
+            string s = "";
+
+           
+            try
+            {
+                OpenConnection();
+                string queryString = String.Format("select name from users where id={0} ", id.ToString());
+                SqlCommand command = new SqlCommand(queryString, conn);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    s = reader.GetString(0);
+                }
+
+
+                return s;
+
+            }
+            catch
+            {
+                return "";
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
         }
         public void UpdatePassword(string newPass, string email)
         {
