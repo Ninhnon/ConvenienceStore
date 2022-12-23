@@ -286,11 +286,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 Title = p.TitleTextBox.Text,
                 Status = p.cbxStatus.Text,
                 Description = p.cbxDecription.Text,
-                SubmittedAt = DateTime.Now,
+                SubmittedAt = tmpReport.SubmittedAt,
                 RepairCost = int.Parse(p.CostTextBox.Text),
                 StaffId = CurrentAccount.idAccount,
-                //StartDate = (DateTime)p.StartDate.SelectedDate==null?SelectedReport.StartDate: (DateTime)p.StartDate.SelectedDate,
-                //FinishDate = (DateTime)p.FinishDate.SelectedDate == null ? SelectedReport.FinishDate : (DateTime)p.StartDate.SelectedDate,
                 Id = tmpReport.Id,
             };
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
@@ -301,10 +299,11 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 encoder.Save(ms);
                 newReport.Image = ms.ToArray();
             }
-            if (p.StartDate.SelectedDate == null) newReport.StartDate = selectedReport.StartDate;
+            if (!p.StartDate.SelectedDate.HasValue || p.cbxStatus.Text == "Chờ tiếp nhận")
+                newReport.StartDate = null;
             else newReport.StartDate = (DateTime)p.StartDate.SelectedDate;
-
-            if (p.FinishDate.SelectedDate == null) newReport.FinishDate = selectedReport.FinishDate;
+            if (!p.FinishDate.SelectedDate.HasValue || p.cbxStatus.Text == "Chờ tiếp nhận" || p.cbxStatus.Text == "Đang giải quyết")
+                 newReport.FinishDate = null;
             else newReport.FinishDate = (DateTime)p.FinishDate.SelectedDate;
             //}
             //else
@@ -330,6 +329,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                     return;
                 }
             }
+            // Ảnh lấy từ datasource có vấn đề khác dữ liệu với trong sql
             if (tmpReport.Title != newReport.Title ||
                 tmpReport.Image != newReport.Image ||
                 tmpReport.RepairCost != newReport.RepairCost ||
@@ -340,7 +340,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 DatabaseHelper.UpdateReportAD(newReport);
                 for(int i=0;i<Reports.Count;i++)
                 {
-                    if (Reports[i].Id== newReport.Id)
+                    if (Reports[i].Id == newReport.Id)
                     {
                         Reports[i] = newReport;
                         break;
