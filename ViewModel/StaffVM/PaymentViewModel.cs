@@ -6,13 +6,10 @@ using ConvenienceStore.Views.Staff;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ZXing.Maxicode;
 
 namespace ConvenienceStore.ViewModel.StaffVM
 {
@@ -33,7 +30,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public ICommand OpenBarCodeCommand { get; set; }
         public ICommand LoadCommand { get; set; }
         public ICommand FindProductCommand { get; set; }
-     
+
         #endregion
 
         #region Icommand Receipt
@@ -115,12 +112,12 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public void AddBarCode(BarCodeUC parameter)
         {
             SearchContent = parameter.txtBarcode.Text;
-         
+
         }
         public void ShowBarCodeQR(PaymentWindow parameter)
         {
-         
-            parameter.barcodeUC.Visibility=Visibility.Visible;
+
+            parameter.barcodeUC.Visibility = Visibility.Visible;
         }
         public void FindProduct(BarCodeUC parameter)
         {
@@ -157,13 +154,13 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         ShoppingCart.Add(billDetail);
                     }
                 }
-                    
+
             }
         }
-    
+
         public PaymentViewModel()
         {
-       
+
             StaffName = CurrentAccount.Name;
             StaffId = CurrentAccount.idAccount;
             products = DatabaseHelper.FetchingProductData();
@@ -178,30 +175,30 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 return true;
             }, (p) =>
              {
-                //Kiểm tra trong giỏ hàng đã có hay chưa, có rồi thì không thêm vào
-                var checkExistItem = ShoppingCart.Where(x => x.ProductId == SelectedItem.BarCode);
-                if (checkExistItem.Count() != 0 || checkExistItem == null)
-                    return;
-                else
-                {
-                    //SelectedItem.Quantity = 1;
-                    BillDetails billDetail = new BillDetails();
-                    billDetail.ProductId = SelectedItem.BarCode;
-                    billDetail.Quantity = 1;
-                    billDetail.TotalPrice = SelectedItem.Price;
-                    billDetail.Title = SelectedItem.Title;
-                    billDetail.Image = SelectedItem.Image;
+                 //Kiểm tra trong giỏ hàng đã có hay chưa, có rồi thì không thêm vào
+                 var checkExistItem = ShoppingCart.Where(x => x.ProductId == SelectedItem.BarCode);
+                 if (checkExistItem.Count() != 0 || checkExistItem == null)
+                     return;
+                 else
+                 {
+                     //SelectedItem.Quantity = 1;
+                     BillDetails billDetail = new BillDetails();
+                     billDetail.ProductId = SelectedItem.BarCode;
+                     billDetail.Quantity = 1;
+                     billDetail.TotalPrice = SelectedItem.Price;
+                     billDetail.Title = SelectedItem.Title;
+                     billDetail.Image = SelectedItem.Image;
 
-                    TotalBill += (int)billDetail.TotalPrice;
-                    SelectedBillDetail = billDetail;
-                    ShoppingCart.Add(billDetail);
-                }
-            }
+                     TotalBill += (int)billDetail.TotalPrice;
+                     SelectedBillDetail = billDetail;
+                     ShoppingCart.Add(billDetail);
+                 }
+             }
             );
             AddToCartBarCode = new RelayCommand<BarCodeUC>(parameter => true, parameter => AddBarCode(parameter));
             OpenBarCodeCommand = new RelayCommand<PaymentWindow>(parameter => true, parameter => ShowBarCodeQR(parameter));
             FindProductCommand = new RelayCommand<BarCodeUC>(parameter => true, parameter => FindProduct(parameter));
-    
+
             //Tăng giảm số lượng, xóa khỏi giỏ hàng
             IncreaseProductAmount = new RelayCommand<BillDetail>((p) =>
             {
@@ -257,22 +254,22 @@ namespace ConvenienceStore.ViewModel.StaffVM
             {
                 return true;
             },
-            
-            
+
+
             (p) =>
             {
                 TextBox? tbx = p;
 
                 FilteredList = List;
                 if (tbx.Text != "")
-                if(long.TryParse(tbx.Text, out long n))
+                    if (long.TryParse(tbx.Text, out long n))
                     {
                         FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.BarCode.ToLower().Contains(tbx.Text.ToLower())).ToList());
                     }
-                else
-                {
-                    FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.Title.ToLower().Contains(tbx.Text.ToLower())).ToList());
-                }
+                    else
+                    {
+                        FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.Title.ToLower().Contains(tbx.Text.ToLower())).ToList());
+                    }
             }
             );
             FilterType = new RelayCommand<object>((p) =>
@@ -423,7 +420,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                             mb = new MessageBoxCustom("Áp dụng mã giảm giá thất bại", "Mã giảm giá không tồn tại hoặc đã được sử dụng", MessageType.Warning, MessageButtons.OK);
                             mb.ShowDialog();
                             p.Text = "";
-                        }    
+                        }
                         else if (err == 1)
                         {
                             mb = new MessageBoxCustom("Áp dụng mã giảm giá thất bại", "Mã giảm giá đã quá hạn sử dụng, vui lòng thử lại với mã giảm giá khác", MessageType.Warning, MessageButtons.OK);
@@ -462,7 +459,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 try
                 {
                     //Xử lý phần tổng hóa đơn khi có áp dụng voucher
-                        DatabaseHelper.InsertBill(CustomerId, TotalBill, Discount);
+                    DatabaseHelper.InsertBill(CustomerId, TotalBill, Discount);
                     ReceiptBill = DatabaseHelper.FetchingBillData().LastOrDefault();
                     if (ReceiptBill == null)
                         return;
