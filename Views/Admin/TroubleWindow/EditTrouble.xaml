@@ -119,7 +119,7 @@
                                      Margin="0,5,0,0"
                                      Foreground="Black"
                                      materialDesign:ValidationAssist.Background="White"
-                                     Text="{Binding SelectedReport.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                     Text="{Binding SelectedReport.Description, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                             <Grid Margin="0 0 0 10">
                                 <Grid.ColumnDefinitions>
@@ -135,7 +135,7 @@
                                         Height="22"/>
  
                                     <ComboBox Style="{StaticResource CustomComboBox}" x:Name="cbxStatus"
-                                          SelectedItem="{Binding tmpReport.Status}"
+                                          SelectedItem="{Binding tmpReport.Status,Mode=OneTime}"
                                           ItemsSource="{Binding Statuses}"
                                               Loaded="cbxStatus_Loaded"
                                               SelectionChanged="cbxStatus_SelectionChanged"
@@ -176,7 +176,7 @@
 
                             <Border.Background>
                                 <ImageBrush x:Name="ImageProduct"
-                                            ImageSource="{Binding SelectedReport.Image}"
+                                            ImageSource="{Binding SelectedReport.Image,Mode=OneTime}"
                                             Stretch="UniformToFill"/>
                             </Border.Background>
 
@@ -271,7 +271,7 @@
                                         FontWeight="SemiBold"
                                         Height="22"/>
                             <Grid>
-                                <TextBlock x:Name="submitdate" Text="{Binding SelectedReport.SubmittedAt,Mode=TwoWay}"
+                                <TextBlock x:Name="submitdate" Text="{Binding SelectedReport.SubmittedAt,Mode=OneTime}"
                                                VerticalAlignment="Center"
                                                Foreground="Gray"
                                                Margin="1 0 0 0"/>
