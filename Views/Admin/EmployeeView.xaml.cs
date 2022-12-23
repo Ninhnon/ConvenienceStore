@@ -24,7 +24,7 @@ namespace ConvenienceStore.Views.Admin
         public EmployeeView()
         {
             InitializeComponent();
-        }
+            this.HistoryDataGrid.Visibility = Visibility.Hidden;        }
 
         private void enter(object sender, KeyEventArgs e)
         {
@@ -35,6 +35,19 @@ namespace ConvenienceStore.Views.Admin
                
                 VM.Search();
             }
+        }
+
+        private void EmployeeClick(object sender, RoutedEventArgs e)
+        {
+            this.HistoryDataGrid.Visibility = Visibility.Hidden;
+            this.AccountsDataGrid.Visibility = Visibility.Visible;
+          
+        }
+
+        private void HistoryClick(object sender, RoutedEventArgs e)
+        {
+            this.AccountsDataGrid.Visibility = Visibility.Hidden;
+            this.HistoryDataGrid.Visibility = Visibility.Visible;
         }
     }
 }

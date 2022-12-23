@@ -122,15 +122,28 @@ Style="{StaticResource Page_Style}"
 
 
             </Grid>
-            <Button Grid.Row="4" HorizontalAlignment="Left"
-                Style="{StaticResource tabButton}" 
-                    Content="Danh sách" BorderBrush="#784FF2"/>
+            <StackPanel  Grid.Row="4" Orientation="Horizontal">
+                <RadioButton Content="Danh sách" 
+                        x:Name="listButton"
+                             IsChecked="True"
+                        Style="{StaticResource topBtnStyle}" Click="EmployeeClick">
+                   
+                </RadioButton>
+                <RadioButton Content="Lịch sử trả lương" 
+                        x:Name="historyButton"
+                             
+                        Style="{StaticResource topBtnStyle}" Width="97" Click="HistoryClick">
+                   
+                </RadioButton>
+            </StackPanel>
+           
+          
             <DataGrid DataContext="{StaticResource EmployeeVM}"
                 RowStyle="{DynamicResource DataGridRowStyle2}" 
                       ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}"
                       CellStyle="{DynamicResource DataGridCellStyle2}" 
                          ItemsSource="{Binding ObservableEmployee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    x:Name="AccountsDataGrid"
+                  x:Name="AccountsDataGrid"
                       Grid.Row="5"
                       Style="{DynamicResource DataGridStyle2}">
                 
@@ -193,6 +206,45 @@ Style="{StaticResource Page_Style}"
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid DataContext="{StaticResource EmployeeVM}"
+                RowStyle="{DynamicResource DataGridRowStyle2}" 
+                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}"
+                      CellStyle="{DynamicResource DataGridCellStyle2}" 
+                         ItemsSource="{Binding ObservableBill, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                   x:Name="HistoryDataGrid"
+                      Grid.Row="5"
+                      Style="{DynamicResource DataGridStyle2}">
+
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding IdBill}"/>
+                    <DataGridTemplateColumn Header="Nhân viên" IsReadOnly="True" Width="220">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    
+
+                                    <TextBlock Text="{Binding EmployeeName}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Thời gian" 
+                                        IsReadOnly="True"
+                                        CanUserResize="False"
+                                        Width="250">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding BillDate}"
+                                           ToolTip="{Binding BillDate}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Số tiền " Binding="{Binding Price}" IsReadOnly="True" Width="280"/>
+                
+                 
                 </DataGrid.Columns>
             </DataGrid>
 
