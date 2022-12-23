@@ -22,17 +22,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       ShowsNavigationUI="False">
-    <i:Interaction.Triggers>
-
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction 
-                  
-                Command="{Binding LoadCommand}"
-                                   
-                               CommandParameter="{Binding ElementName=paymentWindow}"/>
-
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+   
     <Page.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Page.Resources>

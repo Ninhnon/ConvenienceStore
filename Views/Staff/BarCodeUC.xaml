@@ -14,7 +14,13 @@
          Loaded="Window_Loaded"
              
              >
-    <Border CornerRadius="30" Background="#566895">
+    <Border CornerRadius="30" >
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color='#E9E4F0' Offset="0"/>
+                <GradientStop Color='#D3CCE3' Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
         <StackPanel>
             <ComboBox x:Name="cboCamera" Margin="0,50,0,0" Width="300">
 
@@ -29,17 +35,22 @@
                    FontSize="12"     Text="{Binding SearchContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Close" Width="80" Click="btnClose_Click">
+                <Button
+                      Style="{StaticResource addButton}" VerticalAlignment="Center"
+                    Content="Close" Width="80" Click="btnClose_Click" Margin="0,0,0,0">
                 </Button>
 
-                <Button Margin="30,0,0,0" Content="Start" Width="80" Click="btnStart_Click">
+                <Button 
+                      Style="{StaticResource addButton}" HorizontalAlignment="Center"
+                    Margin="30,0,0,0" Content="Start" Width="80" Click="btnStart_Click">
                 </Button>
 
             </StackPanel>
             <Button 
             Command="{Binding AddToCartBarCode}"
+                Style="{StaticResource addButton}" HorizontalAlignment="Center"
             CommandParameter="{Binding ElementName=wdBarcode}"
-            Margin="0,10,0,0" Content="Find" Width="80" 
+            Margin="0,10,0,0" Content="Find" Width="80"  
             IsDefault="True"
                  >
             </Button>

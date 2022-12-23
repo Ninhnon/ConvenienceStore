@@ -123,7 +123,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
     
         public PaymentViewModel()
         {
-            SearchContent = "cc";
+       
             StaffName = CurrentAccount.Name;
             StaffId = CurrentAccount.idAccount;
             products = DatabaseHelper.FetchingProductData();
