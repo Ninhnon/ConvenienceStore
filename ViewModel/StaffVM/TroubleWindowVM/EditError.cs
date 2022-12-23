@@ -18,7 +18,6 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
     public partial class TroublePageViewModel : StaffVM.BaseViewModel
     {
         public ICommand LoadEditErrorCM { get; set; }
-        public ICommand UpdateErrorCM { get; set; }
 
         private string troubleID;
         public string TroubleID

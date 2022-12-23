@@ -347,8 +347,6 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                     }
                 }
                 SetReportsCoresspondManager();
-                MessageBoxCustom mb = new MessageBoxCustom("", "Cập nhật thành công!", MessageType.Success, MessageButtons.OK);
-                mb.ShowDialog();
             }
             p.Close();
         }
