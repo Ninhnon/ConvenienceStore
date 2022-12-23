@@ -529,24 +529,29 @@
                     Background="#E9E4F0"
                     Visibility="Hidden"
                     CornerRadius="0 8 8 0">
-                <StackPanel VerticalAlignment="Center"
-                            Margin="30 0">
+                               
+                <StackPanel Margin="30 0"
+                            VerticalAlignment="Center">
+                    <TextBlock Text="Thông tin chi tiết"
+                               FontWeight="SemiBold"
+                               FontSize="32"
+                               Margin="0 0 0 20"/>
                     <Grid Margin="0 0 0 15">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120"/>
-                            <ColumnDefinition Width="25"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="Tên voucher: "
-                                   FontSize="18"
-                                   FontWeight="SemiBold"/>
+                    <TextBlock Text="Tên voucher: "
+                                FontSize="18"
+                                FontWeight="SemiBold"/>
                         <TextBlock Grid.Column="2"
-                                   Text="{Binding SelectedBlockVoucher.ReleaseName}"
-                                   FontSize="18"
-                                   FontWeight="SemiBold"
-                                   VerticalAlignment="Center"
-                                   d:Text="NOEL"/>
+                                Text="{Binding SelectedBlockVoucher.ReleaseName}"
+                                FontSize="18"
+                                FontWeight="SemiBold"
+                                VerticalAlignment="Center"
+                                d:Text="NOEL"/>
                     </Grid>
 
                     <Grid Margin="0 0 0 15">
