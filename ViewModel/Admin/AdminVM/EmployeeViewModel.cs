@@ -41,6 +41,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         }
         private List<string> admins = AccountDAL.Instance.ConvertDBToListString();
         public static List<Account> accounts = new List<Account>();
+        public static List<SalaryBill> bills = new List<SalaryBill>();
 
         private OpenFileDialog openDialog;
 
@@ -91,6 +92,17 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
              
             }
         }
+        private ObservableCollection<SalaryBill> observableBill_;
+        public ObservableCollection<SalaryBill> ObservableBill
+        {
+            get { return observableBill_; }
+            set
+            {
+                observableBill_= value;
+                OnPropertyChanged();
+
+            }
+        }
 
 
         public ICommand SearchCommand { get; set; }
@@ -101,8 +113,12 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
         public EmployeeViewModel()
         {
+            
             accounts = AccountDAL.Instance.ConvertDataTableToListEmployeeAdmin();
+            bills = AccountDAL.Instance.LoadSalaryBill();
+            
             ObservableEmployee = new ObservableCollection<Account>(accounts);
+            ObservableBill = new ObservableCollection<SalaryBill>(bills);
             
             AddEmployeeCommand = new RelayCommand<EmployeeView>(parameter => true, parameter => AddEmployee(parameter));
             SearchCommand = new RelayCommand<EmployeeView>(parameter => true, parameter => Search());
@@ -129,9 +145,12 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public void Load(EmployeeView parameter)
         {
             accounts = AccountDAL.Instance.ConvertDataTableToListEmployeeAdmin();
+            bills = AccountDAL.Instance.LoadSalaryBill();
             ObservableEmployee = new ObservableCollection<Account>(accounts);
+            ObservableBill = new ObservableCollection<SalaryBill>(bills);
             parameter.AccountsDataGrid.ItemsSource = ObservableEmployee;
-          }
+            parameter.HistoryDataGrid.ItemsSource = ObservableBill;
+        }
         public void AddEmployee(EmployeeView parameter)
         {
             AddEmployeeView addView = new AddEmployeeView();
@@ -541,6 +560,11 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             {
                 AccountDAL.Instance.SetSalaryDate(Selectedid);
                 AccountDAL.Instance.InsertSalaryBill(Selectedid, int.Parse(parameter.salaryTxtbox.textBox.Text));
+            
+                bills = AccountDAL.Instance.LoadSalaryBill();
+     
+                ObservableBill = new ObservableCollection<SalaryBill>(bills);
+          
                 MessageBoxCustom mb = new("Thông báo", "Trả lương thành công", MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();
                 parameter.Close();

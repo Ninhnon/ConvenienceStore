@@ -137,10 +137,11 @@
                                                 Foreground="#4B0082"
                                                 Height="38"
                                                 Padding="6 4"
+                                                Margin="0 0 30 0"
                                                 Command="{Binding ElementName=ListViewProductCard, Path=DataContext.LoadEditErrorCM}"
                                                 CommandParameter="{Binding}"/>
 
-                                        <Button Style="{StaticResource MaterialDesignFlatLightButton}"
+                                        <!--<Button Style="{StaticResource MaterialDesignFlatLightButton}"
                                                 Content="{materialDesign:PackIcon Kind=Delete, Size=24}"
                                                 Height="38"
                                                 Foreground="#CF0A0A"
@@ -148,7 +149,7 @@
                                                 Margin="0 0 30 0"
                                                 HorizontalAlignment="Right"
                                                 Command="{Binding Source={StaticResource InputInfoVM}, Path=DeleteProductCommand}"
-                                                CommandParameter="{Binding}"/>
+                                                CommandParameter="{Binding}"/>-->
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>

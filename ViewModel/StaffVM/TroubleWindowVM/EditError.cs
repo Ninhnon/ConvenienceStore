@@ -18,7 +18,6 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
     public partial class TroublePageViewModel : StaffVM.BaseViewModel
     {
         public ICommand LoadEditErrorCM { get; set; }
-        public ICommand UpdateErrorCM { get; set; }
 
         private string troubleID;
         public string TroubleID
@@ -34,8 +33,9 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             w1.cbxStatus.Text = SelectedItem.Status;
             w1.submitdate.Text = SelectedItem.SubmittedAt.ToShortDateString();
             w1.cbxDecription.Text = SelectedItem.Description;
+            tmpReport = SelectedItem;
         }
-        public void Update(EditTrouble p)
+        public void Update(EditTrouble p,Report tmpReport)
         {
             p.TitleErrorMessage.Text = string.Empty;
             p.CostErrorMessage.Text = string.Empty;
@@ -60,16 +60,15 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             if (!isValid) return;
             // Pre Validation Done 
 
-            var t = SelectedItem.Image;
             var newReport = new Report()
             {
                 Title = p.TitleTextBox.Text,
                 Status = p.cbxStatus.Text,
                 Description = p.cbxDecription.Text,
                 RepairCost = int.Parse(p.CostTextBox.Text),
-                SubmittedAt = DateTime.Now,
+                SubmittedAt = Se,
                 StaffId = CurrentAccount.idAccount,
-                Id = SelectedItem.Id,
+                Id = Id,
             };
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
             BitmapSource src = (BitmapSource)p.ImageProduct.ImageSource;
@@ -113,8 +112,6 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                         break;
                     }
                 }
-                MessageBoxCustom mb = new MessageBoxCustom("", "Cập nhật thành công!", MessageType.Success, MessageButtons.OK);
-                mb.ShowDialog();
             }
             p.Close();
         }

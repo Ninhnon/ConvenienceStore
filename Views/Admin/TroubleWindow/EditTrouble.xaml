@@ -119,7 +119,7 @@
                                      Margin="0,5,0,0"
                                      Foreground="Black"
                                      materialDesign:ValidationAssist.Background="White"
-                                     Text="{Binding SelectedReport.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                     Text="{Binding SelectedReport.Description, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                             <Grid Margin="0 0 0 10">
                                 <Grid.ColumnDefinitions>
@@ -135,8 +135,9 @@
                                         Height="22"/>
  
                                     <ComboBox Style="{StaticResource CustomComboBox}" x:Name="cbxStatus"
-                                          SelectedItem="{Binding tmpReport.Status}"
+                                          SelectedItem="{Binding tmpReport.Status,Mode=OneTime}"
                                           ItemsSource="{Binding Statuses}"
+                                              Loaded="cbxStatus_Loaded"
                                               SelectionChanged="cbxStatus_SelectionChanged"
                                           Width="144">
                                         <ComboBox.ItemTemplate>
@@ -175,7 +176,7 @@
 
                             <Border.Background>
                                 <ImageBrush x:Name="ImageProduct"
-                                            ImageSource="{Binding SelectedReport.Image}"
+                                            ImageSource="{Binding SelectedReport.Image,Mode=OneTime}"
                                             Stretch="UniformToFill"/>
                             </Border.Background>
 
@@ -239,15 +240,18 @@
                             </Grid>
                             <TextBlock x:Name="CostErrorMessage"
                                            Foreground="Red"/>
-                            <TextBlock Text="Start Date" IsEnabled="False" 
+                            
+                            <Grid Margin="0 10 0 0" Height="22"></Grid>
+                            <Grid x:Name="_start1" >
+                                <TextBlock Margin="0 -55 0 0" Text="Start Date" IsEnabled="False" 
                                        x:Name="_start"
                                         FontSize="16"
                                         FontWeight="SemiBold"
-                                       Visibility="{Binding SelectedReport.StartDate, Converter={StaticResource HasOjectConverter}}"
+                                       
                                         Height="22"/>
-                            <Grid x:Name="_start1" IsEnabled="True"  Visibility="{Binding SelectedReport.StartDate, Converter={StaticResource HasOjectConverter}}">
-
+                                <!--IsEnabled="True"  Visibility="{Binding SelectedReport.StartDate, Converter={StaticResource HasOjectConverter}}"-->
                                 <DatePicker x:Name="StartDate"
+                                            SelectedDate="{Binding SelectedReport.StartDate, Mode=OneTime}"
                                             SelectedDateFormat="Short"/>
                                 <TextBlock x:Name="startdate"
                                 Text="{Binding ElementName=StartDate, Path=SelectedDate, StringFormat=dd-MM-yyyy}"
@@ -267,31 +271,30 @@
                                         FontWeight="SemiBold"
                                         Height="22"/>
                             <Grid>
+                                <TextBlock x:Name="submitdate" Text="{Binding SelectedReport.SubmittedAt,Mode=OneTime}"
+                                               VerticalAlignment="Center"
+                                               Foreground="Gray"
+                                               Margin="1 0 0 0"/>
 
-                                <!--<DatePicker x:Name="GGDate"
-                                            SelectedDateFormat="Short"/>-->
-                                <!--Text="{Binding ElementName=ExpiryDate, Path=SelectedDate, StringFormat=dd-MM-yyyy}"-->
-                                <TextBlock x:Name="submitdate"
-                                            Text="{Binding SelectedReport.SubmittedAt,Mode=TwoWay}"
-                                            Background="White"
-                                            FontSize="16"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Top"
-                                            Margin="0 3.5 14 0"/>
-                                
+                                <TextBox
+                                    Visibility="{Binding ElementName=CostToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"
+                                             VerticalContentAlignment="Center"
+                                             Background="White"/>
+
                             </Grid>
                             <TextBlock x:Name="submitErrorMessage"
                                            Foreground="Red"/>
-                            <TextBlock Margin="0 10 0 0"
+                            <Grid Margin="0 10 0 0" Height="22"></Grid>
+                            <Grid x:Name="_finish1">
+                                <TextBlock Margin="0 -55 0 0"
                                        x:Name="_finish" IsEnabled="False" 
                                 Text="Finish Date"
                                         FontSize="16"
                                         FontWeight="SemiBold"
-                                       Visibility="{Binding SelectedReport.FinishDate, Converter={StaticResource HasOjectConverter}}"
                                         Height="22"/>
-                            <Grid x:Name="_finish1" IsEnabled="True" Visibility="{Binding SelectedReport.FinishDate, Converter={StaticResource HasOjectConverter}}">
-
+                                <!-- IsEnabled="True" Visibility="{Binding SelectedReport.FinishDate, Converter={StaticResource HasOjectConverter}}"-->
                                 <DatePicker x:Name="FinishDate"
+                                            SelectedDate="{Binding SelectedReport.FinishDate, Mode=OneTime}"
                                             SelectedDateFormat="Short"/>
                                 
                                 <TextBlock x:Name="finishdate"
@@ -300,8 +303,7 @@
                                             FontSize="16"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Top"
-                                            Margin="0 3.5 14 0"
-                                            Height="19"/>
+                                            Margin="0 3.5 14 0"/>
                             </Grid>
                             <TextBlock x:Name="finishErrorMessage"  FontSize="10"
                                            Foreground="Red"/>

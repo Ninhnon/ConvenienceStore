@@ -403,6 +403,7 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="BorderBrush" Value="#784FF2" />
+                <Setter Property="Background" Value="#7B5CD6" />
             </Trigger>
         </Style.Triggers>
     </Style>

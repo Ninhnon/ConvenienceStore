@@ -30,8 +30,8 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             set { _ListError = value; OnPropertyChanged(); }
         }
 
-        private Report? _SelectedItem;
-        public Report? SelectedItem
+        private Report _SelectedItem;
+        public Report SelectedItem
         {
             get => _SelectedItem;
             set { _SelectedItem = value; OnPropertyChanged(); }
@@ -114,12 +114,13 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         }
         public string RepairCost { get; set; }
         public Report tmpReport { get; set; }
-
+        public int Id { get; set; }
+        public DateTime Se { get; set; }
         public TroublePageViewModel()
         {
             
             danhsach = DatabaseHelper.FetchingReportData();
-
+            //MaskName.Visibility = Visibility.Collapsed;
             ListError = new ObservableCollection<Report>(danhsach);
             GetCurrentDate = DateTime.Today;
             //FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
@@ -139,7 +140,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             {
                 FilterListError();
             });
-            LoadDetailWindowCM = new RelayCommand<System.Windows.Controls.ListView>((p) => { return true; }, (p) =>
+            LoadDetailWindowCM = new RelayCommand<DataGrid>((p) => { return true; }, (p) =>
             {
                 MaskName.Visibility = Visibility.Visible;
                 ViewError w = new();
@@ -222,14 +223,15 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             UpdateReportButtonCommand = new RelayCommand<EditTrouble>((p) => { return true; }, (p) =>
             {
                 IsSaving = true;
-                tmpReport = SelectedItem;
-                Update(p);
+                Update(p,tmpReport);
                 MaskName.Visibility = Visibility.Collapsed;
                 IsSaving = false;
             });
-            LoadEditErrorCM = new RelayCommand<EditTrouble>((p) => { return SelectedItem.StaffId==CurrentAccount.idAccount; }, (p) =>
+            LoadEditErrorCM = new RelayCommand<DataGrid>((p) => { return true; }, (p) =>
             {
                 EditTrouble w1 = new();
+                Id = SelectedItem.Id;
+                Se = SelectedItem.SubmittedAt;
                 LoadEditError(w1);
                 MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
@@ -256,7 +258,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             if (ListError != null)
             {
                 ListError.Clear();
-                if (ItemViewMode.Content.ToString() == "Tất cả")
+                if (ItemViewMode.Content.ToString() == "Toàn bộ")
                 {
                     for (int i = 0; i < danhsach.Count; ++i)
                     {

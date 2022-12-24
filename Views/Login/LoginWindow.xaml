@@ -15,7 +15,7 @@
         ResizeMode="NoResize"
         WindowStyle="None"
         DataContext="{StaticResource LoginVM}"
-        Height="660" Width="1200" MouseDown="Window_MouseDown">
+        Height="660" Width="900" MouseDown="Window_MouseDown">
     <Border CornerRadius="12">
         <Border CornerRadius="10"                    
             BorderThickness="2"
