@@ -26,7 +26,7 @@
             <ComboBox x:Name="cboCamera" Margin="0,50,0,0" Width="300">
 
             </ComboBox>
-            <Image x:Name="pictureBox" Height="172" Width="367">
+            <Image x:Name="pictureBox" Height="172" >
 
             </Image>
             <TextBox Name="txtBarcode" Grid.Row="1" Grid.Column="0"

@@ -396,10 +396,14 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 parameter.salaryTxtbox.ErrorMessage.Text = "Xin nhập mức lương mới";
                 parameter.salaryTxtbox.textBox.Focus();
             }
-            
-          
 
-           
+            else if (!int.TryParse(parameter.salaryTxtbox.textBox.Text,out int n))
+            {
+                parameter.salaryTxtbox.ErrorMessage.Text = "Xin nhập mức lương là các chữ số";
+                parameter.salaryTxtbox.textBox.Focus();
+            }
+
+
             else 
             {
                 int i = 0;
@@ -559,7 +563,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             else
             {
                 AccountDAL.Instance.SetSalaryDate(Selectedid);
-                AccountDAL.Instance.InsertSalaryBill(Selectedid, int.Parse(parameter.salaryTxtbox.textBox.Text));
+                AccountDAL.Instance.InsertSalaryBill(Selectedid, int.Parse(parameter.salaryTxtbox.textBox.Text)); 
             
                 bills = AccountDAL.Instance.LoadSalaryBill();
      
