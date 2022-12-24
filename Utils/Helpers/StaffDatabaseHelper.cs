@@ -3,12 +3,13 @@ using ConvenienceStore.Model.Staff;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace ConvenienceStore.Utils.Helpers
 {
     public partial class DatabaseHelper
     {
-        static readonly string queryProduct = @"select Barcode,Title,ProductionSite,Image,InputPrice,OutputPrice,Stock,ManufacturingDate,ExpiryDate,Discount,Type
+        static readonly string queryProduct = @"select Barcode,Title,ProductionSite,Image,InputPrice,OutputPrice,Stock,ManufacturingDate,ExpiryDate,Discount,Type,InputInfoId
         from Consignment c,Product p,
         ( 
         select ProductId, min([ExpiryDate]) e
@@ -34,6 +35,9 @@ namespace ConvenienceStore.Utils.Helpers
                                                         where Code = @code AND Status = 0";
         static readonly string queryUpdateVoucherStatus = @"update Voucher set Status = 1 where Code = @code";
         static readonly string queryVoucherDetail = @"select Code, Status, TypeVoucher, ParValue, StartDate, FinishDate from Voucher v join BlockVoucher b on v.BlockId = b.Id";
+        static readonly string queryUpdateConsignmentStock = @"update Consignment
+                                                                set Stock = stock - @quantity
+                                                                where InputInfoId = @inputInfoId and ProductId = @productId";
 
         static readonly string insertReport = "insert Report values (@Title, @Description, @Status, @SubmittedAt,@RepairCost,Null,Null,@StaffId, @Image)";
         static readonly string insertBillData = @"insert into Bill(BillDate, CustomerId, UserId, Price) Values (@billDate, @cusId, @userId, @price)";
@@ -215,6 +219,7 @@ namespace ConvenienceStore.Utils.Helpers
                     ExpiryDate = reader.GetDateTime(8),
                     Discount = reader.IsDBNull(9) ? null : reader.GetInt32(9),
                     Type = reader.IsDBNull(10) ? null : reader.GetString(10),
+                    InputInfoId = reader.GetInt32(11),
                 });
 
             }
@@ -499,6 +504,17 @@ namespace ConvenienceStore.Utils.Helpers
 
             sqlCon.Close();
             return list;
+        }
+
+        public static void UpdateConsignmentStock(BillDetails b)
+        {
+            sqlCon.Open();
+            SqlCommand cmd = new SqlCommand(queryUpdateConsignmentStock, sqlCon);
+            cmd.Parameters.AddWithValue("@quantity", b.Quantity);
+            cmd.Parameters.AddWithValue("@productId", b.ProductId);
+            cmd.Parameters.AddWithValue("@inputInfoId", b.InputInfoId);
+            cmd.ExecuteNonQuery();
+            sqlCon.Close();
         }
     }
 }

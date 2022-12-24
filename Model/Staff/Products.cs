@@ -6,6 +6,7 @@ namespace ConvenienceStore.Model.Staff
 {
     public partial class Products : BaseViewModel
     {
+        public int _InputInfoId; public int InputInfoId { get => _InputInfoId; set { _InputInfoId = value; OnPropertyChanged(); } }
         public string _BarCode = ""; public string BarCode { get => _BarCode; set { _BarCode = value; OnPropertyChanged(); } }
         public string _Title = ""; public string Title { get => _Title; set { _Title = value; OnPropertyChanged(); } }
         public string _ProductionSite = ""; public string ProductionSite { get => _ProductionSite; set { _ProductionSite = value; OnPropertyChanged(); } }

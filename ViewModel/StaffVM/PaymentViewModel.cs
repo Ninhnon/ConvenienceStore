@@ -120,10 +120,10 @@ namespace ConvenienceStore.ViewModel.StaffVM
         {
             parameter.barcodeUC.Visibility=Visibility.Visible;
         }
-        public void Load(PaymentWindow parameter)
-        {
-            parameter.DataContext = new PaymentViewModel();
-        }
+        //public void Load(PaymentWindow parameter)
+        //{
+        //    parameter.DataContext = new PaymentViewModel();
+        //}
         public PaymentViewModel()
         {
             StaffName = CurrentAccount.Name;
@@ -132,14 +132,13 @@ namespace ConvenienceStore.ViewModel.StaffVM
             List = new ObservableCollection<Products>(products);
             FilteredList = List;
             ShoppingCart = new ObservableCollection<BillDetails>();
-            TotalBill = 0;
 
             // Thêm sản phẩm vào giỏ hàng
             AddToCart = new RelayCommand<BillDetail>((p) =>
             {
                 return true;
             }, (p) =>
-             {
+            {
                 //Kiểm tra trong giỏ hàng đã có hay chưa, có rồi thì không thêm vào
                 var checkExistItem = ShoppingCart.Where(x => x.ProductId == SelectedItem.BarCode);
                 if (checkExistItem.Count() != 0 || checkExistItem == null)
@@ -153,6 +152,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                     billDetail.TotalPrice = SelectedItem.Price;
                     billDetail.Title = SelectedItem.Title;
                     billDetail.Image = SelectedItem.Image;
+                    billDetail.InputInfoId = SelectedItem.InputInfoId;
 
                     TotalBill += (int)billDetail.TotalPrice;
                     SelectedBillDetail = billDetail;
@@ -162,7 +162,17 @@ namespace ConvenienceStore.ViewModel.StaffVM
             );
             AddToCartBarCode = new RelayCommand<BarCodeUC>(parameter => true, parameter => AddBarCode(parameter));
             OpenBarCodeCommand = new RelayCommand<PaymentWindow>(parameter => true, parameter => ShowBarCodeQR(parameter));
-            LoadCommand = new RelayCommand<PaymentWindow>(parameter => true, parameter => Load(parameter));
+
+            LoadCommand = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                products = DatabaseHelper.FetchingProductData();
+                List = new ObservableCollection<Products>(products);
+                FilteredList = List;
+            });
+
             //Tăng giảm số lượng, xóa khỏi giỏ hàng
             IncreaseProductAmount = new RelayCommand<BillDetail>((p) =>
             {
@@ -172,13 +182,19 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 BillDetails item = SelectedBillDetail;
                 if (item != null)
                 {
-                    TotalBill -= (int)item.TotalPrice;
-                    item.TotalPrice = item.TotalPrice / item.Quantity * (item.Quantity + 1);
-                    TotalBill += (int)item.TotalPrice;
-                    item.Quantity++;
+                    //Được thêm vào khi còn trong kho
+                    Products relatedProduct = FilteredList.Where(x => x.BarCode == item.ProductId).FirstOrDefault();
+                    if (relatedProduct != null && relatedProduct.Stock > item.Quantity)
+                    {
+                        TotalBill -= (int)item.TotalPrice;
+                        item.TotalPrice = item.TotalPrice / item.Quantity * (item.Quantity + 1);
+                        TotalBill += (int)item.TotalPrice;
+                        item.Quantity++;
+                    }
                 }
             }
             );
+
             DecreaseProductAmount = new RelayCommand<BillDetail>((p) =>
             {
                 return true;
@@ -296,6 +312,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                     {
                         ShoppingCart.RemoveAt(ShoppingCart.Count - 1);
                     }
+                    TotalBill = 0;
                 }
 
                 ReceiptPage.Close();
@@ -428,17 +445,22 @@ namespace ConvenienceStore.ViewModel.StaffVM
                     if (ReceiptBill == null)
                         return;
 
-                    //Sửa thông tin BillId trong các BillDetail và thêm cái BillDetail vào database
+                    //Sửa thông tin BillId trong các BillDetail và thêm BillDetail vào database
                     foreach (BillDetails bd in ShoppingCart)
                     {
                         bd.BillId = ReceiptBill.Id;
                         DatabaseHelper.InsertBillDetail(bd);
+                        //Sửa số stock
+                        DatabaseHelper.UpdateConsignmentStock(bd);
                     }
 
                     //Sửa trạng thái voucher trong database
                     DatabaseHelper.UpdateVoucherStatus(VoucherCode);
                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Thanh toán thành công", MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
+
+                    //Update danh sách sản phẩm
+                    LoadCommand.Execute(this);
 
                     //Disable nút thanh toán
                     p.IsEnabled = false;

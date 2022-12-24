@@ -46,7 +46,7 @@
 
                 <i:EventTrigger EventName="Loaded">
 
-                    <i:InvokeCommandAction Command="{Binding LoadReceipt}" />
+                    <i:InvokeCommandAction Command="{Binding LoadReceiptPage}" />
 
                 </i:EventTrigger>
 

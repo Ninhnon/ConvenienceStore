@@ -13,6 +13,8 @@ namespace ConvenienceStore.Model.Staff
 
         private int? _BillId;
         public int? BillId { get { return _BillId; } set { _BillId = value; OnPropertyChanged(); } }
+        private int? _InputInfoId;
+        public int? InputInfoId { get { return _InputInfoId; } set { _InputInfoId = value; OnPropertyChanged(); } }
         private string? _ProductId;
         public string? ProductId { get { return _ProductId; } set { _ProductId = value; OnPropertyChanged(); } }
         private int? _Quantity;
