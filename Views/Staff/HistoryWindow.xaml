@@ -6,22 +6,20 @@
         xmlns:local="clr-namespace:ConvenienceStore.Views.Staff"
         mc:Ignorable="d"
         Title="HistoryWindow" 
-        Height="638"
-      Width="1140"
+        d:DesignHeight="600"
+        d:DesignWidth="1100"
       x:Name="staffHistoryPage"
-        
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="Transparent"
         DataContext="{StaticResource HistoryVM}"
         ShowsNavigationUI="False"
         FontFamily="{DynamicResource MaterialDesignFont}"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
-    <Border CornerRadius="0,0,20,0">
+    <Border CornerRadius="8">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                 <GradientStop Color='#E9E4F0' Offset="0"/>
