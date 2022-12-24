@@ -14,7 +14,7 @@ namespace ConvenienceStore.Utils.Helpers
         ( 
         select ProductId, min([ExpiryDate]) e
         from Consignment
-        where Stock>0
+        where Stock>0 AND ExpiryDate > GETDATE()
         group by ProductId
         ) h
         where c.ProductId=p.Barcode and h.ProductId=c.ProductId and h.e = c.ExpiryDate
@@ -209,12 +209,12 @@ namespace ConvenienceStore.Utils.Helpers
                 Products.Add(new Products()
                 {
                     BarCode = reader.GetString(0),
-                    Title = reader.GetString(1),
-                    ProductionSite = reader.GetString(2),
-                    Image = (byte[])(reader["Image"]),
-                    Cost = reader.GetInt32(4),
-                    Price = reader.GetInt32(5),
-                    Stock = reader.GetInt32(6),
+                    Title = reader.IsDBNull(1) ? "" : reader.GetString(1),
+                    ProductionSite = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                    Image = reader.IsDBNull(3) ? null : (byte[])(reader["Image"]),
+                    Cost = reader.IsDBNull(4) ? 0 : reader.GetInt32(4),
+                    Price = reader.IsDBNull(5) ? 0 : reader.GetInt32(5),
+                    Stock = reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
                     ManufacturingDate = reader.GetDateTime(7),
                     ExpiryDate = reader.GetDateTime(8),
                     Discount = reader.IsDBNull(9) ? null : reader.GetInt32(9),

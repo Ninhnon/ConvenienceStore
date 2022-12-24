@@ -227,8 +227,9 @@
                                         Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding BillDate}"
-                                           ToolTip="{Binding BillDate}"/>
+                                    <TextBlock Text="{Binding BillDate, StringFormat={}{0:dddd, dd MMMM yyyy, HH:mm}}"
+                                           ToolTip="{Binding BillDate, StringFormat={}{0:dddd, dd MMMM yyyy, HH:mm}}"
+                                               Language="vi"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
