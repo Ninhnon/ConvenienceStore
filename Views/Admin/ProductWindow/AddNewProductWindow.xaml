@@ -144,6 +144,9 @@
                                         <ComboBoxItem Content="Thức uống" />
                                         <ComboBoxItem Content="Khác" />
                                     </ComboBox>
+                                    <TextBlock x:Name="TypeErrorMessage"
+                                               Foreground="Red"
+                                               Height="16"/>
                                 </StackPanel>
                             </Grid>
 

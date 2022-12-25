@@ -41,6 +41,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
 
             window.BarcodeErrorMessage.Text = string.Empty;
             window.TitleErrorMessage.Text = string.Empty;
+            window.TypeErrorMessage.Text = string.Empty;
             window.CostErrorMessage.Text = string.Empty;
             window.PriceErrorMessage.Text = string.Empty;
             window.ManufacturingDateErrorMessage.Text = string.Empty;
@@ -61,6 +62,12 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
             if (string.IsNullOrEmpty(window.TitleTextBox.Text))
             {
                 window.TitleErrorMessage.Text = "Chưa nhập Tên sản phẩm";
+                isValid = false;
+            }
+
+            if (window.TypeComboBox.SelectedIndex == -1)
+            {
+                window.TypeErrorMessage.Text = "Chưa chọn loại sản phẩm";
                 isValid = false;
             }
 
@@ -153,6 +160,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
                 InputInfoId = VM.SelectedInputInfo.Id,
                 Barcode = window.BarcodeTextBox.Text,
                 Title = window.TitleTextBox.Text,
+                Type = (string)window.TypeComboBox.SelectionBoxItem,
                 ProductionSite = window.CountryTextBlock.Text,
                 Cost = int.Parse(window.CostTextBox.Text),
                 Price = int.Parse(window.PriceTextBox.Text),
@@ -161,7 +169,6 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
                 ExpiryDate = (DateTime)window.ExpiryDate.SelectedDate,
                 Discount = int.Parse(window.DiscountTextBox.Text)
             };
-
             if (window.ImageProduct.ImageSource != null)
             {
                 JpegBitmapEncoder encoder = new JpegBitmapEncoder();

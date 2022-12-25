@@ -46,12 +46,16 @@
                     CornerRadius="0 0 8 8">
                 <StackPanel Orientation="Vertical"
                             Margin="30 20 30 30">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Tên nhà cung cấp"
+                                   FontWeight="SemiBold"
+                                   FontSize="18"
+                                   Margin="0 0 0 5"/>
+                        <TextBlock Text=" *"
+                                   Foreground="Red"
+                                   FontSize="18"/>
+                    </StackPanel>
 
-                    <TextBlock Text="Tên nhà cung cấp"
-                               FontWeight="SemiBold"
-                               FontSize="18"
-                               Margin="0 0 0 5"/>
-                    
                     <TextBox x:Name="SupplierName"
                              Style="{StaticResource MyTextBoxStyle}"
                              Tag="Công ty ..."/>
@@ -61,10 +65,15 @@
                                Height="16"
                                Margin="0 0 0 10"/>
 
-                    <TextBlock Text="Địa chỉ"
-                               FontWeight="SemiBold"
-                               FontSize="18"
-                               Margin="0 0 0 5"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Địa chỉ"
+                                   FontWeight="SemiBold"
+                                   FontSize="18"
+                                   Margin="0 0 0 5"/>
+                        <TextBlock Text=" *"
+                                   Foreground="Red"
+                                   FontSize="18"/>
+                    </StackPanel>
                     <TextBox x:Name="Address"
                              Style="{StaticResource MyTextBoxStyle}"
                              Tag="Quận 9, Thành phố Hồ Chí Minh"/>

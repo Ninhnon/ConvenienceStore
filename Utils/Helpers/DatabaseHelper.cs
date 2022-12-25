@@ -22,7 +22,7 @@ namespace ConvenienceStore.Utils.Helpers
                                                  from Consignment, Product
                                                  where InputInfoId = {0} and ProductId = Barcode";
 
-        static readonly string queryProductTableViaBarcode = @"select Title, Image 
+        static readonly string queryProductTableViaBarcode = @"select Title, Image, Type
                                                                from Product 
                                                                where Barcode = '{0}'";
 
@@ -61,7 +61,7 @@ namespace ConvenienceStore.Utils.Helpers
 
         static readonly string insertVoucher = "insert Voucher values ('{0}', {1}, {2})";
 
-        static readonly string updateProduct = @"update Product set Title = @Title, Image = @Image
+        static readonly string updateProduct = @"update Product set Title = @Title, Image = @Image, Type = @Type
                                                  where BarCode = @Barcode";
 
         static readonly string updateConsignment = @"Update Consignment
@@ -227,7 +227,7 @@ namespace ConvenienceStore.Utils.Helpers
             return managers;
         }
 
-        public static (string, byte[]) FetchingProductTableViaBarcode(string Barcode)
+        public static (string, byte[], string) FetchingProductTableViaBarcode(string Barcode)
         {
             sqlCon.Open();
 
@@ -237,16 +237,18 @@ namespace ConvenienceStore.Utils.Helpers
 
             string title = null;
             byte[] image = null;
+            string type = null;
 
             if (reader.Read())
             {
                 title = reader.GetString(0);
                 image = (byte[])reader["Image"];
+                type = reader.GetString(2);
             }
 
             reader.Close();
             sqlCon.Close();
-            return (title, image);
+            return (title, image, type);
         }
 
         public static int NewestInputInfoId()
@@ -531,6 +533,7 @@ namespace ConvenienceStore.Utils.Helpers
                 cmd = new SqlCommand(updateProduct, sqlCon);
                 cmd.Parameters.AddWithValue("@Title", product.Title);
                 cmd.Parameters.AddWithValue("@Image", product.Image);
+                cmd.Parameters.AddWithValue("@Type", product.Type);
                 cmd.Parameters.AddWithValue("@Barcode", product.Barcode);
 
                 cmd.ExecuteNonQuery();
@@ -541,7 +544,7 @@ namespace ConvenienceStore.Utils.Helpers
                 cmd.Parameters.AddWithValue("@Barcode", product.Barcode);
                 cmd.Parameters.AddWithValue("@Title", product.Title);
                 cmd.Parameters.AddWithValue("@Image", product.Image);
-                cmd.Parameters.AddWithValue("@Type", "Khác");
+                cmd.Parameters.AddWithValue("@Type", product.Type);
                 cmd.Parameters.AddWithValue("@ProductionSite", product.ProductionSite);
 
                 cmd.ExecuteNonQuery();
