@@ -20,6 +20,14 @@ namespace ConvenienceStore.Model.Admin
             set { title = value; OnPropertyChanged("Title"); }
         }
 
+        private string type;
+
+        public string Type
+        {
+            get { return type; }
+            set { type = value; OnPropertyChanged("Type"); }
+        }
+
         private string productionSite;
 
         public string ProductionSite

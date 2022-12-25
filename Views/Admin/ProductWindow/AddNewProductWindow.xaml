@@ -69,10 +69,16 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel>
-                                    <TextBlock Text="Mã vạch"
-                                               FontSize="16"
-                                               FontWeight="SemiBold"
-                                               Height="22"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Mã vạch"
+                                                   FontSize="16"
+                                                   FontWeight="SemiBold"
+                                                   Height="22"/>
+                                        <TextBlock Text=" *"
+                                                   Foreground="Red"
+                                                   FontSize="16"/>
+                                    </StackPanel>
+
                                     <TextBox x:Name="BarcodeTextBox">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="TextChanged">
@@ -98,17 +104,50 @@
                                 </StackPanel>
                             </Grid>
 
-                            <TextBlock Text="Tên"
-                                       FontSize="16"
-                                       FontWeight="SemiBold"
-                                       Height="22"/>
+                            <Grid Margin="0 0 0 10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Tên"
+                                                   FontSize="16"
+                                                   FontWeight="SemiBold"
+                                                   Height="22"/>
+                                        <TextBlock Text=" *"
+                                                   Foreground="Red"
+                                                   FontSize="16"/>
+                                    </StackPanel>
+                                    <TextBox x:Name="TitleTextBox"/>
 
-                            <TextBox x:Name="TitleTextBox"/>
+                                    <TextBlock x:Name="TitleErrorMessage"
+                                               Foreground="Red"
+                                               Height="16"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="2">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Loại"
+                                                   FontSize="16"
+                                                   FontWeight="SemiBold"
+                                                   Height="22"/>
+                                        <TextBlock Text=" *"
+                                                   Foreground="Red"
+                                                   FontSize="16"/>
+                                    </StackPanel>
+                                    <ComboBox x:Name="TypeComboBox"
+                                              Height="28.95"
+                                              Margin="0 4 0 0"
+                                              d:SelectedIndex="0">
+                                        <ComboBoxItem Content="Đồ ăn" />
+                                        <ComboBoxItem Content="Thức uống" />
+                                        <ComboBoxItem Content="Khác" />
+                                    </ComboBox>
+                                </StackPanel>
+                            </Grid>
 
-                            <TextBlock x:Name="TitleErrorMessage"
-                                       Foreground="Red"
-                                       Height="16"
-                                       Margin="0 0 0 10"/>
+
 
                             <Grid Margin="0 0 0 10">
                                 <Grid.ColumnDefinitions>
@@ -118,11 +157,15 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0">
 
-                                    <TextBlock Text="Giá nhập"
-                                               FontSize="16"
-                                               FontWeight="SemiBold"
-                                               Height="22"/>
-
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Giá nhập"
+                                                   FontSize="16"
+                                                   FontWeight="SemiBold"
+                                                   Height="22"/>
+                                        <TextBlock Text=" *"
+                                                   Foreground="Red"
+                                                   FontSize="16"/>
+                                    </StackPanel>
                                     <TextBox x:Name="CostTextBox"/>
 
                                     <TextBlock x:Name="CostErrorMessage"
@@ -131,11 +174,15 @@
                                 </StackPanel>
                                 <StackPanel Grid.Column="2">
 
-                                    <TextBlock Text="Giá bán"
-                                               FontWeight="SemiBold"
-                                               FontSize="16"
-                                               Height="22"/>
-
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Giá bán"
+                                                   FontWeight="SemiBold"
+                                                   FontSize="16"
+                                                   Height="22"/>
+                                        <TextBlock Text=" *"
+                                                   Foreground="Red"
+                                                   FontSize="16"/>
+                                    </StackPanel>
                                     <TextBox x:Name="PriceTextBox"/>
 
                                     <TextBlock x:Name="PriceErrorMessage"
@@ -146,6 +193,7 @@
                         </StackPanel>
 
                         <StackPanel Grid.Column="2">
+
                             <Grid>
                                 <Border 
                                     Grid.Column="2"
@@ -217,10 +265,15 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
 
-                            <TextBlock Text="Ngày sản xuất"
-                                       FontSize="16"
-                                       FontWeight="SemiBold"
-                                       Height="22"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Ngày sản xuất"
+                                           FontSize="16"
+                                           FontWeight="SemiBold"
+                                           Height="22"/>
+                                <TextBlock Text=" *"
+                                           Foreground="Red"
+                                           FontSize="16"/>
+                            </StackPanel>
                             <Grid>
                                 <DatePicker x:Name="ManufacturingDate"
                                             SelectedDateFormat="Short"/>
@@ -239,10 +292,15 @@
 
                         </StackPanel>
                         <StackPanel Grid.Column="2">
-                            <TextBlock Text="Hạn sử dụng"
-                                       FontSize="16"
-                                       FontWeight="SemiBold"
-                                       Height="22"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Hạn sử dụng"
+                                           FontSize="16"
+                                           FontWeight="SemiBold"
+                                           Height="22"/>
+                                <TextBlock Text=" *"
+                                           Foreground="Red"
+                                           FontSize="16"/>
+                            </StackPanel>
                             <Grid>
 
                                 <DatePicker x:Name="ExpiryDate"
@@ -280,10 +338,15 @@
                         </StackPanel>
 
                         <StackPanel Grid.Column="2">
-                            <TextBlock Text="Số lượng nhập"
-                                       FontSize="16"
-                                       FontWeight="SemiBold"
-                                       Height="22"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Số lượng nhập"
+                                           FontSize="16"
+                                           FontWeight="SemiBold"
+                                           Height="22"/>
+                                <TextBlock Text=" *"
+                                           Foreground="Red"
+                                           FontSize="16"/>
+                            </StackPanel>
                             <TextBox x:Name="StockTextBox"/>
                             <TextBlock x:Name="StockErrorMessage"
                                        Height="16"

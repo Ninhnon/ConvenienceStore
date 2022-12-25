@@ -52,6 +52,18 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
             // Pre Validation
             bool isValid = true;
 
+            if (string.IsNullOrEmpty(window.BarcodeTextBox.Text))
+            {
+                window.BarcodeErrorMessage.Text = "Chưa nhập Mã vạch";
+                isValid = false;
+            }
+
+            if (string.IsNullOrEmpty(window.TitleTextBox.Text))
+            {
+                window.TitleErrorMessage.Text = "Chưa nhập Tên sản phẩm";
+                isValid = false;
+            }
+
             if (string.IsNullOrEmpty(window.CostTextBox.Text))
             {
                 window.CostErrorMessage.Text = "Chưa nhập Giá nhập";
@@ -117,7 +129,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
                 isValid = false;
             }
 
-            
+
             // Update CHK_Date NSX < HSD 
             if (window.ManufacturingDate.SelectedDate.HasValue && window.ExpiryDate.SelectedDate.HasValue && window.ManufacturingDate.SelectedDate >= window.ExpiryDate.SelectedDate)
             {
@@ -126,11 +138,11 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
             }
 
             // Check xem manager đã upload ảnh lên chưa
-            if (window.ImageProduct.ImageSource == null)
-            {
-                window.ImageProductErrorMessage.Text = "Chưa tải ảnh lên";
-                isValid = false;
-            }
+            //if (window.ImageProduct.ImageSource == null)
+            //{
+            //    window.ImageProductErrorMessage.Text = "Chưa tải ảnh lên";
+            //    isValid = false;
+            //}
 
             if (!isValid) return;
             // Pre Validation Done 
@@ -145,20 +157,32 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
                 Cost = int.Parse(window.CostTextBox.Text),
                 Price = int.Parse(window.PriceTextBox.Text),
                 Stock = int.Parse(window.StockTextBox.Text),
-                // Update 
                 ManufacturingDate = (DateTime)window.ManufacturingDate.SelectedDate,
                 ExpiryDate = (DateTime)window.ExpiryDate.SelectedDate,
-                // End Update
                 Discount = int.Parse(window.DiscountTextBox.Text)
             };
 
-            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(window.ImageProduct.ImageSource as BitmapImage));
-            using (MemoryStream ms = new MemoryStream())
+            if (window.ImageProduct.ImageSource != null)
             {
-                encoder.Save(ms);
-                newProduct.Image = ms.ToArray();
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(window.ImageProduct.ImageSource as BitmapImage));
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    encoder.Save(ms);
+                    newProduct.Image = ms.ToArray();
+                }
             }
+            else
+            {
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(new Uri("../../../Resources/Images/IconForProduct/image-whiteBG.jpg", UriKind.Relative)));
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    encoder.Save(ms);
+                    newProduct.Image = ms.ToArray();
+                }
+            }
+
 
             ProductValidator validator = new ProductValidator();
 
