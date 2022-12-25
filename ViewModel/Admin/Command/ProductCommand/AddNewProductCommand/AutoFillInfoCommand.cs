@@ -41,8 +41,9 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
 
             string title;
             byte[] bytes;
+            string type;
 
-            (title, bytes) = DatabaseHelper.FetchingProductTableViaBarcode(BarcodeContent);
+            (title, bytes, type) = DatabaseHelper.FetchingProductTableViaBarcode(BarcodeContent);
 
             if (bytes == null) return;  // Update
 
@@ -56,6 +57,19 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
 
             window.TitleTextBox.Text = title;
             window.ImageProduct.ImageSource = bi;
+            
+            switch (type)
+            {
+                case "Đồ ăn": 
+                    window.TypeComboBox.SelectedIndex = 0; 
+                    break;
+                case "Thức uống":
+                    window.TypeComboBox.SelectedIndex = 1;
+                    break;
+                case "Khác":
+                    window.TypeComboBox.SelectedIndex = 2;
+                    break;
+            }
         }
     }
 }

@@ -31,7 +31,7 @@
                 <TextBlock Text="{Binding Title}"
                            TextWrapping="Wrap"
                            Foreground="Black"
-                           FontSize="14"
+                           FontSize="15"
                            FontWeight="Bold"
                            VerticalAlignment="Center"
                            Margin="0 0 0 5"/>

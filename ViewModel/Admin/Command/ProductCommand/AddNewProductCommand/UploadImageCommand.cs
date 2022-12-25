@@ -31,6 +31,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
             openDialog.FilterIndex = -1;
 
             BitmapImage bi = new BitmapImage();
+            bool isLoaded = false;
 
             if (openDialog.ShowDialog() == true)
             {
@@ -40,16 +41,13 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
                 bi.BeginInit();
                 bi.StreamSource = new MemoryStream(System.Convert.FromBase64String(s));
                 bi.EndInit();
+
+                isLoaded = true;
             }
             var imageBrush = (ImageBrush)parameter;
-            try
+            if (isLoaded)
             {
                 imageBrush.ImageSource = bi;
-            }
-            catch
-            {
-                /* Chỗ này phải xài try catch để bắt lỗi
-                 * Người dùng mở File Exploer nhưng không chọn ảnh mà nhấn nút "Cancle" */
             }
         }
     }

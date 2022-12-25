@@ -222,11 +222,12 @@
                         HorizontalAlignment="Left"
                         Margin="0 0 0 20"
                         Height="43"/>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0 0 0 4">
                         <TextBlock Text="Mã tiền tố"
-                        FontSize="18"
-                        FontWeight="SemiBold"
-                        Margin="0 0 0 4"/>
+                                   FontSize="18"
+                                    FontWeight="SemiBold"
+                        />
                         <TextBlock Text=" *"
                             Foreground="Red"
                             FontSize="18"/>
@@ -256,14 +257,14 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel>
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0 0 0 4">
                                 <TextBlock Text="SL kí tự hậu tố"
-                                    FontSize="18"
-                                    FontWeight="SemiBold"
-                                    Margin="0 0 0 4"/>
+                                           FontSize="18"
+                                           FontWeight="SemiBold"/>
                                 <TextBlock Text=" *"
-                                Foreground="Red"
-                                FontSize="18"/>
+                                           Foreground="Red"
+                                           FontSize="18"/>
                             </StackPanel>
 
                             <TextBox x:Name="SuffixNumber"
@@ -529,7 +530,7 @@
                     Background="#E9E4F0"
                     Visibility="Hidden"
                     CornerRadius="0 8 8 0">
-                               
+
                 <StackPanel Margin="30 0"
                             VerticalAlignment="Center">
                     <TextBlock Text="Thông tin chi tiết"
@@ -537,13 +538,13 @@
                                FontSize="32"
                                Margin="0 0 0 20"/>
                     <Grid Margin="0 0 0 15">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="25"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="Tên voucher: "
+                        <TextBlock Text="Tên voucher: "
                                 FontSize="18"
                                 FontWeight="SemiBold"/>
                         <TextBlock Grid.Column="2"
