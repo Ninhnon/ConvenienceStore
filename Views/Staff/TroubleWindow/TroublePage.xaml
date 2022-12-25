@@ -32,7 +32,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     <Page.Resources>
         <vm:EditConverter x:Key="EditConverter" />
     </Page.Resources>
-    <Border CornerRadius="0,0,20,0">
+    <Border CornerRadius="8">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                 <GradientStop Color='#E9E4F0' Offset="0"/>

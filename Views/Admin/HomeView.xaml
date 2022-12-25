@@ -278,14 +278,9 @@
 
                         <Border Style="{StaticResource socialCard}" VerticalAlignment="Top"
                            Width="200"
-                            Height="70"
+                            Height="70"   Background="#D3CCE3"
            >
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                                    <GradientStop Offset="0" Color="#FFAFBD"/>
-                                    <GradientStop Offset="1" Color="#E8CBC0"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
+                           
                             <StackPanel>
 
                                 <StackPanel Margin="0,5,0,0"  Style="{StaticResource socialCardStack}">
@@ -311,13 +306,11 @@
                         <Border  Width="200"
                             Height="70" 
                              VerticalAlignment="Top"
-                        Style="{StaticResource socialCard}">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                                    <GradientStop Offset="0" Color="#FFAFBD"/>
-                                    <GradientStop Offset="1" Color="#E8CBC0"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
+                        Style="{StaticResource socialCard}"
+                            
+                                 Background="#D3CCE3"
+                                 >
+                          
                             <StackPanel>
 
                                 <StackPanel Margin="0,5,0,0" Style="{StaticResource socialCardStack}">
@@ -345,13 +338,9 @@
 
                         <Border  Width="200"
                             Height="70"
-                        Style="{StaticResource socialCard}">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                                    <GradientStop Offset="0" Color="#FFAFBD"/>
-                                    <GradientStop Offset="1" Color="#E8CBC0"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
+                        Style="{StaticResource socialCard}"
+                                    Background="#D3CCE3">
+
                             <StackPanel>
 
                                 <StackPanel Margin="0,5,0,0" Style="{StaticResource socialCardStack}">
@@ -393,9 +382,9 @@
                    
                     >
                             <Border.Background>
-                                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                                    <GradientStop Color='#E9E4F0' Offset="0.3"/>
-                                    <GradientStop Color='#D3CCE3' Offset="1"/>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Color='#cbb4d4' Offset="0.9"/>
+                                  
                                 </LinearGradientBrush>
                             </Border.Background>
 
@@ -525,7 +514,7 @@
                             </StackPanel>
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,4" EndPoint="1,1">
-                                    <GradientStop Offset="0.5" Color="#ff9966"/>
+                                    <GradientStop Offset="0.5" Color="#E8CBC0"/>
                                     <GradientStop Offset="1" Color="#d9a7c7"/>
                                 </LinearGradientBrush>
                             </Border.Background>

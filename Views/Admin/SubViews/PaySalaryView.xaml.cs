@@ -42,6 +42,14 @@ namespace ConvenienceStore.Views.Admin.SubViews
 
         private void plusTextChanged(object sender, TextChangedEventArgs e)
         {
+            if(!(int.TryParse(this.plustextBox.Text, out int n)))
+            {
+               
+                this.plustextBox.Text = "";
+                this.salaryTxtbox.textBox.Text = EmployeeViewModel.Salary.ToString();
+                this.plustextBox.Focus();
+                return;
+            }
             if (string.IsNullOrEmpty(this.plustextBox.Text))
             {
                 if (string.IsNullOrEmpty(this.minustextBox.Text))
@@ -73,6 +81,14 @@ namespace ConvenienceStore.Views.Admin.SubViews
 
         private void minusTextChanged(object sender, TextChangedEventArgs e)
         {
+
+            if (!(int.TryParse(this.minustextBox.Text, out int n)))
+            {
+                this.minustextBox.Text = "";
+                this.salaryTxtbox.textBox.Text = EmployeeViewModel.Salary.ToString();
+                this.minustextBox.Focus();
+                return;
+            }
             if (string.IsNullOrEmpty(this.minustextBox.Text))
             {
                 if (string.IsNullOrEmpty(this.plustextBox.Text))

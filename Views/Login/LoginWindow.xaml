@@ -16,10 +16,16 @@
         WindowStyle="None"
         DataContext="{StaticResource LoginVM}"
         Height="660" Width="900" MouseDown="Window_MouseDown">
+  
     <Border CornerRadius="12">
+        <Border.Background>
+            <ImageBrush ImageSource="/Resources/Images/Login/pay.jpg"
+                        Stretch="UniformToFill"/>
+        </Border.Background>
         <Border CornerRadius="10"                    
             BorderThickness="2"
             Opacity="0.95">
+          
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#3A1C71" Offset="0"/>
@@ -29,6 +35,7 @@
             </Border.BorderBrush>
 
             <Border.Background>
+                
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                     <GradientStop Color='#E9E4F0' Offset="0"/>
                     <GradientStop Color='#D3CCE3' Offset="1"/>
