@@ -1,0 +1,69 @@
+﻿<Window x:Class="ConvenienceStore.Views.Admin.VoucherWindow.AlertDialogDeleteBlockVoucher"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConvenienceStore.Views.Admin.VoucherWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Command="clr-namespace:ConvenienceStore.ViewModel.Admin.Command"
+        mc:Ignorable="d"
+        x:Name="AlertDialogDeleteBlockVoucherScreen"
+        Height="660" Width="1200"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
+
+    <Window.Resources>
+
+        <Command:CloseAppCommand x:Key="CloseAppCommand"/>
+
+    </Window.Resources>
+
+    <Grid>
+
+        <Border Background="Black"
+                Opacity="0.4"
+                CornerRadius="8">
+        </Border>
+
+        <Border Background="White"
+                CornerRadius="8"
+                Width="400"
+                VerticalAlignment="Center">
+            <StackPanel Margin="30 30 30 25"
+                        Orientation="Vertical">
+                <TextBlock Text="Xác nhận xóa?"
+                           FontSize="24"
+                           FontWeight="SemiBold"
+                           Margin="0 0 0 20"/>
+
+                <TextBlock Text="Bạn có muốn xóa &quot;Đợt Voucher&quot; này khỏi danh sách không?"
+                           TextWrapping="Wrap"
+                           FontSize="16"
+                           Margin="0 0 0 30"/>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <Button Content="Hủy"
+                            Style="{StaticResource MaterialDesignOutlinedButton}"
+                            Foreground="{StaticResource PrimaryColor}"
+                            BorderBrush="{StaticResource PrimaryColor}"
+                            Margin="0 0 20 0"
+                            Width="60"
+                            Command="{StaticResource CloseAppCommand}"
+                            CommandParameter="{Binding ElementName=AlertDialogDeleteBlockVoucherScreen}"/>
+
+                    <Button Content="Xóa"
+                            Background="{StaticResource PrimaryColor}"
+                            BorderThickness="0"
+                            Width="60"
+                            Command="{Binding DeleteBlockVoucherButton}"
+                            CommandParameter="{Binding ElementName=AlertDialogDeleteBlockVoucherScreen}"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Window>
