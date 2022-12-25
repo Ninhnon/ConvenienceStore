@@ -6,10 +6,8 @@ namespace ConvenienceStore.Model.Admin
     {
         private int id;
         public int IdBill { get => id; set => id = value; }
-
         private int idAccount;
         public int IdAccount { get => idAccount; set => idAccount = value; }
-
         private DateTime billDate;
         public DateTime BillDate { get => billDate; set => billDate = value; }
 
