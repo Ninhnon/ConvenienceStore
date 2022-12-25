@@ -1,17 +1,10 @@
 using ConvenienceStore.Model;
 using ConvenienceStore.Model.Admin;
-using ConvenienceStore.Model.Staff;
-using ConvenienceStore.ViewModel.Admin.AdminVM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Security.Principal;
-using System.Windows.Forms;
-using ZXing;
-using static Emgu.CV.BarcodeDetector;
 
 namespace ConvenienceStore.Utils.Helpers
 {
@@ -119,7 +112,7 @@ namespace ConvenienceStore.Utils.Helpers
                         UserName = reader.GetString(3),
                         Email = reader.GetString(4),
                         Phone = reader.GetString(5),
-                        Avatar =  (byte[])reader["Avatar"],
+                        Avatar = (byte[])reader["Avatar"],
                         SupplierName = reader.GetString(7),
                     }
                 );
@@ -275,15 +268,15 @@ namespace ConvenienceStore.Utils.Helpers
         {
             sqlCon.Open();
             string query = "update users set Name=@name,Address=@address,Phone=@phone,Email=@email,Avatar=@avatar,ManagerId=@managerid where id=@id";
-         
-           
+
+
             var cmd = new SqlCommand(query, sqlCon);
-        
+
             cmd.Parameters.AddWithValue("@name", name);
             cmd.Parameters.AddWithValue("@address", address);
             cmd.Parameters.AddWithValue("@phone", phone);
             cmd.Parameters.AddWithValue("@email", email);
-       
+
             cmd.Parameters.AddWithValue("@avatar", avatar);
             cmd.Parameters.AddWithValue("@managerid", managerid);
             cmd.Parameters.AddWithValue("@id", id);
@@ -295,17 +288,17 @@ namespace ConvenienceStore.Utils.Helpers
             sqlCon.Open();
             var strCmd = string.Format(queryAccountAdmin, Id);
             var cmd = new SqlCommand(strCmd, sqlCon);
-           
+
             Account account = new Account();
-          
+
             SqlDataReader read = cmd.ExecuteReader();
 
             while (read.Read())
             {
-                account=new Account()
+                account = new Account()
                 {
                     IdAccount = read.GetInt32(0),
-                   
+
                     UserRole = read.GetString(1),
                     Name = read.GetString(2),
                     Address = read.GetString(3),
@@ -334,8 +327,8 @@ namespace ConvenienceStore.Utils.Helpers
             {
                 accounts.Add(new Account()
                 {
-                    IdAccount= read.GetInt32(0),
-                 
+                    IdAccount = read.GetInt32(0),
+
                     UserRole = read.GetString(1),
                     Name = read.GetString(2),
                     Address = read.GetString(3),
@@ -344,8 +337,8 @@ namespace ConvenienceStore.Utils.Helpers
                     UserName = read.GetString(6),
                     Password = read.GetString(7),
                     Avatar = (byte[])(read["Avatar"]),
-                      ManagerId = read.GetInt32(9),
-                      Salary = read.GetInt32(10)
+                    ManagerId = read.GetInt32(9),
+                    Salary = read.GetInt32(10)
 
                 });
                 accounts[i - 1].Number = i;
@@ -694,10 +687,10 @@ namespace ConvenienceStore.Utils.Helpers
         public static void UpdateSupplier(Supplier editedSupplier)
         {
             sqlCon.Open();
-            var strCmd = string.Format(updateSupplier, 
-                editedSupplier.Name, 
-                editedSupplier.Address, 
-                editedSupplier.Phone, 
+            var strCmd = string.Format(updateSupplier,
+                editedSupplier.Name,
+                editedSupplier.Address,
+                editedSupplier.Phone,
                 editedSupplier.Email,
                 editedSupplier.Id);
             var cmd = new SqlCommand(strCmd, sqlCon);
@@ -769,7 +762,7 @@ namespace ConvenienceStore.Utils.Helpers
 
             sqlCon.Close();
         }
-    
+
         public static void DeleteBlockVoucher(int BlockId)
         {
             sqlCon.Open();
