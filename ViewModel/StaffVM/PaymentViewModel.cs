@@ -39,6 +39,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public ICommand PrintBillCM { get; set; }
         public ICommand SearchCustomerIdCM { get; set; }
         public ICommand SearchVoucherCM { get; set; }
+        public ICommand ApplyPointCM { get; set; }
         public ICommand CompleteReceiptCM { get; set; }
         #endregion
 
@@ -73,18 +74,32 @@ namespace ConvenienceStore.ViewModel.StaffVM
         private int _TotalBill;
         public int TotalBill { get { return _TotalBill; } set { _TotalBill = value; OnPropertyChanged(); } }
 
-        private int _Discount;
-        public int Discount { get { return _Discount; } set { _Discount = value; OnPropertyChanged(); } }
+        public int Discount 
+        {
+            get
+            {
+                return VoucherDiscount + PointDiscount;
+            }
+        }
 
-        private string _VoucherCode;
-        public string VoucherCode { get { return _VoucherCode; } set { _VoucherCode = value; OnPropertyChanged(); } }
+        private int _VoucherDiscount;
+        public int VoucherDiscount { get { return _VoucherDiscount; } set { _VoucherDiscount = value; OnPropertyChanged("VoucherDiscount"); OnPropertyChanged("Discount"); } }
+
+        private int _PointDiscount;
+        public int PointDiscount { get { return _PointDiscount; } set { _PointDiscount = value; OnPropertyChanged("PointDiscount"); OnPropertyChanged("Discount"); } }
+
+        private string? _VoucherCode;
+        public string? VoucherCode { get { return _VoucherCode; } set { _VoucherCode = value; OnPropertyChanged(); } }
 
         private int? _CustomerId;
         public int? CustomerId { get { return _CustomerId; } set { _CustomerId = value; OnPropertyChanged(); } }
 
+        private int? _CustomerPoint;
+        public int? CustomerPoint { get { return _CustomerPoint; } set { _CustomerPoint = value; OnPropertyChanged(); } }
+
         //2 thuộc tính để quản lý việc lost focus
-        private string _PrevVoucherCode;
-        public string PrevVoucherCode { get { return _PrevVoucherCode; } set { _PrevVoucherCode = value; OnPropertyChanged(); } }
+        private string? _PrevVoucherCode;
+        public string? PrevVoucherCode { get { return _PrevVoucherCode; } set { _PrevVoucherCode = value; OnPropertyChanged(); } }
 
         private int? _PrevCustomerId;
         public int? PrevCustomerId { get { return _PrevCustomerId; } set { _PrevCustomerId = value; OnPropertyChanged(); } }
@@ -325,15 +340,29 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 MaskName.Visibility = Visibility.Visible;
 
                 TotalBill = 0;
-                Discount = 0;
+                VoucherDiscount = 0;
+                PointDiscount = 0;
+                VoucherCode = null;
+                PrevVoucherCode = null;
+
 
                 foreach (BillDetails bd in ShoppingCart)
                 {
-                    TotalBill += (int)bd.TotalPrice;
+                    TotalBill += bd.TotalPrice == null ? 0 : (int)bd.TotalPrice;
                 }
 
                 ReceiptPage.ShowDialog();
                 //wd.ShowDialog();
+            });
+
+            LoadReceiptPage = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                CustomerId = null;
+                PrevCustomerId = null;
+                CustomerPoint = 0;
             });
 
             CancelReceiptCM = new RelayCommand<Button>((p) =>
@@ -352,6 +381,12 @@ namespace ConvenienceStore.ViewModel.StaffVM
                     TotalBill = 0;
                 }
 
+                // Trả tổng đơn giá về ban đầu
+                TotalBill = 0;
+                foreach (BillDetails bd in ShoppingCart)
+                {
+                    TotalBill += bd.TotalPrice == null ? 0 : (int)bd.TotalPrice;
+                }
                 ReceiptPage.Close();
                 MaskName.Visibility = Visibility.Hidden;
             });
@@ -401,6 +436,20 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         MessageBoxCustom mbFailed = new MessageBoxCustom("Cảnh báo", "Mã khách hàng không hợp lệ", MessageType.Warning, MessageButtons.OK);
                         mbFailed.ShowDialog();
                     }
+
+                    //Lấy ra số điểm hiện tại khách hàng tích lũy
+                    CustomerPoint = DatabaseHelper.GetCustomerPoint(CustomerId);
+                    //Số điểm tích lũy trên 1000 sẽ được quyền áp dụng vào hóa đơn
+                    if (CustomerPoint >= 1000)
+                    {
+                        ReceiptPage.applyPointTbx.Text = $"Sử dụng {CustomerPoint} điểm để thanh toán";
+                        ReceiptPage.applyPointToggleBtn.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ReceiptPage.applyPointTbx.Text = $"Khách hàng không đủ điều kiện để sử dụng tính năng này";
+                        ReceiptPage.applyPointToggleBtn.IsEnabled = false;
+                    }
                 }
                 catch
                 {
@@ -427,11 +476,17 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         //Tạo một biến int trả về mã lỗi
                         //0: Mã giảm giá không tồn tại hoặc đã được sử dụng
                         //1: Mã giảm giá hết hạn
+                        //2: Mã giảm giá chưa tới ngày để sử dụng
                         MessageBoxCustom mb;
 
                         int err = -1;
-                        TotalBill += Discount;
-                        Discount = DatabaseHelper.ApplyVoucher(TotalBill, p.Text, ref err);
+                        int originTotalBill = 0;
+
+                        foreach (BillDetails bd in ShoppingCart)
+                        {
+                            originTotalBill += bd.TotalPrice == null ? 0 : (int)bd.TotalPrice;
+                        }
+                        VoucherDiscount = DatabaseHelper.ApplyVoucher(originTotalBill, p.Text, ref err);
 
                         if (err == 0)
                         {
@@ -445,27 +500,56 @@ namespace ConvenienceStore.ViewModel.StaffVM
                             mb.ShowDialog();
                             p.Text = "";
                         }
+                        else if (err == 2)
+                        {
+                            mb = new MessageBoxCustom("Áp dụng mã giảm giá thất bại", "Mã giảm giá sẽ được áp dụng trong thời gian tới, vui lòng thử lại sau", MessageType.Warning, MessageButtons.OK);
+                            mb.ShowDialog();
+                            p.Text = "";
+                        }
                         else
                         {
-                            PrevVoucherCode = VoucherCode;
+                            PrevVoucherCode = VoucherCode == null ? "" : VoucherCode;
                             VoucherCode = p.Text;
 
                             //Xử lí trường hợp nhập nhiều mã voucher
-                            if (TotalBill - Discount < 0)
+                            if (TotalBill - VoucherDiscount < 0)
                                 TotalBill = 0;
                             else
-                                TotalBill -= Discount;
+                                TotalBill -= VoucherDiscount;
                             mb = new MessageBoxCustom("Áp dụng mã giảm giá thành công", "Hóa đơn sẽ được giảm giá khi thanh toán thành công", MessageType.Success, MessageButtons.OK);
                             mb.ShowDialog();
                         }
                     }
                     else
-                        return;
+                    {
+                        PrevVoucherCode = VoucherCode;
+                        VoucherCode = null;
+                    }
                 }
                 catch
                 {
                     MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Có lỗi xảy ra, vui lòng thử lại", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
+                }
+            });
+
+            ApplyPointCM = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                if (ReceiptPage.applyPointToggleBtn.IsChecked == true)
+                {
+                    PointDiscount += CustomerPoint == null ? 0 : (int)CustomerPoint;
+                    if (TotalBill - CustomerPoint < 0)
+                        TotalBill = 0;
+                    else
+                        TotalBill -= CustomerPoint == null ? 0 : (int)CustomerPoint;
+                }
+                else
+                {
+                    PointDiscount -= CustomerPoint == null ? 0 : (int)CustomerPoint;
+                    TotalBill += CustomerPoint == null ? 0 : (int)CustomerPoint;
                 }
             });
 
@@ -490,6 +574,23 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         //Sửa số stock
                         DatabaseHelper.UpdateConsignmentStock(bd);
                     }
+
+                    //Cập nhật điểm cho khách hàng
+                    int originTotalBill = 0;
+
+                    foreach (BillDetails bd in ShoppingCart)
+                    {
+                        originTotalBill += bd.TotalPrice == null ? 0 : (int)bd.TotalPrice;
+                    }
+
+                    if (ReceiptPage.applyPointToggleBtn.IsChecked == true)
+                    {
+                        CustomerPoint = originTotalBill / 50;
+                    }
+                    else
+                        CustomerPoint += originTotalBill / 50;
+
+                    DatabaseHelper.UpdateCustomerPointStatus(CustomerId, CustomerPoint);
 
                     //Sửa trạng thái voucher trong database
                     DatabaseHelper.UpdateVoucherStatus(VoucherCode);

@@ -47,6 +47,7 @@ namespace ConvenienceStore.Views.Staff
                     PrintBtn.Visibility = Visibility.Collapsed;
                     OkBtn.Visibility = Visibility.Collapsed;
                     CancelBtn.Visibility = Visibility.Collapsed;
+                    applyPointGrid.Visibility = Visibility.Collapsed;
 
                     if (billDetailListView.ActualHeight > billDetailCard.Height)
                         receiptPage.Height = receiptPage.Height + billDetailListView.ActualHeight - billDetailCard.Height;
@@ -61,6 +62,7 @@ namespace ConvenienceStore.Views.Staff
                     PrintBtn.Visibility = Visibility.Visible;
                     OkBtn.Visibility = Visibility.Visible;
                     CancelBtn.Visibility = Visibility.Visible;
+                    applyPointGrid.Visibility = Visibility.Visible;
 
                     //Gán trở lại
                     billDetailCard.Height = a;

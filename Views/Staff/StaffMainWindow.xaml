@@ -125,17 +125,17 @@
                     </ToggleButton>
 
                 <StackPanel Grid.Row="3">
-                    <RadioButton x:Name="rdPayment" IsChecked="True" Content="Payment" Style="{DynamicResource MenuRadioButtonStyle}"
+                    <RadioButton x:Name="rdPayment" IsChecked="True" Content="Thanh toán" Style="{DynamicResource MenuRadioButtonStyle}"
                      Tag="{DynamicResource payment}"
                      Command="{Binding PaymentCommand}"
                      CommandParameter="{Binding ElementName=PagesNavigation}"
                                  FontWeight="SemiBold"/>
-                    <RadioButton x:Name="rdHistory" Content="History" Style="{DynamicResource MenuRadioButtonStyle}"
+                    <RadioButton x:Name="rdHistory" Content="Lịch sử" Style="{DynamicResource MenuRadioButtonStyle}"
                                  Tag="{DynamicResource history}" Margin="0 5 0 5"
                                  Command="{Binding HistoryCommand}"
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
                                  FontWeight="SemiBold"/>
-                    <RadioButton x:Name="rdProfile" Content="Profile" Style="{DynamicResource MenuRadioButtonStyle}"
+                    <RadioButton x:Name="rdProfile" Content="Thông tin cá nhân" Style="{DynamicResource MenuRadioButtonStyle}"
                                  Tag="{DynamicResource profile}" Margin="0 5 0 5"
                                  Command="{Binding ProfileCommand}"
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
@@ -150,21 +150,21 @@
                                  Command="{Binding VoucherCommand}"
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
                                  FontWeight="SemiBold"/>-->
-                    <RadioButton x:Name="rdReport" Content="Report" Style="{DynamicResource MenuRadioButtonStyle}"
+                    <RadioButton x:Name="rdReport" Content="Báo cáo" Style="{DynamicResource MenuRadioButtonStyle}"
                                  Tag="{DynamicResource report}" Margin="0 5 0 5"
                                  Command="{Binding ReportCommand}"
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
                                  FontWeight="SemiBold"/>
 
-                        <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" 
-                                Cursor="Hand"
-                                Click="btnClose_Click"
-                                Margin="0 210 0 20">
-                            <StackPanel Orientation="Horizontal">
-                                <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
-                                <TextBlock Text="Logout"/>
-                            </StackPanel>
-                        </Button>
+                    <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" 
+                            Cursor="Hand"
+                            Click="btnClose_Click"
+                            Margin="0 210 0 20">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Đăng xuất"/>
+                        </StackPanel>
+                    </Button>
 
 
                     </StackPanel>
