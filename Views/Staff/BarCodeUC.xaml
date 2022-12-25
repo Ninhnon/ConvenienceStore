@@ -50,12 +50,12 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button
                       Style="{StaticResource addButton}" VerticalAlignment="Center"
-                    Content="Close" Width="80" Click="btnClose_Click" Margin="0,0,0,0">
+                    Content="Close" Width="80" Click="btnClose_Click" Margin="0,0,0,0" Cursor="Hand">
                 </Button>
 
-                <Button 
+                <Button x:Name="btnStart"
                       Style="{StaticResource addButton}" HorizontalAlignment="Center"
-                    Margin="30,0,0,0" Content="Start" Width="80" Click="btnStart_Click">
+                    Margin="30,0,0,0" Content="Start" Width="80" Click="btnStart_Click" Cursor="Hand">
                 </Button>
 
             </StackPanel>
@@ -65,7 +65,7 @@
             CommandParameter="{Binding ElementName=wdBarcode}"
             Margin="0,10,0,0" Content="Find" Width="80"  
             IsDefault="True"
-                 >
+                Cursor="Hand">
             </Button>
 
 

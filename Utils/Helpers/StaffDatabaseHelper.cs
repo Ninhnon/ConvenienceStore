@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Windows;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace ConvenienceStore.Utils.Helpers
 {
@@ -55,6 +56,15 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string updateReportADSF = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost,Status = @Status, StartDate = @StartDate, FinishDate = @FinishDate,Description = @Description where Id=@Id";
         
         static readonly string updateReportFULL = @"update Report set Title = N'{0}', [Image] = {1}, RepairCost = {2},[Status] = '{3}',StartDate = '{4}',FinishDate = '{5}',Description = N'{6}' where [Id]={7}";
+
+        static readonly string queryCustomerPoint = @"select Point
+                                                        from Customer
+                                                        where Id = @customerId";
+
+        static readonly string queryUpdateCustomerPoint = @"update Customer
+                                                        set Point = @customerPoint
+                                                        where Id = @customerId";
+
         public static List<Model.Staff.Bill> FetchingBillData()
         {
             sqlCon.Open();
@@ -390,13 +400,14 @@ namespace ConvenienceStore.Utils.Helpers
             int discount = 0;
             if (vouchers.Count != 0)
             {
-                if (vouchers[0].Type == 0)  //Giảm tiền mặt
+                if (vouchers[0].FinishDate < System.DateTime.Now)  //Quá hạn sử dụng
+                    error = 1;
+                else if (vouchers[0].StartDate > System.DateTime.Now)  //Chưa tới ngày áp dụng
+                    error = 2;
+                else if (vouchers[0].Type == 0)  //Giảm tiền mặt
                     discount = vouchers[0].ParValue.HasValue ? Convert.ToInt32(vouchers[0].ParValue) : 0;
                 else if (vouchers[0].Type == 1) //Giảm %
                     discount = vouchers[0].ParValue.HasValue ? Convert.ToInt32(totalPrice * vouchers[0].ParValue / 100) : 0;
-
-                if (vouchers[0].FinishDate < System.DateTime.Now)  //Quá hạn sử dụng
-                    error = 1;
             }
             else
                 error = 0;
@@ -417,6 +428,21 @@ namespace ConvenienceStore.Utils.Helpers
                 sqlCon.Close();
             }
         }
+
+        public static void UpdateCustomerPointStatus(int? customerId, int? customerPoint)
+        {
+            if (customerId != null && customerPoint != null)
+            {
+                sqlCon.Open();
+                //Tìm kiếm voucher
+                var cmd = new SqlCommand(queryUpdateCustomerPoint, sqlCon);
+                cmd.Parameters.AddWithValue("@customerId", customerId);
+                cmd.Parameters.AddWithValue("@customerPoint", customerPoint);
+                cmd.ExecuteNonQuery();
+                sqlCon.Close();
+            }
+        }
+
         public static void UpdateReport(Report editedReport)
         {
             sqlCon.Open();
@@ -532,6 +558,21 @@ namespace ConvenienceStore.Utils.Helpers
             cmd.Parameters.AddWithValue("@inputInfoId", b.InputInfoId);
             cmd.ExecuteNonQuery();
             sqlCon.Close();
+        }
+
+        public static int GetCustomerPoint(int? customerId)
+        {
+            if (customerId == null)
+                return 0;
+            int customerPoint;
+            sqlCon.Open();
+            SqlCommand cmd = new SqlCommand(queryCustomerPoint, sqlCon);
+            cmd.Parameters.AddWithValue("@customerId", customerId);
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            customerPoint = reader.IsDBNull(0) ? 0 : reader.GetInt32(0);
+            sqlCon.Close();
+            return customerPoint;
         }
     }
 }

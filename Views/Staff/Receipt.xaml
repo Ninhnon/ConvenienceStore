@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Receipt"
         Width="450"
-        Height="500"
+        Height="520"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -39,7 +39,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
-
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <i:Interaction.Triggers>
@@ -89,7 +89,7 @@
                 <StackPanel Orientation="Vertical">
 
                     <!--Tên cửa hàng-->
-                    <TextBlock Text="CIRCLE K VIETNAM" 
+                    <TextBlock Text="ELLIPSE K VIETNAM" 
                          FontWeight="Bold"
                          FontSize="30"
                          TextAlignment="Center"
@@ -361,11 +361,38 @@
 
             </materialDesign:Card>
 
-            <Grid Grid.Row="3" Margin="0 5 0 5">
+            <Grid Grid.Row="3"
+                  Margin="5 10 0 0"
+                  x:Name="applyPointGrid">
+
+                <StackPanel Orientation="Horizontal">
+
+                    <ToggleButton x:Name="applyPointToggleBtn"
+                    Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                    ToolTip="Sử dụng điểm để thanh toán"
+                    IsChecked="False"
+                                  IsEnabled="False"
+                                  Command="{Binding ApplyPointCM}"/>
+
+                    <TextBlock Margin="10 0 0 0"
+                               FontSize="13"
+                               FontWeight="Light"
+                               x:Name="applyPointTbx"
+                               Text="Sử dụng điểm vào tổng hóa đơn">
+                        <!--<Run Text="Sử dụng"/>
+                        <Run Text="{Binding CustomerPoint}"/>
+                        <Run Text="điểm để thanh toán"/>-->
+                    </TextBlock>
+                </StackPanel>
+
+            </Grid>
+
+
+            <Grid Grid.Row="4" Margin="0 5 0 5">
 
                 <StackPanel Orientation="Vertical">
 
-                    <Separator Margin="5 10 5 0"/>
+                    <Separator Margin="5 5 5 0"/>
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -382,7 +409,9 @@
 
                                 <MultiBinding StringFormat="{}Giảm giá: {0}">
 
-                                    <Binding Path="Discount" Converter="{StaticResource MoneyToVNDCurrency}"/>
+                                    <Binding Path="Discount" 
+                                             Converter="{StaticResource MoneyToVNDCurrency}"
+                                             UpdateSourceTrigger="PropertyChanged"/>
 
                                 </MultiBinding>
 
@@ -413,7 +442,8 @@
 
             </Grid>
 
-            <Grid Grid.Row="4">
+            
+            <Grid Grid.Row="5">
                 <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"

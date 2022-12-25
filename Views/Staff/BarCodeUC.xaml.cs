@@ -52,6 +52,7 @@ namespace ConvenienceStore.Views.Staff
             videoCaptureDevice = new VideoCaptureDevice(filterInfoCollection[cboCamera.SelectedIndex].MonikerString);
             videoCaptureDevice.NewFrame += VideoCaptureDevice_NewFrame;
             videoCaptureDevice.Start();
+            btnStart.Visibility = Visibility.Collapsed;
         }
 
         private void VideoCaptureDevice_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
@@ -92,8 +93,8 @@ namespace ConvenienceStore.Views.Staff
                     videoCaptureDevice.SignalToStop();
                 }
             }
-          this.Visibility = Visibility.Hidden;
-
+            this.Visibility = Visibility.Hidden;
+            btnStart.Visibility = Visibility.Visible;
         }
     }
 }
