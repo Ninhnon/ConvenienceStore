@@ -50,6 +50,12 @@
                         <GradientStop Color='#D3CCE3' Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded">
+                        <i:InvokeCommandAction Command="{Binding BindingVoucherSnackbar}"
+                                               CommandParameter="{Binding ElementName=VoucherSnackbar}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <Grid>
                     <Grid VerticalAlignment="Top"
                           Margin="30 20 30 5">
@@ -121,7 +127,6 @@
                             </Grid>
                         </Border>
                     </Grid>
-
 
                     <ListBox x:Name="BlockVoucherCards"
                         ItemsSource="{Binding ObservableBlockVouchers}"
@@ -206,6 +211,9 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
+                    <materialDesign:Snackbar x:Name="VoucherSnackbar"
+                                             IsActive="False"
+                                             MessageQueue="{materialDesign:MessageQueue}"/>
                 </Grid>
             </Border>
 
@@ -370,7 +378,8 @@
 
                     <Grid>
                         <DatePicker x:Name="StartDate"
-                            SelectedDateFormat="Short"/>
+                            SelectedDateFormat="Short"
+                                    Language="vi"/>
                         <TextBlock Text="{Binding ElementName=StartDate,
                             Path=SelectedDate, StringFormat=dd-MM-yyyy}"
                             Background="#E9E4F0"
@@ -396,7 +405,8 @@
 
                     <Grid>
                         <DatePicker x:Name="FinishDate"
-                            SelectedDateFormat="Short"/>
+                            SelectedDateFormat="Short"
+                                    Language="vi"/>
                         <TextBlock Text="{Binding ElementName=FinishDate,
                             Path=SelectedDate, StringFormat=dd-MM-yyyy}"
                             Background="#E9E4F0"
@@ -410,7 +420,11 @@
                         Foreground="Red"
                         Margin="0 0 0 10"/>
 
-                    <Button Command="{Binding GenerateBlockVoucher}"
+                    <Button Style="{StaticResource addButton}"
+                            VerticalAlignment="Center"
+                            Margin="0"
+                            HorizontalAlignment="Center"
+                        Command="{Binding GenerateBlockVoucher}"
                             CommandParameter="{Binding ElementName=VoucherScreen}"
                             Height="35">
                         <Button.Content>

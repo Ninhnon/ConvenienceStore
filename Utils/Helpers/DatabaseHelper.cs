@@ -400,7 +400,7 @@ namespace ConvenienceStore.Utils.Helpers
                 accounts.Add(new Account()
                 {
                     IdAccount = read.GetInt32(0),
-                    ManagerId = read.GetInt32(0),
+                 
                     UserRole = read.GetString(1),
                     Name = read.GetString(2),
                     Address = read.GetString(3),
@@ -408,7 +408,8 @@ namespace ConvenienceStore.Utils.Helpers
                     Email = read.GetString(5),
                     UserName = read.GetString(6),
                     Password = read.GetString(7),
-                    Avatar = (byte[])(read["Avatar"])
+                    Avatar = (byte[])(read["Avatar"]),
+                       ManagerId = read.GetInt32(9)
                 });
                 accounts[i - 1].Number = i;
                 i++;

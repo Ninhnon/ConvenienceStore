@@ -35,14 +35,14 @@ namespace ConvenienceStore.ViewModel.StaffVM
 
         public ProfileViewModel()
         {
-            ManagerId = CurrentAccount.idAccount;
+
+            ManagerId = CurrentAccount.ManagerId;
             Name = CurrentAccount.Name;
             Address = CurrentAccount.Address;
             Email = CurrentAccount.Email;
             Phone = CurrentAccount.Phone;
             Avatar = CurrentAccount.Avatar;
-            MyTeam = DatabaseHelper.QueryStaffOnTeam(CurrentAccount.ManagerId);
-
+            MyTeam = DatabaseHelper.QueryStaffOnTeam(ManagerId);
             LoadCommand = new RelayCommand<Page>((p) =>
             {
                 return true;

@@ -79,7 +79,7 @@ namespace ConvenienceStore.ViewModel.Login
                     client.EnableSsl = true;
                     client.DeliveryMethod = SmtpDeliveryMethod.Network;
                     client.UseDefaultCredentials = false;
-                    client.Credentials = new NetworkCredential("minhku031103@gmail.com", "dajdjblvivpigbvq");
+                    client.Credentials = new NetworkCredential("minhku031103@gmail.com", "ytgealdlxalxznzb");
                     MailMessage mail = new MailMessage();
                     mail.From = new MailAddress("minhku031103@gmail.com");
                     mail.To.Add(email);

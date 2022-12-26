@@ -138,17 +138,17 @@
                 </Grid>
 
                 <DataGrid x:Name="SuppliersDataGrid" Background="Transparent"
-                      CellStyle="{DynamicResource DataGridCellStyle1}" 
-                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
-                      RowStyle="{DynamicResource DataGridRowStyle1}"
-                      ItemsSource="{Binding ObservableSupplier}"
-                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                      ScrollViewer.CanContentScroll="False"
-                      VirtualizingPanel.IsVirtualizing="True"
-                      Height="440"
-                      CanUserAddRows="False"
-                      AutoGenerateColumns="False">
+                          CellStyle="{DynamicResource DataGridCellStyle1}" 
+                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                          RowStyle="{DynamicResource DataGridRowStyle1}"
+                          ItemsSource="{Binding ObservableSupplier}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                          ScrollViewer.CanContentScroll="False"
+                          VirtualizingPanel.IsVirtualizing="True"
+                          Height="440"
+                          CanUserAddRows="False"
+                          AutoGenerateColumns="False">
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="#" 
@@ -221,6 +221,9 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
+            <materialDesign:Snackbar x:Name="SupplierSnackbar"
+                                     IsActive="False"
+                                     MessageQueue="{materialDesign:MessageQueue}"/>
         </Grid>
     </Border>
    

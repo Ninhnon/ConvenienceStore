@@ -49,9 +49,10 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                            Margin="0 0 0 5"/>
                     <Button Style="{StaticResource addButton}"
                     Cursor="Hand"
-                    Margin="0,0,30,0"
+                    Margin="0,0,0,0"
                     Command="{Binding OpenAddErrorCommand}"
                     Background="Red"
+                    HorizontalAlignment="Right"
                     Grid.Row="1">
                         <StackPanel Orientation="Horizontal" >
                             <Icon:PackIconMaterial Kind="Plus" 
@@ -111,18 +112,22 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 
                     </ComboBox>
                 </Grid>
-                <materialDesign:Card Background="Transparent">
-                    <ScrollViewer MouseWheel="ScrollViewer_PreviewMouseWheel"  VerticalScrollBarVisibility="Auto">
-                        <DataGrid
-                RowStyle="{DynamicResource DataGridRowStyle2}" 
-                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}"
-                      CellStyle="{DynamicResource DataGridCellStyle2}" 
+                <Grid>
+                    <DataGrid
+                    Style="{DynamicResource DataGridStyle2}"
+                    RowStyle="{DynamicResource DataGridRowStyle2}" 
+                    ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}"
+                    CellStyle="{DynamicResource DataGridCellStyle2}" 
                     ItemsSource="{Binding ListError, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedItem}"
                     x:Name="errorDatagrid"
                     ToolTip="Nháy đúp để xem chi tiết"
-                      Grid.Row="5"
-                      Style="{DynamicResource DataGridStyle2}">
+                    ScrollViewer.CanContentScroll="True" 
+                    ScrollViewer.VerticalScrollBarVisibility="Visible"
+                    ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                        Height="450"
+                    Margin="10"
+                    >
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseDoubleClick">
                                     <i:InvokeCommandAction Command="{Binding LoadDetailWindowCM}" />
@@ -147,7 +152,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                 <DataGridTemplateColumn Header="Trạng thái" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
-                                        Width="250">
+                                        Width="150">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Status}"
@@ -155,10 +160,11 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                                <DataGridTextColumn Header="Tên nhân viên báo cáo " Binding="{Binding StaffName}" IsReadOnly="True" Width="280"/>
-                                <DataGridTextColumn IsReadOnly="True"
+                                <DataGridTextColumn Header="Tên nhân viên báo cáo " Binding="{Binding StaffName}" IsReadOnly="True" Width="220"/>
+                            <DataGridTextColumn Header="Ngày báo cáo" Binding="{Binding SubmittedAt,StringFormat=dd/MM/yyyy}" IsReadOnly="True" Width="180"/>
+                            <DataGridTextColumn IsReadOnly="True"
                                         CanUserResize="False"
-                                        Width="140" Header="Cost " Binding="{Binding RepairCost, Converter={StaticResource MoneyToVNDCurrency}}" />
+                                        Width="140" Header="Chi phí" Binding="{Binding RepairCost, Converter={StaticResource MoneyToVNDCurrency}}" />
                                 <!--<DataGridTextColumn Header="Salary " Binding="{Binding Salary}" IsReadOnly="True" Width="100"/>-->
                                 <DataGridTemplateColumn Header="Thao tác" IsReadOnly="True" Width="auto">
                                     <DataGridTemplateColumn.CellTemplate>
@@ -179,8 +185,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                 </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
-                    </ScrollViewer>
-                </materialDesign:Card>
+                </Grid>
             </StackPanel>
 
             <Grid Background="Transparent"

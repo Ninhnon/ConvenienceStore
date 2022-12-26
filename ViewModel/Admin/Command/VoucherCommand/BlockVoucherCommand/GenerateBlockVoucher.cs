@@ -7,6 +7,7 @@ using ConvenienceStore.Views.Staff.ProductWindow;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -232,6 +233,13 @@ namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCo
             }
 
             DatabaseHelper.InsertBlockVoucher(newBlockVoucher);
+           List<BlockVoucher> blockVouchers = DatabaseHelper.FetchingBlockVoucherData();
+          ObservableCollection<BlockVoucher>  ObservableBlockVouchers = new ObservableCollection<BlockVoucher>(blockVouchers);
+
+            window.BlockVoucherCards.ItemsSource= ObservableBlockVouchers;
+            window.BlockVoucherCards.Items.Refresh(); //Update item ngay khi add xong, by: Thuong
+
+            VM.VoucherSnackbar.MessageQueue?.Enqueue($"Đã sinh ngẫu nhiên Voucher {newBlockVoucher.ReleaseName}", null, null, null, false, true, TimeSpan.FromSeconds(0.7));
 
             // Phần này Lâm đã check kĩ. Ngày 9/12/2022
         }

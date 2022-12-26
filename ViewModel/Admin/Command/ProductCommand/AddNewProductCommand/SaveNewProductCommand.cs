@@ -137,12 +137,23 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
             }
 
 
-            // Update CHK_Date NSX < HSD 
-            if (window.ManufacturingDate.SelectedDate.HasValue && window.ExpiryDate.SelectedDate.HasValue && window.ManufacturingDate.SelectedDate >= window.ExpiryDate.SelectedDate)
+            /* Update CHK_Date NSX < HSD 
+             * NSX < InputDate
+             * InputDate < HSD */
+            if (window.ManufacturingDate.SelectedDate.HasValue && window.ExpiryDate.SelectedDate.HasValue)
             {
-                window.ManufacturingDateErrorMessage.Text = "NSX phải bé hơn HSD";
-                isValid = false;
-            }
+                if (window.ManufacturingDate.SelectedDate > VM.SelectedInputInfo.InputDate)
+                {
+                    window.ManufacturingDateErrorMessage.Text = "NSX phải <= Ngày nhập hàng";
+                    isValid = false;
+                }
+
+                if (window.ExpiryDate.SelectedDate <= VM.SelectedInputInfo.InputDate)
+                {
+                    window.ExpiryDateErrorMessage.Text = "HSD phải > Ngày nhập hàng";
+                    isValid = false;
+                }
+            }    
 
             // Check xem manager đã upload ảnh lên chưa
             //if (window.ImageProduct.ImageSource == null)
@@ -223,6 +234,8 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
                 }
                 return;
             }
+
+            VM.ProductSnackbar.MessageQueue?.Enqueue($"Đã thêm Lô sản phẩm {newProduct.Title}!", null, null, null, false, true, TimeSpan.FromSeconds(0.8));
 
             if (newProduct.Barcode.Contains(VM.SearchContent))
             {

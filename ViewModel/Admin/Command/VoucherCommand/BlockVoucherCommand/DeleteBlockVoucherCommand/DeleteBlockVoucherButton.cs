@@ -34,8 +34,17 @@ namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCo
         {
             var blockVoucher = VM.DeletedBlockVoucher;
 
-            VM.ObservableBlockVouchers.Remove(blockVoucher);
-            VM.blockVouchers.Remove(blockVoucher);
+            for (int i = 0; i < VM.ObservableBlockVouchers.Count; ++i)
+            {
+                if (blockVoucher.Id == VM.ObservableBlockVouchers[i].Id)
+                {
+                    VM.ObservableBlockVouchers.RemoveAt(i);
+                    VM.blockVouchers.RemoveAt(i);
+                    break;
+                }
+            }
+
+            VM.VoucherSnackbar.MessageQueue?.Enqueue($"Đã xóa Voucher {blockVoucher.ReleaseName}", null, null, null, false, true, TimeSpan.FromSeconds(0.7));
 
             DatabaseHelper.DeleteBlockVoucher(blockVoucher.Id);
             (parameter as Window).Close();

@@ -14,6 +14,7 @@ using ConvenienceStore.Utils.Helpers;
 using System.IO;
 using System.Windows.Media.Imaging;
 using System.Windows.Ink;
+using ConvenienceStore.Model.Admin;
 
 namespace ConvenienceStore.ViewModel.Admin.AdminVM
 {
@@ -532,50 +533,52 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             parameter.top2.Visibility = Visibility.Visible;
 
             parameter.top3.Visibility = Visibility.Visible;
+            string today = DateTime.Now.Day.ToString();
             string currentMonth = DateTime.Now.Month.ToString();
-    
+
             string currentYear = DateTime.Now.Year.ToString();
-            List<Account> accounts = ReportDAL.Instance.QueryTopSaleMonth(currentMonth, currentYear);
+            List<Product> products = ReportDAL.Instance.QueryTopSaleMonth( currentMonth, currentYear);
 
-            if (accounts.Count==3)
+            if (products.Count == 3)
             {
-                parameter.top1.Title = accounts[0].Name;
-                parameter.top1.UpPrice = string.Format("{0:#,##0}", accounts[0].Tong).ToString()+" VND";
-                parameter.top1.avatarUser.Source =ConvertByteToBitmapImage( DatabaseHelper.LoadAvatar(accounts[0].IdAccount));
-      
-                parameter.top2.Title = accounts[1].Name;
-                parameter.top2.UpPrice = string.Format("{0:#,##0}", accounts[1].Tong).ToString() + " VND";
-                parameter.top2.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[1].IdAccount));
+                parameter.top1.Title = products[0].Title;
+                parameter.top1.UpPrice = string.Format("{0:#,##0}", products[0].Total).ToString() + " VND";
+                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadProductAvatar(products[0].Barcode));
+
+                parameter.top2.Title = products[1].Title;
+                parameter.top2.UpPrice = string.Format("{0:#,##0}", products[1].Total).ToString() + " VND";
+                parameter.top2.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadProductAvatar(products[1].Barcode));
 
 
-                parameter.top3.Title = accounts[2].Name;
-                parameter.top3.UpPrice = string.Format("{0:#,##0}", accounts[2].Tong).ToString() + " VND";
-                parameter.top3.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[2].IdAccount));
+                parameter.top3.Title = products[2].Title;
+                parameter.top3.UpPrice = string.Format("{0:#,##0}", products[2].Total).ToString() + " VND";
+                parameter.top3.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadProductAvatar(products[2].Barcode));
 
             }
 
 
-            if (accounts.Count == 2)
+            if (products.Count == 2)
             {
-                parameter.top1.Title = accounts[0].Name;
-                parameter.top1.UpPrice = string.Format("{0:#,##0}", accounts[0].Tong).ToString() + " VND";
-                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[0].IdAccount));
+                parameter.top1.Title = products[0].Title;
+                parameter.top1.UpPrice = string.Format("{0:#,##0}", products[0].Total).ToString() + " VND";
+                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadProductAvatar(products[0].Barcode));
 
+                parameter.top2.Title = products[1].Title;
+                parameter.top2.UpPrice = string.Format("{0:#,##0}", products[1].Total).ToString() + " VND";
+                parameter.top2.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadProductAvatar(products[1].Barcode));
 
-                parameter.top2.Title = accounts[1].Name;
-                parameter.top2.UpPrice = string.Format("{0:#,##0}", accounts[1].Tong).ToString() + " VND";
-                parameter.top2.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[1].IdAccount));
 
 
                 parameter.top3.Visibility = Visibility.Hidden;
             }
 
 
-            if (accounts.Count == 1)
+            if (products.Count == 1)
             {
-                parameter.top1.Title = accounts[0].Name;
-                parameter.top1.UpPrice = string.Format("{0:#,##0}", accounts[0].Tong).ToString() + " VND";
-                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[0].IdAccount));
+                parameter.top1.Title = products[0].Title;
+                parameter.top1.UpPrice = string.Format("{0:#,##0}", products[0].Total).ToString() + " VND";
+                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadProductAvatar(products[0].Barcode));
+
 
 
 
@@ -584,7 +587,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 parameter.top3.Visibility = Visibility.Hidden;
             }
 
-            if (accounts.Count == 0)
+            if (products.Count == 0)
             {
 
                 parameter.top1.Visibility = Visibility.Hidden;
@@ -593,7 +596,6 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
                 parameter.top3.Visibility = Visibility.Hidden;
             }
-
 
 
         }
@@ -609,47 +611,48 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             string currentMonth = DateTime.Now.Month.ToString();
 
             string currentYear = DateTime.Now.Year.ToString();
-            List<Account> accounts = ReportDAL.Instance.QueryTopSaleToday(today,currentMonth, currentYear);
+            List<Product> products = ReportDAL.Instance.QueryTopSaleToday(today,currentMonth, currentYear);
 
-            if (accounts.Count == 3)
+            if (products.Count == 3)
             {
-                parameter.top1.Title = accounts[0].Name;
-                parameter.top1.UpPrice = string.Format("{0:#,##0}", accounts[0].Tong).ToString() + " VND";
-                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[0].IdAccount));
+                parameter.top1.Title = products[0].Title;
+                parameter.top1.UpPrice = string.Format("{0:#,##0}", products[0].Total).ToString() + " VND";
+                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadProductAvatar(products[0].Barcode));
 
-                parameter.top2.Title = accounts[1].Name;
-                parameter.top2.UpPrice = string.Format("{0:#,##0}", accounts[1].Tong).ToString() + " VND";
-                parameter.top2.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[1].IdAccount));
+                parameter.top2.Title = products[1].Title;
+                parameter.top2.UpPrice = string.Format("{0:#,##0}", products[1].Total).ToString() + " VND";
+                parameter.top2.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadProductAvatar(products[1].Barcode));
 
 
-                parameter.top3.Title = accounts[2].Name;
-                parameter.top3.UpPrice = string.Format("{0:#,##0}", accounts[2].Tong).ToString() + " VND";
-                parameter.top3.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[2].IdAccount));
+                parameter.top3.Title = products[2].Title;
+                parameter.top3.UpPrice = string.Format("{0:#,##0}", products[2].Total).ToString() + " VND";
+                parameter.top3.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadProductAvatar(products[2].Barcode));
 
             }
 
 
-            if (accounts.Count == 2)
+            if (products.Count == 2)
             {
-                parameter.top1.Title = accounts[0].Name;
-                parameter.top1.UpPrice = string.Format("{0:#,##0}", accounts[0].Tong).ToString() + " VND";
-                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[0].IdAccount));
+                parameter.top1.Title = products[0].Title;
+                parameter.top1.UpPrice = string.Format("{0:#,##0}", products[0].Total).ToString() + " VND";
+                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadProductAvatar(products[0].Barcode));
 
+                parameter.top2.Title = products[1].Title;
+                parameter.top2.UpPrice = string.Format("{0:#,##0}", products[1].Total).ToString() + " VND";
+                parameter.top2.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadProductAvatar(products[1].Barcode));
 
-                parameter.top2.Title = accounts[1].Name;
-                parameter.top2.UpPrice = string.Format("{0:#,##0}", accounts[1].Tong).ToString() + " VND";
-                parameter.top2.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[1].IdAccount));
 
 
                 parameter.top3.Visibility = Visibility.Hidden;
             }
 
 
-            if (accounts.Count == 1)
+            if (products.Count == 1)
             {
-                parameter.top1.Title = accounts[0].Name;
-                parameter.top1.UpPrice = string.Format("{0:#,##0}", accounts[0].Tong).ToString() + " VND";
-                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[0].IdAccount));
+                parameter.top1.Title = products[0].Title;
+                parameter.top1.UpPrice = string.Format("{0:#,##0}", products[0].Total).ToString() + " VND";
+                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadProductAvatar(products[0].Barcode));
+
 
 
 
@@ -658,7 +661,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 parameter.top3.Visibility = Visibility.Hidden;
             }
 
-            if (accounts.Count == 0)
+            if (products.Count == 0)
             {
 
                 parameter.top1.Visibility = Visibility.Hidden;
@@ -679,49 +682,52 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             parameter.top2.Visibility = Visibility.Visible;
 
             parameter.top3.Visibility = Visibility.Visible;
+            string today = DateTime.Now.Day.ToString();
+            string currentMonth = DateTime.Now.Month.ToString();
 
             string currentYear = DateTime.Now.Year.ToString();
-            List<Account> accounts = ReportDAL.Instance.QueryTopSaleYear(currentYear);
+            List<Product> products = ReportDAL.Instance.QueryTopSaleYear( currentYear);
 
-            if (accounts.Count == 3)
+            if (products.Count == 3)
             {
-                parameter.top1.Title = accounts[0].Name;
-                parameter.top1.UpPrice = string.Format("{0:#,##0}", accounts[0].Tong).ToString() + " VND";
-                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[0].IdAccount));
+                parameter.top1.Title = products[0].Title;
+                parameter.top1.UpPrice = string.Format("{0:#,##0}", products[0].Total).ToString() + " VND";
+                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadProductAvatar(products[0].Barcode));
 
-                parameter.top2.Title = accounts[1].Name;
-                parameter.top2.UpPrice = string.Format("{0:#,##0}", accounts[1].Tong).ToString() + " VND";
-                parameter.top2.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[1].IdAccount));
+                parameter.top2.Title = products[1].Title;
+                parameter.top2.UpPrice = string.Format("{0:#,##0}", products[1].Total).ToString() + " VND";
+                parameter.top2.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadProductAvatar(products[1].Barcode));
 
 
-                parameter.top3.Title = accounts[2].Name;
-                parameter.top3.UpPrice = string.Format("{0:#,##0}", accounts[2].Tong).ToString() + " VND";
-                parameter.top3.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[2].IdAccount));
+                parameter.top3.Title = products[2].Title;
+                parameter.top3.UpPrice = string.Format("{0:#,##0}", products[2].Total).ToString() + " VND";
+                parameter.top3.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadProductAvatar(products[2].Barcode));
 
             }
 
 
-            if (accounts.Count == 2)
+            if (products.Count == 2)
             {
-                parameter.top1.Title = accounts[0].Name;
-                parameter.top1.UpPrice = string.Format("{0:#,##0}", accounts[0].Tong).ToString() + " VND";
-                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[0].IdAccount));
+                parameter.top1.Title = products[0].Title;
+                parameter.top1.UpPrice = string.Format("{0:#,##0}", products[0].Total).ToString() + " VND";
+                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadProductAvatar(products[0].Barcode));
 
+                parameter.top2.Title = products[1].Title;
+                parameter.top2.UpPrice = string.Format("{0:#,##0}", products[1].Total).ToString() + " VND";
+                parameter.top2.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadProductAvatar(products[1].Barcode));
 
-                parameter.top2.Title = accounts[1].Name;
-                parameter.top2.UpPrice = string.Format("{0:#,##0}", accounts[1].Tong).ToString() + " VND";
-                parameter.top2.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[1].IdAccount));
 
 
                 parameter.top3.Visibility = Visibility.Hidden;
             }
 
 
-            if (accounts.Count == 1)
+            if (products.Count == 1)
             {
-                parameter.top1.Title = accounts[0].Name;
-                parameter.top1.UpPrice = string.Format("{0:#,##0}", accounts[0].Tong).ToString() + " VND";
-                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadAvatar(accounts[0].IdAccount));
+                parameter.top1.Title = products[0].Title;
+                parameter.top1.UpPrice = string.Format("{0:#,##0}", products[0].Total).ToString() + " VND";
+                parameter.top1.avatarUser.Source = ConvertByteToBitmapImage(DatabaseHelper.LoadProductAvatar(products[0].Barcode));
+
 
 
 
@@ -730,7 +736,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 parameter.top3.Visibility = Visibility.Hidden;
             }
 
-            if (accounts.Count == 0)
+            if (products.Count == 0)
             {
 
                 parameter.top1.Visibility = Visibility.Hidden;
@@ -739,6 +745,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
                 parameter.top3.Visibility = Visibility.Hidden;
             }
+
 
 
 

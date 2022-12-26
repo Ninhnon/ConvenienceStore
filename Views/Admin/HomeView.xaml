@@ -196,7 +196,7 @@
                 <StackPanel Margin="20,0,0,0"
                 Orientation="Horizontal" VerticalAlignment="Bottom"
                         HorizontalAlignment="Center" >
-                    <RadioButton Content="Today" 
+                    <RadioButton Content="Hôm nay" 
                         x:Name="todayButton"
                              IsChecked="True"
                         Style="{StaticResource topBtnStyle}">
@@ -220,7 +220,7 @@
                         </i:Interaction.Triggers>
                     </RadioButton>
 
-                    <RadioButton Content="Month" 
+                    <RadioButton Content="Tháng" 
                         x:Name="monthButton"
                         Style="{StaticResource topBtnStyle}">
                         <i:Interaction.Triggers>
@@ -244,7 +244,7 @@
                         </i:Interaction.Triggers>
 
                     </RadioButton>
-                    <RadioButton Content="Year"
+                    <RadioButton Content="Năm"
                         x:Name="yearButton"
                         Style="{StaticResource topBtnStyle}">
                         <i:Interaction.Triggers>
@@ -502,7 +502,7 @@
                         <Border VerticalAlignment="Top" Margin="50,20,50,0"
                         Style="{StaticResource whiteBorder}" Height="267"  Width="236">
                             <StackPanel Margin="-20,-20,-20,-19">
-                                <TextBlock Text="Sales Top List " HorizontalAlignment="Center"
+                                <TextBlock Text="Sản phẩm bán chạy " HorizontalAlignment="Center"
                                         Height="28" FontSize="16" FontWeight="Bold"
                                        Foreground="Black"
                                        />

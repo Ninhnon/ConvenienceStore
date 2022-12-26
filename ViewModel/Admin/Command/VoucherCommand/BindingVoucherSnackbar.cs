@@ -1,5 +1,4 @@
 ﻿using ConvenienceStore.ViewModel.Admin.AdminVM;
-using ConvenienceStore.Views.Admin.ProductWindow;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
@@ -8,13 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductCommand
+namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand
 {
-    public class AddProductButtonCommand : ICommand
+    class BindingVoucherSnackbar : ICommand
     {
-        InputInfoVM VM;
-
-        public AddProductButtonCommand(InputInfoVM VM)
+        VoucherVM VM;
+        public BindingVoucherSnackbar(VoucherVM VM)
         {
             this.VM = VM;
         }
@@ -32,9 +30,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
 
         public void Execute(object parameter)
         {
-            AddNewProductWindow addNewProductWindow = new AddNewProductWindow();
-            addNewProductWindow.DataContext = VM;
-            addNewProductWindow.ShowDialog();
+            VM.VoucherSnackbar = parameter as Snackbar;
         }
     }
 }

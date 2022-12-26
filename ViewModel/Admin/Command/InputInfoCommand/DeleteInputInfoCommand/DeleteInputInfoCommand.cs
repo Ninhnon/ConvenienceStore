@@ -1,4 +1,5 @@
-﻿using ConvenienceStore.Utils.Helpers;
+﻿using ConvenienceStore.Model.Admin;
+using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin.AdminVM;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,8 @@ namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand.DeleteInputI
 
             VM.ObservableInputInfos.Remove(inputInfo);
             VM.inputInfos.Remove(inputInfo);
+
+            VM.InputInfoSnackbar.MessageQueue?.Enqueue($"Đã xóa Đợt nhập hàng ngày {inputInfo.InputDate.ToString("dd/MM/yyyy")}", null, null, null, false, true, TimeSpan.FromSeconds(0.7));
 
             DatabaseHelper.DeleteInputInfo(inputInfo.Id);
             (parameter as Window).Close();

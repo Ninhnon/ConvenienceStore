@@ -60,7 +60,7 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel>
-                            <TextBlock Text="Title"
+                            <TextBlock Text="Vấn đề"
                                             FontSize="16"
                                             FontWeight="SemiBold"
                                             Height="22"/>
@@ -72,7 +72,7 @@
                                             Height="16"
                                             Margin="0 0 0 10"/>
                             <StackPanel>
-                                <TextBlock Text="Description"
+                                <TextBlock Text="Thông tin chi tiết"
                                             FontSize="16"
                                             FontWeight="SemiBold"
                                             Height="22"/>
@@ -83,7 +83,6 @@
                                      TextWrapping="Wrap"
                                      VerticalScrollBarVisibility="Auto"
                                      HorizontalScrollBarVisibility="Disabled"
-                                     materialDesign:HintAssist.Hint="Mô tả lỗi"
                                      FontSize="16"
                                      Margin="0,5,0,0"
                                      Foreground="Black"
@@ -103,7 +102,7 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0">
 
-                                    <TextBlock Text="Status"
+                                    <TextBlock Text="Trạng thái"
                                         FontSize="16"
                                         FontWeight="SemiBold"
                                         Height="22"/>
@@ -117,7 +116,7 @@
                                 </StackPanel>
                                 <StackPanel Grid.Column="2">
 
-                                    <TextBlock Text="Staff Name"
+                                    <TextBlock Text="Nhân viên báo cáo"
                                         FontWeight="SemiBold"
                                         FontSize="16"
                                         Height="22"/>
@@ -208,7 +207,7 @@
                         </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0">
-                            <TextBlock Text="Expected costs"
+                            <TextBlock Text="Chi phí dự kiến"
                                         FontSize="16"
                                         FontWeight="SemiBold"
                                         Height="22"/>
@@ -220,7 +219,7 @@
                             </StackPanel>
 
                         <StackPanel Grid.Column="2">
-                            <TextBlock Text="Submited Date"
+                            <TextBlock Text="Ngày báo cáo"
                                         FontSize="16"
                                         FontWeight="SemiBold"
                                         Height="22"/>
@@ -246,16 +245,16 @@
                     <StackPanel Grid.Row="1"
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Right">
-                        <Button Content="Cancle"
+                        <Button Content="Hủy"
                                 Foreground="{StaticResource PrimaryColor}"
                                 Style="{StaticResource MaterialDesignOutlinedButton}"
                                 BorderBrush="{StaticResource PrimaryColor}"
                                 Margin="0 0 20 0"
                                 Width="75"
-                                Command="{StaticResource CloseAppCommand}"
+                                Command="{Binding CloseCM}"
                                 CommandParameter="{Binding ElementName=AddNewReportScreen}"/>
                         <Button x:Name="SaveButton"
-                                Content="Save"
+                                Content="Lưu"
                                 Background="{StaticResource PrimaryColor}"
                                 BorderThickness="0"
                                 Command="{Binding SaveNewTroubleCommand}"

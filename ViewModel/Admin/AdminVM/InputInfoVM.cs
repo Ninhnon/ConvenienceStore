@@ -7,6 +7,7 @@ using ConvenienceStore.ViewModel.Admin.Command.ProductCommand;
 using ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductCommand;
 using ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCommand;
 using ConvenienceStore.Views.Admin;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -127,6 +128,10 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             }
         }
 
+        public Snackbar InputInfoSnackbar;
+
+        public Snackbar ProductSnackbar;
+
         // Command
       
         public OpenInputInfoCommand OpenInputInfoCommand { get; set; }
@@ -138,7 +143,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public AddProductButtonCommand AddProductButtonCommand { get; set; }
         public DeleteProductCommand DeleteProductCommand { get; set; }
         public SaveNewProductCommand SaveNewProductCommand { get; set; }
-        public ICommand SupplierCommand { get; set; }
+        public BindingProductSnackbar BindingProductSnackbar { get; set; }
+        public CheckExistBarcode CheckExistBarcode { get; set; }
+
         public InputInfoVM()
         {
             CurAccountName = CurrentAccount.Name;
@@ -170,7 +177,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             AddProductButtonCommand = new AddProductButtonCommand(this);
             DeleteProductCommand = new DeleteProductCommand(this);
             SaveNewProductCommand = new SaveNewProductCommand(this);
-   
+
+            BindingProductSnackbar = new BindingProductSnackbar(this);
+            CheckExistBarcode = new CheckExistBarcode(this);
         }
     
         public void LoadProducts()

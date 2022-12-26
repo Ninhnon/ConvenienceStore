@@ -11,10 +11,9 @@ using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand
 {
-    internal class RefreshData : ICommand
+    class RefreshData : ICommand
     {
         VoucherVM VM;
-
         public RefreshData(VoucherVM VM)
         {
             this.VM = VM;

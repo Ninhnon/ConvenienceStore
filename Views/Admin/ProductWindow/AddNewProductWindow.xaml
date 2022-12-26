@@ -24,6 +24,7 @@
         <AddNewProductCommand:UploadImageCommand x:Key="UploadImageCommand"/>
         <AddNewProductCommand:AutoFillInfoCommand x:Key="AutoFillInfoCommand"/>
         <Converters:HasImageConverter x:Key="HasImageConverter"/>
+        <Converters:MultiParameterConverter x:Key="MultiParameterConverter"/>
     </Window.Resources>
 
     <Grid>
@@ -87,11 +88,21 @@
                                                 <i:InvokeCommandAction Command="{StaticResource AutoFillInfoCommand}"
                                                                        CommandParameter="{Binding ElementName=AddNewProductScreen}"/>
                                             </i:EventTrigger>
+                                            <i:EventTrigger EventName="LostFocus">
+                                                <i:InvokeCommandAction Command="{Binding CheckExistBarcode}">
+                                                    <i:InvokeCommandAction.CommandParameter>
+                                                        <MultiBinding Converter="{StaticResource MultiParameterConverter}">
+                                                            <Binding ElementName="BarcodeTextBox" Path="Text"/>
+                                                            <Binding ElementName="BarcodeErrorMessage"/>
+                                                        </MultiBinding>
+                                                    </i:InvokeCommandAction.CommandParameter>
+                                                </i:InvokeCommandAction>
+                                            </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </TextBox>
                                     <TextBlock x:Name="BarcodeErrorMessage"
-                                                Foreground="Red"
-                                                Height="16"/>
+                                               Foreground="Red"
+                                               Height="16"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="2">
                                     <TextBlock Text="Nơi sản xuất"
@@ -279,7 +290,8 @@
                             </StackPanel>
                             <Grid>
                                 <DatePicker x:Name="ManufacturingDate"
-                                            SelectedDateFormat="Short"/>
+                                            SelectedDateFormat="Short"
+                                            Language="vi"/>
                                 <TextBlock Text="{Binding ElementName=ManufacturingDate,
                                            Path=SelectedDate, StringFormat=dd-MM-yyyy}"
                                            Background="White"
@@ -307,7 +319,8 @@
                             <Grid>
 
                                 <DatePicker x:Name="ExpiryDate"
-                                            SelectedDateFormat="Short"/>
+                                            SelectedDateFormat="Short"
+                                            Language="vi"/>
                                 <TextBlock x:Name="ExpiryDateTextBlock"
                                             Text="{Binding ElementName=ExpiryDate, Path=SelectedDate, StringFormat=dd-MM-yyyy}"
                                             Background="White"

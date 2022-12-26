@@ -80,7 +80,8 @@
                                    FontWeight="SemiBold"/>
                         <Grid Grid.Column="1">
                             <DatePicker x:Name="DatePicker"
-                                        SelectedDate="{x:Static sys:DateTime.Now}"/>
+                                        SelectedDate="{x:Static sys:DateTime.Now}"
+                                        Language="vi"/>
                             <TextBlock Text="{Binding ElementName=DatePicker,
                                        Path=SelectedDate, StringFormat=dd-MM-yyyy}"
                                        FontSize="15"

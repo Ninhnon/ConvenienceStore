@@ -58,7 +58,12 @@ namespace ConvenienceStore.Model.Admin
             get { return price; }
             set { price = value; OnPropertyChanged("Price"); }
         }
-
+        private int total;
+        public int Total
+        {
+            get { return total; }
+            set { total = value; OnPropertyChanged("Total"); }
+        }
         private int stock;
 
         public int Stock

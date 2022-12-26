@@ -41,11 +41,13 @@ namespace ConvenienceStore.Views.Admin.TroubleWindow
                 {
                     _start1.IsEnabled = true;
                     _start1.Visibility = Visibility.Visible;
+                    StartDate.SelectedDate = DateTime.Now;
                 }
                 if (_finish1 != null)
                 {
                     _finish1.IsEnabled = true;
                     _finish1.Visibility = Visibility.Visible;
+                    FinishDate.SelectedDate= DateTime.Now;
                 }
             }
             else if (cbxStatus.SelectedIndex == 1)
@@ -54,6 +56,7 @@ namespace ConvenienceStore.Views.Admin.TroubleWindow
                 {
                     _start1.IsEnabled = true;
                     _start1.Visibility = Visibility.Visible;
+                    StartDate.SelectedDate= DateTime.Now;
                 }
                 if (_finish1 != null)
                 {

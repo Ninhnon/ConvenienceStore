@@ -1,6 +1,7 @@
 ﻿using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Views.Admin.ProductWindow;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Windows.Input;
 
@@ -21,7 +22,9 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCom
 
         public void Execute(object parameter)
         {
-            var currentProduct = (Product)parameter;
+            var values = (object[]) parameter;
+            var currentProduct = (Product)values[0];
+            var snackbar = (Snackbar)values[1];
 
             var coppyCurProduct = new Product()
             {
@@ -69,6 +72,9 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCom
                 currentProduct.Discount != coppyCurProduct.Discount)
             {
                 // Sau khi cửa sổ Edit đóng thì "currentProduct" đã được update
+                // 1. Thông báo edit thành công
+                snackbar.MessageQueue?.Enqueue($"Đã cập nhật Lô sản phẩm {currentProduct.Title}", null, null, null, false, true, TimeSpan.FromSeconds(0.8));
+                // 2. Update to DB
                 DatabaseHelper.UpdateProduct(currentProduct);
             }
         }

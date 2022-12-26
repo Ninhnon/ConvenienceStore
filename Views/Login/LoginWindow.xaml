@@ -118,7 +118,7 @@
 
 
 
-                    <TextBlock Text="Username"
+                    <TextBlock Text="Tên đăng nhập"
                                Foreground="DarkGray"
                                FontSize="12"
                                FontWeight="Medium"
@@ -144,7 +144,7 @@
                             </TextBox.Background>
                         </TextBox>
                     </Border>
-                    <TextBlock Text="Password"
+                    <TextBlock Text="Mật khẩu"
                                Foreground="DarkGray"
                                FontSize="12"
                                       Margin="0,15,0,0"
