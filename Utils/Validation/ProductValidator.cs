@@ -28,7 +28,7 @@ namespace ConvenienceStore.Utils.Validation
                 .Must(NonNegativeInteger).WithMessage("Giá bán phải >= 0");
 
             RuleFor(p => p.Discount)
-                .Must(NonNegativeInteger).WithMessage("Tỉ lệ giảm giá phải >= 0")
+                .Must(NonNegativeDouble).WithMessage("Tỉ lệ giảm giá phải >= 0")
                 .Must(BeAValidDiscount).WithMessage("Tỉ lệ giảm giá phải <= 100");
 
             RuleFor(p => p.Stock)
@@ -40,7 +40,12 @@ namespace ConvenienceStore.Utils.Validation
             return Number >= 0;
         }
 
-        protected bool BeAValidDiscount(int discount)
+        protected bool NonNegativeDouble(double Number)
+        {
+            return Number >= 0;
+        }
+
+        protected bool BeAValidDiscount(double discount)
         {
             return discount <= 100;
         }

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ConvenienceStore.ViewModel.StaffVM;
 
-namespace ConvenienceStore.Views.Staff
+namespace ConvenienceStore.Views.Staff.PaymentWindow
 {
     /// <summary>
     /// Interaction logic for Receipt.xaml

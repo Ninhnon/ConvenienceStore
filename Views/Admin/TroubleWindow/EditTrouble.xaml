@@ -252,7 +252,8 @@
                                 <!--IsEnabled="True"  Visibility="{Binding SelectedReport.StartDate, Converter={StaticResource HasOjectConverter}}"-->
                                 <DatePicker x:Name="StartDate"
                                             SelectedDate="{Binding SelectedReport.StartDate, Mode=OneTime}"
-                                            SelectedDateFormat="Short"/>
+                                            SelectedDateFormat="Short"
+                                            Language="vi"/>
                                 <TextBlock x:Name="startdate"
                                 Text="{Binding ElementName=StartDate, Path=SelectedDate, StringFormat=dd-MM-yyyy}"
                                             Background="White"

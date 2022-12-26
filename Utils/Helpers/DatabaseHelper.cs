@@ -160,7 +160,7 @@ namespace ConvenienceStore.Utils.Helpers
                     Price = reader.GetInt32(6),
                     ManufacturingDate = reader.GetDateTime(7),
                     ExpiryDate = reader.GetDateTime(8),
-                    Discount = reader.GetInt32(9),
+                    Discount = reader.GetDouble(9),
                     Type = reader.GetString(10)
                 });
 

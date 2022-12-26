@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 using ZXing;
 using ZXing.Windows.Compatibility;
 
-namespace ConvenienceStore.Views.Staff
+namespace ConvenienceStore.Views.Staff.PaymentWindow
 {
     /// <summary>
     /// Interaction logic for BarCodeUC.xaml

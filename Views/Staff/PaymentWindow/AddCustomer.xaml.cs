@@ -15,20 +15,13 @@ using System.Windows.Shapes;
 namespace ConvenienceStore.Views.Staff.PaymentWindow
 {
     /// <summary>
-    /// Interaction logic for PaymentWindow.xaml
+    /// Interaction logic for AddCustomer.xaml
     /// </summary>
-    public partial class PaymentWindow : Page
+    public partial class AddCustomer : Window
     {
-        public PaymentWindow()
+        public AddCustomer()
         {
             InitializeComponent();
-        }
-
-        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            ScrollViewer scv = (ScrollViewer)sender;
-            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
-            e.Handled = true;
         }
     }
 }

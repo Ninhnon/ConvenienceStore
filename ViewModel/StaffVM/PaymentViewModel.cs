@@ -2,7 +2,7 @@
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Views;
-using ConvenienceStore.Views.Staff;
+using ConvenienceStore.Views.Staff.PaymentWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -164,8 +164,21 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 {
                     SelectedItem = FilteredList[0];
                     var checkExistItem = ShoppingCart.Where(x => x.ProductId == SelectedItem.BarCode);
-                    if (checkExistItem.Count() != 0 || checkExistItem == null)
+                    if (checkExistItem == null)
                         return;
+                    else if (checkExistItem.Count() != 0)
+                    {
+                        foreach (BillDetails bd in ShoppingCart)
+                        {
+                            if (bd.ProductId == SelectedItem.BarCode)
+                            {
+                                TotalBill -= (int)(bd.TotalPrice == null ? 0 : bd.TotalPrice);
+                                bd.TotalPrice = bd.TotalPrice / bd.Quantity * (bd.Quantity + 1);
+                                TotalBill += (int)(bd.TotalPrice == null ? 0 : bd.TotalPrice);
+                                bd.Quantity++;
+                            }
+                        }
+                    }
                     else
                     {
                         //SelectedItem.Quantity = 1;
@@ -203,8 +216,21 @@ namespace ConvenienceStore.ViewModel.StaffVM
             {
                 //Kiểm tra trong giỏ hàng đã có hay chưa, có rồi thì không thêm vào
                 var checkExistItem = ShoppingCart.Where(x => x.ProductId == SelectedItem.BarCode);
-                if (checkExistItem.Count() != 0 || checkExistItem == null)
+                if (checkExistItem == null)
                     return;
+                else if (checkExistItem.Count() != 0)
+                {
+                    foreach(BillDetails bd in ShoppingCart)
+                    {
+                        if (bd.ProductId == SelectedItem.BarCode)
+                        {
+                            TotalBill -= (int)(bd.TotalPrice == null ? 0 : bd.TotalPrice);
+                            bd.TotalPrice = bd.TotalPrice / bd.Quantity * (bd.Quantity + 1);
+                            TotalBill += (int)(bd.TotalPrice == null ? 0 : bd.TotalPrice);
+                            bd.Quantity++;
+                        }
+                    }
+                }
                 else
                 {
                     //SelectedItem.Quantity = 1;
