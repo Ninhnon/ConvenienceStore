@@ -330,6 +330,23 @@ namespace ConvenienceStore.Utils.Helpers
 
             return Avatar;
         }
+        public static byte[] LoadProductAvatar(string id)
+        {
+            sqlCon.Open();
+            var strCmd = string.Format("select Image from [Product] where Barcode={0}", id);
+
+            byte[] Avatar = new byte[byte.MaxValue];
+            SqlCommand cmd = new(strCmd, sqlCon);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                Avatar = reader.IsDBNull(0) ? null : (Byte[])reader["Image"];
+            }
+            reader.Close();
+            sqlCon.Close();
+
+            return Avatar;
+        }
         public static string GetName(int id)
         {
             var strCmd = string.Format(queryName, id);

@@ -70,6 +70,8 @@ namespace ConvenienceStore.ViewModel.Login
                     CurrentAccount.idAccount = account.IdAccount;
                     CurrentAccount.Password = account.Password;
                     CurrentAccount.Avatar = account.Avatar;
+                    CurrentAccount.ManagerId=account.ManagerId;
+                    
                     MessageBoxCustom mb = new("Thông báo", "Đăng nhập thành công", MessageType.Success, MessageButtons.OK);
                     flag = 1;
                     isLogin = true;

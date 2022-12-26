@@ -9,12 +9,13 @@
       xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
       xmlns:UserControls="clr-namespace:ConvenienceStore.Views.Admin.UserControls"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" 
       DataContext="{StaticResource TroubleADVM}"
       Style="{StaticResource Page_Style}"
       Height="620"
       Width="1140"
-
+x:Name="wdReport"
       Background="Transparent">
 
     <Page.Resources>
@@ -100,8 +101,9 @@
                                 </ComboBox>
 
                             </StackPanel>
-
+                    
                         </StackPanel>
+                       
                     </Grid>
                     <ListView x:Name="ListViewProductCard"
                               Margin="25 150 25 27"

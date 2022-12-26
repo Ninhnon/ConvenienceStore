@@ -502,7 +502,7 @@
                         <Border VerticalAlignment="Top" Margin="50,20,50,0"
                         Style="{StaticResource whiteBorder}" Height="267"  Width="236">
                             <StackPanel Margin="-20,-20,-20,-19">
-                                <TextBlock Text="Top Sales " HorizontalAlignment="Center"
+                                <TextBlock Text="Sản phẩm bán chạy " HorizontalAlignment="Center"
                                         Height="28" FontSize="16" FontWeight="Bold"
                                        Foreground="Black"
                                        />
