@@ -58,6 +58,5 @@ namespace ConvenienceStore.Views.Admin
                 }
             }
         }
-
     }
 }

@@ -224,6 +224,8 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
                 return;
             }
 
+            VM.ProductSnackbar.MessageQueue?.Enqueue($"Đã thêm Lô sản phẩm {newProduct.Title}!", null, null, null, false, true, TimeSpan.FromSeconds(0.8));
+
             if (newProduct.Barcode.Contains(VM.SearchContent))
             {
                 VM.ObservableProducts.Add(newProduct);
