@@ -108,14 +108,14 @@
                               Height="25"
                               HorizontalAlignment="Left"/>
 
-                        <Label Content="Store"
+                        <Label Content="Cửa hàng"
                                Foreground="{DynamicResource PrimaryBlueColor}"
                                FontWeight="Bold" 
                                FontSize="20" 
                                VerticalAlignment="Center" 
                                HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="14 0 0 0"/>
                         <Button Style="{StaticResource topButton}"
-                                Margin="50 0 0 0"
+                                Margin="10 0 0 0"
                                 Background="#dcdcdc"
                                 Cursor="Hand"
                                 Command="{Binding SettingCommand}">
@@ -198,7 +198,7 @@
 
                         <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" 
                             Cursor="Hand"
-                            Click="btnClose_Click"
+                            Click="btnLogout_Click"
                             Margin="0 210 0 20">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>

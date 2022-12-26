@@ -41,17 +41,14 @@
         </Grid.RowDefinitions>
 
         <Border CornerRadius="8 8 0 0">
-                
+
             <Border.Background>
-                <LinearGradientBrush StartPoint="0,1"
-                                     EndPoint="1,0">
-                    <GradientStop Color='#636FA4'
-                                  Offset="0"/>
-                    <GradientStop Color='#cbb4d4'
-                                  Offset="1"/>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color='#CC95C0' Offset="0"/>
+                    <GradientStop Color='#7AA1D2' Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
-                
+
             <Grid>
 
                 <Grid.ColumnDefinitions>
