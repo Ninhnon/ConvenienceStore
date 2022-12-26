@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand
 {
-    public class BindingProductSnackbar: ICommand
+    public class BindingProductSnackbar : ICommand
     {
         InputInfoVM VM;
 

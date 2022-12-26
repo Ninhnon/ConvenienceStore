@@ -1,9 +1,7 @@
-﻿using ConvenienceStore.Model.Admin;
-using ConvenienceStore.Utils.Helpers;
-using ConvenienceStore.ViewModel.Admin.AdminVM;
+﻿using ConvenienceStore.ViewModel.Admin.AdminVM;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,10 +9,10 @@ using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand
 {
-    class RefreshData : ICommand
+    class BindingVoucherSnackbar : ICommand
     {
         VoucherVM VM;
-        public RefreshData(VoucherVM VM)
+        public BindingVoucherSnackbar(VoucherVM VM)
         {
             this.VM = VM;
         }
@@ -32,13 +30,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand
 
         public void Execute(object parameter)
         {
-            VM.blockVouchers = DatabaseHelper.FetchingBlockVoucherData();
-
-            VM.ObservableBlockVouchers = new ObservableCollection<BlockVoucher>();
-            for (int i = 0; i < VM.blockVouchers.Count; i++)
-            {
-                VM.ObservableBlockVouchers.Add(VM.blockVouchers[i]);
-            }
+            VM.VoucherSnackbar = parameter as Snackbar;
         }
     }
 }
