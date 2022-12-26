@@ -96,13 +96,12 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.EditProductCom
             {
                 Barcode = window.BarcodeTextBlock.Text,
                 Title = window.TitleTextBox.Text,
+                Type = window.TypeComboBox.Text,
                 Cost = int.Parse(window.CostTextBox.Text),
                 Price = int.Parse(window.PriceTextBox.Text),
                 Stock = int.Parse(window.StockTextBox.Text),
-                // Update
                 ManufacturingDate = (DateTime)window.ManufacturingDate.SelectedDate,
                 ExpiryDate = (DateTime)window.ExpiryDate.SelectedDate,
-                // End Update
                 Discount = int.Parse(window.DiscountTextBox.Text)
             };
 
@@ -155,6 +154,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.EditProductCom
             var curProduct = window.DataContext as Product;
 
             curProduct.Title = newProduct.Title;
+            curProduct.Type = newProduct.Type;
             curProduct.Image = newProduct.Image;
             curProduct.Cost = newProduct.Cost;
             curProduct.Price = newProduct.Price;

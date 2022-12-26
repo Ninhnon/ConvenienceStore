@@ -94,19 +94,50 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel>
 
-                            <TextBlock Text="Tên"
-                                       FontSize="18"
-                                       FontWeight="SemiBold"
-                                       Height="24"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="Tên"
+                                               FontSize="18"
+                                               FontWeight="SemiBold"
+                                               Height="24"/>    
 
-                            <TextBox x:Name="TitleTextBox"
-                                 Text="{Binding Title, Mode=OneTime}"
-                                 VerticalContentAlignment="Center"/>
+                                    <TextBox x:Name="TitleTextBox"
+                                             Text="{Binding Title, Mode=OneTime}"
+                                             VerticalContentAlignment="Center"/>
 
-                            <TextBlock x:Name="TitleErrorMessage"
-                                   Foreground="Red"
-                                   Height="16"
-                                   Margin="0 0 0 10"/>
+                                    <TextBlock x:Name="TitleErrorMessage"
+                                               Foreground="Red"
+                                               Height="16"
+                                               Margin="0 0 0 10"/>  
+                                </StackPanel>
+                                <StackPanel Grid.Column="2">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Loại"
+                                                   FontSize="16"
+                                                   FontWeight="SemiBold"
+                                                   Height="22"/>
+                                        <TextBlock Text=" *"
+                                                   Foreground="Red"
+                                                   FontSize="16"/>
+                                    </StackPanel>
+                                    <ComboBox x:Name="TypeComboBox"
+                                              Height="28.95"
+                                              Margin="0 4 0 0"
+                                              d:SelectedIndex="0">
+                                        <ComboBoxItem Content="Đồ ăn" />
+                                        <ComboBoxItem Content="Thức uống" />
+                                        <ComboBoxItem Content="Khác" />
+                                    </ComboBox>
+                                    <TextBlock x:Name="TypeErrorMessage"
+                                               Foreground="Red"
+                                               Height="16"/>
+                                </StackPanel>
+                            </Grid>
 
                             <Grid Margin="0 0 0 10">
                                 <Grid.ColumnDefinitions>
