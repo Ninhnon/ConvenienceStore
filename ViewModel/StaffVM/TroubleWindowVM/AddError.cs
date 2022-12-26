@@ -103,7 +103,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 danhsach.Add(newReport);
                 ListError.Add(newReport);
                 DatabaseHelper.InsertReport(newReport);
-                TroubleSnackbar.MessageQueue?.Enqueue($"Đã tạo Sự cố hàng ngày {newReport.Title}", null, null, null, false, true, TimeSpan.FromSeconds(1));
+                TroubleSnackbar.MessageQueue?.Enqueue($"Đã tạo Sự cố \"{newReport.Title}\"", null, null, null, false, true, TimeSpan.FromSeconds(1));
                 p.Close();
             }
         }

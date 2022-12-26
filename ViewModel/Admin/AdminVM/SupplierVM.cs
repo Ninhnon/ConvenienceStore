@@ -1,8 +1,10 @@
 ﻿using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Utils.Helpers;
+using ConvenienceStore.ViewModel.Admin.Command.SupplierCommand;
 using ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.AddNewSupplierCommand;
 using ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.SupplierCard;
 using ConvenienceStore.Views.Admin;
+using MaterialDesignThemes.Wpf;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -50,10 +52,13 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             }
         }
 
+        public Snackbar SupplierSnackbar;
+
         public AddSupplierButtonCommand AddSupplierButtonCommand { get; set; }
         public SaveNewSupplierCommand SaveNewSupplierCommand { get; set; }
         public DeleteSupplierButton DeleteSupplierButton { get; set; }
-        
+        public BindingSupplierSnackbar BindingSupplierSnackbar { get; set; }
+
         public SupplierVM()
         {
             suppliers = DatabaseHelper.FetchingSupplier();
@@ -62,7 +67,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             AddSupplierButtonCommand = new AddSupplierButtonCommand(this);
             SaveNewSupplierCommand = new SaveNewSupplierCommand(this);
             DeleteSupplierButton = new DeleteSupplierButton(this);
-        
+
+            BindingSupplierSnackbar = new BindingSupplierSnackbar(this);
         }
 
         public void SetSupplierCorespondSearch()
