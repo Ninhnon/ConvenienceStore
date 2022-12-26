@@ -50,6 +50,12 @@
                         <GradientStop Color='#D3CCE3' Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded">
+                        <i:InvokeCommandAction Command="{Binding BindingVoucherSnackbar}"
+                                               CommandParameter="{Binding ElementName=VoucherSnackbar}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <Grid>
                     <Grid VerticalAlignment="Top"
                           Margin="30 20 30 5">
@@ -121,7 +127,6 @@
                             </Grid>
                         </Border>
                     </Grid>
-
 
                     <ListBox x:Name="BlockVoucherCards"
                         ItemsSource="{Binding ObservableBlockVouchers}"
@@ -206,6 +211,9 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
+                    <materialDesign:Snackbar x:Name="VoucherSnackbar"
+                                             IsActive="False"
+                                             MessageQueue="{materialDesign:MessageQueue}"/>
                 </Grid>
             </Border>
 

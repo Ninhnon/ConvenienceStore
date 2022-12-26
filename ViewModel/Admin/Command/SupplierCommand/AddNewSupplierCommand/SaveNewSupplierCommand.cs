@@ -89,6 +89,8 @@ namespace ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.AddNewSupplie
             }
             VM.suppliers.Add(newSupplier);
 
+            
+
             window.Close();
         }
     }

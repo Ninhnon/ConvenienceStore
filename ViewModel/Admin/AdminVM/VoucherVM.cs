@@ -4,6 +4,7 @@ using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin.Command.VoucherCommand;
 using ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCommand;
 using ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCommand.DeleteBlockVoucherCommand;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,9 +17,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 {
     class VoucherVM : INotifyPropertyChanged
     {
-        public List<BlockVoucher> blockVouchers {get; set;}
+        public List<BlockVoucher> blockVouchers { get; set; }
 
-        public ObservableCollection<BlockVoucher> ObservableBlockVouchers { get; set;}
+        public ObservableCollection<BlockVoucher> ObservableBlockVouchers { get; set; }
 
         private string searchContent;
 
@@ -57,12 +58,14 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public BlockVoucher DeletedBlockVoucher
         {
             get { return deletedBlockVoucher; }
-            set 
-            { 
+            set
+            {
                 deletedBlockVoucher = value;
                 OnPropertyChanged("DeletedBlockVoucher");
             }
         }
+
+        public Snackbar VoucherSnackbar;
 
         // Command Region
         public GenerateBlockVoucher GenerateBlockVoucher { get; set; }
@@ -71,7 +74,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public OpenVoucherCommand OpenVoucherCommand { get; set; }
         public FilterActiveVoucherCommand FilterActiveVoucherCommand { get; set; }
         public FilterAllVoucherCommand FilterAllVoucherCommand { get; set; }
-        public RefreshData RefreshData { get; set; }
+        public BindingVoucherSnackbar BindingVoucherSnackbar { get; set; }
+
         public VoucherVM()
         {
             blockVouchers = DatabaseHelper.FetchingBlockVoucherData();
@@ -91,7 +95,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             OpenVoucherCommand = new OpenVoucherCommand(this);
             FilterActiveVoucherCommand = new FilterActiveVoucherCommand(this);
             FilterAllVoucherCommand = new FilterAllVoucherCommand(this);
-            RefreshData = new RefreshData(this);
+
+            BindingVoucherSnackbar = new BindingVoucherSnackbar(this);
         }
 
         public void SetBlockVoucherCorespondSearch()

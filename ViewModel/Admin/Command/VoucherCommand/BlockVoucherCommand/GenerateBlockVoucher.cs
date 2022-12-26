@@ -233,6 +233,8 @@ namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCo
 
             DatabaseHelper.InsertBlockVoucher(newBlockVoucher);
 
+            VM.VoucherSnackbar.MessageQueue?.Enqueue($"Đã sinh ngẫu nhiên Voucher {newBlockVoucher.ReleaseName}", null, null, null, false, true, TimeSpan.FromSeconds(0.7));
+
             // Phần này Lâm đã check kĩ. Ngày 9/12/2022
         }
         private string RandomString(int size)
