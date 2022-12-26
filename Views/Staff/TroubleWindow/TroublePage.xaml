@@ -27,6 +27,8 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             <!--<i:InvokeCommandAction Command="{Binding FirstLoadCM}" />-->
             <i:InvokeCommandAction Command="{Binding MaskNameCM}"
                                    CommandParameter="{Binding ElementName=shadowMask}" />
+            <i:InvokeCommandAction Command="{Binding BindingTroubleSnackbar}"
+                                   CommandParameter="{Binding ElementName=TroubleSnackbar}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Page.Resources>
@@ -40,7 +42,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             </LinearGradientBrush>
         </Border.Background>
         <Grid>
-
+            
             <StackPanel Margin="30 20">
                 <Grid Margin="0 0 0 20">
                     <TextBlock Text="Chi tiết Vấn đề"
@@ -196,6 +198,10 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                         Background="Gray"
                         Opacity="0.5"/>
             </Grid>
+
+            <materialDesign:Snackbar x:Name="TroubleSnackbar"
+                                     IsActive="False"
+                                     MessageQueue="{materialDesign:MessageQueue}"/>
         </Grid>
     </Border>
 
