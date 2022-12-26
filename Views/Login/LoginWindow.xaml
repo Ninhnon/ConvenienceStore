@@ -91,7 +91,7 @@
                               Width="220" Height="155">
                         <Border.Background>
                             <ImageBrush
-                        ImageSource="/Resources/Images/Login/logo.jpg"
+                        ImageSource="/Resources/Images/Login/removebg.png"
                          
                            
                            >
