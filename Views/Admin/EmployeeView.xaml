@@ -65,7 +65,7 @@ Style="{StaticResource Page_Style}"
                 <StackPanel Orientation="Horizontal" >
                     <Icon:PackIconMaterial Kind="Plus" 
                            VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
-                    <TextBlock Text="Add New Member"/>
+                    <TextBlock Text="Thêm nhân viên mới"/>
                 </StackPanel>
             </Button>
 
@@ -92,7 +92,7 @@ Style="{StaticResource Page_Style}"
                 </StackPanel>
                 <Grid Width="300"  HorizontalAlignment="Right" Margin="800,0,0,0">
                     <TextBlock Margin="20,0,54,0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
-                           Panel.ZIndex="1" Text="Search here ..."
+                           Panel.ZIndex="1" Text="Tìm kiếm ..."
                            Visibility="{Binding ElementName=textBoxSearch, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}" />
 
                     <TextBox Name="textBoxSearch" Style="{StaticResource searchTextbox}"
@@ -176,8 +176,8 @@ Style="{StaticResource Page_Style}"
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Email " Binding="{Binding Email}" IsReadOnly="True" Width="280"/>
-                    <DataGridTextColumn Header="Phone " Binding="{Binding Phone}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Salary " Binding="{Binding Salary}" IsReadOnly="True" Width="100"/>
+                    <DataGridTextColumn Header="Số điện thoại " Binding="{Binding Phone}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Lương " Binding="{Binding Salary}" IsReadOnly="True" Width="100"/>
                     <DataGridTemplateColumn Header="Thao tác" IsReadOnly="True" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
