@@ -72,7 +72,7 @@
                         <StackPanel>
 
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Title"
+                                <TextBlock Text="Vấn đề"
                                                FontWeight="SemiBold"
                                                FontSize="18"
                                                Height="24"/>
@@ -102,7 +102,7 @@
                                    Height="16"
                                    Margin="0 0 0 10"/>
                             <StackPanel>
-                                <TextBlock Text="Description"
+                                <TextBlock Text="Thông tin chi tiết"
                                             FontSize="16"
                                             FontWeight="SemiBold"
                                             Height="22"/>
@@ -113,7 +113,6 @@
                                      TextWrapping="Wrap"
                                      VerticalScrollBarVisibility="Auto"
                                      HorizontalScrollBarVisibility="Disabled"
-                                     materialDesign:HintAssist.Hint="Mô tả lỗi"
                                      FontSize="16"
                                      Margin="0,5,0,0"
                                      Foreground="Black"
@@ -128,7 +127,7 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0">
 
-                                    <TextBlock Text="Status"
+                                    <TextBlock Text="Trạng thái"
                                         FontSize="16"
                                         FontWeight="SemiBold"
                                         Height="22"/>
@@ -142,7 +141,7 @@
                                 </StackPanel>
                                 <StackPanel Grid.Column="2">
 
-                                    <TextBlock Text="Staff Name"
+                                    <TextBlock Text="Nhân viên báo cáo"
                                         FontWeight="SemiBold"
                                         FontSize="16"
                                         Height="22"/>
@@ -205,7 +204,7 @@
 
                         <StackPanel Grid.Column="0">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Expects Cost"
+                                <TextBlock Text="Chi phí dự kiến"
                                                FontSize="18"
                                                FontWeight="SemiBold"
                                                Height="24"/>
@@ -235,7 +234,7 @@
                         </StackPanel>
 
                         <StackPanel Grid.Column="2">
-                            <TextBlock Text="Submited Time"
+                            <TextBlock Text="Ngày báo cáo"
                                         FontSize="16"
                                         FontWeight="SemiBold"
                                         Height="22"/>
@@ -263,7 +262,7 @@
                         <StackPanel 
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Right">
-                            <Button Content="Cancle"
+                            <Button Content="Hủy"
                                     Foreground="{StaticResource PrimaryColor}"
                                     Style="{StaticResource MaterialDesignOutlinedButton}"
                                     BorderBrush="{StaticResource PrimaryColor}"
@@ -272,7 +271,7 @@
                                     Command="{Binding CloseCM}"
                                     CommandParameter="{Binding ElementName=EditReportScreen}"/>
                             <Button x:Name="UpdateButton"
-                                    Content="Update"
+                                    Content="Save"
                                     Background="#3982E4"
                                     BorderThickness="0"
                                     Width="80"

@@ -46,7 +46,7 @@
                     CornerRadius="25 25 0 0">
                 <Grid Margin="30 15"
                           VerticalAlignment="Center">
-                    <TextBlock Text="Edit Report"
+                    <TextBlock Text="Report"
                            Foreground="White"
                            FontSize="30"
                            FontWeight="SemiBold"
@@ -74,7 +74,7 @@
                         <StackPanel>
 
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Title"
+                                <TextBlock Text="Vấn đề"
                                                FontWeight="SemiBold"
                                                FontSize="18"
                                                Height="24"/>
@@ -103,7 +103,7 @@
                                    Foreground="Red"
                                    Margin="0 0 0 10"/>
                             <StackPanel>
-                                <TextBlock Text="Description"
+                                <TextBlock Text="Thông tin chi tiết"
                                             FontSize="16"
                                             FontWeight="SemiBold"
                                             Height="22"/>
@@ -114,7 +114,6 @@
                                      TextWrapping="Wrap"
                                      VerticalScrollBarVisibility="Auto"
                                      HorizontalScrollBarVisibility="Disabled"
-                                     materialDesign:HintAssist.Hint="Mô tả lỗi"
                                      FontSize="16"
                                      Margin="0,5,0,0"
                                      Foreground="Black"
@@ -129,7 +128,7 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0">
 
-                                    <TextBlock Text="Status"
+                                    <TextBlock Text="Trạng thái"
                                         FontSize="16"
                                         FontWeight="SemiBold"
                                         Height="22"/>
@@ -153,7 +152,7 @@
                                 </StackPanel>
                                 <StackPanel Grid.Column="2">
 
-                                    <TextBlock Text="Staff Name"
+                                    <TextBlock Text="Nhân viên báo cáo"
                                         FontWeight="SemiBold"
                                         FontSize="16"
                                         Height="22"/>
@@ -215,7 +214,7 @@
 
                         <StackPanel Grid.Column="0">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Expects Cost"
+                                <TextBlock Text="Chi phí"
                                                FontSize="18"
                                                FontWeight="SemiBold"
                                                Height="24"/>
@@ -243,7 +242,7 @@
                             
                             <Grid Margin="0 10 0 0" Height="22"></Grid>
                             <Grid x:Name="_start1" >
-                                <TextBlock Margin="0 -55 0 0" Text="Start Date" IsEnabled="False" 
+                                <TextBlock Margin="0 -55 0 0" Text="Ngày bắt đầu" IsEnabled="False" 
                                        x:Name="_start"
                                         FontSize="16"
                                         FontWeight="SemiBold"
@@ -252,7 +251,7 @@
                                 <!--IsEnabled="True"  Visibility="{Binding SelectedReport.StartDate, Converter={StaticResource HasOjectConverter}}"-->
                                 <DatePicker x:Name="StartDate"
                                             SelectedDate="{Binding SelectedReport.StartDate, Mode=OneTime}"
-                                            SelectedDateFormat="Short"/>
+                                            SelectedDateFormat="Long"/>
                                 <TextBlock x:Name="startdate"
                                 Text="{Binding ElementName=StartDate, Path=SelectedDate, StringFormat=dd-MM-yyyy}"
                                             Background="White"
@@ -266,7 +265,7 @@
                                            Foreground="Red"/>
                         </StackPanel>
                         <StackPanel Grid.Column="2">
-                            <TextBlock Text="Submited Time"
+                            <TextBlock Text="Ngày báo cáo"
                                         FontSize="16"
                                         FontWeight="SemiBold"
                                         Height="22"/>
@@ -288,14 +287,14 @@
                             <Grid x:Name="_finish1">
                                 <TextBlock Margin="0 -55 0 0"
                                        x:Name="_finish" IsEnabled="False" 
-                                Text="Finish Date"
+                                Text="Ngày hoàn thành"
                                         FontSize="16"
                                         FontWeight="SemiBold"
                                         Height="22"/>
                                 <!-- IsEnabled="True" Visibility="{Binding SelectedReport.FinishDate, Converter={StaticResource HasOjectConverter}}"-->
                                 <DatePicker x:Name="FinishDate"
                                             SelectedDate="{Binding SelectedReport.FinishDate, Mode=OneTime}"
-                                            SelectedDateFormat="Short"/>
+                                            SelectedDateFormat="Long"/>
                                 
                                 <TextBlock x:Name="finishdate"
                                             Text="{Binding ElementName=FinishDate, Path=SelectedDate, StringFormat=dd-MM-yyyy}" 
@@ -320,7 +319,7 @@
                                     Margin="0 20 0 0"
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Right">
-                        <Button Content="Cancle"
+                        <Button Content="Hủy"
                                     Foreground="{StaticResource PrimaryColor}"
                                     Style="{StaticResource MaterialDesignOutlinedButton}"
                                     BorderBrush="{StaticResource PrimaryColor}"
@@ -329,7 +328,7 @@
                                     Command="{Binding CloseCM}"
                                     CommandParameter="{Binding ElementName=EditReportScreen}"/>
                         <Button x:Name="UpdateButton"
-                                    Content="Confirm"
+                                    Content="Lưu"
                                     Background="#3982E4"
                                     BorderThickness="0"
                                     Width="84"

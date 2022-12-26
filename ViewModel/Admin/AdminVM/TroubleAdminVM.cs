@@ -301,10 +301,10 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             }
             if (!p.StartDate.SelectedDate.HasValue || p.cbxStatus.Text == "Chờ tiếp nhận")
                 newReport.StartDate = null;
-            else newReport.StartDate = (DateTime)p.StartDate.SelectedDate;
+            else newReport.StartDate = p.StartDate.SelectedDate;
             if (!p.FinishDate.SelectedDate.HasValue || p.cbxStatus.Text == "Chờ tiếp nhận" || p.cbxStatus.Text == "Đang giải quyết")
                  newReport.FinishDate = null;
-            else newReport.FinishDate = (DateTime)p.FinishDate.SelectedDate;
+            else newReport.FinishDate = p.FinishDate.SelectedDate;
             //}
             //else
             //newReport.Image = SelectedReport.Image;

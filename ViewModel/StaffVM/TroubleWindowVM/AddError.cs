@@ -65,7 +65,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 Status = p.cbxStatus.Text,
                 Description = p.cbxDecription.Text,
                 RepairCost = int.Parse(p.CostTextBox.Text),
-                SubmittedAt = DateTime.Now,
+                SubmittedAt = DateTime.Today,
                 StaffId = CurrentAccount.idAccount,
             };
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
@@ -102,6 +102,8 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 danhsach.Add(newReport);
                 ListError.Add(newReport);
                 DatabaseHelper.InsertReport(newReport);
+                MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Lưu vấn đề mới thành công", MessageType.Success, MessageButtons.OK);
+                mb.ShowDialog();
                 p.Close();
             }
         }
