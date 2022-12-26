@@ -233,8 +233,8 @@ namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCo
             }
 
             DatabaseHelper.InsertBlockVoucher(newBlockVoucher);
-           List<BlockVoucher> blockVouchers = DatabaseHelper.FetchingBlockVoucherData();
-          ObservableCollection<BlockVoucher>  ObservableBlockVouchers = new ObservableCollection<BlockVoucher>(blockVouchers);
+            List<BlockVoucher> blockVouchers = DatabaseHelper.FetchingBlockVoucherData();
+            ObservableCollection<BlockVoucher>  ObservableBlockVouchers = new ObservableCollection<BlockVoucher>(blockVouchers);
 
             window.BlockVoucherCards.ItemsSource= ObservableBlockVouchers;
             window.BlockVoucherCards.Items.Refresh(); //Update item ngay khi add xong, by: Thuong

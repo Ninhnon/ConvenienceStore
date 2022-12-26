@@ -2,8 +2,10 @@
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.StaffVM;
+using ConvenienceStore.ViewModel.StaffVM.TroubleWindowVM;
 using ConvenienceStore.Views.Staff.TroubleWindow;
 using Emgu.CV.ML;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -116,9 +118,15 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         public Report tmpReport { get; set; }
         public int Id { get; set; }
         public DateTime Se { get; set; }
+
+        public Snackbar TroubleSnackbar;
+
+        public BindingTroubleSnackbar BindingTroubleSnackbar { get; set; }
+
         public TroublePageViewModel()
         {
-            
+            BindingTroubleSnackbar = new BindingTroubleSnackbar(this);
+
             danhsach = DatabaseHelper.FetchingReportData();
             //MaskName.Visibility = Visibility.Collapsed;
             ListError = new ObservableCollection<Report>(danhsach);
@@ -217,9 +225,10 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             SaveNewTroubleCommand = new RelayCommand<AddTrouble>((p) => { return true; }, (p) =>
             {
                 IsSaving = true;
-                Save(p);
+                Save(p, TroubleSnackbar);
                 MaskName.Visibility = Visibility.Collapsed;
                 IsSaving = false;
+
             });
             UpdateReportButtonCommand = new RelayCommand<EditTrouble>((p) => { return true; }, (p) =>
             {
