@@ -76,11 +76,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         {
             blockVouchers = DatabaseHelper.FetchingBlockVoucherData();
 
-            ObservableBlockVouchers = new ObservableCollection<BlockVoucher>();
-            for (int i = 0; i < blockVouchers.Count; i++)
-            {
-                ObservableBlockVouchers.Add(blockVouchers[i]);
-            }
+            ObservableBlockVouchers = new ObservableCollection<BlockVoucher>(blockVouchers);
+       
 
             vouchers = new List<Voucher>();
             ObservableVouchers = new ObservableCollection<Voucher>();
