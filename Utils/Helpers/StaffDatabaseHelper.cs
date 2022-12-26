@@ -416,7 +416,7 @@ namespace ConvenienceStore.Utils.Helpers
             return discount;
         }
 
-        public static void UpdateVoucherStatus(string code)
+        public static void UpdateVoucherStatus(string? code)
         {
             if (code != null)
             {
