@@ -134,6 +134,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             //});
             CancelCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
                 {
+                    MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
                 });
             FilterListErrorCommand = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, (p) =>
