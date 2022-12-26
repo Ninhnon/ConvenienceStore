@@ -25,8 +25,6 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <!--<i:InvokeCommandAction Command="{Binding FirstLoadCM}" />-->
-            <i:InvokeCommandAction Command="{Binding MaskNameCM}"
-                                   CommandParameter="{Binding ElementName=shadowMask}" />
             <i:InvokeCommandAction Command="{Binding BindingTroubleSnackbar}"
                                    CommandParameter="{Binding ElementName=TroubleSnackbar}"/>
         </i:EventTrigger>
@@ -42,7 +40,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             </LinearGradientBrush>
         </Border.Background>
         <Grid>
-            
+
             <StackPanel Margin="30 20">
                 <Grid Margin="0 0 0 20">
                     <TextBlock Text="Chi tiết Vấn đề"
@@ -53,7 +51,6 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     Cursor="Hand"
                     Margin="0,0,0,0"
                     Command="{Binding OpenAddErrorCommand}"
-                    Background="Red"
                     HorizontalAlignment="Right"
                     Grid.Row="1">
                         <StackPanel Orientation="Horizontal" >
@@ -89,9 +86,10 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     </StackPanel>
 
                     <ComboBox Grid.Column="3"
+                              Style="{StaticResource CustomComboBox}"
                     FontSize="14"
                       Height="40"
-                      Width="160"
+                      Width="150"
                       SelectedIndex="0"
                       x:Name="cboxFilter"
                       VerticalContentAlignment="Bottom"
@@ -100,11 +98,31 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       Margin="10 0 0 0"
                       VerticalAlignment="Top"
                       materialDesign:HintAssist.Hint="Loại tìm kiếm">
-                        <ComboBoxItem>Toàn bộ</ComboBoxItem>
-                        <ComboBoxItem>Chờ tiếp nhận</ComboBoxItem>
-                        <ComboBoxItem>Đang giải quyết</ComboBoxItem>
-                        <ComboBoxItem>Đã giải quyết</ComboBoxItem>
-                        <ComboBoxItem>Đã hủy</ComboBoxItem>
+                        <ComboBoxItem>
+                            <TextBlock Text="Toàn bộ"
+                                       FontSize="16"
+                                       Foreground="Gray"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <TextBlock Text="Chờ tiếp nhận"
+                                       FontSize="16"
+                                       Foreground="Gray"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <TextBlock Text="Đang giải quyết"
+                                       FontSize="16"
+                                       Foreground="Gray"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <TextBlock Text="Đã giải quyết"
+                                       FontSize="16"
+                                       Foreground="Gray"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <TextBlock Text="Đã hủy"
+                                       FontSize="16"
+                                       Foreground="Gray"/>
+                        </ComboBoxItem>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding FilterListErrorCommand}"
@@ -114,8 +132,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 
                     </ComboBox>
                 </Grid>
-                <Grid>
-                    <DataGrid
+                <DataGrid
                     Style="{DynamicResource DataGridStyle2}"
                     RowStyle="{DynamicResource DataGridRowStyle2}" 
                     ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}"
@@ -128,76 +145,65 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     ScrollViewer.VerticalScrollBarVisibility="Visible"
                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                         Height="450"
-                    Margin="10"
                     >
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseDoubleClick">
-                                    <i:InvokeCommandAction Command="{Binding LoadDetailWindowCM}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <DataGrid.Columns>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding LoadDetailWindowCM}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <DataGrid.Columns>
 
-                                <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" />
-                                <DataGridTemplateColumn Header="Vấn đề" IsReadOnly="True" Width="220">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" >
-                                                    <Image Stretch="Fill"
+                            <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" />
+                            <DataGridTemplateColumn Header="Vấn đề" IsReadOnly="True" Width="220">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" >
+                                                <Image Stretch="Fill"
                                             Source="{Binding Image}" />
-                                                </Border>
-                                                <TextBlock Text="{Binding Title}" VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="Trạng thái" 
+                                            </Border>
+                                            <TextBlock Text="{Binding Title}" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Trạng thái" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
                                         Width="150">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Status}"
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Status}"
                                            ToolTip="{Binding Status}"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTextColumn Header="Tên nhân viên báo cáo " Binding="{Binding StaffName}" IsReadOnly="True" Width="220"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Tên nhân viên báo cáo " Binding="{Binding StaffName}" IsReadOnly="True" Width="220"/>
                             <DataGridTextColumn Header="Ngày báo cáo" Binding="{Binding SubmittedAt,StringFormat=dd/MM/yyyy}" IsReadOnly="True" Width="180"/>
                             <DataGridTextColumn IsReadOnly="True"
                                         CanUserResize="False"
                                         Width="140" Header="Chi phí" Binding="{Binding RepairCost, Converter={StaticResource MoneyToVNDCurrency}}" />
-                                <!--<DataGridTextColumn Header="Salary " Binding="{Binding Salary}" IsReadOnly="True" Width="100"/>-->
-                                <DataGridTemplateColumn Header="Thao tác" IsReadOnly="True" Width="auto">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate >
+                            <!--<DataGridTextColumn Header="Salary " Binding="{Binding Salary}" IsReadOnly="True" Width="100"/>-->
+                            <DataGridTemplateColumn Header="Thao tác" IsReadOnly="True" Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate >
 
-                                            <StackPanel Visibility="{Binding Status,Converter={StaticResource EditConverter}}" Orientation="Horizontal">
+                                        <StackPanel Visibility="{Binding Status,Converter={StaticResource EditConverter}}" Orientation="Horizontal">
 
-                                                <Button 
+                                            <Button 
                                                     Command="{Binding LoadEditErrorCM }"
                                             CommandParameter="{Binding ElementName=errorDatagrid}" 
                                          DataContext="{StaticResource TroubleVM}"
                                         Style="{StaticResource gridEditButton2}">
-                                                    <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
-                                                </Button>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                </Grid>
+                                                <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
             </StackPanel>
-
-            <Grid Background="Transparent"
-                  Visibility="Collapsed"
-                  x:Name="shadowMask" >
-                <Border CornerRadius="8"
-                        BorderThickness="8" 
-                        Background="Gray"
-                        Opacity="0.5"/>
-            </Grid>
 
             <materialDesign:Snackbar x:Name="TroubleSnackbar"
                                      IsActive="False"
