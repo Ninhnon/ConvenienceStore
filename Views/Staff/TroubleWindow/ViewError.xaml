@@ -31,7 +31,7 @@
 
         <Border Background="{StaticResource PrimaryColor}"
                     CornerRadius="25 25 0 0">
-            <TextBlock Text="Trouble Detail"
+            <TextBlock Text="Chi tiết sự cố"
                            Foreground="White"
                            FontSize="35"
                            FontWeight="SemiBold"
