@@ -101,7 +101,7 @@
 
                     </Border>
 
-                    <TextBlock Text="Visual project"
+                    <TextBlock Text="EllipseK"
                                FontSize="25"
                                FontFamily="Montserrat"
                                HorizontalAlignment="Center"
