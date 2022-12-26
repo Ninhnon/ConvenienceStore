@@ -139,13 +139,13 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public void AddBarCode(BarCodeUC parameter)
         {
             SearchContent = parameter.txtBarcode.Text;
-
         }
+
         public void ShowBarCodeQR(PaymentWindow parameter)
         {
-
             parameter.barcodeUC.Visibility = Visibility.Visible;
         }
+
         public void FindProduct(BarCodeUC parameter)
         {
             FilteredList = List;
