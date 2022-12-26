@@ -66,6 +66,8 @@ namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand
             }
             VM.inputInfos.Add(newInputInfo);
 
+            VM.InputInfoSnackbar.MessageQueue?.Enqueue($"Đã tạo Đợt nhập hàng ngày {newInputInfo.InputDate.ToString("dd/MM/yyyy")}", null, null, null, false, true, TimeSpan.FromSeconds(0.9));
+
             window.Close();
         }
     }

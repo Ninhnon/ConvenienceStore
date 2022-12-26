@@ -128,6 +128,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             }
         }
 
+        public Snackbar InputInfoSnackbar;
+
         public Snackbar ProductSnackbar;
 
         // Command
@@ -142,6 +144,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public DeleteProductCommand DeleteProductCommand { get; set; }
         public SaveNewProductCommand SaveNewProductCommand { get; set; }
         public BindingProductSnackbar BindingProductSnackbar { get; set; }
+        public CheckExistBarcode CheckExistBarcode { get; set; }
+
         public InputInfoVM()
         {
             CurAccountName = CurrentAccount.Name;
@@ -175,6 +179,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             SaveNewProductCommand = new SaveNewProductCommand(this);
 
             BindingProductSnackbar = new BindingProductSnackbar(this);
+            CheckExistBarcode = new CheckExistBarcode(this);
         }
     
         public void LoadProducts()
