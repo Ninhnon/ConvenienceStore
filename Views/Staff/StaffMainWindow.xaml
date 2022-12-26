@@ -19,24 +19,24 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         ResizeMode="NoResize"
         WindowStyle="None"
-        
         AllowsTransparency="True"
         DataContext="{StaticResource MainStaffVM}"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         WindowStartupLocation="CenterScreen"
         Background="Transparent">
-    <!--xmlns:uc="clr-namespace:ConvenienceStore.UserControlWPF"-->
-    <i:Interaction.Triggers>
 
+    <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadCommand}"
-                               CommandParameter="{Binding ElementName=mainWindow}"/>
-
+                                   CommandParameter="{Binding ElementName=mainWindow}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
+
     <Border CornerRadius="8" 
             Background="{DynamicResource PrimaryBackgroundColor}">
+
         <Grid>
+
             <!-- Start: GridColumn Right -->
             <Grid >
                 <Grid.RowDefinitions>
@@ -45,37 +45,49 @@
                 </Grid.RowDefinitions>
 
                 <!-- Start: Button Close | Restore | Minimize -->
-                <StackPanel Grid.Row="0" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,5,0" Orientation="Horizontal" FlowDirection="RightToLeft">
-                    
-                    <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="btnClose_Click" Tag="IsCloseButton"/>
-                    <Button x:Name="btnMinimize" Style="{DynamicResource IconButtonsStyle}" Content="{DynamicResource minimize}" Click="btnMinimize_Click"/>
-                    
-                </StackPanel>
-                <!-- End: Button Close | Restore | Minimize -->
+                <StackPanel Grid.Row="0"
+                            Grid.Column="4"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Margin="0,5,5,0"
+                            Orientation="Horizontal"
+                            FlowDirection="RightToLeft">
 
-                <Frame Grid.Row="1" Margin="60 0 0 0" x:Name="PagesNavigation" NavigationUIVisibility="Hidden">
+                    <Button x:Name="btnClose"
+                            Style="{StaticResource IconButtonsStyle}"
+                            Content="{DynamicResource close}"
+                            Click="btnClose_Click"
+                            Tag="IsCloseButton"/>
+
+                    <Button x:Name="btnMinimize"
+                            Style="{DynamicResource IconButtonsStyle}"
+                            Content="{DynamicResource minimize}"
+                            Click="btnMinimize_Click"/>
+                </StackPanel>
+
+                <!-- End: Button Close | Restore | Minimize -->
+                <Frame Grid.Row="1" 
+                       Margin="60 0 0 0"
+                       x:Name="PagesNavigation"
+                       NavigationUIVisibility="Hidden">
+
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Loaded">
                             <i:InvokeCommandAction Command="{Binding PaymentCommand}"
                                                    CommandParameter="{Binding ElementName=PagesNavigation}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                    <!-- Page Content -->
-                    <!--<i:Interaction.Triggers>
-
-                            <i:EventTrigger EventName="MouseUp">
-                                <i:InvokeCommandAction Command="{Binding HidePanelCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>-->
                 </Frame>
             </Grid>
-            <!-- Start: GridColumn Right -->
 
             <!-- Start: GridColum Left-->
             <Border CornerRadius="8"
-                     Background="{DynamicResource SecondaryBackgroundColor}"
+                    Background="{DynamicResource SecondaryBackgroundColor}"
                     HorizontalAlignment="Left">
-                <Grid x:Name="gridMenu" Width="60"  HorizontalAlignment="Left">
+
+                <Grid x:Name="gridMenu" Width="60"
+                      HorizontalAlignment="Left">
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="60"/>
                         <RowDefinition Height="80"/>
@@ -84,39 +96,67 @@
                     </Grid.RowDefinitions>
 
                     <!-- Logo -->
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
-                       
-                        <Path Data="{DynamicResource logo}" Margin="16 0 0 0" Stretch="Fill" Fill="{DynamicResource PrimaryBlueColor}" Width="25" Height="25" HorizontalAlignment="Left"/>
-                        <Label Content="Store" Foreground="{DynamicResource PrimaryBlueColor}" FontWeight="Bold" 
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Top">
+
+                        <Path Data="{DynamicResource logo}"
+                              Margin="16 0 0 0"
+                              Stretch="Fill"
+                              Fill="{DynamicResource PrimaryBlueColor}"
+                              Width="25"
+                              Height="25"
+                              HorizontalAlignment="Left"/>
+
+                        <Label Content="Store"
+                               Foreground="{DynamicResource PrimaryBlueColor}"
+                               FontWeight="Bold" 
                                FontSize="20" 
                                VerticalAlignment="Center" 
                                HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="14 0 0 0"/>
-                        <Button Style="{StaticResource topButton}" Margin="50 0 0 0" Background="#dcdcdc"
+                        <Button Style="{StaticResource topButton}"
+                                Margin="50 0 0 0"
+                                Background="#dcdcdc"
                                 Cursor="Hand"
-                                Command="{Binding SettingCommand}"
-                                
-                                >
+                                Command="{Binding SettingCommand}">
                             <Icon:PackIconMaterial Kind="Cog"/>
                         </Button>
-
                     </StackPanel>
 
                     <!-- Menu -->
-                  
-                    <ToggleButton x:Name="btnMenu"  HorizontalAlignment="Right" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Style="{StaticResource MenuIconStyle}" Margin="0 0 15 0">
+                    <ToggleButton x:Name="btnMenu"
+                                  HorizontalAlignment="Right"
+                                  BorderThickness="0"
+                                  Background="Transparent"
+                                  VerticalAlignment="Center"
+                                  Style="{StaticResource MenuIconStyle}"
+                                  Margin="0 0 15 0">
+
                         <ToggleButton.Triggers>
+
                             <EventTrigger RoutedEvent="ToggleButton.Unchecked">
                                 <BeginStoryboard>
                                     <Storyboard x:Name="HideStackPanel">
-                                        <DoubleAnimation Storyboard.TargetName="gridMenu" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="200" To="60" Duration="0:0:0.3">
+                                        <DoubleAnimation Storyboard.TargetName="gridMenu"
+                                                         Storyboard.TargetProperty="Width"
+                                                         BeginTime="0:0:0"
+                                                         From="200"
+                                                         To="60"
+                                                         Duration="0:0:0.3">
                                         </DoubleAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
+
                             <EventTrigger RoutedEvent="ToggleButton.Checked">
                                 <BeginStoryboard>
                                     <Storyboard x:Name="ShowStackPanel">
-                                        <DoubleAnimation Storyboard.TargetName="gridMenu" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="60" To="200" Duration="0:0:0.3">
+                                        <DoubleAnimation Storyboard.TargetName="gridMenu"
+                                                         Storyboard.TargetProperty="Width"
+                                                         BeginTime="0:0:0"
+                                                         From="60"
+                                                         To="200"
+                                                         Duration="0:0:0.3">
                                         </DoubleAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -124,47 +164,47 @@
                         </ToggleButton.Triggers>
                     </ToggleButton>
 
-                <StackPanel Grid.Row="3">
-                    <RadioButton x:Name="rdPayment" IsChecked="True" Content="Thanh toán" Style="{DynamicResource MenuRadioButtonStyle}"
+                    <StackPanel Grid.Row="3">
+                        <RadioButton x:Name="rdPayment" IsChecked="True" Content="Thanh toán" Style="{DynamicResource MenuRadioButtonStyle}"
                      Tag="{DynamicResource payment}"
                      Command="{Binding PaymentCommand}"
                      CommandParameter="{Binding ElementName=PagesNavigation}"
                                  FontWeight="SemiBold"/>
-                    <RadioButton x:Name="rdHistory" Content="Lịch sử" Style="{DynamicResource MenuRadioButtonStyle}"
+                        <RadioButton x:Name="rdHistory" Content="Lịch sử" Style="{DynamicResource MenuRadioButtonStyle}"
                                  Tag="{DynamicResource history}" Margin="0 5 0 5"
                                  Command="{Binding HistoryCommand}"
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
                                  FontWeight="SemiBold"/>
-                    <RadioButton x:Name="rdProfile" Content="Thông tin cá nhân" Style="{DynamicResource MenuRadioButtonStyle}"
+                        <RadioButton x:Name="rdProfile" Content="Thông tin cá nhân" Style="{DynamicResource MenuRadioButtonStyle}"
                                  Tag="{DynamicResource profile}" Margin="0 5 0 5"
                                  Command="{Binding ProfileCommand}"
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
                                  FontWeight="SemiBold"/>
-                    <!--<RadioButton x:Name="rdProduct" Content="Product" Style="{DynamicResource MenuRadioButtonStyle}" 
+                        <!--<RadioButton x:Name="rdProduct" Content="Product" Style="{DynamicResource MenuRadioButtonStyle}" 
                                  Tag="{DynamicResource product}" Margin="0 5 0 5"
                                  Command="{Binding ProductCommand}"
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
-                                 FontWeight="SemiBold"/>-->                    
-                    <!--<RadioButton x:Name="rdVoucher" Content="Voucher" Style="{DynamicResource MenuRadioButtonStyle}"
+                                 FontWeight="SemiBold"/>-->
+                        <!--<RadioButton x:Name="rdVoucher" Content="Voucher" Style="{DynamicResource MenuRadioButtonStyle}"
                                  Tag="{DynamicResource voucher}" Margin="0 5 0 5"
                                  Command="{Binding VoucherCommand}"
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
                                  FontWeight="SemiBold"/>-->
-                    <RadioButton x:Name="rdReport" Content="Báo cáo" Style="{DynamicResource MenuRadioButtonStyle}"
+                        <RadioButton x:Name="rdReport" Content="Báo cáo" Style="{DynamicResource MenuRadioButtonStyle}"
                                  Tag="{DynamicResource report}" Margin="0 5 0 5"
                                  Command="{Binding ReportCommand}"
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
                                  FontWeight="SemiBold"/>
 
-                    <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" 
+                        <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" 
                             Cursor="Hand"
                             Click="btnClose_Click"
                             Margin="0 210 0 20">
-                        <StackPanel Orientation="Horizontal">
-                            <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Đăng xuất"/>
-                        </StackPanel>
-                    </Button>
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Đăng xuất"/>
+                            </StackPanel>
+                        </Button>
 
 
                     </StackPanel>

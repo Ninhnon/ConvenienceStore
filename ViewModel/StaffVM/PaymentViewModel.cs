@@ -172,7 +172,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         BillDetails billDetail = new BillDetails();
                         billDetail.ProductId = SelectedItem.BarCode;
                         billDetail.Quantity = 1;
-                        billDetail.TotalPrice = SelectedItem.Price;
+                        billDetail.TotalPrice = Convert.ToInt32(SelectedItem.Price * (1 - (SelectedItem.Discount == null ? 0 : SelectedItem.Discount)));
                         billDetail.Title = SelectedItem.Title;
                         billDetail.Image = SelectedItem.Image;
 
@@ -211,7 +211,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                     BillDetails billDetail = new BillDetails();
                     billDetail.ProductId = SelectedItem.BarCode;
                     billDetail.Quantity = 1;
-                    billDetail.TotalPrice = SelectedItem.Price;
+                    billDetail.TotalPrice = Convert.ToInt32(SelectedItem.Price * (1 - (SelectedItem.Discount == null ? 0 : SelectedItem.Discount)));
                     billDetail.Title = SelectedItem.Title;
                     billDetail.Image = SelectedItem.Image;
                     billDetail.InputInfoId = SelectedItem.InputInfoId;

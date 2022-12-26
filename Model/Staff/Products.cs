@@ -16,7 +16,7 @@ namespace ConvenienceStore.Model.Staff
         public int _Stock; public int Stock { get => _Stock; set { _Stock = value; OnPropertyChanged(); } }
         public DateTime _ManufacturingDate; public DateTime ManufacturingDate { get => _ManufacturingDate; set { _ManufacturingDate = value; OnPropertyChanged(); } }
         public DateTime _ExpiryDate; public DateTime ExpiryDate { get => _ExpiryDate; set { _ExpiryDate = value; OnPropertyChanged(); } }
-        public int? _Discount; public int? Discount { get => _Discount; set { _Discount = value; OnPropertyChanged(); } }
+        public double? _Discount; public double? Discount { get => _Discount; set { _Discount = value; OnPropertyChanged(); } }
         public string? _Type = ""; public string? Type { get => _Type; set { _Type = value; OnPropertyChanged(); } }
 
         public string HSDColor

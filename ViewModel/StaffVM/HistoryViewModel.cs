@@ -19,15 +19,15 @@ namespace ConvenienceStore.ViewModel.StaffVM
     public class HistoryViewModel : BaseViewModel
     {
         #region Region for History Page ICommand
-        public ICommand SearchBillCM { get; set; }
-        public ICommand GetMoreBillDetailCM { get; set; }
-        public ICommand SelectionChangedCM { get; set; }
-        public ICommand LoadHistoryPageCM { get; set; }
-        public ICommand MaskNameCM { get; set; }
+            public ICommand SearchBillCM { get; set; }
+            public ICommand GetMoreBillDetailCM { get; set; }
+            public ICommand SelectionChangedCM { get; set; }
+            public ICommand LoadHistoryPageCM { get; set; }
+            public ICommand MaskNameCM { get; set; }
         #endregion
 
         #region Region for History Receipt ICommand
-        public ICommand CancelReceiptCM { get; set; }
+            public ICommand CancelReceiptCM { get; set; }
         #endregion
 
         public List<Bills> bills = new List<Bills>();
@@ -55,6 +55,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public ObservableCollection<BillDetails> ShoppingCart { get { return _ShoppingCart; } set { _ShoppingCart = value; OnPropertyChanged(); } }
 
         public static Grid MaskName { get; set; }
+
         public HistoryViewModel()
         {
             //BillList = new ObservableCollection<Bills>();
