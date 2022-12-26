@@ -32,7 +32,10 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand
         {
             if (parameter != null)
             {
-                VM.ProductSnackbar = parameter as Snackbar;
+                var values = (object[])parameter;
+
+                VM.InputInfoSnackbar = values[0] as Snackbar;
+                VM.ProductSnackbar = values[1] as Snackbar;
             }
         }
     }

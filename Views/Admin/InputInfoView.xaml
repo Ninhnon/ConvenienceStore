@@ -33,8 +33,14 @@
     <Grid>
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="Loaded">
-                <i:InvokeCommandAction Command="{Binding BindingProductSnackbar}"
-                                       CommandParameter="{Binding ElementName=ProductSnackbar}"/>
+                <i:InvokeCommandAction Command="{Binding BindingProductSnackbar}">
+                    <i:InvokeCommandAction.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiParameterConverter}">
+                            <Binding ElementName="InputInfoSnackbar"/>
+                            <Binding ElementName="ProductSnackbar"/>
+                        </MultiBinding>
+                    </i:InvokeCommandAction.CommandParameter>
+                </i:InvokeCommandAction>
             </i:EventTrigger>
         </i:Interaction.Triggers>
         <Grid.ColumnDefinitions>
@@ -127,7 +133,6 @@
                         </Button.Content>
                     </Button>
                 </Grid>
-
 
                 <ListBox x:Name="InputInfoCards"
                          ItemsSource="{Binding ObservableInputInfos}"
@@ -248,6 +253,9 @@
 
                 </ListBox>
 
+                <materialDesign:Snackbar x:Name="InputInfoSnackbar"
+                                         IsActive="False"
+                                         MessageQueue="{materialDesign:MessageQueue}"/>
             </Grid>
         </Border>
 
@@ -621,8 +629,8 @@
                 </ListView>
 
                 <materialDesign:Snackbar x:Name="ProductSnackbar"
-                                            IsActive="False"
-                                            MessageQueue="{materialDesign:MessageQueue}"/>
+                                         IsActive="False"
+                                         MessageQueue="{materialDesign:MessageQueue}"/>
                     
             </Grid>
 
