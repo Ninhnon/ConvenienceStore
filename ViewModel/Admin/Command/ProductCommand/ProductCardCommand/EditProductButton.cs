@@ -26,6 +26,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCom
             var coppyCurProduct = new Product()
             {
                 Title = currentProduct.Title,
+                Type = currentProduct.Type,
                 Image = currentProduct.Image,
                 Cost = currentProduct.Cost,
                 Price = currentProduct.Price,
@@ -42,11 +43,23 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCom
             EditProductWindow editProductWindow = new EditProductWindow();
 
             editProductWindow.DataContext = currentProduct;
-
+            switch (currentProduct.Type)
+            {
+                case "Đồ ăn":
+                    editProductWindow.TypeComboBox.SelectedIndex = 0;
+                    break;
+                case "Thức uống":
+                    editProductWindow.TypeComboBox.SelectedIndex = 1;
+                    break;
+                case "Khác":
+                    editProductWindow.TypeComboBox.SelectedIndex = 2;
+                    break;
+            }
 
             editProductWindow.ShowDialog();
 
             if (currentProduct.Title != coppyCurProduct.Title ||
+                currentProduct.Type != coppyCurProduct.Type ||
                 currentProduct.Image != coppyCurProduct.Image ||
                 currentProduct.Cost != coppyCurProduct.Cost ||
                 currentProduct.Price != coppyCurProduct.Price ||

@@ -74,6 +74,12 @@ namespace ConvenienceStore.ViewModel.StaffVM
         private int _TotalBill;
         public int TotalBill { get { return _TotalBill; } set { _TotalBill = value; OnPropertyChanged(); } }
 
+        private int _PrevTotalBill;
+        public int PrevTotalBill { get { return _PrevTotalBill; } set { _PrevTotalBill = value; OnPropertyChanged(); } }
+
+        private int _OriginTotalBill;
+        public int OriginTotalBill { get { return _OriginTotalBill; } set { _OriginTotalBill = value; OnPropertyChanged(); } }
+
         public int Discount 
         {
             get
@@ -350,6 +356,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 {
                     TotalBill += bd.TotalPrice == null ? 0 : (int)bd.TotalPrice;
                 }
+                OriginTotalBill = PrevTotalBill = TotalBill;
 
                 ReceiptPage.ShowDialog();
                 //wd.ShowDialog();
@@ -447,7 +454,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                     }
                     else
                     {
-                        ReceiptPage.applyPointTbx.Text = $"Khách hàng không đủ điều kiện để sử dụng tính năng này";
+                        ReceiptPage.applyPointTbx.Text = $"Khách hàng cần tối thiểu 1000 điểm để sử dụng tính năng này";
                         ReceiptPage.applyPointToggleBtn.IsEnabled = false;
                     }
                 }
@@ -480,13 +487,8 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         MessageBoxCustom mb;
 
                         int err = -1;
-                        int originTotalBill = 0;
 
-                        foreach (BillDetails bd in ShoppingCart)
-                        {
-                            originTotalBill += bd.TotalPrice == null ? 0 : (int)bd.TotalPrice;
-                        }
-                        VoucherDiscount = DatabaseHelper.ApplyVoucher(originTotalBill, p.Text, ref err);
+                        VoucherDiscount = DatabaseHelper.ApplyVoucher(OriginTotalBill, p.Text, ref err);
 
                         if (err == 0)
                         {
@@ -512,8 +514,12 @@ namespace ConvenienceStore.ViewModel.StaffVM
                             VoucherCode = p.Text;
 
                             //Xử lí trường hợp nhập nhiều mã voucher
+                            PrevTotalBill = TotalBill;
                             if (TotalBill - VoucherDiscount < 0)
+                            {
+                                VoucherDiscount = TotalBill;
                                 TotalBill = 0;
+                            }
                             else
                                 TotalBill -= VoucherDiscount;
                             mb = new MessageBoxCustom("Áp dụng mã giảm giá thành công", "Hóa đơn sẽ được giảm giá khi thanh toán thành công", MessageType.Success, MessageButtons.OK);
@@ -540,16 +546,26 @@ namespace ConvenienceStore.ViewModel.StaffVM
             {
                 if (ReceiptPage.applyPointToggleBtn.IsChecked == true)
                 {
-                    PointDiscount += CustomerPoint == null ? 0 : (int)CustomerPoint;
-                    if (TotalBill - CustomerPoint < 0)
+                    PrevTotalBill = TotalBill;
+
+                    if (TotalBill < CustomerPoint)
+                    {
+                        PointDiscount = TotalBill;
                         TotalBill = 0;
+                    }
                     else
+                    {
+                        PointDiscount = CustomerPoint == null ? 0 : (int)CustomerPoint;
                         TotalBill -= CustomerPoint == null ? 0 : (int)CustomerPoint;
+                    }
                 }
                 else
                 {
-                    PointDiscount -= CustomerPoint == null ? 0 : (int)CustomerPoint;
-                    TotalBill += CustomerPoint == null ? 0 : (int)CustomerPoint;
+                    PointDiscount = 0;
+                    if (TotalBill < CustomerPoint)
+                        TotalBill = PrevTotalBill;
+                    else
+                        TotalBill += CustomerPoint == null ? 0 : (int)CustomerPoint;
                 }
             });
 
@@ -576,19 +592,22 @@ namespace ConvenienceStore.ViewModel.StaffVM
                     }
 
                     //Cập nhật điểm cho khách hàng
-                    int originTotalBill = 0;
-
-                    foreach (BillDetails bd in ShoppingCart)
-                    {
-                        originTotalBill += bd.TotalPrice == null ? 0 : (int)bd.TotalPrice;
-                    }
-
+                    // Cách tính điểm khách hàng
                     if (ReceiptPage.applyPointToggleBtn.IsChecked == true)
                     {
-                        CustomerPoint = originTotalBill / 50;
+                        //TH1: điểm tích lũy của khách hàng > tổng hóa đơn cần mua
+                        //TH2: điểm tích lũy của khách hàng < tổng hóa đơn cần mua
+                        if (CustomerPoint > PointDiscount)
+                        {
+                            CustomerPoint -= PointDiscount;
+                            CustomerPoint += OriginTotalBill / 50;
+                        }
+                        else
+                            CustomerPoint = OriginTotalBill / 50;
+
                     }
                     else
-                        CustomerPoint += originTotalBill / 50;
+                        CustomerPoint += OriginTotalBill / 50;
 
                     DatabaseHelper.UpdateCustomerPointStatus(CustomerId, CustomerPoint);
 
