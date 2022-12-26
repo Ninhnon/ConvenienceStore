@@ -233,7 +233,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             UpdateReportButtonCommand = new RelayCommand<EditTrouble>((p) => { return true; }, (p) =>
             {
                 IsSaving = true;
-                Update(p,tmpReport);
+                Update(p,tmpReport, TroubleSnackbar);
                 MaskName.Visibility = Visibility.Collapsed;
                 IsSaving = false;
             });

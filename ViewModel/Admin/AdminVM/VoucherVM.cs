@@ -76,6 +76,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public FilterAllVoucherCommand FilterAllVoucherCommand { get; set; }
         public BindingVoucherSnackbar BindingVoucherSnackbar { get; set; }
 
+        public RefreshData RefreshData { get; set; }
         public VoucherVM()
         {
             blockVouchers = DatabaseHelper.FetchingBlockVoucherData();
@@ -94,6 +95,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             FilterAllVoucherCommand = new FilterAllVoucherCommand(this);
 
             BindingVoucherSnackbar = new BindingVoucherSnackbar(this);
+            RefreshData = new RefreshData(this);
         }
 
         public void SetBlockVoucherCorespondSearch()

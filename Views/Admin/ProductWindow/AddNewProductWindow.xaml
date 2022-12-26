@@ -341,19 +341,8 @@
                             <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel>
-                            <TextBlock Text="Giảm giá (%)"
-                                        FontSize="16"
-                                        FontWeight="SemiBold"
-                                        Height="22"/>
-                            <TextBox x:Name="DiscountTextBox"
-                                     Text="0"/>
-                            <TextBlock x:Name="DiscountErrorMessage"
-                                           
-                                        Foreground="Red"/>
-                        </StackPanel>
 
-                        <StackPanel Grid.Column="2">
+                        <StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Số lượng nhập"
                                            FontSize="16"

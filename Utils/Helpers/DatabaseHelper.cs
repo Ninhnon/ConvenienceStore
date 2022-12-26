@@ -66,7 +66,7 @@ namespace ConvenienceStore.Utils.Helpers
 
         static readonly string updateConsignment = @"Update Consignment
                                                      set Stock = {0}, ManufacturingDate = '{1}', ExpiryDate = '{2}', 
-                                                         InputPrice = {3}, OutputPrice = {4}, Discount = {5}
+                                                     InputPrice = {3}, OutputPrice = {4}, Discount = {5}
                                                      where InputInfoId = {6} and ProductId = '{7}'";
 
         static readonly string updateSupplier = @"update Supplier
@@ -160,7 +160,7 @@ namespace ConvenienceStore.Utils.Helpers
                     Price = reader.GetInt32(6),
                     ManufacturingDate = reader.GetDateTime(7),
                     ExpiryDate = reader.GetDateTime(8),
-                    Discount = reader.GetDouble(9),
+                    Discount = reader.GetDouble(9) * 100,
                     Type = reader.GetString(10)
                 });
 
@@ -680,7 +680,7 @@ namespace ConvenienceStore.Utils.Helpers
                 editedProduct.ExpiryDate,
                 editedProduct.Cost,
                 editedProduct.Price,
-                editedProduct.Discount,
+                editedProduct.Discount * 1.0 / 100,
                 editedProduct.InputInfoId,
                 editedProduct.Barcode);
 

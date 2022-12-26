@@ -46,7 +46,6 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
             window.PriceErrorMessage.Text = string.Empty;
             window.ManufacturingDateErrorMessage.Text = string.Empty;
             window.ExpiryDateErrorMessage.Text = string.Empty;
-            window.DiscountErrorMessage.Text = string.Empty;
             window.StockErrorMessage.Text = string.Empty;
             window.ImageProductErrorMessage.Text = string.Empty;
 
@@ -178,7 +177,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
                 Stock = int.Parse(window.StockTextBox.Text),
                 ManufacturingDate = (DateTime)window.ManufacturingDate.SelectedDate,
                 ExpiryDate = (DateTime)window.ExpiryDate.SelectedDate,
-                Discount = int.Parse(window.DiscountTextBox.Text)
+                Discount = 0
             };
             if (window.ImageProduct.ImageSource != null)
             {
@@ -226,16 +225,13 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
                     if (error.PropertyName == "Price")
                         window.PriceErrorMessage.Text = error.ErrorMessage;
 
-                    if (error.PropertyName == "Discount")
-                        window.DiscountErrorMessage.Text = error.ErrorMessage;
-
                     if (error.PropertyName == "Stock")
                         window.StockErrorMessage.Text = error.ErrorMessage;
                 }
                 return;
             }
 
-            VM.ProductSnackbar.MessageQueue?.Enqueue($"Đã thêm Lô sản phẩm {newProduct.Title}!", null, null, null, false, true, TimeSpan.FromSeconds(0.8));
+            VM.ProductSnackbar.MessageQueue?.Enqueue($"Đã thêm Lô sản phẩm \"{newProduct.Title}\"", null, null, null, false, true, TimeSpan.FromSeconds(0.8));
 
             if (newProduct.Barcode.Contains(VM.SearchContent))
             {

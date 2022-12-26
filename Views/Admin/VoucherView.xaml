@@ -420,11 +420,7 @@
                         Foreground="Red"
                         Margin="0 0 0 10"/>
 
-                    <Button Style="{StaticResource addButton}"
-                            VerticalAlignment="Center"
-                            Margin="0"
-                            HorizontalAlignment="Center"
-                        Command="{Binding GenerateBlockVoucher}"
+                    <Button Command="{Binding GenerateBlockVoucher}"
                             CommandParameter="{Binding ElementName=VoucherScreen}"
                             Height="35">
                         <Button.Content>

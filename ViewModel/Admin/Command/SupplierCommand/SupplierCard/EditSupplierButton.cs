@@ -3,6 +3,7 @@ using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin.AdminVM;
 using ConvenienceStore.Views.Admin.ProductWindow;
 using ConvenienceStore.Views.Admin.SupplierWindow;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,9 @@ namespace ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.SupplierCard
 
         public void Execute(object parameter)
         {
-            var currentSupplier = (Supplier)parameter;
+            var values = (object[])parameter;
+            var currentSupplier = (Supplier)values[0];
+            var snackbar = (Snackbar)values[1];
 
             var copyCurrentSupplier = new Supplier()
             {
@@ -49,6 +52,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.SupplierCard
                 currentSupplier.Phone != copyCurrentSupplier.Phone)
             {
                 // Sau khi cửa sổ Edit đóng thì "currentSupplier" đã được update
+                snackbar.MessageQueue?.Enqueue($"Đã cập nhật Nhà cung cấp \"{currentSupplier.Name}\"", null, null, null, false, true, TimeSpan.FromSeconds(0.8));
                 DatabaseHelper.UpdateSupplier(currentSupplier);
             }
         }
