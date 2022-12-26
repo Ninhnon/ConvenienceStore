@@ -290,7 +290,8 @@
                             </StackPanel>
                             <Grid>
                                 <DatePicker x:Name="ManufacturingDate"
-                                            SelectedDateFormat="Short"/>
+                                            SelectedDateFormat="Short"
+                                            Language="vi"/>
                                 <TextBlock Text="{Binding ElementName=ManufacturingDate,
                                            Path=SelectedDate, StringFormat=dd-MM-yyyy}"
                                            Background="White"
@@ -318,7 +319,8 @@
                             <Grid>
 
                                 <DatePicker x:Name="ExpiryDate"
-                                            SelectedDateFormat="Short"/>
+                                            SelectedDateFormat="Short"
+                                            Language="vi"/>
                                 <TextBlock x:Name="ExpiryDateTextBlock"
                                             Text="{Binding ElementName=ExpiryDate, Path=SelectedDate, StringFormat=dd-MM-yyyy}"
                                             Background="White"

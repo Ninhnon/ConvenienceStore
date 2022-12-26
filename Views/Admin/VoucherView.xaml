@@ -370,7 +370,8 @@
 
                     <Grid>
                         <DatePicker x:Name="StartDate"
-                            SelectedDateFormat="Short"/>
+                            SelectedDateFormat="Short"
+                                    Language="vi"/>
                         <TextBlock Text="{Binding ElementName=StartDate,
                             Path=SelectedDate, StringFormat=dd-MM-yyyy}"
                             Background="#E9E4F0"
@@ -396,7 +397,8 @@
 
                     <Grid>
                         <DatePicker x:Name="FinishDate"
-                            SelectedDateFormat="Short"/>
+                            SelectedDateFormat="Short"
+                                    Language="vi"/>
                         <TextBlock Text="{Binding ElementName=FinishDate,
                             Path=SelectedDate, StringFormat=dd-MM-yyyy}"
                             Background="#E9E4F0"

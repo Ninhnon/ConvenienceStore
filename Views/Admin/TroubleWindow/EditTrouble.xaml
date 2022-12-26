@@ -251,7 +251,8 @@
                                 <!--IsEnabled="True"  Visibility="{Binding SelectedReport.StartDate, Converter={StaticResource HasOjectConverter}}"-->
                                 <DatePicker x:Name="StartDate"
                                             SelectedDate="{Binding SelectedReport.StartDate, Mode=OneTime}"
-                                            SelectedDateFormat="Long"/>
+                                            SelectedDateFormat="Long"
+                                            Language="vi"/>
                                 <TextBlock x:Name="startdate"
                                 Text="{Binding ElementName=StartDate, Path=SelectedDate, StringFormat=dd-MM-yyyy}"
                                             Background="White"
@@ -294,7 +295,8 @@
                                 <!-- IsEnabled="True" Visibility="{Binding SelectedReport.FinishDate, Converter={StaticResource HasOjectConverter}}"-->
                                 <DatePicker x:Name="FinishDate"
                                             SelectedDate="{Binding SelectedReport.FinishDate, Mode=OneTime}"
-                                            SelectedDateFormat="Long"/>
+                                            SelectedDateFormat="Long"
+                                            Language="vi"/>
                                 
                                 <TextBlock x:Name="finishdate"
                                             Text="{Binding ElementName=FinishDate, Path=SelectedDate, StringFormat=dd-MM-yyyy}" 
