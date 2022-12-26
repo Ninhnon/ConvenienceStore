@@ -74,6 +74,12 @@ namespace ConvenienceStore.ViewModel.Login
                     flag = 1;
                     isLogin = true;
                     mb.ShowDialog();
+                    //mb = new("Thông báo", "Đăng nhập thất bại", MessageType.Error, MessageButtons.OK);
+                    //mb.ShowDialog();
+                    //mb = new("Thông báo", "Bạn có muốn xóa hay không?", MessageType.Warning, MessageButtons.YesNo);
+                    //mb.ShowDialog();
+                    //mb = new("Thông báo", "Sự cố đã được thêm từ trước", MessageType.Info, MessageButtons.OK);
+                    //mb.ShowDialog();
                     break;
 
                 }
