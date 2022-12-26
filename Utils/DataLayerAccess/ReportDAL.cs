@@ -444,13 +444,14 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         //    ChartValues<int> res = new ChartValues<int>();
 
         //}
-        public List<Account> QueryTopSaleToday(string day, string month, string year)
+        public List<Product> QueryTopSaleToday(string day, string month, string year)
         {
-            List<Account> accs = new List<Account>();
+            List<Product> products = new List<Product>();
             OpenConnection();
-            string queryString = string.Format("select users.id, Name, sum(price) as tong  from users inner join bill on bill.userid = users.id " +
+            string queryString = string.Format("select top 3 barcode,title, sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                "join product on billdetail.productid = product.barcode " +
                 "where day(billdate)={0} and month(billdate) = {1} and year(billdate) = {2} " +
-                "group by users.id, name order by tong desc", day, month, year);
+                "group by barcode,title order by sum(price) desc", day, month, year);
             SqlCommand command = new SqlCommand(queryString, conn);
 
             SqlDataReader read = command.ExecuteReader();
@@ -458,12 +459,12 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             while (read.Read() && i < 3)
             {
 
-                accs.Add(new Account()
+                products.Add(new Product()
 
                 {
-                    IdAccount = read.GetInt32(0),
-                    Name = read.GetString(1),
-                    Tong = read.GetInt32(2)
+                    Barcode = read.GetString(0),
+                   Title= read.GetString(1),
+                    Total = read.GetInt32(2)
 
 
                 }
@@ -472,15 +473,16 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             }
 
             CloseConnection();
-            return accs;
+            return products;
         }
-        public List<Account> QueryTopSaleMonth(string month, string year)
+        public List<Product> QueryTopSaleMonth(string month, string year)
         {
-            List<Account> accs = new List<Account>();
+            List<Product> products = new List<Product>();
             OpenConnection();
-            string queryString = string.Format("select users.id, Name, sum(price) as tong  from users inner join bill on bill.userid = users.id " +
-                "where  month(billdate) = {0} and year(billdate) = {1} " +
-                "group by users.id, name order by tong desc", int.Parse(month), int.Parse(year));
+            string queryString = string.Format("select top 3 barcode,title, sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                "join product on billdetail.productid = product.barcode " +
+                "where month(billdate) = {0} and year(billdate) = {1} " +
+                "group by barcode,title order by sum(price) desc", month, year);
             SqlCommand command = new SqlCommand(queryString, conn);
 
             SqlDataReader read = command.ExecuteReader();
@@ -488,12 +490,12 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             while (read.Read() && i < 3)
             {
 
-                accs.Add(new Account()
+                products.Add(new Product()
 
                 {
-                    IdAccount = read.GetInt32(0),
-                    Name = read.GetString(1),
-                    Tong = read.GetInt32(2)
+                    Barcode = read.GetString(0),
+                    Title = read.GetString(1),
+                    Total = read.GetInt32(2)
 
 
                 }
@@ -502,15 +504,16 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             }
 
             CloseConnection();
-            return accs;
+            return products;
         }
-        public List<Account> QueryTopSaleYear(string year)
+        public List<Product> QueryTopSaleYear(string year)
         {
-            List<Account> accs = new List<Account>();
+            List<Product> products = new List<Product>();
             OpenConnection();
-            string queryString = string.Format("select users.id, Name, sum(price) as tong  from users inner join bill on bill.userid = users.id " +
-                "where  year(billdate) = {0} " +
-                "group by users.id, name order by tong desc", year);
+            string queryString = string.Format("select top 3 barcode,title, sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                "join product on billdetail.productid = product.barcode " +
+                "where year(billdate) = {0} " +
+                "group by barcode,title order by sum(price) desc", year);
             SqlCommand command = new SqlCommand(queryString, conn);
 
             SqlDataReader read = command.ExecuteReader();
@@ -518,12 +521,12 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             while (read.Read() && i < 3)
             {
 
-                accs.Add(new Account()
+                products.Add(new Product()
 
                 {
-                    IdAccount = read.GetInt32(0),
-                    Name = read.GetString(1),
-                    Tong = read.GetInt32(2)
+                    Barcode = read.GetString(0),
+                    Title = read.GetString(1),
+                    Total = read.GetInt32(2)
 
 
                 }
@@ -532,7 +535,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             }
 
             CloseConnection();
-            return accs;
+            return products;
         }
         public string QueryFoodRevenueInYear(string year)
         {
