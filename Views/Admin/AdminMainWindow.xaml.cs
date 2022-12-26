@@ -52,7 +52,7 @@ namespace ConvenienceStore.Views.Admin
         }
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxCustom mb = new MessageBoxCustom("Thoát", "Bạn có chắc muốn đăng xuất?", MessageType.Info, MessageButtons.YesNo);
+            MessageBoxCustom mb = new MessageBoxCustom("Đăng xuất", "Bạn có chắc muốn đăng xuất?", MessageType.Info, MessageButtons.YesNo);
 
 
             if (mb.ShowDialog() == true)

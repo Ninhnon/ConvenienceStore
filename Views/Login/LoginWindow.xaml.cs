@@ -28,7 +28,7 @@ namespace ConvenienceStore.Views.Login
   
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxCustom mb = new MessageBoxCustom("Thoát", "Bạn có chắc muốn đăng xuất?", MessageType.Info, MessageButtons.YesNo);
+            MessageBoxCustom mb = new MessageBoxCustom("Thoát", "Bạn có chắc muốn thoát?", MessageType.Info, MessageButtons.YesNo);
 
 
             if (mb.ShowDialog() == true)
