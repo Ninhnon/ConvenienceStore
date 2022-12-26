@@ -59,7 +59,7 @@
                 <StackPanel Orientation="Vertical">
 
                     <!--Tên cửa hàng-->
-                    <TextBlock Text="CIRCLE K VIETNAM" 
+                    <TextBlock Text="ELLIPSE K VIETNAM" 
                          FontWeight="Bold"
                          FontSize="30"
                          TextAlignment="Center"

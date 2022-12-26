@@ -43,7 +43,6 @@ namespace ConvenienceStore.Views.Staff
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)

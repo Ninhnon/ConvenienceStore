@@ -100,6 +100,12 @@ namespace ConvenienceStore.ViewModel.StaffVM
         private int? _CustomerId;
         public int? CustomerId { get { return _CustomerId; } set { _CustomerId = value; OnPropertyChanged(); } }
 
+        private string? _CustomerPhone;
+        public string? CustomerPhone { get { return _CustomerPhone; } set { _CustomerPhone = value; OnPropertyChanged(); } }
+
+        private string? _PrevCustomerPhone;
+        public string? PrevCustomerPhone { get { return _PrevCustomerPhone; } set { _PrevCustomerPhone = value; OnPropertyChanged(); } }
+
         private int? _CustomerPoint;
         public int? CustomerPoint { get { return _CustomerPoint; } set { _CustomerPoint = value; OnPropertyChanged(); } }
 
@@ -369,6 +375,8 @@ namespace ConvenienceStore.ViewModel.StaffVM
             {
                 CustomerId = null;
                 PrevCustomerId = null;
+                CustomerPhone = null;
+                PrevCustomerPhone = null;
                 CustomerPoint = 0;
             });
 
@@ -414,40 +422,49 @@ namespace ConvenienceStore.ViewModel.StaffVM
             {
                 try
                 {
-                    if (PrevCustomerId == CustomerId && CustomerId != null) //Xử lý lost focus
+                    if (PrevCustomerPhone == CustomerPhone && CustomerPhone != null) //Xử lý lost focus
                         return;
 
                     if (p.Text == "")
                     {
-                        PrevCustomerId = CustomerId = null;
+                        PrevCustomerPhone = CustomerPhone = null;
+                        CustomerId = null;
                         return;
                     }
 
                     customers = DatabaseHelper.FetchingCustomerData();
-                    var checkCustomerId = customers.Where(x => Convert.ToString(x.Id) == p.Text);
+                    var checkCustomerId = customers.Where(x => Convert.ToString(x.Phone) == p.Text).FirstOrDefault();
 
-                    if (checkCustomerId.Count() == 1)   //Kiểm tra mã khách hàng hợp lệ
+                    if (checkCustomerId != null)   //Kiểm tra mã khách hàng hợp lệ
                     {
-                        if (CustomerId != Convert.ToInt32(p.Text))   //Xử lí việc nhập cùng 1 mã nhiều lần
-                            PrevCustomerId = CustomerId;
+                        if (CustomerPhone != Convert.ToString(p.Text))   //Xử lí việc nhập cùng 1 mã nhiều lần
+                            PrevCustomerPhone = CustomerPhone;
                         else
                             return;
-                        CustomerId = Convert.ToInt32(p.Text);
-                        MessageBoxCustom mbSuccess = new MessageBoxCustom("Thông báo", "Mã khách hàng hợp lệ", MessageType.Success, MessageButtons.OK);
+
+                        CustomerPhone = checkCustomerId.Phone;
+                        CustomerId = checkCustomerId.Id;
+
+                        MessageBoxCustom mbSuccess = new MessageBoxCustom("Thông báo", "Số điện thoại khách hàng hợp lệ", MessageType.Success, MessageButtons.OK);
                         mbSuccess.ShowDialog();
                     }
                     else
                     {
                         p.Text = null;
                         CustomerId = null;
-                        MessageBoxCustom mbFailed = new MessageBoxCustom("Cảnh báo", "Mã khách hàng không hợp lệ", MessageType.Warning, MessageButtons.OK);
+                        MessageBoxCustom mbFailed = new MessageBoxCustom("Cảnh báo", "Số điện thoại khách hàng không hợp lệ", MessageType.Warning, MessageButtons.OK);
                         mbFailed.ShowDialog();
                     }
 
                     //Lấy ra số điểm hiện tại khách hàng tích lũy
                     CustomerPoint = DatabaseHelper.GetCustomerPoint(CustomerId);
                     //Số điểm tích lũy trên 1000 sẽ được quyền áp dụng vào hóa đơn
-                    if (CustomerPoint >= 1000)
+                    if (CustomerId == null)
+                    {
+                        ReceiptPage.applyPointTbx.Text = $"Sử dụng điểm vào tổng hóa đơn";
+                        ReceiptPage.applyPointToggleBtn.IsEnabled = false;
+                    }
+                    else if (CustomerPoint >= 1000)
                     {
                         ReceiptPage.applyPointTbx.Text = $"Sử dụng {CustomerPoint} điểm để thanh toán";
                         ReceiptPage.applyPointToggleBtn.IsEnabled = true;

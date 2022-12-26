@@ -68,6 +68,11 @@ namespace ConvenienceStore.Utils.Helpers
             if (number is null) return false;
             return Regex.Match(number, @"(([03+[2-9]|05+[6|8|9]|07+[0|6|7|8|9]|08+[1-9]|09+[1-4|6-9]]){3})+[0-9]{7}\b").Success;
         }
+        public static bool IsEmail(string email)
+        {
+            if (email is null) return false;
+            return Regex.Match(email, @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$").Success;
+        }
         public static string GetHourMinutes(TimeSpan t)
         {
             return t.ToString(@"hh\:mm");
