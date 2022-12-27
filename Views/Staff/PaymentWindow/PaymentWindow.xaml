@@ -206,8 +206,9 @@
                                          HorizontalAlignment="Left">
 
                         <ScrollViewer HorizontalScrollBarVisibility="Hidden"
-                                      VerticalScrollBarVisibility="Hidden"
-                                      PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
+                                      VerticalScrollBarVisibility="Visible"
+                                      PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
+                                      CanContentScroll="True" >
 
                             <ListBox ItemsSource="{Binding FilteredList}"
                                      x:Name="listBox"
