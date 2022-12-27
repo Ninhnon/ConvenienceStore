@@ -188,14 +188,14 @@ namespace ConvenienceStore.ViewModel.StaffVM
                                 TotalBill += (int)(bd.TotalPrice == null ? 0 : bd.TotalPrice);
                                 bd.Quantity++;
                              
-                                parameter.txtBarcode.Text = "";
-                                Thread.Sleep(2000);
-
-
+                               
+                         
+                          
 
                             }
                         }
-                       
+                        parameter.txtBarcode.Text = "";
+                        Thread.Sleep(1000);
                     }
                     else
                     {
@@ -211,10 +211,9 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         SelectedBillDetail = billDetail;
                         ShoppingCart.Add(billDetail);
                       
+              
                         parameter.txtBarcode.Text = "";
-                        Thread.Sleep(2000);
-
-
+                        Thread.Sleep(1000);
                     }
                 }
                

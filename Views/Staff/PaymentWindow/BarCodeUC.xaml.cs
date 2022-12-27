@@ -69,14 +69,14 @@ namespace ConvenienceStore.Views.Staff.PaymentWindow
              
                 if (result != null)
                 {
-           
-                  
+
+                   
                     txtBarcode.Text = result.ToString();
+                    Thread.Sleep(500);
 
-                    
-             
 
-             
+
+
 
                 }
                 BitmapImage bitmapImage = new BitmapImage();
