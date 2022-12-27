@@ -175,16 +175,12 @@
                                  Command="{Binding HistoryCommand}"
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
                                  FontWeight="SemiBold"/>
-                        <RadioButton x:Name="rdProfile" Content="Thông tin cá nhân" Style="{DynamicResource MenuRadioButtonStyle}"
-                                 Tag="{DynamicResource profile}" Margin="0 5 0 5"
-                                 Command="{Binding ProfileCommand}"
-                                 CommandParameter="{Binding ElementName=PagesNavigation}"
-                                 FontWeight="SemiBold"/>
-                        <!--<RadioButton x:Name="rdProduct" Content="Product" Style="{DynamicResource MenuRadioButtonStyle}" 
+                        
+                        <RadioButton x:Name="rdProduct" Content="Product" Style="{DynamicResource MenuRadioButtonStyle}" 
                                  Tag="{DynamicResource product}" Margin="0 5 0 5"
                                  Command="{Binding ProductCommand}"
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
-                                 FontWeight="SemiBold"/>-->
+                                 FontWeight="SemiBold"/>
                         <!--<RadioButton x:Name="rdVoucher" Content="Voucher" Style="{DynamicResource MenuRadioButtonStyle}"
                                  Tag="{DynamicResource voucher}" Margin="0 5 0 5"
                                  Command="{Binding VoucherCommand}"
@@ -195,7 +191,11 @@
                                  Command="{Binding ReportCommand}"
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
                                  FontWeight="SemiBold"/>
-
+                        <RadioButton x:Name="rdProfile" Content="Thông tin cá nhân" Style="{DynamicResource MenuRadioButtonStyle}"
+                                 Tag="{DynamicResource profile}" Margin="0 5 0 5"
+                                 Command="{Binding ProfileCommand}"
+                                 CommandParameter="{Binding ElementName=PagesNavigation}"
+                                 FontWeight="SemiBold"/>
                         <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" 
                             Cursor="Hand"
                             Click="btnLogout_Click"

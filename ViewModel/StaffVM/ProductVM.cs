@@ -1,11 +1,15 @@
-﻿using ConvenienceStore.Model.Staff;
+﻿using ConvenienceStore.Model;
+using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.StaffVM;
+using ConvenienceStore.Views;
 using ConvenienceStore.Views.Staff.ProductWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,173 +20,149 @@ namespace ConvenienceStore.ViewModel.StaffVM
     public class ProductVM : BaseViewModel
     {
 
-        private ObservableCollection<Products>? _List;
-        public ObservableCollection<Products>? List { get => _List; set { _List = value; OnPropertyChanged(); } }
-        public List<Products> danhsach = new();
+        SoundPlayer player = new SoundPlayer(Environment.CurrentDirectory + @"\beep.wav");
+        public ICommand AddToCartBarCode { get; set; }
+        public ICommand SearchProductName { get; set; }
+        public ICommand FilterType { get; set; }
 
-        private string? _Text;
-        public string? Text
-        {
-            get => _Text;
-            set { _Text = value; OnPropertyChanged(); }
-        }
-        private ComboBoxItem? _ItemViewMode;
-        public ComboBoxItem? ItemViewMode
-        {
-            get => _ItemViewMode;
-            set { _ItemViewMode = value; OnPropertyChanged(); }
-        }
-        private ComboBoxItem? _StatusName;
-        public ComboBoxItem? StatusName
-        {
-            get => _StatusName;
-            set { _StatusName = value; OnPropertyChanged(); }
-        }
-        private Products _SelectedItem;
-        public Products SelectedItem
-        {
-            get => _SelectedItem;
-            set { _SelectedItem = value; OnPropertyChanged(); }
-        }
-        //public ICommand AddCommand { get; set; }
-        //public ICommand LoadInforProductCM { get; set; }
-        //public ICommand SelectedCM { get; set; }
-        public ICommand FilterListProductCommand { get; set; }
-        //public ICommand FilterStatusProductCommand { get; set; }
-        public ICommand LoadDetailWindowCM { get; set; }
         public ICommand MaskNameCM { get; set; }
-        public ICommand CloseCM { get; set; }
-        public ICommand OpenQRCommand { get; set; }
-        public ICommand RefreshWindowCM { get; set; }
-        public Grid MaskName { get; set; }
+        public ICommand OpenBarCodeCommand { get; set; }
+        public ICommand LoadCommand { get; set; }
+        public ICommand FindProductCommand { get; set; }
+
+
+
+
+        // PaymentView
+        private ObservableCollection<Products> _List;
+        public ObservableCollection<Products> List { get { return _List; } set { _List = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<Products> _FilteredList;
+        public ObservableCollection<Products> FilteredList { get { return _FilteredList; } set { _FilteredList = value; OnPropertyChanged(); } }
+
+        private Products _SelectedItem;
+        public Products SelectedItem { get { return _SelectedItem; } set { _SelectedItem = value; OnPropertyChanged(); } }
+
+
+        private string _SearchContent;
+        public string SearchContent { get { return _SearchContent; } set { _SearchContent = value; OnPropertyChanged(); } }
+
+        private ComboBoxItem _ComboBoxCategory;
+        public ComboBoxItem ComboBoxCategory { get { return _ComboBoxCategory; } set { _ComboBoxCategory = value; OnPropertyChanged(); } }
+
+        public static Grid MaskName { get; set; }
+        //public Receipt ReceiptPage
+
+        public List<Products> products = new List<Products>();
+
+
+        #region Staff Info
+        private int _StaffId;
+        public int StaffId { get { return _StaffId; } set { _StaffId = value; OnPropertyChanged(); } }
+
+        private string _StaffName;
+        public string StaffName { get { return _StaffName; } set { _StaffName = value; OnPropertyChanged(); } }
+        #endregion
+
+        public void AddBarCode(BarCodeUC parameter)
+        {
+            SearchContent = parameter.txtBarcode.Text;
+        }
+
+        public void ShowBarCodeQR(ProductWindow parameter)
+        {
+            parameter.barcodeUC.Visibility = Visibility.Visible;
+        }
+
+        public void FindProduct(BarCodeUC parameter)
+        {
+
+            FilteredList = List;
+            if (parameter.txtBarcode.Text != "")
+            {
+
+
+                if (long.TryParse(parameter.txtBarcode.Text, out long n))
+                {
+                    FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.BarCode.ToLower().Contains(parameter.txtBarcode.Text.ToLower())).ToList());
+                }
+                else
+                {
+                    FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.Title.ToLower().Contains(parameter.txtBarcode.Text.ToLower())).ToList());
+                }
+            }
+        }
+
         public ProductVM()
         {
-            danhsach= DatabaseHelper.FetchingProductData();
-            List = new ObservableCollection<Products>(danhsach);
-            FilterListProductCommand = new RelayCommand<ComboBox>((p) => { return true; }, (p) =>
+
+            StaffName = CurrentAccount.Name;
+            StaffId = CurrentAccount.idAccount;
+            products = DatabaseHelper.FetchingProductData();
+            List = new ObservableCollection<Products>(products);
+            FilteredList = List;
+            AddToCartBarCode = new RelayCommand<BarCodeUC>(parameter => true, parameter => AddBarCode(parameter));
+            OpenBarCodeCommand = new RelayCommand<ProductWindow>(parameter => true, parameter => ShowBarCodeQR(parameter));
+
+            LoadCommand = new RelayCommand<object>((p) =>
             {
-                FilterListProducts();
-            });
-            //FilterStatusProductCommand = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, (p) =>
-            //{
-            //    FilterStatusProducts();
-            //});
-            LoadDetailWindowCM = new RelayCommand<ListView>((p) => { return true; }, (p) =>
+                return true;
+            }, (p) =>
             {
-                //MaskName.Visibility = Visibility.Visible;
-                ViewProduct w = new();
-                w.ShowDialog();
+                products = DatabaseHelper.FetchingProductData();
+                List = new ObservableCollection<Products>(products);
+                FilteredList = List;
             });
-            MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
+
+            FindProductCommand = new RelayCommand<BarCodeUC>(parameter => true, parameter => FindProduct(parameter));
+            //Tìm kiếm & lọc
+            SearchProductName = new RelayCommand<TextBox>((p) =>
+            {
+                return true;
+            },
+
+
+            (p) =>
+            {
+                TextBox? tbx = p;
+
+                FilteredList = List;
+                if (tbx.Text != "")
+                    if (long.TryParse(tbx.Text, out long n))
+                    {
+                        FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.BarCode.ToLower().Contains(tbx.Text.ToLower())).ToList());
+                    }
+                    else
+                    {
+                        FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.Title.ToLower().Contains(tbx.Text.ToLower())).ToList());
+                    }
+            }
+            );
+            FilterType = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                //Lọc sản phẩm theo loại
+                if (ComboBoxCategory.Content.ToString() == "Tất cả")
+                    FilteredList = new ObservableCollection<Products>(products);
+                else
+                    FilteredList = new ObservableCollection<Products>((products).Where(x => x.Type == ComboBoxCategory.Content.ToString()).ToList());
+
+                //Lưu lại danh sách các sản phẩm, hỗ trợ việc tìm kiếm của SearchProductName
+                List = FilteredList;
+            });
+
+            //Mask
+            MaskNameCM = new RelayCommand<Grid>((p) =>
+            {
+                return true;
+            }, (p) =>
             {
                 MaskName = p;
             });
-            CloseCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
-            {
-                p.Close();
-            });
-            OpenQRCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
-            {
-                QRView w1 = new();
-                w1.ShowDialog();
-                //MaskName.Visibility = Visibility.Visible;
-                //while (Text == null) ;
-                if (Text != null)
-                {
-                    List<Products> Search = new();
-                    danhsach = DatabaseHelper.FetchingProductData();
-                    foreach (Products s in danhsach)
-                    {
-                        if (s.BarCode == Text) Search.Add(s);
-                    }
-                    List = new ObservableCollection<Products>(Search);
-                }
-            });
-            RefreshWindowCM = new RelayCommand<object>((p) => { return true; }, (p) =>
-            {
-                danhsach = DatabaseHelper.FetchingProductData();
-                List = new ObservableCollection<Products>(danhsach);
-            });
+
         }
-        //private void SearchQR()
-        //{
-        //    CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(List);
-        //    view.Filter = Filter;
-        //    CollectionViewSource.GetDefaultView(List).Refresh();
-        //}
-        //private bool Filter(object item)
-        //{
-        //    if (String.IsNullOrEmpty(Text))
-        //        return true;
-        //    else
-        //        return ((Products)item).BarCode.Contains(Text, StringComparison.OrdinalIgnoreCase);
-        //}
-        public void FilterListProducts()
-        {
-            List.Clear();
-            if (ItemViewMode.Content.ToString() == "Tất cả")
-            {
-                for (int i = 0; i < danhsach.Count; ++i)
-                {
-                    List.Add(danhsach[i]);
-                }
-            }
-            else
-            {
-                for (int i = 0; i < danhsach.Count; ++i)
-                {
-                    if (danhsach[i].Type == ItemViewMode.Content.ToString())
-                    {
-                        List.Add(danhsach[i]);
-                    }
-                }
-            }
-        }
-        //public void FilterStatusProducts()
-        //{
-        //    List.Clear();
-        //    DateTime t = DateTime.Now;
-        //    TimeSpan h = new(10, 0, 0, 0);
-        //    if (StatusName.Content.ToString() == "Tất cả")
-        //    {
-        //        for (int i = 0; i < danhsach.Count; ++i)
-        //        {
-        //            List.Add(danhsach[i]);
-        //        }
-        //    }
-        //    else if (StatusName.Content.ToString() == "Hết hạn sử dụng")
-        //    {
-        //        for (int i = 0; i < danhsach.Count; ++i)
-        //        {
-        //            if (t > danhsach[i].ExpiryDate)
-        //            {
-        //                List.Add(danhsach[i]);
-        //            }
-        //        }
-        //    }
-        //    else if (StatusName.Content.ToString() == "Khác")
-        //    {
-        //        {
-        //            for (int i = 0; i < danhsach.Count; ++i)
-        //            {
-        //                if (t <= danhsach[i].ExpiryDate)
-        //                {
-        //                    List.Add(danhsach[i]);
-        //                }
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        for (int i = 0; i < danhsach.Count; ++i)
-        //        {
-        //            if ((t - (danhsach[i].ExpiryDate) <= h) && (t > danhsach[i].ExpiryDate))
-        //            {
-        //                List.Add(danhsach[i]);
-        //            }
-        //        }
-        //    }
-        //}
 
     }
 }
