@@ -46,38 +46,61 @@
             <!--ControlBar-->
             <Grid Grid.Row="0">
                 
-                <Button Margin="0 10 10 10"
-                        x:Name="PrintBtn"
-                        materialDesign:ButtonAssist.CornerRadius="8"
-                        BorderBrush="Transparent"
-                        Width="50"
-                        Height="30"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom" 
-                        Click="Print_Bill">
-                    
-                    <materialDesign:PackIcon Kind="Printer"
-                                             Width="24"
-                                             Height="24"
-                                             VerticalAlignment="Center"
-                                             HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right">
 
-                    <!--Trigger style phụ thuộc vào button OK-->
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}"
-                               BasedOn="{StaticResource ReceiptButtonStyle}">
-                            <Setter Property="IsEnabled" 
-                                    Value="False"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" 
-                                             Value="False">
-                                    <Setter Property="IsEnabled" 
-                                            Value="True"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
+                    <Button Margin="0 10 10 10"
+                            x:Name="AddCustomerBtn"
+                            materialDesign:ButtonAssist.CornerRadius="8"
+                            BorderBrush="Transparent"
+                            Width="60"
+                            Height="30"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Command="{Binding OpenAddCustomerWindow}"
+                            ToolTip="Thêm khách hàng">
+
+                        <materialDesign:PackIcon Kind="AccountMultiplePlus"
+                                                 Width="24"
+                                                 Height="24"
+                                                 VerticalAlignment="Center"
+                                                 HorizontalAlignment="Center"/>
+                    </Button>
+
+                    <Button Margin="0 10 10 10"
+                            x:Name="PrintBtn"
+                            materialDesign:ButtonAssist.CornerRadius="8"
+                            BorderBrush="Transparent"
+                            Width="60"
+                            Height="30"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom" 
+                            Click="Print_Bill"
+                            ToolTip="In hóa đơn">
+
+                        <materialDesign:PackIcon Kind="Printer"
+                                                 Width="24"
+                                                 Height="24"
+                                                 VerticalAlignment="Center"
+                                                 HorizontalAlignment="Center"/>
+
+                        <!--Trigger style phụ thuộc vào button OK-->
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}"
+                                   BasedOn="{StaticResource ReceiptButtonStyle}">
+                                <Setter Property="IsEnabled" 
+                                        Value="False"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" 
+                                                 Value="False">
+                                        <Setter Property="IsEnabled" 
+                                                Value="True"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
             </Grid>
 
             <!--Thông tin hóa đơn-->

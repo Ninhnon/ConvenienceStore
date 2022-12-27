@@ -65,6 +65,8 @@ namespace ConvenienceStore.Utils.Helpers
                                                         set Point = @customerPoint
                                                         where Id = @customerId";
 
+        static readonly string queryInsertCustomer = @"insert into Customer(Name, Address, Phone, Email) values (@name, @address, @phone, @email)";
+
         public static List<Model.Staff.Bill> FetchingBillData()
         {
             sqlCon.Open();
@@ -590,6 +592,18 @@ namespace ConvenienceStore.Utils.Helpers
             customerPoint = reader.IsDBNull(0) ? 0 : reader.GetInt32(0);
             sqlCon.Close();
             return customerPoint;
+        }
+
+        public static void InsertCustomerData (Customer customer)
+        {
+            sqlCon.Open();
+            SqlCommand cmd = new SqlCommand(queryInsertCustomer, sqlCon);
+            cmd.Parameters.AddWithValue("@name", customer.Name);
+            cmd.Parameters.AddWithValue("@address", customer.Address);
+            cmd.Parameters.AddWithValue("@phone", customer.Phone);
+            cmd.Parameters.AddWithValue("@email", customer.Email);
+            cmd.ExecuteNonQuery();
+            sqlCon.Close();
         }
     }
 }

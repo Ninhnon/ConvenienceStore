@@ -31,14 +31,12 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public ICommand RemoveProduct { get; set; }
         public ICommand SearchProductName { get; set; }
         public ICommand FilterType { get; set; }
-
         public ICommand MaskNameCM { get; set; }
         public ICommand OpenReceiptPage { get; set; }
         public ICommand ScrollToEndListBox { get; set; }
         public ICommand OpenBarCodeCommand { get; set; }
         public ICommand LoadCommand { get; set; }
         public ICommand FindProductCommand { get; set; }
-
         #endregion
 
         #region Icommand Receipt
@@ -49,9 +47,19 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public ICommand SearchVoucherCM { get; set; }
         public ICommand ApplyPointCM { get; set; }
         public ICommand CompleteReceiptCM { get; set; }
+        public ICommand OpenAddCustomerWindow { get; set; }
         #endregion
 
-        // PaymentView
+        #region Icommand AddCustomer
+        public ICommand BackCommand { get; set; }
+        public ICommand IsValidName { get; set; }
+        public ICommand IsValidPhoneNumber { get; set; }
+        public ICommand IsValidEmail { get; set; }
+        public ICommand IsValidAddress { get; set; }
+        public ICommand SaveCommand { get; set; }
+        #endregion
+
+        #region PaymentView variables
         private ObservableCollection<Products> _List;
         public ObservableCollection<Products> List { get { return _List; } set { _List = value; OnPropertyChanged(); } }
 
@@ -74,8 +82,9 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public ComboBoxItem ComboBoxCategory { get { return _ComboBoxCategory; } set { _ComboBoxCategory = value; OnPropertyChanged(); } }
 
         public static Grid MaskName { get; set; }
+        #endregion
 
-        // ReceiptView
+        #region ReceiptView variables
         private ObservableCollection<double> _ItemTotalPrice;
         public ObservableCollection<double> ItemTotalPrice { get { return _ItemTotalPrice; } set { _ItemTotalPrice = value; OnPropertyChanged(); } }
 
@@ -126,6 +135,13 @@ namespace ConvenienceStore.ViewModel.StaffVM
 
         private Receipt _ReceiptPage;
         public Receipt ReceiptPage { get { return _ReceiptPage; } set { _ReceiptPage = value; OnPropertyChanged(); } }
+
+        #endregion
+
+        #region AddCustomer variables
+        private AddCustomer _AddCustomerWindow;
+        public AddCustomer AddCustomerWindow { get { return _AddCustomerWindow; } set { _AddCustomerWindow = value; OnPropertyChanged(); } }
+        #endregion
 
         //public Receipt ReceiptPage
 
@@ -182,21 +198,15 @@ namespace ConvenienceStore.ViewModel.StaffVM
                     {
                         foreach (BillDetails bd in ShoppingCart)
                         {
-                            if (bd.ProductId == SelectedItem.BarCode)
+                            if (bd.ProductId == SelectedItem.BarCode && bd.Quantity < SelectedItem.Stock)
                             {
                                 TotalBill -= (int)(bd.TotalPrice == null ? 0 : bd.TotalPrice);
                                 bd.TotalPrice = bd.TotalPrice / bd.Quantity * (bd.Quantity + 1);
                                 TotalBill += (int)(bd.TotalPrice == null ? 0 : bd.TotalPrice);
                                 bd.Quantity++;
                                 parameter.txtBarcode.Text = "";
-
-
-
-
                             }
                         }
-                     
-                      
                     }
                     else
                     {
@@ -211,22 +221,15 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         TotalBill += (int)billDetail.TotalPrice;
                         SelectedBillDetail = billDetail;
                         ShoppingCart.Add(billDetail);
-                      
               
                         parameter.txtBarcode.Text = "";
-                       
                     }
                 }
-               
-                
-              
             }
-       
         }
 
         public PaymentViewModel()
         {
-
             StaffName = CurrentAccount.Name;
             StaffId = CurrentAccount.idAccount;
             products = DatabaseHelper.FetchingProductData();
@@ -248,7 +251,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 {
                     foreach(BillDetails bd in ShoppingCart)
                     {
-                        if (bd.ProductId == SelectedItem.BarCode)
+                        if (bd.ProductId == SelectedItem.BarCode && bd.Quantity < SelectedItem.Stock)
                         {
                             TotalBill -= (int)(bd.TotalPrice == null ? 0 : bd.TotalPrice);
                             bd.TotalPrice = bd.TotalPrice / bd.Quantity * (bd.Quantity + 1);
@@ -256,11 +259,9 @@ namespace ConvenienceStore.ViewModel.StaffVM
                             bd.Quantity++;
                         }
                     }
-                  
                 }
                 else
                 {
-                    //SelectedItem.Quantity = 1;
                     BillDetails billDetail = new BillDetails();
                     billDetail.ProductId = SelectedItem.BarCode;
                     billDetail.Quantity = 1;
@@ -275,7 +276,9 @@ namespace ConvenienceStore.ViewModel.StaffVM
                  }
              }
             );
+
             AddToCartBarCode = new RelayCommand<BarCodeUC>(parameter => true, parameter => AddBarCode(parameter));
+
             OpenBarCodeCommand = new RelayCommand<PaymentWindow>(parameter => true, parameter => ShowBarCodeQR(parameter));
 
             LoadCommand = new RelayCommand<object>((p) =>
@@ -300,12 +303,12 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 if (item != null)
                 {
                     //Được thêm vào khi còn trong kho
-                    Products relatedProduct = FilteredList.Where(x => x.BarCode == item.ProductId).FirstOrDefault();
+                    Products? relatedProduct = FilteredList.Where(x => x.BarCode == item.ProductId).FirstOrDefault();
                     if (relatedProduct != null && relatedProduct.Stock > item.Quantity)
                     {
-                        TotalBill -= (int)item.TotalPrice;
+                        TotalBill -= (int)(item.TotalPrice == null ? 0 : item.TotalPrice);
                         item.TotalPrice = item.TotalPrice / item.Quantity * (item.Quantity + 1);
-                        TotalBill += (int)item.TotalPrice;
+                        TotalBill += (int)(item.TotalPrice == null ? 0 : item.TotalPrice);
                         item.Quantity++;
                     }
                 }
@@ -324,9 +327,9 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         item.Quantity = 1;
                     else
                     {
-                        TotalBill -= (int)item.TotalPrice;
+                        TotalBill -= (int)(item.TotalPrice == null ? 0 : item.TotalPrice);
                         item.TotalPrice = item.TotalPrice / item.Quantity * (item.Quantity - 1);
-                        TotalBill += (int)item.TotalPrice;
+                        TotalBill += (int)(item.TotalPrice == null ? 0 : item.TotalPrice);
                         item.Quantity--;
                     }
                 }
@@ -341,7 +344,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 if (item != null)
                 {
                     ShoppingCart.Remove(item);
-                    TotalBill -= (int)item.TotalPrice;
+                    TotalBill -= (int)(item.TotalPrice == null ? 0 : item.TotalPrice);
                 }
             }
             );
@@ -350,25 +353,19 @@ namespace ConvenienceStore.ViewModel.StaffVM
             SearchProductName = new RelayCommand<TextBox>((p) =>
             {
                 return true;
-            },
-
-
-            (p) =>
+            }, (p) =>
             {
                 TextBox? tbx = p;
 
                 FilteredList = List;
                 if (tbx.Text != "")
                     if (long.TryParse(tbx.Text, out long n))
-                    {
                         FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.BarCode.ToLower().Contains(tbx.Text.ToLower())).ToList());
-                    }
                     else
-                    {
                         FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.Title.ToLower().Contains(tbx.Text.ToLower())).ToList());
-                    }
             }
             );
+
             FilterType = new RelayCommand<object>((p) =>
             {
                 return true;
@@ -379,7 +376,6 @@ namespace ConvenienceStore.ViewModel.StaffVM
                     FilteredList = new ObservableCollection<Products>(products);
                 else
                     FilteredList = new ObservableCollection<Products>((products).Where(x => x.Type == ComboBoxCategory.Content.ToString()).ToList());
-
                 //Lưu lại danh sách các sản phẩm, hỗ trợ việc tìm kiếm của SearchProductName
                 List = FilteredList;
             });
@@ -465,7 +461,6 @@ namespace ConvenienceStore.ViewModel.StaffVM
             }, (p) =>
             {
                 p.ScrollIntoView(SelectedBillDetail);
-
             });
 
             SearchCustomerIdCM = new RelayCommand<TextBox>((p) =>
@@ -697,6 +692,146 @@ namespace ConvenienceStore.ViewModel.StaffVM
                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Thanh toán gặp sự cố, vui lòng thử lại!", MessageType.Warning, MessageButtons.OK);
                     mb.ShowDialog();
                 }
+            });
+
+            OpenAddCustomerWindow = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                AddCustomerWindow = new AddCustomer();
+                ReceiptPage.Hide();
+                AddCustomerWindow.ShowDialog();
+            });
+
+            BackCommand = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                AddCustomerWindow.Close();
+                ReceiptPage.ShowDialog();
+            });
+
+            IsValidName = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                if (AddCustomerWindow.nameTxtbox.textBox.Text != "")
+                {
+                    if (!AddCustomerWindow.nameTxtbox.textBox.Text.Any(Char.IsLetter))
+                    {
+                        MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Tên khách hàng không hợp lệ", MessageType.Warning, MessageButtons.OK);
+                        mb.ShowDialog();
+
+                        AddCustomerWindow.nameTxtbox.textBox.Text = "";
+                    }
+                }
+            });
+
+            IsValidEmail = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                if (AddCustomerWindow.emailTxtbox.textBox.Text != "")
+                {
+                    if (!Helpers.IsEmail(AddCustomerWindow.emailTxtbox.textBox.Text))
+                    {
+                        MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Email khách hàng không hợp lệ", MessageType.Warning, MessageButtons.OK);
+                        mb.ShowDialog();
+
+                        AddCustomerWindow.emailTxtbox.textBox.Text = "";
+                    }
+                }
+            });
+
+            IsValidPhoneNumber = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                if (AddCustomerWindow.phoneTxtbox.textBox.Text != "")
+                {
+                    customers = DatabaseHelper.FetchingCustomerData();
+                    var checkExistedPhoneNumber = customers.Where(x => x.Phone == AddCustomerWindow.phoneTxtbox.textBox.Text);
+
+                    if (!Helpers.IsPhoneNumber(AddCustomerWindow.phoneTxtbox.textBox.Text))
+                    {
+                        MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Số điện thoại khách hàng không hợp lệ", MessageType.Warning, MessageButtons.OK);
+                        mb.ShowDialog();
+
+                        AddCustomerWindow.phoneTxtbox.textBox.Text = "";
+                    }
+                    else if (checkExistedPhoneNumber.Count() != 0)
+                    {
+                        MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Số điện thoại đã được đăng ký, vui lòng sử dụng số khác", MessageType.Warning, MessageButtons.OK);
+                        mb.ShowDialog();
+
+                        AddCustomerWindow.phoneTxtbox.textBox.Text = "";
+                    }
+                }
+            });
+
+            IsValidAddress = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                if (AddCustomerWindow.addressTxtbox.textBox.Text != "")
+                {
+                    if (!Helpers.IsValidAddress(AddCustomerWindow.addressTxtbox.textBox.Text))
+                    {
+                        MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Địa chỉ khách hàng không hợp lệ", MessageType.Warning, MessageButtons.OK);
+                        mb.ShowDialog();
+
+                        AddCustomerWindow.addressTxtbox.textBox.Text = "";
+                    }
+                }
+            });
+
+            SaveCommand = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                if (AddCustomerWindow.nameTxtbox.textBox.Text == "")
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Họ tên khách hàng không được để trống", MessageType.Warning, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
+                else if (AddCustomerWindow.phoneTxtbox.textBox.Text == "")
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Số điện thoại khách hàng không được để trống", MessageType.Warning, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
+                else
+                {
+                    try
+                    {
+                        Customer customer = new Customer();
+                        customer.Name = AddCustomerWindow.nameTxtbox.textBox.Text;
+                        customer.Phone = AddCustomerWindow.phoneTxtbox.textBox.Text;
+                        customer.Email = AddCustomerWindow.emailTxtbox.textBox.Text;
+                        customer.Address = AddCustomerWindow.addressTxtbox.textBox.Text;
+
+                        DatabaseHelper.InsertCustomerData(customer);
+                        MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Thêm khách hàng thành công", MessageType.Success, MessageButtons.OK);
+                        mb.ShowDialog();
+
+                        AddCustomerWindow.nameTxtbox.textBox.Text = "";
+                        AddCustomerWindow.phoneTxtbox.textBox.Text = "";
+                        AddCustomerWindow.emailTxtbox.textBox.Text = "";
+                        AddCustomerWindow.addressTxtbox.textBox.Text = "";
+                    }
+                    catch
+                    {
+                        MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Đã có lỗi xảy ra, vui lòng thử lại", MessageType.Error, MessageButtons.OK);
+                        mb.ShowDialog();
+                    }
+
+                }    
             });
         }
     }
