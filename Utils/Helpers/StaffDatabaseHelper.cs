@@ -14,7 +14,7 @@ namespace ConvenienceStore.Utils.Helpers
         from Consignment c,Product p,
         ( 
         select ProductId, min([ExpiryDate]) e
-        from ConsignmentqueryAvatar
+        from Consignment
         where Stock>0 AND ExpiryDate > GETDATE()
         group by ProductId
         ) h
@@ -207,6 +207,7 @@ namespace ConvenienceStore.Utils.Helpers
             sqlCon.Close();
             return vouchers;
         }
+
         public static List<Products> FetchingProductData()
         {
             sqlCon.Open();
