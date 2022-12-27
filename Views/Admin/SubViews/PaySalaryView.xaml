@@ -128,7 +128,7 @@
 
                                 <!--Form Bottom Background-->
 
-                                <Button Grid.Row="2" Content="Back"
+                                <Button Grid.Row="2" Content="Quay lại"
                                     Command="{Binding BackCommandPay}" 
                             CommandParameter="{Binding ElementName=wdSalary}"
                                     VerticalAlignment="Center"
@@ -138,7 +138,7 @@
                                 <Button Grid.Column="1" Grid.Row="2" 
                                         Command="{Binding PayCommand}"
                                         CommandParameter="{Binding ElementName=wdSalary}"
-                                        Content="Save Next" 
+                                        Content="Trả lương" 
                                         HorizontalAlignment="Left" 
                                         Margin="10,0,0,0" 
                                         Style="{StaticResource saveEmployeeButton}" Width="100"

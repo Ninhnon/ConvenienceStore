@@ -204,9 +204,10 @@ namespace ConvenienceStore.ViewModel.StaffVM
                                 bd.TotalPrice = bd.TotalPrice / bd.Quantity * (bd.Quantity + 1);
                                 TotalBill += (int)(bd.TotalPrice == null ? 0 : bd.TotalPrice);
                                 bd.Quantity++;
-                                parameter.txtBarcode.Text = "";
+                              
                             }
                         }
+                   
                     }
                     else
                     {
@@ -221,8 +222,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         TotalBill += (int)billDetail.TotalPrice;
                         SelectedBillDetail = billDetail;
                         ShoppingCart.Add(billDetail);
-              
-                        parameter.txtBarcode.Text = "";
+                  
                     }
                 }
             }

@@ -120,7 +120,7 @@
 
                                 <!--Form Bottom Background-->
 
-                                <Button Grid.Row="2" Content="Back"
+                                <Button Grid.Row="2" Content="Quay lại"
                                     Command="{Binding BackCommandEdit}" 
                             CommandParameter="{Binding ElementName=wdEditEmployee}"
                                     VerticalAlignment="Center"
@@ -130,7 +130,7 @@
                                 <Button Grid.Column="1" Grid.Row="2" 
                                         Command="{Binding SaveCommandEdit}"
                                         CommandParameter="{Binding ElementName=wdEditEmployee}"
-                                        Content="Save Next" 
+                                        Content="Lưu" 
                                         HorizontalAlignment="Left" 
                                         Margin="10,0,0,0" 
                                         Style="{StaticResource saveEmployeeButton}" Width="100"

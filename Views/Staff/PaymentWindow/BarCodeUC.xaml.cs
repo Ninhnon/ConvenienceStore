@@ -27,8 +27,9 @@ namespace ConvenienceStore.Views.Staff.PaymentWindow
     /// </summary>
     public partial class BarCodeUC : UserControl
     {
-
-        SoundPlayer player = new SoundPlayer(Environment.CurrentDirectory + @"\beep.wav");
+        private string result1 { get; set; }
+        private int count = 0;
+        SoundPlayer player = new SoundPlayer(@"..\..\..\beep.wav");
         public FilterInfoCollection filterInfoCollection;
         public VideoCaptureDevice videoCaptureDevice;
         public BarCodeUC()
@@ -67,28 +68,6 @@ namespace ConvenienceStore.Views.Staff.PaymentWindow
                 BarcodeReader reader = new BarcodeReader();
          
                 var result = reader.Decode(bitmap);
-              
-                if (result != null)
-                {
-
-                    player.Play();
-                    txtBarcode.Text = result.ToString();
-                  
-                    if (videoCaptureDevice.IsRunning)
-                    {
-                        videoCaptureDevice.SignalToStop();
-                        Thread.Sleep(1500);
-                    }
-                    txtBarcode.Text = "";
-                    FilterInfoCollection filterInfoCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-                    videoCaptureDevice = new VideoCaptureDevice(filterInfoCollection[cboCamera.SelectedIndex].MonikerString);
-                    videoCaptureDevice.NewFrame += VideoCaptureDevice_NewFrame;
-                    videoCaptureDevice.Start();
-
-
-
-
-                }
                 BitmapImage bitmapImage = new BitmapImage();
                 using (MemoryStream memory = new MemoryStream())
                 {
@@ -100,6 +79,34 @@ namespace ConvenienceStore.Views.Staff.PaymentWindow
                     bitmapImage.EndInit();
                 }
                 pictureBox.Source = bitmapImage;
+                if (result != null)
+                {
+                    result1 = result.ToString();
+                    Thread.Sleep(33);
+
+                   
+                     
+
+                    count+=2;
+                }
+                    if (count >= 5)
+
+                    {
+                    txtBarcode.Text = "";
+                
+                  
+                    txtBarcode.Text = result.ToString();
+                    player.Play();
+
+
+                    count = -20;
+                }
+
+
+            
+
+                
+           
             });
 
 

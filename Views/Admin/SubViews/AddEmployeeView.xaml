@@ -215,7 +215,7 @@
 
                                 <!--Form Bottom Background-->
 
-                                <Button Grid.Row="6" Content="Back"
+                                <Button Grid.Row="6" Content="Quay lại"
                                     Command="{Binding BackCommand}" 
                             CommandParameter="{Binding ElementName=addEmployeeWd}"
                                     VerticalAlignment="Center"
@@ -225,7 +225,7 @@
                                 <Button Grid.Column="1" Grid.Row="6" 
                                         Command="{Binding SaveCommand}"
                                         CommandParameter="{Binding ElementName=addEmployeeWd}"
-                                        Content="Save Next" 
+                                        Content="Thêm" 
                                         HorizontalAlignment="Left" 
                                         Margin="10,0,0,0" 
                                         Style="{StaticResource saveEmployeeButton}" Width="100"
