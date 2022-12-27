@@ -3,7 +3,7 @@
 ## ConvenienceStore
 
 <a href="https://dotnet.microsoft.com/en-us/download/dotnet/6.0">
-    <img src = "https://img.shields.io/badge/.NET%20Framwork-6.0-blue?style=flat-square">
+    <img src = "https://img.shields.io/badge/.NET%20Framework-6.0-blue?style=flat-square">
 </a>
 <a href="https://m2.material.io/design">
     <img src = "https://img.shields.io/badge/MaterialDesign-v2-brightgreen?style=flat-square">
@@ -22,6 +22,7 @@ ConvenienceStore là ứng dụng quản lí chuỗi cửa hàng tiện lợi v�
 
 ## Nổi bật 🐳
 
+- QR Scan, Barcode Scan 🤖
 - [MVVM pattern](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel)
 - [FluentValidation](https://docs.fluentvalidation.net/en/latest/)
 - [LiveChartWpf](https://github.com/beto-rodriguez/LiveCharts2)
@@ -32,13 +33,54 @@ ConvenienceStore là ứng dụng quản lí chuỗi cửa hàng tiện lợi v�
 
 Chi tiết xem [tại đây](./BAOCAO.pdf)
 
+## Hướng dẫn sử dụng ⚙️
+
+### `1. Cài đặt phầm mềm`
+
+- Cài đặt [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/).
+- Cài đặt [SQL Sever 2022](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) và SSMS. Xem hướng dẫn [tại đây](https://www.youtube.com/watch?v=O2yhVbvfwWs&t=276s).
+- Cài đặt phần mềm để kết nối camera điện thoại với Laptop/PC  
+  Nhóm em đề xuất [Camo](https://reincubate.com/camo/). Xem hướng dẫn cài đặt và sử dụng [tại đây](https://www.youtube.com/watch?v=6EQX4yDh72M&ab_channel=WasayTechTips).
+
+### `2. Tải dự án về máy`
+
+- **Cách 1**: Clone về với git
+
+  ```sh
+  git clone https://github.com/Ninhnon/ConvenienceStore.git
+  ```
+
+- **Cách 2**: Tải tập tin ZIP  
+  <img src="./ForDemo_CanDelete/DownloadZIP.jpg" width = 300/>
+
+### `3. Khởi tạo quan hệ`
+
+- Trong thư mục ConvenienceStore vừa tải, tìm file **script.sql** và mở trong Microsoft SQL Server Management Studio.
+
+- Một cửa sổ nhỏ xuất hiện như hình bên dưới. Chú ý lưu **Server name** lại.  
+  VD ở đây: LAPTOP-O791JS0J\SQLEXPRESS  
+  <img src="./ForDemo_CanDelete/severName.jpg" width = 400/>  
+   Chọn "Conect"
+
+- Nhấn chuột vào nội dung file. Chọn **Execute** hoặc nhấn **F5**.
+
+- Quay lại thư mục ConvenienceStore. Mở file **ConvenientStore.sln**
+
+- Solution Explorer nằm phía bên trái. Nếu không thấy, vào **View** -> chọn **Solution Explorer**
+
+- Nhấp đúp chuột vào **App.config**
+
+- Thay đổi nội dung của **Data Source** với **Sever name** của bạn
+  <img src="./ForDemo_CanDelete/appConfig.jpg"/>
+
+- Hoàn tất, nhấn **Ctrl + F5** để chạy
+
 ## Người đóng góp ✨
 
 Cảm ơn những người tuyệt vời này ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
-<p align="center">
 <table>
   <tr>
     <td align="center">
@@ -96,4 +138,3 @@ Cảm ơn những người tuyệt vời này ([emoji key](https://allcontributo
 
   </tr>
 </table>
-</p>
