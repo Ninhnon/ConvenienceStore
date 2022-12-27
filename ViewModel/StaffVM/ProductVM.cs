@@ -80,7 +80,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
             FilteredList = List;
             if (parameter.txtBarcode.Text != "")
             {
-
+                player.Play();
 
                 if (long.TryParse(parameter.txtBarcode.Text, out long n))
                 {
