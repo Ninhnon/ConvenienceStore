@@ -176,7 +176,7 @@
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
                                  FontWeight="SemiBold"/>
                         
-                        <RadioButton x:Name="rdProduct" Content="Product" Style="{DynamicResource MenuRadioButtonStyle}" 
+                        <RadioButton x:Name="rdProduct" Content="Sản phẩm" Style="{DynamicResource MenuRadioButtonStyle}" 
                                  Tag="{DynamicResource product}" Margin="0 5 0 5"
                                  Command="{Binding ProductCommand}"
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
@@ -199,7 +199,7 @@
                         <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" 
                             Cursor="Hand"
                             Click="btnLogout_Click"
-                            Margin="0 210 0 20">
+                            Margin="0 140 0 20">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Đăng xuất"/>
