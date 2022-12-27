@@ -245,12 +245,12 @@ CommandParameter="{Binding ElementName=wdSetting}"
                             Style="{StaticResource buttonMain}"
                                 Command="{Binding BackCommand}"
                                 CommandParameter="{Binding ElementName=wdSetting}"
-                                Margin="0 0 10 0" Content="Cancel" />
+                                Margin="0 0 10 0" Content="Quay lại" />
 
                         <Button Grid.Column="1" Width="100" Cursor="Hand"
                                 Command="{Binding SaveCommand}"
                                 CommandParameter="{Binding ElementName=wdSetting}"
-                                Style="{StaticResource buttonMainGreen}" Margin="10 0 0 0" Content="Save"/>
+                                Style="{StaticResource buttonMainGreen}" Margin="10 0 0 0" Content="Lưu"/>
                     </Grid>
 
                 </Grid>
