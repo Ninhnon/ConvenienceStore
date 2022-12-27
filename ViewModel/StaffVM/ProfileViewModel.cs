@@ -17,6 +17,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
 {
     public class ProfileViewModel : BaseViewModel
     {
+        public int Id { get; set; }
         public int ManagerId { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
@@ -35,14 +36,15 @@ namespace ConvenienceStore.ViewModel.StaffVM
 
         public ProfileViewModel()
         {
-
+            Id = CurrentAccount.idAccount;
             ManagerId = CurrentAccount.ManagerId;
             Name = CurrentAccount.Name;
             Address = CurrentAccount.Address;
             Email = CurrentAccount.Email;
             Phone = CurrentAccount.Phone;
             Avatar = CurrentAccount.Avatar;
-            MyTeam = DatabaseHelper.QueryStaffOnTeam(ManagerId);
+            MyTeam = DatabaseHelper.FetchTeamMembers(Id, ManagerId);
+
             LoadCommand = new RelayCommand<Page>((p) =>
             {
                 return true;

@@ -11,6 +11,7 @@
     <None Remove="Resources\Icons\account-key.png" />
     <None Remove="Resources\Icons\boxes.png" />
     <None Remove="Resources\Icons\discount.png" />
+    <None Remove="Resources\Icons\leadership.png" />
     <None Remove="Resources\Icons\pay.png" />
     <None Remove="Resources\Images\IconForInputInfo\box.png" />
     <None Remove="Resources\Images\IconForInputInfo\calendar.png" />
@@ -123,6 +124,7 @@
     <Resource Include="Resources\Icons\account-key.png" />
     <Resource Include="Resources\Icons\boxes.png" />
     <Resource Include="Resources\Icons\discount.png" />
+    <Resource Include="Resources\Icons\leadership.png" />
     <Resource Include="Resources\Icons\pay.png" />
     <Resource Include="Resources\Images\IconForInputInfo\box.png" />
     <Resource Include="Resources\Images\IconForInputInfo\calendar.png" />
