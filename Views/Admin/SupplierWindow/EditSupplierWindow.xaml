@@ -114,7 +114,7 @@
                                 Margin="0 0 20 0"
                                 Command="{StaticResource CloseAppCommand}"
                                 CommandParameter="{Binding ElementName=EditSupplierScreen}"/>
-                        <Button Content="Xong"
+                        <Button Content="Lưu"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 Background="{StaticResource PrimaryColor}"
                                 BorderBrush="{StaticResource PrimaryColor}"

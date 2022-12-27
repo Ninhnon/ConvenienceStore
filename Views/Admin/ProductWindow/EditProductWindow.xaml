@@ -50,7 +50,7 @@
 
                     <TextBlock Text="Chỉnh sửa sản phẩm"
                                Foreground="White"
-                               FontSize="30"
+                               FontSize="29"
                                FontWeight="SemiBold"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"/>
@@ -244,7 +244,7 @@
                                 Visibility="Hidden"
                                 MouseLeave="MarkUploadImage_MouseLeave">
                             <Button Style="{StaticResource MaterialDesignOutlinedButton}"
-                                    Content="Upload Image"
+                                    Content="Chọn ảnh"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     Foreground="Black"
@@ -429,7 +429,7 @@
                                     Command="{StaticResource CloseAppCommand}"
                                     CommandParameter="{Binding ElementName=EditProductScreen}"/>
                             <Button x:Name="UpdateButton"
-                                    Content="Cập nhật"
+                                    Content="Lưu"
                                     Background="#3982E4"
                                     BorderThickness="0"
                                     Width="90"

@@ -59,7 +59,7 @@
 
                                 </fa1:IconImage>
 
-                                <TextBlock Text="Image Preview"
+                                <TextBlock Text="Xem trước"
                                                Foreground="#808080"
                                                FontSize="16"
                                                FontWeight="DemiBold"/>
@@ -94,7 +94,7 @@
                                     Visibility="Hidden"
                                     MouseLeave="MarkUploadImage_MouseLeave">
                         <Button Style="{StaticResource MaterialDesignOutlinedButton}"
-                                        Content="Upload Image"
+                                        Content="Chọn ảnh"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Foreground="Black"

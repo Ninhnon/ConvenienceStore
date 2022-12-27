@@ -30,7 +30,7 @@
     <Grid>
         <Border Background="Black"
                 Opacity="0.4"
-                CornerRadius="8">
+                CornerRadius="8" Margin="0,2,0,-2">
         </Border>
         <Grid Width="650"
               VerticalAlignment="Center">

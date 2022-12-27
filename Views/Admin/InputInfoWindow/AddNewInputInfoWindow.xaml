@@ -133,7 +133,7 @@
                                 Command="{StaticResource CloseAppCommand}"
                                 CommandParameter="{Binding ElementName=AddNewInputInfoScreen}"/>
 
-                        <Button Content="Tạo"
+                        <Button Content="Lưu"
                                 Background="{StaticResource PrimaryColor}"
                                 BorderBrush="{StaticResource PrimaryColor}"
                                 Command="{Binding CreateInputInfoButtonCommand}"

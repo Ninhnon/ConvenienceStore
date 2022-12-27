@@ -102,7 +102,7 @@
                     </i:Interaction.Triggers>
                         
                     <Button Style="{StaticResource MaterialDesignOutlinedButton}"
-                            Content="Upload Image"
+                            Content="Chọn ảnh"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
                             Foreground="Black"
