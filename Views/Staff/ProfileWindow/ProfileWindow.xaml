@@ -303,27 +303,51 @@
                                                           Color="{StaticResource MaterialDesignShadow}"/>
                                     </Border.Effect>
 
-                                    <StackPanel Margin="15 20 15 15">
+                                    <Grid>
 
-                                        <Ellipse Stroke="Transparent"
-                                                 Width="100"
-                                                 Height="100"
-                                                 VerticalAlignment="Top"
-                                                 Margin="0 0 0 10">
+                                        <Image Source="/Resources/Icons/leadership.png"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Top"
+                                               Margin="5 5 0 0"
+                                               Width="30">
+                                            
+                                            <Image.Style>
+                                                <Style TargetType="Image">
+                                                    <Setter Property="Visibility" 
+                                                            Value="Hidden"/>
 
-                                            <Ellipse.Fill>
-                                                <ImageBrush ImageSource="{Binding Avatar}"
-                                                            Stretch="UniformToFill"/>
-                                            </Ellipse.Fill>
-                                        </Ellipse>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Path=UserRole}"
+                                                                     Value="1">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Style>
+                                        </Image>
 
-                                        <TextBlock Text="{Binding Name}"
-                                                   HorizontalAlignment="Center"
-                                                   FontWeight="semiBold"
-                                                   FontSize="18"                                                    TextWrapping="Wrap"
-                                                   TextAlignment="Center"/>
-                                    </StackPanel>
+                                        <StackPanel Margin="15 20 15 15">
 
+                                            <Ellipse Stroke="Transparent"
+                                                     Width="100"
+                                                     Height="100"
+                                                     VerticalAlignment="Top"
+                                                     Margin="0 0 0 10">
+
+                                                <Ellipse.Fill>
+                                                    <ImageBrush ImageSource="{Binding Avatar}"
+                                                                Stretch="UniformToFill"/>
+                                                </Ellipse.Fill>
+                                            </Ellipse>
+
+                                            <TextBlock Text="{Binding Name}"
+                                                       HorizontalAlignment="Center"
+                                                       FontWeight="semiBold"
+                                                       FontSize="18"                                                    
+                                                       TextWrapping="Wrap"
+                                                       TextAlignment="Center"/>
+                                        </StackPanel>
+                                    </Grid>
                                 </Border>
                             </DataTemplate>
                         </ListView.ItemTemplate>
