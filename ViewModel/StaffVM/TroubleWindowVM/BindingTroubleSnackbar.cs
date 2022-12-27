@@ -1,4 +1,4 @@
-﻿using ConvenienceStore.ViewModel.Admin.AdminVM;
+﻿using ConvenienceStore.ViewModel.TroubleWindowVM;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
@@ -7,13 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand
+namespace ConvenienceStore.ViewModel.StaffVM.TroubleWindowVM
 {
-    public class BindingProductSnackbar : ICommand
+    public class BindingTroubleSnackbar : ICommand
     {
-        InputInfoVM VM;
-
-        public BindingProductSnackbar(InputInfoVM VM)
+        TroublePageViewModel VM;
+        public BindingTroubleSnackbar(TroublePageViewModel VM)
         {
             this.VM = VM;
         }
@@ -30,13 +29,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand
 
         public void Execute(object parameter)
         {
-            if (parameter != null)
-            {
-                var values = (object[])parameter;
-
-                VM.InputInfoSnackbar = values[0] as Snackbar;
-                VM.ProductSnackbar = values[1] as Snackbar;
-            }
+            VM.TroubleSnackbar = parameter as Snackbar;
         }
     }
 }

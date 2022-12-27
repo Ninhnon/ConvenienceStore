@@ -25,10 +25,17 @@ namespace ConvenienceStore.Views.Login
                 DragMove();
         }
 
+  
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-           
-            Application.Current.Shutdown();
+            MessageBoxCustom mb = new MessageBoxCustom("Thoát", "Bạn có chắc muốn thoát?", MessageType.Info, MessageButtons.YesNo);
+
+
+            if (mb.ShowDialog() == true)
+            {
+                Application.Current.Shutdown();
+            }
+
         }
     }
 }

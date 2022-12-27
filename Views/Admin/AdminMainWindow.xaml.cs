@@ -41,16 +41,29 @@ namespace ConvenienceStore.Views.Admin
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            LoginWindow login = new LoginWindow();
+            MessageBoxCustom mb = new MessageBoxCustom("Thoát", "Bạn có chắc muốn thoát?", MessageType.Info, MessageButtons.YesNo);
 
-            this.Close();
-            login.ShowDialog();
-
-
-
+            
+            if (mb.ShowDialog() == true)
+            {
+                this.Close();
+            }
 
         }
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxCustom mb = new MessageBoxCustom("Đăng xuất", "Bạn có chắc muốn đăng xuất?", MessageType.Info, MessageButtons.YesNo);
 
+
+            if (mb.ShowDialog() == true)
+            {
+                LoginWindow log = new LoginWindow();
+            
+                this.Close();
+                log.ShowDialog();
+            }
+
+        }
         private void btnRestore_Click(object sender, RoutedEventArgs e)
         {
             if (WindowState == WindowState.Normal)

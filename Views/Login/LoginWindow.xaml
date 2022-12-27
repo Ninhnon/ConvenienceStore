@@ -91,7 +91,7 @@
                               Width="220" Height="155">
                         <Border.Background>
                             <ImageBrush
-                        ImageSource="/Resources/Images/Login/logo.jpg"
+                        ImageSource="/Resources/Images/Login/removebg.png"
                          
                            
                            >
@@ -101,7 +101,7 @@
 
                     </Border>
 
-                    <TextBlock Text="Visual project"
+                    <TextBlock Text="EllipseK"
                                FontSize="25"
                                FontFamily="Montserrat"
                                HorizontalAlignment="Center"

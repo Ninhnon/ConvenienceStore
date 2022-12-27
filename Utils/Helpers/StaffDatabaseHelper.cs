@@ -227,7 +227,7 @@ namespace ConvenienceStore.Utils.Helpers
                     Stock = reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
                     ManufacturingDate = reader.GetDateTime(7),
                     ExpiryDate = reader.GetDateTime(8),
-                    Discount = reader.IsDBNull(9) ? null : reader.GetInt32(9),
+                    Discount = reader.IsDBNull(9) ? null : reader.GetDouble(9),
                     Type = reader.IsDBNull(10) ? null : reader.GetString(10),
                     InputInfoId = reader.GetInt32(11),
                 });

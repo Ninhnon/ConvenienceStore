@@ -1,4 +1,4 @@
-﻿<Window x:Class="ConvenienceStore.Views.Staff.Receipt"
+﻿<Window x:Class="ConvenienceStore.Views.Staff.PaymentWindow.Receipt"
         x:Name="receiptPage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -23,17 +23,12 @@
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
+    
     <Border CornerRadius="8"
             Background="{DynamicResource SecondaryBackgroundColor}">
-        <!--<Border.Background>
-            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                <GradientStop Color='#E9E4F0' Offset="0"/>
-                <GradientStop Color='#D3CCE3' Offset="1"/>
-            </LinearGradientBrush>
-        </Border.Background>-->
+
         <Grid>
             <Grid.RowDefinitions>
-
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -43,26 +38,24 @@
             </Grid.RowDefinitions>
 
             <i:Interaction.Triggers>
-
                 <i:EventTrigger EventName="Loaded">
-
                     <i:InvokeCommandAction Command="{Binding LoadReceiptPage}" />
-
                 </i:EventTrigger>
-
             </i:Interaction.Triggers>
 
             <!--ControlBar-->
             <Grid Grid.Row="0">
+                
                 <Button Margin="0 10 10 10"
                         x:Name="PrintBtn"
-                            materialDesign:ButtonAssist.CornerRadius="8"
-                            BorderBrush="Transparent"
+                        materialDesign:ButtonAssist.CornerRadius="8"
+                        BorderBrush="Transparent"
                         Width="50"
                         Height="30"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom" 
                         Click="Print_Bill">
+                    
                     <materialDesign:PackIcon Kind="Printer"
                                              Width="24"
                                              Height="24"
@@ -72,11 +65,14 @@
                     <!--Trigger style phụ thuộc vào button OK-->
                     <Button.Style>
                         <Style TargetType="{x:Type Button}"
-                                   BasedOn="{StaticResource ReceiptButtonStyle}">
-                            <Setter Property="IsEnabled" Value="False"/>
+                               BasedOn="{StaticResource ReceiptButtonStyle}">
+                            <Setter Property="IsEnabled" 
+                                    Value="False"/>
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="False">
-                                    <Setter Property="IsEnabled" Value="True"/>
+                                <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" 
+                                             Value="False">
+                                    <Setter Property="IsEnabled" 
+                                            Value="True"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -86,73 +82,77 @@
 
             <!--Thông tin hóa đơn-->
             <Grid Grid.Row="1">
+                
                 <StackPanel Orientation="Vertical">
 
                     <!--Tên cửa hàng-->
                     <TextBlock Text="ELLIPSE K VIETNAM" 
-                         FontWeight="Bold"
-                         FontSize="30"
-                         TextAlignment="Center"
+                               FontWeight="Bold"
+                               FontSize="30"
+                               TextAlignment="Center"
                                Margin="10 10 0 0"/>
 
                     <!--Địa chỉ-->
                     <TextBlock Text="Khu phố 6, phường Linh Trung, thành phố Thủ Đức, Việt Nam" 
-                         FontWeight="Light"
-                         FontSize="13"
-                         TextAlignment="Center"/>
+                               FontWeight="Light"
+                               FontSize="13"
+                               TextAlignment="Center"/>
 
                     <Separator Margin="100 10 100 0"/>
 
                     <!--Số hóa đơn-->
                     <StackPanel Orientation="Horizontal"
-                            Margin="5 10 0 0">
+                                Margin="5 10 0 0">
+                        
                         <TextBlock Text="Số hóa đơn: " 
-                         FontWeight="Light"
-                         FontSize="13"
-                         TextAlignment="Center"
-                         HorizontalAlignment="Left"/>
+                                   FontWeight="Light"
+                                   FontSize="13"
+                                   TextAlignment="Center"
+                                   HorizontalAlignment="Left"/>
 
                         <TextBlock Text="{Binding ReceiptBill.Id}" 
-                         FontWeight="Light"
-                         FontSize="13"
-                         TextAlignment="Center"
-                         HorizontalAlignment="Left"
-                               Margin="5 0 0 0"/>
+                                   FontWeight="Light"
+                                   FontSize="13"
+                                   TextAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="5 0 0 0"/>
                     </StackPanel>
 
                     <!--Ngày xuất hóa đơn-->
                     <StackPanel Orientation="Horizontal"
-                            Margin="5 5 0 0">
+                                Margin="5 5 0 0">
+                        
                         <TextBlock Text="Ngày hóa đơn: " 
-                         FontWeight="Light"
-                         FontSize="13"
-                         TextAlignment="Center"
-                         HorizontalAlignment="Left"/>
+                                   FontWeight="Light"
+                                   FontSize="13"
+                                   TextAlignment="Center"
+                                   HorizontalAlignment="Left"/>
 
                         <TextBlock Text="{Binding ReceiptBill.BillDate, StringFormat={}{0:dddd, dd MMMM yyyy, HH:mm}}"
                                    FontWeight="Light"
-                         FontSize="13"
-                         TextAlignment="Center"
-                         HorizontalAlignment="Left"
-                               Margin="5 0 0 0"
+                                   FontSize="13"
+                                   TextAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="5 0 0 0"
                                    xml:lang="vi"/>
                     </StackPanel>
 
                     <!--Nhân viên thanh toán-->
                     <StackPanel Orientation="Horizontal"
-                            Margin="5 5 0 0">
+                                Margin="5 5 0 0">
+                        
                         <TextBlock Text="Thu ngân: "
-                         FontWeight="Light"
-                         FontSize="13"
-                         TextAlignment="Center"
-                         HorizontalAlignment="Left"/>
+                                   FontWeight="Light"
+                                   FontSize="13"
+                                   TextAlignment="Center"
+                                   HorizontalAlignment="Left"/>
 
-                        <TextBlock
-                         FontWeight="Light"
-                         FontSize="13"
-                         TextAlignment="Center"
-                         HorizontalAlignment="Left"
-                               Margin="5 0 0 0">
+                        <TextBlock FontWeight="Light"
+                                   FontSize="13"
+                                   TextAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="5 0 0 0">
+                            
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} - {1}">
                                     <Binding Path="StaffId"/>
@@ -164,27 +164,25 @@
 
                     <!--Tìm mã khách hàng & Nhập voucher-->
                     <StackPanel Orientation="Horizontal"
-                            Margin="5 0 0 0">
+                                Margin="5 0 0 0">
 
                         <!--Tìm mã khách hàng-->
-                            
-                            <TextBlock Text="Mã khách hàng: " 
-                         FontWeight="Light"
-                         FontSize="13"
-                         TextAlignment="Center"
-                         HorizontalAlignment="Left"
+                        <TextBlock Text="Mã khách hàng: " 
+                                   FontWeight="Light"
+                                   FontSize="13"
+                                   TextAlignment="Center"
+                                   HorizontalAlignment="Left"
                                    Margin="0 15 0 0"/>
 
-                            <TextBox x:Name="customerIdTbx"
-                            Margin="0 10 0 0"
-                            FontSize="13"
-                                     Height="25"
+                        <TextBox x:Name="customerIdTbx"
+                                 Margin="0 10 0 0"
+                                 FontSize="13"
+                                 Height="25"
                                  TextAlignment="Center"
-                                     Width="100"
-                                     BorderThickness="1 1 1 1"
-                                     HorizontalContentAlignment="Center"
-                                     VerticalContentAlignment="Center">
-
+                                 Width="100"
+                                 BorderThickness="1 1 1 1"
+                                 HorizontalContentAlignment="Center"
+                                 VerticalContentAlignment="Center">
 
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="LostFocus">
@@ -197,94 +195,73 @@
                                     <KeyBinding Key="Enter"
                                             Command="{Binding SearchCustomerIdCM}"
                                             CommandParameter="{Binding ElementName=customerIdTbx}"/>
-                                </TextBox.InputBindings>
+                            </TextBox.InputBindings>
 
-                                <TextBox.Style>
-                                    <Style TargetType="{x:Type TextBox}"
-                                   BasedOn="{StaticResource SearchTextBox}">
-                                        <Setter Property="IsEnabled" 
-                                        Value="True"/>
+                            <TextBox.Style>
+                                <Style TargetType="{x:Type TextBox}"
+                                        BasedOn="{StaticResource SearchTextBox}">
+                                    <Setter Property="IsEnabled" 
+                                            Value="True"/>
 
-                                        <!--Textbox không thể nhập nội dung sau khi đã thanh toán-->
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false">
-                                                <Setter Property="IsEnabled" Value="False"/>
-                                            </DataTrigger>
-
-                                            <!--<MultiDataTrigger>
-                                                <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false"/>
-                                                    <Condition Binding="{Binding ElementName=customerIdTbx, Path=Text}" Value=""/>
-                                                </MultiDataTrigger.Conditions>
-
-                                                <MultiDataTrigger.Setters>
-                                                    <Setter Property="Visibility" Value="Hidden"/>
-                                                </MultiDataTrigger.Setters>
-                                            </MultiDataTrigger>-->
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBox.Style>
-                            </TextBox>
+                                    <!--Textbox không thể nhập nội dung sau khi đã thanh toán-->
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
 
                         <!--Nhập voucher-->
-                            
-                                <TextBlock Text="Mã voucher: " 
-                         FontWeight="Light"
-                         FontSize="13"
-                         TextAlignment="Center"
-                         HorizontalAlignment="Left"
+                        <TextBlock Text="Mã voucher: " 
+                                   FontWeight="Light"
+                                   FontSize="13"
+                                   TextAlignment="Center"
+                                   HorizontalAlignment="Left"
                                    Margin="40 15 0 0"/>
 
-                                <TextBox x:Name="voucherIdTbx"
-                            Margin="0 10 0 0"
-                            FontSize="13"
-                                     Height="25"
+                        <TextBox x:Name="voucherIdTbx"
+                                 Margin="0 10 0 0"
+                                 FontSize="13"
+                                 Height="25"
                                  TextAlignment="Center"
-                                     Width="100"
-                                     BorderThickness="1 1 1 1"
-                                     HorizontalContentAlignment="Center"
-                                     VerticalContentAlignment="Center">
+                                 Width="100"
+                                 BorderThickness="1 1 1 1"
+                                 HorizontalContentAlignment="Center"
+                                 VerticalContentAlignment="Center">
 
-                                    
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="LostFocus">
+
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="LostFocus">
                                     <i:InvokeCommandAction Command="{Binding SearchVoucherCM}"
-                                                                   CommandParameter="{Binding ElementName=voucherIdTbx}"/>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                    
-                                    <TextBox.InputBindings>
-                                        <KeyBinding Key="Enter"
+                                                           CommandParameter="{Binding ElementName=voucherIdTbx}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Enter"
                                             Command="{Binding SearchVoucherCM}"
                                             CommandParameter="{Binding ElementName=voucherIdTbx}"/>
-                                    </TextBox.InputBindings>
+                            </TextBox.InputBindings>
 
-                                    <TextBox.Style>
-                                        <Style TargetType="{x:Type TextBox}"
-                                   BasedOn="{StaticResource SearchTextBox}">
+                            <TextBox.Style>
+                                <Style TargetType="{x:Type TextBox}"
+                                       BasedOn="{StaticResource SearchTextBox}">
+                                    <Setter Property="IsEnabled" 
+                                            Value="True"/>
+
+                                    <!--Textbox không thể nhập nội dung sau khi đã thanh toán-->
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" 
+                                                     Value="false">
                                             <Setter Property="IsEnabled" 
-                                        Value="True"/>
-
-                                            <!--Textbox không thể nhập nội dung sau khi đã thanh toán-->
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false">
-                                                    <Setter Property="IsEnabled" Value="False"/>
-                                                </DataTrigger>
-
-                                                <!--<MultiDataTrigger>
-                                                    <MultiDataTrigger.Conditions>
-                                                        <Condition Binding="{Binding ElementName=OkBtn, Path=IsEnabled}" Value="false"/>
-                                                        <Condition Binding="{Binding ElementName=voucherIdTbx, Path=Text}" Value=""/>
-                                                    </MultiDataTrigger.Conditions>
-
-                                                    <MultiDataTrigger.Setters>
-                                                        <Setter Property="Visibility" Value="Hidden"/>
-                                                    </MultiDataTrigger.Setters>
-                                                </MultiDataTrigger>-->
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBox.Style>
-                                </TextBox>
+                                                    Value="False"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
                     </StackPanel>
 
                     <Separator Margin="5 10 5 10"/>
@@ -293,8 +270,8 @@
             </Grid>
 
             <materialDesign:Card Grid.Row="2"
-                             Margin="5 5 5 0"
-                             VerticalAlignment="Stretch"
+                                 Margin="5 5 5 0"
+                                 VerticalAlignment="Stretch"
                                  Height="150"
                                  x:Name="billDetailCard">
 
@@ -304,61 +281,57 @@
                               x:Name="billDetailScrollView">
 
                     <ListView ItemsSource="{Binding ShoppingCart}" 
-                          SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                          VerticalAlignment="Top"
-                          materialDesign:ListBoxItemAssist.ShowSelection="False"
-                          materialDesign:ListBoxAssist.IsToggle="False"
+                              SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                              VerticalAlignment="Top"
+                              materialDesign:ListBoxItemAssist.ShowSelection="False"
+                              materialDesign:ListBoxAssist.IsToggle="False"
                               x:Name="billDetailListView">
 
                         <ListView.View>
-
                             <GridView>
                                 <GridView.ColumnHeaderContainerStyle>
                                     <Style TargetType="{x:Type GridViewColumnHeader}">
-                                        <Setter Property="HorizontalContentAlignment" Value="Left" />
-                                        <Setter Property="Padding" Value="15 0 0 0"/>
+                                        <Setter Property="HorizontalContentAlignment" 
+                                                Value="Left" />
+                                        <Setter Property="Padding" 
+                                                Value="15 0 0 0"/>
                                     </Style>
                                 </GridView.ColumnHeaderContainerStyle>
 
                                 <GridViewColumn Header="SL"
-                                            Width="80">
+                                                Width="80">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Quantity}"
-                                                   HorizontalAlignment="Left"/>
+                                                       HorizontalAlignment="Left"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
 
                                 <GridViewColumn Header="Sản phẩm"
-                                            Width="220">
+                                                Width="220">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Title}"
-                                                   HorizontalAlignment="Left"
+                                                       HorizontalAlignment="Left"
                                                        TextWrapping="WrapWithOverflow"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
 
                                 <GridViewColumn Header="Số tiền"
-                                            Width="140">
+                                                Width="140">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding TotalPrice, Converter={StaticResource MoneyToVNDCurrency}}"
-                                                   HorizontalAlignment="Left"/>
+                                                       HorizontalAlignment="Left"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-
                             </GridView>
-
                         </ListView.View>
-
                     </ListView>
-                    
                 </ScrollViewer>
-
             </materialDesign:Card>
 
             <Grid Grid.Row="3"
@@ -368,9 +341,9 @@
                 <StackPanel Orientation="Horizontal">
 
                     <ToggleButton x:Name="applyPointToggleBtn"
-                    Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                    ToolTip="Sử dụng điểm để thanh toán"
-                    IsChecked="False"
+                                  Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                  ToolTip="Sử dụng điểm để thanh toán"
+                                  IsChecked="False"
                                   IsEnabled="False"
                                   Command="{Binding ApplyPointCM}"/>
 
@@ -378,17 +351,12 @@
                                FontSize="13"
                                FontWeight="Light"
                                x:Name="applyPointTbx"
-                               Text="Sử dụng điểm vào tổng hóa đơn">
-                        <!--<Run Text="Sử dụng"/>
-                        <Run Text="{Binding CustomerPoint}"/>
-                        <Run Text="điểm để thanh toán"/>-->
-                    </TextBlock>
+                               Text="Sử dụng điểm vào tổng hóa đơn"/>
                 </StackPanel>
-
             </Grid>
 
-
-            <Grid Grid.Row="4" Margin="0 5 0 5">
+            <Grid Grid.Row="4" 
+                  Margin="0 5 0 5">
 
                 <StackPanel Orientation="Vertical">
 
@@ -401,72 +369,58 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Grid.Column="0"
-                            FontSize="18"
-                           FontWeight="Light"
-                           Margin="5 5 0 0">
+                                   FontSize="18"
+                                   FontWeight="Light"
+                                   Margin="5 5 0 0">
 
                             <TextBlock.Text>
-
                                 <MultiBinding StringFormat="{}Giảm giá: {0}">
-
                                     <Binding Path="Discount" 
                                              Converter="{StaticResource MoneyToVNDCurrency}"
                                              UpdateSourceTrigger="PropertyChanged"/>
-
                                 </MultiBinding>
-
                             </TextBlock.Text>
-
                         </TextBlock>
 
                         <TextBlock Grid.Column="1"
-                            FontSize="18"
-                           FontWeight="Bold"
+                                   FontSize="18"
+                                   FontWeight="Bold"
                                    Margin="0 5 5 0"
                                    HorizontalAlignment="Right">
 
                             <TextBlock.Text>
-
                                 <MultiBinding StringFormat="{}Tổng tiền: {0}">
-
                                     <Binding Path="TotalBill" Converter="{StaticResource MoneyToVNDCurrency}"/>
-
                                 </MultiBinding>
-
                             </TextBlock.Text>
-
                         </TextBlock>
-
                     </Grid>
                 </StackPanel>
-
             </Grid>
-
             
             <Grid Grid.Row="5">
+                
                 <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
                             x:Name="stackButtons"
-                            Margin="0 5 10 10"
-                            >
+                            Margin="0 5 10 10">
 
                     <Button Content="OK"
-                        x:Name="OkBtn"
+                            x:Name="OkBtn"
                             Style="{StaticResource ReceiptButtonStyle}"
                             materialDesign:ButtonAssist.CornerRadius="8"
                             Command="{Binding CompleteReceiptCM}"
                             CommandParameter="{Binding ElementName=OkBtn}"
                             BorderBrush="Transparent" />
 
-                    <Button 
-                        x:Name="CancelBtn"
+                    <Button x:Name="CancelBtn"
                             materialDesign:ButtonAssist.CornerRadius="8"
                             Command="{Binding CancelReceiptCM}"
                             CommandParameter="{Binding ElementName=CancelBtn}"
                             BorderBrush="Transparent"
-                        Background="OrangeRed"
-                        Margin="10 0 0 0">
+                            Background="OrangeRed"
+                            Margin="10 0 0 0">
 
                         <Button.Style>
                             <Style TargetType="{x:Type Button}"
@@ -486,7 +440,5 @@
                 </StackPanel>
             </Grid>
         </Grid>
-
     </Border>
-
 </Window>

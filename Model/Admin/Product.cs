@@ -88,9 +88,9 @@ namespace ConvenienceStore.Model.Admin
             set { expiryDate = value; OnPropertyChanged("ExpiryDate"); }
         }
 
-        private int discount;
+        private double discount;
 
-        public int Discount
+        public double Discount
         {
             get { return discount; }
             set { discount = value; OnPropertyChanged("Discount"); }

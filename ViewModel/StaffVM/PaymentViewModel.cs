@@ -2,7 +2,7 @@
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Views;
-using ConvenienceStore.Views.Staff;
+using ConvenienceStore.Views.Staff.PaymentWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,11 +10,19 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Media;
+using Emgu.CV;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ConvenienceStore.ViewModel.StaffVM
 {
     public class PaymentViewModel : BaseViewModel
     {
+    
+
+        SoundPlayer player = new SoundPlayer(Environment.CurrentDirectory+@"\beep.wav");
         #region ICommand Payment
         public ICommand AddToCart { get; set; }
         public ICommand AddToCartBarCode { get; set; }
@@ -100,6 +108,12 @@ namespace ConvenienceStore.ViewModel.StaffVM
         private int? _CustomerId;
         public int? CustomerId { get { return _CustomerId; } set { _CustomerId = value; OnPropertyChanged(); } }
 
+        private string? _CustomerPhone;
+        public string? CustomerPhone { get { return _CustomerPhone; } set { _CustomerPhone = value; OnPropertyChanged(); } }
+
+        private string? _PrevCustomerPhone;
+        public string? PrevCustomerPhone { get { return _PrevCustomerPhone; } set { _PrevCustomerPhone = value; OnPropertyChanged(); } }
+
         private int? _CustomerPoint;
         public int? CustomerPoint { get { return _CustomerPoint; } set { _CustomerPoint = value; OnPropertyChanged(); } }
 
@@ -133,18 +147,20 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public void AddBarCode(BarCodeUC parameter)
         {
             SearchContent = parameter.txtBarcode.Text;
-
         }
+
         public void ShowBarCodeQR(PaymentWindow parameter)
         {
-
             parameter.barcodeUC.Visibility = Visibility.Visible;
         }
+
         public void FindProduct(BarCodeUC parameter)
         {
+          
             FilteredList = List;
             if (parameter.txtBarcode.Text != "")
             {
+                player.Play();
                 if (long.TryParse(parameter.txtBarcode.Text, out long n))
                 {
                     FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.BarCode.ToLower().Contains(parameter.txtBarcode.Text.ToLower())).ToList());
@@ -153,30 +169,59 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 {
                     FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.Title.ToLower().Contains(parameter.txtBarcode.Text.ToLower())).ToList());
                 }
+            
                 //Kiểm tra trong giỏ hàng đã có hay chưa, có rồi thì không thêm vào
                 if (FilteredList.Count > 0)
                 {
                     SelectedItem = FilteredList[0];
                     var checkExistItem = ShoppingCart.Where(x => x.ProductId == SelectedItem.BarCode);
-                    if (checkExistItem.Count() != 0 || checkExistItem == null)
+                    if (checkExistItem == null)
                         return;
+                    else if (checkExistItem.Count() != 0)
+                    {
+                        foreach (BillDetails bd in ShoppingCart)
+                        {
+                            if (bd.ProductId == SelectedItem.BarCode)
+                            {
+                                TotalBill -= (int)(bd.TotalPrice == null ? 0 : bd.TotalPrice);
+                                bd.TotalPrice = bd.TotalPrice / bd.Quantity * (bd.Quantity + 1);
+                                TotalBill += (int)(bd.TotalPrice == null ? 0 : bd.TotalPrice);
+                                bd.Quantity++;
+                             
+                                parameter.txtBarcode.Text = "";
+                                Thread.Sleep(2000);
+
+
+
+                            }
+                        }
+                       
+                    }
                     else
                     {
                         //SelectedItem.Quantity = 1;
                         BillDetails billDetail = new BillDetails();
                         billDetail.ProductId = SelectedItem.BarCode;
                         billDetail.Quantity = 1;
-                        billDetail.TotalPrice = SelectedItem.Price;
+                        billDetail.TotalPrice = Convert.ToInt32(SelectedItem.Price * (1 - (SelectedItem.Discount == null ? 0 : SelectedItem.Discount)));
                         billDetail.Title = SelectedItem.Title;
                         billDetail.Image = SelectedItem.Image;
 
                         TotalBill += (int)billDetail.TotalPrice;
                         SelectedBillDetail = billDetail;
                         ShoppingCart.Add(billDetail);
+                      
+                        parameter.txtBarcode.Text = "";
+                        Thread.Sleep(2000);
+
+
                     }
                 }
-
+               
+                
+              
             }
+       
         }
 
         public PaymentViewModel()
@@ -197,15 +242,29 @@ namespace ConvenienceStore.ViewModel.StaffVM
             {
                 //Kiểm tra trong giỏ hàng đã có hay chưa, có rồi thì không thêm vào
                 var checkExistItem = ShoppingCart.Where(x => x.ProductId == SelectedItem.BarCode);
-                if (checkExistItem.Count() != 0 || checkExistItem == null)
+                if (checkExistItem == null)
                     return;
+                else if (checkExistItem.Count() != 0)
+                {
+                    foreach(BillDetails bd in ShoppingCart)
+                    {
+                        if (bd.ProductId == SelectedItem.BarCode)
+                        {
+                            TotalBill -= (int)(bd.TotalPrice == null ? 0 : bd.TotalPrice);
+                            bd.TotalPrice = bd.TotalPrice / bd.Quantity * (bd.Quantity + 1);
+                            TotalBill += (int)(bd.TotalPrice == null ? 0 : bd.TotalPrice);
+                            bd.Quantity++;
+                        }
+                    }
+                  
+                }
                 else
                 {
                     //SelectedItem.Quantity = 1;
                     BillDetails billDetail = new BillDetails();
                     billDetail.ProductId = SelectedItem.BarCode;
                     billDetail.Quantity = 1;
-                    billDetail.TotalPrice = SelectedItem.Price;
+                    billDetail.TotalPrice = Convert.ToInt32(SelectedItem.Price * (1 - (SelectedItem.Discount == null ? 0 : SelectedItem.Discount)));
                     billDetail.Title = SelectedItem.Title;
                     billDetail.Image = SelectedItem.Image;
                     billDetail.InputInfoId = SelectedItem.InputInfoId;
@@ -369,6 +428,8 @@ namespace ConvenienceStore.ViewModel.StaffVM
             {
                 CustomerId = null;
                 PrevCustomerId = null;
+                CustomerPhone = null;
+                PrevCustomerPhone = null;
                 CustomerPoint = 0;
             });
 
@@ -414,40 +475,49 @@ namespace ConvenienceStore.ViewModel.StaffVM
             {
                 try
                 {
-                    if (PrevCustomerId == CustomerId && CustomerId != null) //Xử lý lost focus
+                    if (PrevCustomerPhone == CustomerPhone && CustomerPhone != null) //Xử lý lost focus
                         return;
 
                     if (p.Text == "")
                     {
-                        PrevCustomerId = CustomerId = null;
+                        PrevCustomerPhone = CustomerPhone = null;
+                        CustomerId = null;
                         return;
                     }
 
                     customers = DatabaseHelper.FetchingCustomerData();
-                    var checkCustomerId = customers.Where(x => Convert.ToString(x.Id) == p.Text);
+                    var checkCustomerId = customers.Where(x => Convert.ToString(x.Phone) == p.Text).FirstOrDefault();
 
-                    if (checkCustomerId.Count() == 1)   //Kiểm tra mã khách hàng hợp lệ
+                    if (checkCustomerId != null)   //Kiểm tra mã khách hàng hợp lệ
                     {
-                        if (CustomerId != Convert.ToInt32(p.Text))   //Xử lí việc nhập cùng 1 mã nhiều lần
-                            PrevCustomerId = CustomerId;
+                        if (CustomerPhone != Convert.ToString(p.Text))   //Xử lí việc nhập cùng 1 mã nhiều lần
+                            PrevCustomerPhone = CustomerPhone;
                         else
                             return;
-                        CustomerId = Convert.ToInt32(p.Text);
-                        MessageBoxCustom mbSuccess = new MessageBoxCustom("Thông báo", "Mã khách hàng hợp lệ", MessageType.Success, MessageButtons.OK);
+
+                        CustomerPhone = checkCustomerId.Phone;
+                        CustomerId = checkCustomerId.Id;
+
+                        MessageBoxCustom mbSuccess = new MessageBoxCustom("Thông báo", "Số điện thoại khách hàng hợp lệ", MessageType.Success, MessageButtons.OK);
                         mbSuccess.ShowDialog();
                     }
                     else
                     {
                         p.Text = null;
                         CustomerId = null;
-                        MessageBoxCustom mbFailed = new MessageBoxCustom("Cảnh báo", "Mã khách hàng không hợp lệ", MessageType.Warning, MessageButtons.OK);
+                        MessageBoxCustom mbFailed = new MessageBoxCustom("Cảnh báo", "Số điện thoại khách hàng không hợp lệ", MessageType.Warning, MessageButtons.OK);
                         mbFailed.ShowDialog();
                     }
 
                     //Lấy ra số điểm hiện tại khách hàng tích lũy
                     CustomerPoint = DatabaseHelper.GetCustomerPoint(CustomerId);
                     //Số điểm tích lũy trên 1000 sẽ được quyền áp dụng vào hóa đơn
-                    if (CustomerPoint >= 1000)
+                    if (CustomerId == null)
+                    {
+                        ReceiptPage.applyPointTbx.Text = $"Sử dụng điểm vào tổng hóa đơn";
+                        ReceiptPage.applyPointToggleBtn.IsEnabled = false;
+                    }
+                    else if (CustomerPoint >= 1000)
                     {
                         ReceiptPage.applyPointTbx.Text = $"Sử dụng {CustomerPoint} điểm để thanh toán";
                         ReceiptPage.applyPointToggleBtn.IsEnabled = true;

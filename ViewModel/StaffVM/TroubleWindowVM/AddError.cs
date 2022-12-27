@@ -8,6 +8,7 @@ using ConvenienceStore.Views;
 using ConvenienceStore.Views.Staff.ProductWindow;
 using ConvenienceStore.Views.Staff.TroubleWindow;
 using FluentValidation;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.IO;
 using System.Windows;
@@ -25,7 +26,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             get { return getCurrentDate; }
             set { getCurrentDate = value; OnPropertyChanged(); }
         }
-        public void Save(AddTrouble p)
+        public void Save(AddTrouble p, Snackbar TroubleSnackbar)
         {
             p.TitleErrorMessage.Text = string.Empty;
             p.CostErrorMessage.Text = string.Empty;
@@ -102,8 +103,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 danhsach.Add(newReport);
                 ListError.Add(newReport);
                 DatabaseHelper.InsertReport(newReport);
-                MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Lưu vấn đề mới thành công", MessageType.Success, MessageButtons.OK);
-                mb.ShowDialog();
+                TroubleSnackbar.MessageQueue?.Enqueue($"Đã tạo Sự cố \"{newReport.Title}\"", null, null, null, false, true, TimeSpan.FromSeconds(1));
                 p.Close();
             }
         }

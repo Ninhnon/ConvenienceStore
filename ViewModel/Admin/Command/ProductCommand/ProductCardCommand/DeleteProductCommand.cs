@@ -34,7 +34,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCom
         {
             var product = parameter as Product;
 
-            VM.ProductSnackbar.MessageQueue?.Enqueue($"Đã xóa Lô sản phẩm {product.Title}!", null, null, null, false, true, TimeSpan.FromSeconds(0.7));
+            VM.ProductSnackbar.MessageQueue?.Enqueue($"Đã xóa Lô sản phẩm \"{product.Title}\"", null, null, null, false, true, TimeSpan.FromSeconds(0.7));
 
             VM.ObservableProducts.Remove(product);
             VM.products.Remove(product);

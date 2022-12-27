@@ -7,16 +7,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand
+namespace ConvenienceStore.ViewModel.Admin.Command.SupplierCommand
 {
-    public class BindingProductSnackbar : ICommand
+    public class BindingSupplierSnackbar : ICommand
     {
-        InputInfoVM VM;
-
-        public BindingProductSnackbar(InputInfoVM VM)
+        SupplierVM VM;
+        public BindingSupplierSnackbar(SupplierVM VM)
         {
             this.VM = VM;
         }
+
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
@@ -30,13 +30,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand
 
         public void Execute(object parameter)
         {
-            if (parameter != null)
-            {
-                var values = (object[])parameter;
-
-                VM.InputInfoSnackbar = values[0] as Snackbar;
-                VM.ProductSnackbar = values[1] as Snackbar;
-            }
+            VM.SupplierSnackbar = parameter as Snackbar;
         }
     }
 }

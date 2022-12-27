@@ -102,7 +102,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.EditProductCom
                 Stock = int.Parse(window.StockTextBox.Text),
                 ManufacturingDate = (DateTime)window.ManufacturingDate.SelectedDate,
                 ExpiryDate = (DateTime)window.ExpiryDate.SelectedDate,
-                Discount = int.Parse(window.DiscountTextBox.Text)
+                Discount = double.Parse(window.DiscountTextBox.Text)
             };
 
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();

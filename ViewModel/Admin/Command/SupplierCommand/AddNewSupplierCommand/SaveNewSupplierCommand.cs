@@ -89,6 +89,8 @@ namespace ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.AddNewSupplie
             }
             VM.suppliers.Add(newSupplier);
 
+            VM.SupplierSnackbar.MessageQueue?.Enqueue($"Đã thêm Nhà cung cấp \"{newSupplier.Name}\"", null, null, null, false, true, TimeSpan.FromSeconds(0.7));
+
             window.Close();
         }
     }
