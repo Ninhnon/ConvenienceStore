@@ -198,21 +198,15 @@ namespace ConvenienceStore.ViewModel.StaffVM
                     {
                         foreach (BillDetails bd in ShoppingCart)
                         {
-                            if (bd.ProductId == SelectedItem.BarCode)
+                            if (bd.ProductId == SelectedItem.BarCode && bd.Quantity < SelectedItem.Stock)
                             {
                                 TotalBill -= (int)(bd.TotalPrice == null ? 0 : bd.TotalPrice);
                                 bd.TotalPrice = bd.TotalPrice / bd.Quantity * (bd.Quantity + 1);
                                 TotalBill += (int)(bd.TotalPrice == null ? 0 : bd.TotalPrice);
                                 bd.Quantity++;
                                 parameter.txtBarcode.Text = "";
-
-
-
-
                             }
                         }
-                     
-                      
                     }
                     else
                     {
@@ -227,22 +221,15 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         TotalBill += (int)billDetail.TotalPrice;
                         SelectedBillDetail = billDetail;
                         ShoppingCart.Add(billDetail);
-                      
               
                         parameter.txtBarcode.Text = "";
-                       
                     }
                 }
-               
-                
-              
             }
-       
         }
 
         public PaymentViewModel()
         {
-
             StaffName = CurrentAccount.Name;
             StaffId = CurrentAccount.idAccount;
             products = DatabaseHelper.FetchingProductData();
@@ -272,11 +259,9 @@ namespace ConvenienceStore.ViewModel.StaffVM
                             bd.Quantity++;
                         }
                     }
-                  
                 }
                 else
                 {
-                    //SelectedItem.Quantity = 1;
                     BillDetails billDetail = new BillDetails();
                     billDetail.ProductId = SelectedItem.BarCode;
                     billDetail.Quantity = 1;
@@ -291,7 +276,9 @@ namespace ConvenienceStore.ViewModel.StaffVM
                  }
              }
             );
+
             AddToCartBarCode = new RelayCommand<BarCodeUC>(parameter => true, parameter => AddBarCode(parameter));
+
             OpenBarCodeCommand = new RelayCommand<PaymentWindow>(parameter => true, parameter => ShowBarCodeQR(parameter));
 
             LoadCommand = new RelayCommand<object>((p) =>
@@ -316,12 +303,12 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 if (item != null)
                 {
                     //Được thêm vào khi còn trong kho
-                    Products relatedProduct = FilteredList.Where(x => x.BarCode == item.ProductId).FirstOrDefault();
+                    Products? relatedProduct = FilteredList.Where(x => x.BarCode == item.ProductId).FirstOrDefault();
                     if (relatedProduct != null && relatedProduct.Stock > item.Quantity)
                     {
-                        TotalBill -= (int)item.TotalPrice;
+                        TotalBill -= (int)(item.TotalPrice == null ? 0 : item.TotalPrice);
                         item.TotalPrice = item.TotalPrice / item.Quantity * (item.Quantity + 1);
-                        TotalBill += (int)item.TotalPrice;
+                        TotalBill += (int)(item.TotalPrice == null ? 0 : item.TotalPrice);
                         item.Quantity++;
                     }
                 }
@@ -340,9 +327,9 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         item.Quantity = 1;
                     else
                     {
-                        TotalBill -= (int)item.TotalPrice;
+                        TotalBill -= (int)(item.TotalPrice == null ? 0 : item.TotalPrice);
                         item.TotalPrice = item.TotalPrice / item.Quantity * (item.Quantity - 1);
-                        TotalBill += (int)item.TotalPrice;
+                        TotalBill += (int)(item.TotalPrice == null ? 0 : item.TotalPrice);
                         item.Quantity--;
                     }
                 }
@@ -357,7 +344,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 if (item != null)
                 {
                     ShoppingCart.Remove(item);
-                    TotalBill -= (int)item.TotalPrice;
+                    TotalBill -= (int)(item.TotalPrice == null ? 0 : item.TotalPrice);
                 }
             }
             );
@@ -366,25 +353,19 @@ namespace ConvenienceStore.ViewModel.StaffVM
             SearchProductName = new RelayCommand<TextBox>((p) =>
             {
                 return true;
-            },
-
-
-            (p) =>
+            }, (p) =>
             {
                 TextBox? tbx = p;
 
                 FilteredList = List;
                 if (tbx.Text != "")
                     if (long.TryParse(tbx.Text, out long n))
-                    {
                         FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.BarCode.ToLower().Contains(tbx.Text.ToLower())).ToList());
-                    }
                     else
-                    {
                         FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.Title.ToLower().Contains(tbx.Text.ToLower())).ToList());
-                    }
             }
             );
+
             FilterType = new RelayCommand<object>((p) =>
             {
                 return true;
@@ -395,7 +376,6 @@ namespace ConvenienceStore.ViewModel.StaffVM
                     FilteredList = new ObservableCollection<Products>(products);
                 else
                     FilteredList = new ObservableCollection<Products>((products).Where(x => x.Type == ComboBoxCategory.Content.ToString()).ToList());
-
                 //Lưu lại danh sách các sản phẩm, hỗ trợ việc tìm kiếm của SearchProductName
                 List = FilteredList;
             });
@@ -481,7 +461,6 @@ namespace ConvenienceStore.ViewModel.StaffVM
             }, (p) =>
             {
                 p.ScrollIntoView(SelectedBillDetail);
-
             });
 
             SearchCustomerIdCM = new RelayCommand<TextBox>((p) =>
