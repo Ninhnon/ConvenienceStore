@@ -160,7 +160,8 @@ namespace ConvenienceStore.ViewModel.StaffVM
             FilteredList = List;
             if (parameter.txtBarcode.Text != "")
             {
-                player.Play();
+               
+           
                 if (long.TryParse(parameter.txtBarcode.Text, out long n))
                 {
                     FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.BarCode.ToLower().Contains(parameter.txtBarcode.Text.ToLower())).ToList());
@@ -187,15 +188,15 @@ namespace ConvenienceStore.ViewModel.StaffVM
                                 bd.TotalPrice = bd.TotalPrice / bd.Quantity * (bd.Quantity + 1);
                                 TotalBill += (int)(bd.TotalPrice == null ? 0 : bd.TotalPrice);
                                 bd.Quantity++;
-                             
-                               
-                         
-                          
+                                parameter.txtBarcode.Text = "";
+
+
+
 
                             }
                         }
-                        parameter.txtBarcode.Text = "";
-                        Thread.Sleep(1000);
+                     
+                      
                     }
                     else
                     {
@@ -213,7 +214,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                       
               
                         parameter.txtBarcode.Text = "";
-                        Thread.Sleep(1000);
+                       
                     }
                 }
                
