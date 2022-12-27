@@ -135,8 +135,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                             </i:Interaction.Triggers>
                             <DataGrid.Columns>
 
-                                <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" />
-                                <DataGridTemplateColumn Header="Vấn đề" IsReadOnly="True" Width="220">
+                                <DataGridTemplateColumn Header="Vấn đề" IsReadOnly="True" Width="250">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
@@ -152,7 +151,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                 <DataGridTemplateColumn Header="Trạng thái" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
-                                        Width="150">
+                                        Width="160">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Status}"
@@ -161,7 +160,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
                                 <DataGridTextColumn Header="Tên nhân viên báo cáo " Binding="{Binding StaffName}" IsReadOnly="True" Width="220"/>
-                            <DataGridTextColumn Header="Ngày báo cáo" Binding="{Binding SubmittedAt,StringFormat=dd/MM/yyyy}" IsReadOnly="True" Width="180"/>
+                            <DataGridTextColumn Header="Ngày báo cáo" Binding="{Binding SubmittedAt,StringFormat=dd/MM/yyyy}" IsReadOnly="True" Width="210"/>
                             <DataGridTextColumn IsReadOnly="True"
                                         CanUserResize="False"
                                         Width="140" Header="Chi phí" Binding="{Binding RepairCost, Converter={StaticResource MoneyToVNDCurrency}}" />

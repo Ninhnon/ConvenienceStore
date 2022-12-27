@@ -44,7 +44,7 @@
                     CornerRadius="25 25 0 0">
                 <Grid Margin="30 15"
                           VerticalAlignment="Center">
-                    <TextBlock Text="Edit Report"
+                    <TextBlock Text="Chỉnh sửa vấn đề"
                            Foreground="White"
                            FontSize="30"
                            FontWeight="SemiBold"

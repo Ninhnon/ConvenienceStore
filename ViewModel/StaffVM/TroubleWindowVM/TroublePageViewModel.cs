@@ -211,8 +211,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                     p.ImageSource = bi;
                 }
                 catch
-                {
-                }
+                { }
             });
             SaveNewTroubleCommand = new RelayCommand<AddTrouble>((p) => { return true; }, (p) =>
             {

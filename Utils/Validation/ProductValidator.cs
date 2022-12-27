@@ -55,7 +55,7 @@ namespace ConvenienceStore.Utils.Validation
         public ReportValidator()
         {
             RuleFor(p => p.Title)
-                .NotEmpty().WithMessage("Chưa nhập Tên vấn đề");
+                .NotEmpty().WithMessage("Chưa nhập tên vấn đề");
             RuleFor(p => p.RepairCost)
                 .Must(NonNegativeInteger).WithMessage("Chi phí dự kiến phải >= 0");
         }
