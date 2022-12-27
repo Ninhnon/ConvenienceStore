@@ -20,7 +20,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
     public class ProductVM : BaseViewModel
     {
 
-        SoundPlayer player = new SoundPlayer(Environment.CurrentDirectory + @"\beep.wav");
+        SoundPlayer player = new SoundPlayer(@"..\..\..\beep.wav");
         public ICommand AddToCartBarCode { get; set; }
         public ICommand SearchProductName { get; set; }
         public ICommand FilterType { get; set; }

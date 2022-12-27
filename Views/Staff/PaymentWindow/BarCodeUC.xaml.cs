@@ -28,7 +28,7 @@ namespace ConvenienceStore.Views.Staff.PaymentWindow
     public partial class BarCodeUC : UserControl
     {
 
-        SoundPlayer player = new SoundPlayer(Environment.CurrentDirectory + @"\beep.wav");
+        SoundPlayer player = new SoundPlayer(@"..\..\..\beep.wav");
         public FilterInfoCollection filterInfoCollection;
         public VideoCaptureDevice videoCaptureDevice;
         public BarCodeUC()
