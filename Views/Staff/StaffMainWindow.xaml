@@ -199,7 +199,7 @@
                         <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" 
                             Cursor="Hand"
                             Click="btnLogout_Click"
-                            Margin="0 210 0 20">
+                            Margin="0 140 0 20">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Đăng xuất"/>

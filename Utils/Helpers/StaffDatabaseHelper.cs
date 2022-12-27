@@ -14,7 +14,7 @@ namespace ConvenienceStore.Utils.Helpers
         from Consignment c,Product p,
         ( 
         select ProductId, min([ExpiryDate]) e
-        from Consignment
+        from ConsignmentqueryAvatar
         where Stock>0 AND ExpiryDate > GETDATE()
         group by ProductId
         ) h
@@ -335,7 +335,7 @@ namespace ConvenienceStore.Utils.Helpers
         public static byte[] LoadProductAvatar(string id)
         {
             sqlCon.Open();
-            var strCmd = string.Format("select Image from [Product] where Barcode={0}", id);
+            var strCmd = string.Format(@"select Image from [Product] where Barcode=N'{0}'", id);
 
             byte[] Avatar = new byte[byte.MaxValue];
             SqlCommand cmd = new(strCmd, sqlCon);
