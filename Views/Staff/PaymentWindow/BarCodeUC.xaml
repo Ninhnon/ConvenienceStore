@@ -30,6 +30,7 @@
                    Height="172"/>
 
             <TextBox x:Name="txtBarcode"
+                     IsEnabled="False"
                      Grid.Row="1"
                      Grid.Column="0"
                      Foreground="White"

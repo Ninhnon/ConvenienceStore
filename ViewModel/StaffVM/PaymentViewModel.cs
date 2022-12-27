@@ -10,11 +10,19 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Media;
+using Emgu.CV;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ConvenienceStore.ViewModel.StaffVM
 {
     public class PaymentViewModel : BaseViewModel
     {
+    
+
+        SoundPlayer player = new SoundPlayer(Environment.CurrentDirectory+@"\beep.wav");
         #region ICommand Payment
         public ICommand AddToCart { get; set; }
         public ICommand AddToCartBarCode { get; set; }
@@ -148,9 +156,11 @@ namespace ConvenienceStore.ViewModel.StaffVM
 
         public void FindProduct(BarCodeUC parameter)
         {
+          
             FilteredList = List;
             if (parameter.txtBarcode.Text != "")
             {
+                player.Play();
                 if (long.TryParse(parameter.txtBarcode.Text, out long n))
                 {
                     FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.BarCode.ToLower().Contains(parameter.txtBarcode.Text.ToLower())).ToList());
@@ -159,6 +169,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 {
                     FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.Title.ToLower().Contains(parameter.txtBarcode.Text.ToLower())).ToList());
                 }
+            
                 //Kiểm tra trong giỏ hàng đã có hay chưa, có rồi thì không thêm vào
                 if (FilteredList.Count > 0)
                 {
@@ -176,8 +187,15 @@ namespace ConvenienceStore.ViewModel.StaffVM
                                 bd.TotalPrice = bd.TotalPrice / bd.Quantity * (bd.Quantity + 1);
                                 TotalBill += (int)(bd.TotalPrice == null ? 0 : bd.TotalPrice);
                                 bd.Quantity++;
+                             
+                                parameter.txtBarcode.Text = "";
+                                Thread.Sleep(2000);
+
+
+
                             }
                         }
+                       
                     }
                     else
                     {
@@ -192,10 +210,18 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         TotalBill += (int)billDetail.TotalPrice;
                         SelectedBillDetail = billDetail;
                         ShoppingCart.Add(billDetail);
+                      
+                        parameter.txtBarcode.Text = "";
+                        Thread.Sleep(2000);
+
+
                     }
                 }
-
+               
+                
+              
             }
+       
         }
 
         public PaymentViewModel()
@@ -230,6 +256,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                             bd.Quantity++;
                         }
                     }
+                  
                 }
                 else
                 {
