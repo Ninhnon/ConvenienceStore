@@ -403,7 +403,11 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 parameter.salaryTxtbox.textBox.Focus();
             }
 
-
+            else if (int.TryParse(parameter.salaryTxtbox.textBox.Text, out n) && int.Parse(parameter.salaryTxtbox.textBox.Text) < 0)
+            {
+                parameter.salaryTxtbox.ErrorMessage.Text = "Xin nhập mức lương hợp lệ";
+                parameter.salaryTxtbox.textBox.Focus();
+            }
             else 
             {
                 int i = 0;
