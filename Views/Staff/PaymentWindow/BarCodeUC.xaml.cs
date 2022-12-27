@@ -65,18 +65,28 @@ namespace ConvenienceStore.Views.Staff.PaymentWindow
             {
                 Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
                 BarcodeReader reader = new BarcodeReader();
+         
                 var result = reader.Decode(bitmap);
-             
+              
                 if (result != null)
                 {
-           
-                  
+
+                    player.Play();
                     txtBarcode.Text = result.ToString();
+                  
+                    if (videoCaptureDevice.IsRunning)
+                    {
+                        videoCaptureDevice.SignalToStop();
+                        Thread.Sleep(1500);
+                    }
+                    txtBarcode.Text = "";
+                    FilterInfoCollection filterInfoCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+                    videoCaptureDevice = new VideoCaptureDevice(filterInfoCollection[cboCamera.SelectedIndex].MonikerString);
+                    videoCaptureDevice.NewFrame += VideoCaptureDevice_NewFrame;
+                    videoCaptureDevice.Start();
 
-                    
-             
 
-             
+
 
                 }
                 BitmapImage bitmapImage = new BitmapImage();

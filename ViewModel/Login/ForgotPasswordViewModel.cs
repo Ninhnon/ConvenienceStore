@@ -90,9 +90,9 @@ namespace ConvenienceStore.ViewModel.Login
                     AuthenCodeWindow authen = new AuthenCodeWindow();
                     reader.Close();
                     con.Close();
-                    parameter.Hide();
+                    
                     authen.ShowDialog();
-                 parameter.Show();
+                 parameter.Close();
 
 
 
@@ -140,6 +140,7 @@ namespace ConvenienceStore.ViewModel.Login
                     NewPasswordWindow newpass = new NewPasswordWindow();
                  
                     newpass.ShowDialog();
+                parameter.Close();
                
                 
               
@@ -176,7 +177,7 @@ namespace ConvenienceStore.ViewModel.Login
 
                 MessageBoxCustom mb = new("Thành công", "Đã thay đổi mật khẩu mới", MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();
-
+                parameter.Close();
 
 
                
