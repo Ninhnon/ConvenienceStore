@@ -1,7 +1,9 @@
 ﻿using ConvenienceStore.Model;
+using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Model.Staff;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Windows;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
@@ -66,6 +68,9 @@ namespace ConvenienceStore.Utils.Helpers
                                                         where Id = @customerId";
 
         static readonly string queryInsertCustomer = @"insert into Customer(Name, Address, Phone, Email) values (@name, @address, @phone, @email)";
+
+        static readonly string queryTeamMembers = @"select Name, Avatar, UserRole from Users
+                                                    where ManagerId = @managerId and Id != @id";
 
         public static List<Model.Staff.Bill> FetchingBillData()
         {
@@ -605,6 +610,32 @@ namespace ConvenienceStore.Utils.Helpers
             cmd.Parameters.AddWithValue("@email", customer.Email);
             cmd.ExecuteNonQuery();
             sqlCon.Close();
+        }
+
+        public static ObservableCollection<Member> FetchTeamMembers (int id, int managerId)
+        {
+            sqlCon.Open();
+
+            var cmd = new SqlCommand(queryTeamMembers, sqlCon);
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@managerId", managerId);
+
+            ObservableCollection<Member> members = new ObservableCollection<Member>();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                members.Add(new Member()
+                {
+                    Name = reader.GetString(0),
+                    Avatar = (byte[])reader["Avatar"],
+                    UserRole = reader.GetString(2),
+                });
+            }
+
+            reader.Close();
+            sqlCon.Close();
+            return members;
         }
     }
 }
