@@ -46,7 +46,7 @@
                     CornerRadius="25 25 0 0">
                 <Grid Margin="30 15"
                           VerticalAlignment="Center">
-                    <TextBlock Text="Report"
+                    <TextBlock Text="Vấn đề"
                            Foreground="White"
                            FontSize="30"
                            FontWeight="SemiBold"
@@ -193,7 +193,7 @@
                                 Visibility="Hidden"
                                 MouseLeave="MarkUploadImage_MouseLeave">
                             <Button Style="{StaticResource MaterialDesignOutlinedButton}"
-                                    Content="Upload Image"
+                                    Content="Chọn hình"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     Foreground="Black"

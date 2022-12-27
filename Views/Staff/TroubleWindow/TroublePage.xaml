@@ -94,39 +94,18 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       x:Name="cboxFilter"
                       VerticalContentAlignment="Bottom"
                       HorizontalAlignment="Left"
-                      SelectedItem="{Binding ItemViewMode,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding ComboBoxCategory, Mode=TwoWay}"
                       Margin="10 0 0 0"
                       VerticalAlignment="Top"
                       materialDesign:HintAssist.Hint="Loại tìm kiếm">
-                        <ComboBoxItem>
-                            <TextBlock Text="Toàn bộ"
-                                       FontSize="16"
-                                       Foreground="Gray"/>
-                        </ComboBoxItem>
-                        <ComboBoxItem>
-                            <TextBlock Text="Chờ tiếp nhận"
-                                       FontSize="16"
-                                       Foreground="Gray"/>
-                        </ComboBoxItem>
-                        <ComboBoxItem>
-                            <TextBlock Text="Đang giải quyết"
-                                       FontSize="16"
-                                       Foreground="Gray"/>
-                        </ComboBoxItem>
-                        <ComboBoxItem>
-                            <TextBlock Text="Đã giải quyết"
-                                       FontSize="16"
-                                       Foreground="Gray"/>
-                        </ComboBoxItem>
-                        <ComboBoxItem>
-                            <TextBlock Text="Đã hủy"
-                                       FontSize="16"
-                                       Foreground="Gray"/>
-                        </ComboBoxItem>
+                        <ComboBoxItem Content="Tất cả" Foreground="Black"/>
+                        <ComboBoxItem Content="Chờ tiếp nhận" Foreground="Black"/>
+                        <ComboBoxItem Content="Đang giải quyết" Foreground="Black"/>
+                        <ComboBoxItem Content="Đã giải quyết" Foreground="Black"/>
+                        <ComboBoxItem Content="Đã hủy" Foreground="Black"/>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding FilterListErrorCommand}"
-                                                           CommandParameter="{Binding ElementName=cboxFilter}" />
+                                <i:InvokeCommandAction Command="{Binding FilterListErrorCommand}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
 

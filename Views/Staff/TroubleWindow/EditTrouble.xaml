@@ -183,7 +183,7 @@
                                 Visibility="Hidden"
                                 MouseLeave="MarkUploadImage_MouseLeave">
                             <Button Style="{StaticResource MaterialDesignOutlinedButton}"
-                                    Content="Upload Image"
+                                    Content="Chọn hình"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     Foreground="Black"

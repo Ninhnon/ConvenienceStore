@@ -1,4 +1,5 @@
 ﻿using ConvenienceStore.Model;
+using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.StaffVM;
@@ -10,10 +11,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -31,6 +34,13 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             get => _ListError;
             set { _ListError = value; OnPropertyChanged(); }
         }
+        private ObservableCollection<Report>? _FilteredList;
+        public ObservableCollection<Report>? FilteredList
+        {
+            get => _FilteredList;
+            set { _FilteredList = value; OnPropertyChanged(); }
+        }
+
 
         private Report _SelectedItem;
         public Report SelectedItem
@@ -120,6 +130,8 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         public DateTime Se { get; set; }
 
         public Snackbar TroubleSnackbar;
+        private ComboBoxItem _ComboBoxCategory;
+        public ComboBoxItem ComboBoxCategory { get { return _ComboBoxCategory; } set { _ComboBoxCategory = value; OnPropertyChanged(); } }
 
         public BindingTroubleSnackbar BindingTroubleSnackbar { get; set; }
 
@@ -145,9 +157,14 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
                 });
-            FilterListErrorCommand = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, (p) =>
+            FilterListErrorCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                FilterListError();
+                if (ComboBoxCategory.Content.ToString() == "Tất cả")
+                    FilteredList = new ObservableCollection<Report>(danhsach);
+                else
+                    FilteredList = new ObservableCollection<Report>((danhsach).Where(x => x.Status == ComboBoxCategory.Content.ToString()).ToList());
+                //Lưu lại danh sách các sản phẩm, hỗ trợ việc tìm kiếm của SearchProductName
+                ListError = FilteredList;
             });
             LoadDetailWindowCM = new RelayCommand<DataGrid>((p) => { return true; }, (p) =>
             {

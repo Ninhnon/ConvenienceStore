@@ -38,7 +38,7 @@
 
             <Border Background="{StaticResource PrimaryColor}"
                     CornerRadius="25 25 0 0">
-                <TextBlock Text="New Trouble"
+                <TextBlock Text="Vấn đề mới"
                            Foreground="White"
                            FontSize="35"
                            FontWeight="SemiBold"
@@ -155,7 +155,7 @@
                                             Width="75"
                                             Margin="0 0 0 5"/>
 
-                                        <TextBlock Text="Image Preview"
+                                        <TextBlock Text="Xem trước"
                                                Foreground="#808080"
                                                FontSize="16"
                                                FontWeight="DemiBold"/>
@@ -180,7 +180,7 @@
                                     Visibility="Hidden"
                                     MouseLeave="MarkUploadImage_MouseLeave">
                                     <Button Style="{StaticResource MaterialDesignOutlinedButton}"
-                                        Content="Upload Image"
+                                        Content="Chọn hình"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Foreground="Black"
