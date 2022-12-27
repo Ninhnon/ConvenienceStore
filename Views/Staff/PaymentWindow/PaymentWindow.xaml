@@ -416,7 +416,8 @@
                                 <TextBlock Text="Hóa đơn"
                                            FontSize="24"
                                            FontWeight="Bold"
-                                           TextAlignment="Center"/>
+                                           TextAlignment="Center"
+                                           Margin="0 10 0 0"/>
                             </Grid>
 
                             <!--Sản phẩm cần thanh toán-->

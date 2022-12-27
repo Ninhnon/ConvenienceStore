@@ -18,6 +18,7 @@ namespace ConvenienceStore.Utils.Helpers
             List<string> ListCode = new List<string>();
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             var random = new Random();
+
             int randomLength = length - firstChars.Length - lastChars.Length;
             if (randomLength <= 0)
             {
@@ -27,6 +28,7 @@ namespace ConvenienceStore.Utils.Helpers
             {
                 return ($"Độ dài của voucher phải lớn hơn độ dài chuỗi kí tự đầu + độ dài chuỗi kí tự cuối + 4 ", null);
             }
+
             for (int i = 0; i < quantity; i++)
             {
 
@@ -47,10 +49,12 @@ namespace ConvenienceStore.Utils.Helpers
 
             return (null, ListCode);
         }
+
         public static string ConvertDoubleToPercentageStr(double value)
         {
             return Math.Round(value, 2, MidpointRounding.AwayFromZero).ToString("P", CultureInfo.InvariantCulture);
         }
+
         public static string MD5Hash(string str)
         {
             StringBuilder hash = new StringBuilder();
@@ -63,16 +67,25 @@ namespace ConvenienceStore.Utils.Helpers
             }
             return hash.ToString();
         }
+
         public static bool IsPhoneNumber(string number)
         {
             if (number is null) return false;
-            return Regex.Match(number, @"(([03+[2-9]|05+[6|8|9]|07+[0|6|7|8|9]|08+[1-9]|09+[1-4|6-9]]){3})+[0-9]{7}\b").Success;
+            return Regex.Match(number, @"(([03+[2-9]|05+[6|8|9]|07+[0|6|7|8|9]|08+[1-9]|09+[0-4|6-9]]){3})+[0-9]{7}\b").Success;
         }
+
         public static bool IsEmail(string email)
         {
             if (email is null) return false;
             return Regex.Match(email, @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$").Success;
         }
+
+        public static bool IsValidAddress(string address)
+        {
+            if(address is null) return false;
+            return Regex.Match(address, @"^[a-zA-Z0-9\p{L}\s,.'-/]{1,100}$").Success;
+        }
+
         public static string GetHourMinutes(TimeSpan t)
         {
             return t.ToString(@"hh\:mm");
@@ -99,9 +112,9 @@ namespace ConvenienceStore.Utils.Helpers
         }
         public static string? GetStaffName(int StaffId)
         {
-
             return DatabaseHelper.GetName(StaffId); 
         }
+
         public static string FormatStatus(bool status)
         {
             if (status == true)
@@ -110,6 +123,7 @@ namespace ConvenienceStore.Utils.Helpers
             }
             return "Chưa kích hoạt";
         }
+
         public static string HSDStr(DateTime s)
         {
             DateTime dateTime = DateTime.Now;
@@ -119,6 +133,7 @@ namespace ConvenienceStore.Utils.Helpers
             }
             return "#00000000";
         }
+
         public static string FormatDecimal(decimal n)
         {
             if (n == 0)
