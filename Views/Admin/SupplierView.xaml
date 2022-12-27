@@ -20,6 +20,7 @@
     <Page.Resources>
         <Converters:StringToVisibility x:Key="StringToVisibility"/>
         <SupplierCard:EditSupplierButton x:Key="EditSupplierButton"/>
+        <Converters:MultiParameterConverter x:Key="MultiParameterConverter"/>
     </Page.Resources>
     
     <Border CornerRadius="8">
@@ -29,6 +30,14 @@
                 <GradientStop Color='#D3CCE3' Offset="1"/>
             </LinearGradientBrush>
         </Border.Background>
+
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding BindingSupplierSnackbar}"
+                                       CommandParameter="{Binding ElementName=SupplierSnackbar}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+
         <Grid>
             <StackPanel Margin="30 20">
                 <Grid Margin="0 0 0 20">
@@ -202,8 +211,14 @@
                                             Foreground="#4B0082"
                                             Height="32"
                                             Padding="6 4"
-                                            Command="{StaticResource EditSupplierButton}"
-                                            CommandParameter="{Binding}"/>
+                                            Command="{StaticResource EditSupplierButton}">
+                                            <Button.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource MultiParameterConverter}">
+                                                    <Binding/>
+                                                    <Binding ElementName="SupplierSnackbar"/>
+                                                </MultiBinding>
+                                            </Button.CommandParameter>
+                                        </Button>
                                         <Button Style="{StaticResource MaterialDesignFlatLightButton}"
                                             Content="{materialDesign:PackIcon Kind=Delete, Size=24}"
                                             Height="32"

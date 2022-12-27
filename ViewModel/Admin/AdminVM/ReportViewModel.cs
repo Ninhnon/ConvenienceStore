@@ -192,6 +192,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                             Title = "Doanh thu",
                             Fill = gradient,
                             Values = ReportDAL.Instance.QueryRevenueByDay(today,thismonth,thisyear),
+                            
                         } 
                        ,
                          new ColumnSeries 

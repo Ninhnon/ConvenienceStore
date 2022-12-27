@@ -9,8 +9,8 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        Height="500"
-        Width="850"
+        Height="660"
+        Width="1200"
         MouseLeftButtonDown="window_MouseLeftButtonDown"
         WindowStartupLocation="CenterScreen"
         FontSize="20"
@@ -21,7 +21,7 @@
     <Grid>
         <Border Background="Black"
                 Opacity="0.4"
-                CornerRadius="25">
+                CornerRadius="8">
         </Border>
         <Grid Width="800" VerticalAlignment="Center">
             <Grid.RowDefinitions>
@@ -31,7 +31,7 @@
 
         <Border Background="{StaticResource PrimaryColor}"
                     CornerRadius="25 25 0 0">
-            <TextBlock Text="Trouble Detail"
+            <TextBlock Text="Chi tiết sự cố"
                            Foreground="White"
                            FontSize="35"
                            FontWeight="SemiBold"
@@ -173,6 +173,7 @@
                                 Background="{StaticResource PrimaryColor}"
                                 Margin="0 0 20 0"
                                 Width="75"
+                                        BorderBrush="{StaticResource PrimaryBackgroundColor}"
                                 Command="{Binding CloseCM}"
                                 CommandParameter="{Binding ElementName=Error_Detail_Page}"/>
                             </StackPanel>

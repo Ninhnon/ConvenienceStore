@@ -40,6 +40,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.SupplierCard
         public void Execute(object parameter)
         {
             var indexOfSupplier = (int)parameter - 1;
+            VM.SupplierSnackbar.MessageQueue?.Enqueue($"Đã xóa Nhà cung cấp \"{VM.suppliers[indexOfSupplier].Name}\"", null, null, null, false, true, TimeSpan.FromSeconds(0.7));
 
             DatabaseHelper.DeleteSupplier(VM.suppliers[indexOfSupplier].Id);
 
@@ -50,6 +51,8 @@ namespace ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.SupplierCard
             {
                 VM.suppliers[i].Number = i + 1;
             }
+
+            
         }
     }
 }

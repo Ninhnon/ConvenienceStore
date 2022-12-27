@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,6 +27,8 @@ namespace ConvenienceStore.Views.Staff.PaymentWindow
     /// </summary>
     public partial class BarCodeUC : UserControl
     {
+
+        SoundPlayer player = new SoundPlayer(Environment.CurrentDirectory + @"\beep.wav");
         public FilterInfoCollection filterInfoCollection;
         public VideoCaptureDevice videoCaptureDevice;
         public BarCodeUC()
@@ -56,15 +60,34 @@ namespace ConvenienceStore.Views.Staff.PaymentWindow
 
         private void VideoCaptureDevice_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
         {
+         
             this.Dispatcher.Invoke(() =>
             {
                 Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
                 BarcodeReader reader = new BarcodeReader();
+         
                 var result = reader.Decode(bitmap);
+              
                 if (result != null)
                 {
+
+                    player.Play();
                     txtBarcode.Text = result.ToString();
-                      
+                  
+                    if (videoCaptureDevice.IsRunning)
+                    {
+                        videoCaptureDevice.SignalToStop();
+                        Thread.Sleep(1500);
+                    }
+                    txtBarcode.Text = "";
+                    FilterInfoCollection filterInfoCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+                    videoCaptureDevice = new VideoCaptureDevice(filterInfoCollection[cboCamera.SelectedIndex].MonikerString);
+                    videoCaptureDevice.NewFrame += VideoCaptureDevice_NewFrame;
+                    videoCaptureDevice.Start();
+
+
+
+
                 }
                 BitmapImage bitmapImage = new BitmapImage();
                 using (MemoryStream memory = new MemoryStream())

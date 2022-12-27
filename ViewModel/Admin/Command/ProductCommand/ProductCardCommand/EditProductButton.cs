@@ -73,7 +73,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCom
             {
                 // Sau khi cửa sổ Edit đóng thì "currentProduct" đã được update
                 // 1. Thông báo edit thành công
-                snackbar.MessageQueue?.Enqueue($"Đã cập nhật Lô sản phẩm {currentProduct.Title}", null, null, null, false, true, TimeSpan.FromSeconds(0.8));
+                snackbar.MessageQueue?.Enqueue($"Đã cập nhật Lô sản phẩm \"{currentProduct.Title}\"", null, null, null, false, true, TimeSpan.FromSeconds(0.8));
                 // 2. Update to DB
                 DatabaseHelper.UpdateProduct(currentProduct);
             }

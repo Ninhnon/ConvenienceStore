@@ -6,6 +6,7 @@ using ConvenienceStore.Utils.Validation;
 using ConvenienceStore.Views;
 using ConvenienceStore.Views.Staff.TroubleWindow;
 using FluentValidation;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -35,7 +36,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             w1.cbxDecription.Text = SelectedItem.Description;
             tmpReport = SelectedItem;
         }
-        public void Update(EditTrouble p,Report tmpReport)
+        public void Update(EditTrouble p, Report tmpReport, Snackbar TroubleSnackbar)
         {
             p.TitleErrorMessage.Text = string.Empty;
             p.CostErrorMessage.Text = string.Empty;
@@ -112,6 +113,8 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                         break;
                     }
                 }
+
+                TroubleSnackbar.MessageQueue?.Enqueue($"Đã cập nhật Sự cố \"{tmpReport.Title}\"", null, null, null, false, true, TimeSpan.FromSeconds(1));
             }
             p.Close();
         }

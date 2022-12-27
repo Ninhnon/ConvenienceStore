@@ -30,7 +30,7 @@
     <Grid>
         <Border Background="Black"
                 Opacity="0.5"
-                CornerRadius="25">
+                CornerRadius="8">
         </Border>
 
         <Grid Width="600"
@@ -44,7 +44,7 @@
                     CornerRadius="25 25 0 0">
                 <Grid Margin="30 15"
                           VerticalAlignment="Center">
-                    <TextBlock Text="Edit Report"
+                    <TextBlock Text="Chỉnh sửa vấn đề"
                            Foreground="White"
                            FontSize="30"
                            FontWeight="SemiBold"
@@ -114,7 +114,7 @@
                                      VerticalScrollBarVisibility="Auto"
                                      HorizontalScrollBarVisibility="Disabled"
                                      FontSize="16"
-                                     Margin="0,5,0,0"
+                                     Margin="0 5 0 10"
                                      Foreground="Black"
                                      materialDesign:ValidationAssist.Background="White"
                                      Text="{Binding SelectedItem.Description, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}" />
@@ -271,7 +271,7 @@
                                     Command="{Binding CloseCM}"
                                     CommandParameter="{Binding ElementName=EditReportScreen}"/>
                             <Button x:Name="UpdateButton"
-                                    Content="Save"
+                                    Content="Lưu"
                                     Background="#3982E4"
                                     BorderThickness="0"
                                     Width="80"

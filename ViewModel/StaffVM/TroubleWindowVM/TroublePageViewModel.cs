@@ -2,8 +2,10 @@
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.StaffVM;
+using ConvenienceStore.ViewModel.StaffVM.TroubleWindowVM;
 using ConvenienceStore.Views.Staff.TroubleWindow;
 using Emgu.CV.ML;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -116,9 +118,15 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         public Report tmpReport { get; set; }
         public int Id { get; set; }
         public DateTime Se { get; set; }
+
+        public Snackbar TroubleSnackbar;
+
+        public BindingTroubleSnackbar BindingTroubleSnackbar { get; set; }
+
         public TroublePageViewModel()
         {
-            
+            BindingTroubleSnackbar = new BindingTroubleSnackbar(this);
+
             danhsach = DatabaseHelper.FetchingReportData();
             //MaskName.Visibility = Visibility.Collapsed;
             ListError = new ObservableCollection<Report>(danhsach);
@@ -143,7 +151,6 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             });
             LoadDetailWindowCM = new RelayCommand<DataGrid>((p) => { return true; }, (p) =>
             {
-                MaskName.Visibility = Visibility.Visible;
                 ViewError w = new();
                 ReportName = DatabaseHelper.GetName(SelectedItem.StaffId);
                 
@@ -184,7 +191,6 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             {
                 RenewWindowData();
                 AddTrouble w1 = new();
-                MaskName.Visibility = Visibility.Visible;
                 w1.StaffName.Text = CurrentAccount.Name.ToString();
                 w1.cbxStatus.Text = "Chờ tiếp nhận";
                 w1.ShowDialog();
@@ -211,21 +217,20 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                     p.ImageSource = bi;
                 }
                 catch
-                {
-                }
+                { }
             });
             SaveNewTroubleCommand = new RelayCommand<AddTrouble>((p) => { return true; }, (p) =>
             {
                 IsSaving = true;
-                Save(p);
+                Save(p, TroubleSnackbar);
                 MaskName.Visibility = Visibility.Collapsed;
                 IsSaving = false;
+
             });
             UpdateReportButtonCommand = new RelayCommand<EditTrouble>((p) => { return true; }, (p) =>
             {
                 IsSaving = true;
-                Update(p,tmpReport);
-                MaskName.Visibility = Visibility.Collapsed;
+                Update(p,tmpReport, TroubleSnackbar);
                 IsSaving = false;
             });
             LoadEditErrorCM = new RelayCommand<DataGrid>((p) => { return true; }, (p) =>
@@ -234,17 +239,11 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 Id = SelectedItem.Id;
                 Se = SelectedItem.SubmittedAt;
                 LoadEditError(w1);
-                MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
             });
 
-            MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
-            {
-                MaskName = p;
-            });
             CloseCM = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, (p) =>
              {
-                 MaskName.Visibility = Visibility.Collapsed;
                  p.Close();
              });
             MouseMoveCommand = new RelayCommand<Window>((p) => { return p != null; }, (p) =>
