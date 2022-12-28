@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:ConvenienceStore.Views.Admin.UserControls"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" >
-    <Border Style="{StaticResource InputInfoCard}"
-            Cursor="Hand">
+    <Border Style="{StaticResource InputInfoCard}">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseLeftButtonDown">
                 <i:ChangePropertyAction TargetObject="{Binding ElementName=ProductS1}"
@@ -27,7 +26,7 @@
                               Opacity="0.45"
                               RenderingBias="Performance"
                               ShadowDepth="1.5"/>
-            </Border.Effect>
+        </Border.Effect>
 
         <Grid>
 

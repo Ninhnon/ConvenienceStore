@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ConvenienceStore.Model.Admin;
+using ConvenienceStore.ViewModel.Admin.AdminVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,19 +18,80 @@ using System.Windows.Shapes;
 namespace ConvenienceStore.Views.Admin.ProductWindow
 {
     /// <summary>
-    /// Interaction logic for ProductView.xaml
+    /// Interaction logic for ProductWindow.xaml
     /// </summary>
     public partial class ProductWindow : Page
     {
+        ProductVM VM;
         public ProductWindow()
         {
             InitializeComponent();
+            VM = DataContext as ProductVM;
         }
-        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+
+        private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            ScrollViewer scv = (ScrollViewer)sender;
-            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
-            e.Handled = true;
+            if (e.Key == Key.Enter)
+            {
+                VM.SetBlockSmallProductCorespondSearch();
+            }
+        }
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            VM.SetBlockSmallProductCorespondSearch();
+        }
+
+        private void FilterTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (VM == null) return;
+
+            var comboBox = sender as ComboBox;
+
+            VM.ObservableSmallProducts.Clear();
+
+            switch (comboBox.SelectedIndex)
+            {
+                case 0:
+                    for (int i = 0; i < VM.smallProducts.Count; ++i)
+                    {
+                        if (VM.smallProducts[i].Title.ToLower().Contains(VM.SearchContent.ToLower()) || VM.smallProducts[i].Barcode.Contains(VM.SearchContent))
+                        {
+                            VM.ObservableSmallProducts.Add(VM.smallProducts[i]);
+                        }
+                    }
+                    break;
+
+                case 1:
+                    for (int i = 0; i < VM.smallProducts.Count; ++i)
+                    {
+                        if (VM.smallProducts[i].Type == "Đồ ăn" &&
+                            (VM.smallProducts[i].Title.ToLower().Contains(VM.SearchContent.ToLower()) || VM.smallProducts[i].Barcode.Contains(VM.SearchContent)))
+                        {
+                            VM.ObservableSmallProducts.Add(VM.smallProducts[i]);
+                        }
+                    }
+                    break;
+                case 2:
+                    for (int i = 0; i < VM.smallProducts.Count; ++i)
+                    {
+                        if (VM.smallProducts[i].Type == "Thức uống" &&
+                            (VM.smallProducts[i].Title.ToLower().Contains(VM.SearchContent.ToLower()) || VM.smallProducts[i].Barcode.Contains(VM.SearchContent)))
+                        {
+                            VM.ObservableSmallProducts.Add(VM.smallProducts[i]);
+                        }
+                    }
+                    break;
+                case 3:
+                    for (int i = 0; i < VM.smallProducts.Count; ++i)
+                    {
+                        if (VM.smallProducts[i].Type == "Khác" &&
+                            (VM.smallProducts[i].Title.ToLower().Contains(VM.SearchContent.ToLower()) || VM.smallProducts[i].Barcode.Contains(VM.SearchContent)))
+                        {
+                            VM.ObservableSmallProducts.Add(VM.smallProducts[i]);
+                        }
+                    }
+                    break;
+            }
         }
     }
 }

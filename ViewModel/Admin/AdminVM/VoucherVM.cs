@@ -75,8 +75,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public FilterActiveVoucherCommand FilterActiveVoucherCommand { get; set; }
         public FilterAllVoucherCommand FilterAllVoucherCommand { get; set; }
         public BindingVoucherSnackbar BindingVoucherSnackbar { get; set; }
-
         public RefreshData RefreshData { get; set; }
+
         public VoucherVM()
         {
             blockVouchers = new List<BlockVoucher>();

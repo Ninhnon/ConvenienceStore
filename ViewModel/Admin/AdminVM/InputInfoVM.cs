@@ -249,7 +249,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
             for (int i = 0; i < products.Count; ++i)
             {
-                if (products[i].Barcode.Contains(searchContent))
+                if (products[i].Barcode.Contains(searchContent) || products[i].Title.ToLower().Contains(searchContent.ToLower()))
                 {
                     ObservableProducts.Add(products[i]);
                 }
