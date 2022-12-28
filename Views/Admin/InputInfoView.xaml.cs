@@ -21,16 +21,16 @@ namespace ConvenienceStore.Views.Admin
     /// </summary>
     public partial class InputInfoView : Page
     {
+        InputInfoVM VM;
         public InputInfoView()
         {
             InitializeComponent();
+            VM = DataContext as InputInfoVM;
         }
         private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            var searchTextBox = (TextBox)sender;
             if (e.Key == Key.Enter)
             {
-                var VM = searchTextBox.DataContext as InputInfoVM;
                 VM.SetProductsCorrespondSearch();
             }
         }

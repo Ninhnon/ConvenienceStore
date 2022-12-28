@@ -96,8 +96,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
 
             StaffName = CurrentAccount.Name;
             StaffId = CurrentAccount.idAccount;
-            products = DatabaseHelper.FetchingProductDataT();
-            List = new ObservableCollection<Products>(products);
+
             FilteredList = List;
             AddToCartBarCode = new RelayCommand<BarCodeUC>(parameter => true, parameter => AddBarCode(parameter));
             OpenBarCodeCommand = new RelayCommand<ProductWindow>(parameter => true, parameter => ShowBarCodeQR(parameter));

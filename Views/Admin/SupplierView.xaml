@@ -161,15 +161,15 @@
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="#" 
-                                        IsReadOnly="True"
-                                        CanUserResize="False"
-                                        Width="Auto"
-                                        Binding="{Binding Number}"/>
-                        <DataGridTemplateColumn x:Name="NameSupplier"
-                                            Header="Nhà cung cấp"
                                             IsReadOnly="True"
                                             CanUserResize="False"
-                                            Width="*">
+                                            Width="50"
+                                            Binding="{Binding Number}"/>
+                        <DataGridTemplateColumn x:Name="NameSupplier"
+                                                Header="Nhà cung cấp"
+                                                IsReadOnly="True"
+                                                CanUserResize="False"
+                                                Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Name}"
