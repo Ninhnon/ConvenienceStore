@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
-    <materialDesign:Card Style="{StaticResource ProductCard}"
+    <materialDesign:Card Style="{StaticResource ConsignmentCard}"
                          Cursor="Hand">
         <Grid Height="100">
             <Grid.ColumnDefinitions>
