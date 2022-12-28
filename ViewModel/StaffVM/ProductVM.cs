@@ -93,11 +93,6 @@ namespace ConvenienceStore.ViewModel.StaffVM
 
         public ProductVM()
         {
-
-            StaffName = CurrentAccount.Name;
-            StaffId = CurrentAccount.idAccount;
-
-            FilteredList = List;
             AddToCartBarCode = new RelayCommand<BarCodeUC>(parameter => true, parameter => AddBarCode(parameter));
             OpenBarCodeCommand = new RelayCommand<ProductWindow>(parameter => true, parameter => ShowBarCodeQR(parameter));
 
@@ -163,13 +158,13 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 return true;
             }, (p) =>
             {
-                var x = SelectedItem;
+                Products t = SelectedItem;
                 MessageBoxCustom mb = new MessageBoxCustom("Xử lý sản phẩm", "Bạn có chắc muốn xử lý sản phẩm ra khỏi kho?", MessageType.Info, MessageButtons.YesNo);
 
                 if (mb.ShowDialog() == true)
                 {
-                    List.Remove(SelectedItem);
-                    DatabaseHelper.Throw(1, "1");
+                    List.Remove(t);
+                    DatabaseHelper.Throw(t.InputInfoId, t.BarCode);
                     
                     mb.Close();
                 }

@@ -24,7 +24,7 @@ namespace ConvenienceStore.Utils.Helpers
         order by ExpiryDate";
         static readonly string queryProductT = @"select Barcode,Title,ProductionSite,Image,InputPrice,OutputPrice,Stock,ManufacturingDate,ExpiryDate,Discount,Type,InputInfoId
         from Consignment c,Product p
-        where c.ProductId=p.Barcode
+        where c.ProductId=p.Barcode and Stock>0
         order by ExpiryDate";
         static readonly string queryVoucher = @"select * from [Voucher]";
         static readonly string queryReport = @"select * from [Report] order by SubmittedAt desc";
