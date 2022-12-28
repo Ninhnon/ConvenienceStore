@@ -22,9 +22,9 @@ namespace ConvenienceStore.Utils.Helpers
         ) h
         where c.ProductId=p.Barcode and h.ProductId=c.ProductId and h.e = c.ExpiryDate
         order by ExpiryDate";
-        static readonly string queryProductT = @"select Barcode,Title,ProductionSite,Image,InputPrice,OutputPrice,Stock,ManufacturingDate,ExpiryDate,Discount,Type,InputInfoId
+        static readonly string queryProductT = @"select Barcode,Title,ProductionSite,Image,InputPrice,OutputPrice,InStock,ManufacturingDate,ExpiryDate,Discount,Type,InputInfoId
         from Consignment c,Product p
-        where c.ProductId=p.Barcode and Stock>0
+        where c.ProductId=p.Barcode and InStock>0
         order by ExpiryDate";
         static readonly string queryVoucher = @"select * from [Voucher]";
         static readonly string queryReport = @"select * from [Report] order by SubmittedAt desc";
@@ -76,7 +76,7 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryTeamMembers = @"select Name, Avatar, UserRole from Users
                                                     where ManagerId = @managerId and Id != @id";
         static readonly string updateSL = @"update Consignment
-		                                    set Stock = 0
+		                                    set InStock = 0
 		                                    where InputInfoId = {0} and ProductId = N'{1}'";
         public static List<Model.Staff.Bill> FetchingBillData()
         {
