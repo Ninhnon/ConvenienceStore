@@ -25,15 +25,15 @@ namespace ConvenienceStore.Views.Admin.UserControls
         {
             InitializeComponent();
         }
-        public Product ProductItem
+        public SmallProduct ProductItem
         {
-            get { return (Product)GetValue(ProductItemProperty); }
+            get { return (SmallProduct)GetValue(ProductItemProperty); }
             set { SetValue(ProductItemProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ProductItemProperty =
-            DependencyProperty.Register("ProductItem", typeof(Product), typeof(ProductCard), new PropertyMetadata(null, SetValues));
+            DependencyProperty.Register("ProductItem", typeof(SmallProduct), typeof(ProductCard), new PropertyMetadata(null, SetValues));
 
         private static void SetValues(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

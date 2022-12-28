@@ -109,7 +109,7 @@
 
                                 <TextBlock Text="Tìm tên Nhà cung cấp ..."
                                     FontSize="14"
-                                    Foreground="#9ea4ad"
+                                    Foreground="Gray"
                                     Margin="22 0 15 0"
                                     VerticalAlignment="Center"
                                     IsHitTestVisible="False"

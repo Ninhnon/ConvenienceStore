@@ -49,6 +49,16 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryVoucherViaBlockId = @"select Code, Status from Voucher
                                                           where BlockId = {0}";
 
+        static readonly string querySmallProductWithOutImage = @"select Barcode, Title, Type, ProductionSite, SUM(Stock), COUNT(InputInfoId) from Product, Consignment
+                                                                 where ProductId = Barcode
+                                                                 group by Barcode, Title, Type, ProductionSite";
+
+        static readonly string queryImageProductViaBarcode = @"select Image from Product
+                                                               where Barcode = '{0}'";
+
+        static readonly string queryInputInfoIdViaBarcode = @"select InputInfoId from Consignment, Product
+                                                              where ProductId = Barcode and Barcode = '{0}'";
+
         static readonly string insertInputInfo = "insert InputInfo values ('{0}', {1}, {2})";
 
         static readonly string insertProduct = "insert Product values (@Barcode, @Title, @Image, @Type, @ProductionSite)";
@@ -495,6 +505,78 @@ namespace ConvenienceStore.Utils.Helpers
             reader.Close();
 
             return vouchers;
+        }
+
+        public static List<SmallProduct> FetchingSmallProductData()
+        {
+            sqlCon.Open();
+
+            List<SmallProduct> smallProducts = new List<SmallProduct>();
+
+            var cmd = new SqlCommand(querySmallProductWithOutImage, sqlCon);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var smallProduct = new SmallProduct()
+                {
+                    Barcode = reader.GetString(0),
+                    Title = reader.GetString(1),
+                    Type = reader.GetString(2),
+                    ProductionSite = reader.GetString(3),
+                    Stock = reader.GetInt32(4),
+                };
+
+                smallProduct.InputInfoId = new int[reader.GetInt32(5)];
+
+                smallProducts.Add(smallProduct);
+            }
+            reader.Close();
+            sqlCon.Close();
+
+            for (int i = 0; i < smallProducts.Count; ++i)
+            {
+                FetchingInputInfoIdViaBarcode(smallProducts[i].InputInfoId, smallProducts[i].Barcode);
+                smallProducts[i].Image = FetchingImageViaBarcode(smallProducts[i].Barcode);
+            }
+
+            return smallProducts;
+        }
+
+        static void FetchingInputInfoIdViaBarcode(int[] iunputInfoId, string Barcode)
+        {
+            sqlCon.Open();
+            var strCmd = string.Format(queryInputInfoIdViaBarcode, Barcode);
+            var cmd = new SqlCommand(strCmd, sqlCon);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            int index = 0;
+
+            while (reader.Read())
+            {
+                iunputInfoId[index] = reader.GetInt32(0);
+            }
+
+            reader.Close();
+            sqlCon.Close();
+        }
+
+        static byte[] FetchingImageViaBarcode(string Barcode)
+        {
+            sqlCon.Open();
+            var strCmd = string.Format(queryImageProductViaBarcode, Barcode);
+            var cmd = new SqlCommand(strCmd, sqlCon);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            byte[] image = (byte[])reader["Image"];
+
+            reader.Close();
+            sqlCon.Close();
+
+            return image;
         }
 
         public static void InsertInputInfo(DateTime dateTime, int UserId, int SupplierId)

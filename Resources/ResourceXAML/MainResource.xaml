@@ -13,7 +13,8 @@
     <vmAdminVM:SupplierVM x:Key="SupplierVM"/>
     <vmAdminVM:ProfileVM x:Key="AdminProfileVM"/>
     <vmAdminVM:VoucherVM x:Key="VoucherVM"/>
-    
+    <vmAdminVM:ProductVM x:Key="ProductVM"/>
+
     <vmAdminVM:TroubleAdminVM x:Key="TroubleADVM"/>
     <vmLogin:ForgotPasswordViewModel x:Key="ForgotVM"/>
 
@@ -26,7 +27,6 @@
     <vmLogin:LoginViewModel x:Key="LoginVM"/>
     <staffViewModel:MainStaffViewModel x:Key="MainStaffVM"/>
     <staffViewModel:VoucherVM x:Key="VoucherStaffVM"/>
-    <staffViewModel:ProductVM x:Key="ProductVM"/>
     <vmTrouble:TroublePageViewModel x:Key="TroubleVM"/>
     <staffViewModel:PaymentViewModel x:Key="PaymentVM" />
     <staffViewModel:HistoryViewModel x:Key="HistoryVM" />
