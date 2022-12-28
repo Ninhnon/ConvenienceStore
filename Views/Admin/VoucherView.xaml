@@ -92,7 +92,7 @@
 
                                     <TextBlock Text="Tìm tên voucher ..."
                                         FontSize="14"
-                                        Foreground="#9ea4ad"
+                                        Foreground="Gray"
                                         Margin="22 0 15 0"
                                         VerticalAlignment="Center"
                                         IsHitTestVisible="False"

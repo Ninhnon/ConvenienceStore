@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:ConvenienceStore.Views.Admin.UserControls"
              mc:Ignorable="d" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
-    <materialDesign:Card Style="{StaticResource ProductCard}"
-                         Cursor="Hand">
+    <materialDesign:Card Style="{StaticResource ConsignmentCard}">
         <Grid Height="100">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
