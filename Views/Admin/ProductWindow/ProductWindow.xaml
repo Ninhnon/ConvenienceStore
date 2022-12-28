@@ -229,7 +229,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                         <DataGridTemplateColumn Header="Hạn sử dụng" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
-                                        Width="200">
+                                        Width="120">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">

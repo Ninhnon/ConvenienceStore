@@ -98,7 +98,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
 
             StaffName = CurrentAccount.Name;
             StaffId = CurrentAccount.idAccount;
-            products = DatabaseHelper.FetchingProductData();
+            products = DatabaseHelper.FetchingProductDataT();
             List = new ObservableCollection<Products>(products);
             FilteredList = List;
             AddToCartBarCode = new RelayCommand<BarCodeUC>(parameter => true, parameter => AddBarCode(parameter));
@@ -109,7 +109,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 return true;
             }, (p) =>
             {
-                products = DatabaseHelper.FetchingProductData();
+                products = DatabaseHelper.FetchingProductDataT();
                 List = new ObservableCollection<Products>(products);
                 FilteredList = List;
             });

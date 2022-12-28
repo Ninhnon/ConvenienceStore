@@ -235,4 +235,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Staff\ProductWindow\" />
+  </ItemGroup>
+
 </Project>

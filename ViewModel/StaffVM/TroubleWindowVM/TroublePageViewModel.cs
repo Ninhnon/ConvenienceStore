@@ -140,7 +140,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             BindingTroubleSnackbar = new BindingTroubleSnackbar(this);
 
             danhsach = DatabaseHelper.FetchingReportData();
-            MaskName.Visibility = Visibility.Collapsed;
+            //MaskName.Visibility = Visibility.Collapsed;
             ListError = new ObservableCollection<Report>(danhsach);
             GetCurrentDate = DateTime.Today;
             //FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
