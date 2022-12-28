@@ -16,6 +16,7 @@ using ConvenienceStore.Views.Admin.SubViews;
 using System.IO;
 using System.Windows.Media.Imaging;
 using System;
+using ConvenienceStore.Views.Admin.ProductWindow;
 
 namespace ConvenienceStore.ViewModel.Admin
 {
@@ -123,6 +124,11 @@ namespace ConvenienceStore.ViewModel.Admin
             EmployeeCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 p.Content = new EmployeeView();
+
+            });
+            ProductCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new ProductWindow();
 
             });
             ProfileCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>

@@ -1,15 +1,15 @@
-﻿<Page x:Class="ConvenienceStore.Views.Staff.ProductWindow.ProductWindow"
+﻿<Page x:Class="ConvenienceStore.Views.Admin.ProductWindow.ProductWindow"
 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:local="clr-namespace:ConvenienceStore.Views.Staff"
+      xmlns:local="clr-namespace:ConvenienceStore.Views.Admin"
       mc:Ignorable="d"
       Title="PaymentWindow"
       d:DesignHeight="600"
       d:DesignWidth="1100"
       x:Name="paymentWindow"
-      xmlns:ucbar="clr-namespace:ConvenienceStore.Views.Staff.ProductWindow"
+      xmlns:ucbar="clr-namespace:ConvenienceStore.Views.Admin.ProductWindow"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
       TextElement.FontWeight="Regular"
@@ -193,20 +193,24 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 
             <Grid Grid.Row="2">
                 <DataGrid
-                    Style="{DynamicResource DataGridStyle2}"
-                    RowStyle="{DynamicResource DataGridRowStyle2}" 
-                    ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}"
-                    CellStyle="{DynamicResource DataGridCellStyle2}" 
-                    ItemsSource="{Binding FilteredList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding SelectedItem}"
-                    x:Name="errorDatagrid"
-                    ScrollViewer.CanContentScroll="True" 
-                    ScrollViewer.VerticalScrollBarVisibility="Visible"
-                    ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                        Height="480">
+                    x:Name="ProductDatagrid"
+                    Background="Transparent"
+                      CellStyle="{DynamicResource DataGridCellStyle2}" 
+                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}" 
+                      RowStyle="{DynamicResource DataGridRowStyle2}"
+                      ItemsSource="{Binding List, Mode=TwoWay}"
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                      ScrollViewer.VerticalScrollBarVisibility="Visible"
+                      ScrollViewer.CanContentScroll="True"
+                      VirtualizingPanel.IsVirtualizing="True"
+                      Height="480"
+                      CanUserAddRows="False"
+                      AutoGenerateColumns="False"
+                      Style="{DynamicResource DataGridStyle2}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Barcode" Binding="{Binding BarCode}" IsReadOnly="True" Width="200"/>
-                        <DataGridTemplateColumn Header="Sản phẩm" IsReadOnly="True" Width="320">
+                        <DataGridTemplateColumn Header="Sản phẩm" IsReadOnly="True" Width="300">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -219,17 +223,17 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Xuất sứ" Binding="{Binding ProductionSite}" IsReadOnly="True" Width="140"/>
+                        <DataGridTextColumn Header="Xuất sứ" Binding="{Binding ProductionSite}" IsReadOnly="True" Width="120"/>
                         <DataGridTextColumn IsReadOnly="True"
                                         CanUserResize="False"
-                                        Width="140" Header="Giá bán" Binding="{Binding Cost, Converter={StaticResource MoneyToVNDCurrency}}" />
+                                        Width="120" Header="Giá bán" Binding="{Binding Cost, Converter={StaticResource MoneyToVNDCurrency}}" />
                         <DataGridTextColumn IsReadOnly="True"
                                         CanUserResize="False"
-                                        Width="140" Header="Giảm giá (%)" Binding="{Binding Discount}" />
+                                        Width="120" Header="Giảm giá (%)" Binding="{Binding Discount}" />
                         <DataGridTemplateColumn Header="Hạn sử dụng" 
                                         IsReadOnly="True"
                                         CanUserResize="False"
-                                        Width="200">
+                                        Width="150">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -245,11 +249,11 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                                         VerticalAlignment="Center">
                                                 <!--Visibility="{Binding Status,Converter={StaticResource EditConverter}}"-->
                                                 <materialDesign:PackIcon Kind="AlertCircle" Foreground="{Binding HSDColor}" />
-                                                <!--<i:Interaction.Triggers>
+                                                <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                            <i:InvokeCommandAction Command="{Binding ElementName=ProductListView, Path=DataContext.L}" />
+                                                            <i:InvokeCommandAction Command="{Binding ThrowProduct}" />
                                                         </i:EventTrigger>
-                                                    </i:Interaction.Triggers>-->
+                                                    </i:Interaction.Triggers>
                                             </Border>
                                         </StackPanel>
                                     </StackPanel>
@@ -258,7 +262,33 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                         </DataGridTemplateColumn>
                         
                         <!--<DataGridTextColumn Header="Salary " Binding="{Binding Salary}" IsReadOnly="True" Width="100"/>-->
-                        
+                        <DataGridTemplateColumn Header="Thao tác"
+                                            IsReadOnly="True"
+                                            CanUserResize="False"
+                                            Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Cursor="Hand"
+                                            Background="Transparent" 
+                                            Width="30"
+                                            Height="30"
+                                            DataContext="{StaticResource ProductVM}"
+                                            ToolTip="Thông tin chi tiết">
+                                        <materialDesign:PackIcon Kind="Delete"
+                                                                 Width="30"
+                                                                 Height="30" 
+                                                                 VerticalAlignment="Center" 
+                                                                 HorizontalAlignment="Center"/>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding ThrowProduct}"
+                                                                       CommandParameter="{Binding ElementName=ProductDatagrid}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
 
