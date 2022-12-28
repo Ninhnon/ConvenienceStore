@@ -20,7 +20,7 @@ using System.Windows.Shapes;
 using ZXing;
 using ZXing.Windows.Compatibility;
 
-namespace ConvenienceStore.Views.Staff.ProductWindow
+namespace ConvenienceStore.Views.Admin.ProductWindow
 {
     /// <summary>
     /// Interaction logic for BarCodeUC.xaml
