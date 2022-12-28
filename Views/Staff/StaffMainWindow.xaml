@@ -176,11 +176,11 @@
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
                                  FontWeight="SemiBold"/>
                         
-                        <RadioButton x:Name="rdProduct" Content="Sản phẩm" Style="{DynamicResource MenuRadioButtonStyle}" 
+                        <!--<RadioButton x:Name="rdProduct" Content="Sản phẩm" Style="{DynamicResource MenuRadioButtonStyle}" 
                                  Tag="{DynamicResource product}" Margin="0 5 0 5"
                                  Command="{Binding ProductCommand}"
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
-                                 FontWeight="SemiBold"/>
+                                 FontWeight="SemiBold"/>-->
                         <!--<RadioButton x:Name="rdVoucher" Content="Voucher" Style="{DynamicResource MenuRadioButtonStyle}"
                                  Tag="{DynamicResource voucher}" Margin="0 5 0 5"
                                  Command="{Binding VoucherCommand}"

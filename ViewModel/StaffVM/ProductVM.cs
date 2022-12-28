@@ -1,18 +1,16 @@
 ﻿using ConvenienceStore.Model;
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
-using ConvenienceStore.ViewModel.StaffVM;
 using ConvenienceStore.Views;
-using ConvenienceStore.Views.Staff.ProductWindow;
-using System;
+using ConvenienceStore.Views.Admin.ProductWindow;
+using ConvenienceStore.Views.Login;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Media;
+using System.Reflection.Metadata;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.StaffVM
@@ -29,7 +27,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public ICommand OpenBarCodeCommand { get; set; }
         public ICommand LoadCommand { get; set; }
         public ICommand FindProductCommand { get; set; }
-
+        public ICommand ThrowProduct { get; set; }
 
 
 
@@ -160,6 +158,22 @@ namespace ConvenienceStore.ViewModel.StaffVM
             }, (p) =>
             {
                 MaskName = p;
+            });
+            ThrowProduct = new RelayCommand<DataGrid>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                var x = SelectedItem;
+                MessageBoxCustom mb = new MessageBoxCustom("Xử lý sản phẩm", "Bạn có chắc muốn xử lý sản phẩm ra khỏi kho?", MessageType.Info, MessageButtons.YesNo);
+
+                if (mb.ShowDialog() == true)
+                {
+                    List.Remove(SelectedItem);
+                    DatabaseHelper.Throw(1, "1");
+                    
+                    mb.Close();
+                }
             });
 
         }

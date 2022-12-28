@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ConvenienceStore.Views.Staff.ProductWindow
+namespace ConvenienceStore.Views.Admin.ProductWindow
 {
     /// <summary>
     /// Interaction logic for ProductView.xaml

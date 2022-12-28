@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ConvenienceStore.Model.Staff;
 
-namespace ConvenienceStore.Views.Staff.ProductWindow
+namespace ConvenienceStore.Views.Admin.ProductWindow
 {
     /// <summary>
     /// Interaction logic for ProductPage.xaml

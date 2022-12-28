@@ -23,14 +23,8 @@ namespace ConvenienceStore.Utils.Helpers
         where c.ProductId=p.Barcode and h.ProductId=c.ProductId and h.e = c.ExpiryDate
         order by ExpiryDate";
         static readonly string queryProductT = @"select Barcode,Title,ProductionSite,Image,InputPrice,OutputPrice,Stock,ManufacturingDate,ExpiryDate,Discount,Type,InputInfoId
-        from Consignment c,Product p,
-        ( 
-        select ProductId, min([ExpiryDate]) e
-        from Consignment
-        where Stock>0
-        group by ProductId
-        ) h
-        where c.ProductId=p.Barcode and h.ProductId=c.ProductId and h.e = c.ExpiryDate
+        from Consignment c,Product p
+        where c.ProductId=p.Barcode
         order by ExpiryDate";
         static readonly string queryVoucher = @"select * from [Voucher]";
         static readonly string queryReport = @"select * from [Report] order by SubmittedAt desc";
@@ -81,7 +75,9 @@ namespace ConvenienceStore.Utils.Helpers
 
         static readonly string queryTeamMembers = @"select Name, Avatar, UserRole from Users
                                                     where ManagerId = @managerId and Id != @id";
-
+        static readonly string updateSL = @"update Consignment
+		                                    set Stock = 0
+		                                    where InputInfoId = {0} and ProductId = N'{1}'";
         public static List<Model.Staff.Bill> FetchingBillData()
         {
             sqlCon.Open();
@@ -678,6 +674,15 @@ namespace ConvenienceStore.Utils.Helpers
             reader.Close();
             sqlCon.Close();
             return members;
+        }
+        public static void Throw(int i, string id)
+        {
+            var strCmd = string.Format(updateSL, i, id);
+            sqlCon.Open();
+            SqlCommand cmd = new(strCmd, sqlCon);
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+            sqlCon.Close();
         }
     }
 }
