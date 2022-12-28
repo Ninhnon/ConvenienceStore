@@ -232,8 +232,6 @@ namespace ConvenienceStore.ViewModel.StaffVM
         {
             StaffName = CurrentAccount.Name;
             StaffId = CurrentAccount.idAccount;
-            products = DatabaseHelper.FetchingProductData();
-            List = new ObservableCollection<Products>(products);
             FilteredList = List;
             ShoppingCart = new ObservableCollection<BillDetails>();
 
@@ -813,8 +811,8 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         Customer customer = new Customer();
                         customer.Name = AddCustomerWindow.nameTxtbox.textBox.Text;
                         customer.Phone = AddCustomerWindow.phoneTxtbox.textBox.Text;
-                        customer.Email = AddCustomerWindow.emailTxtbox.textBox.Text;
-                        customer.Address = AddCustomerWindow.addressTxtbox.textBox.Text;
+                        customer.Email = AddCustomerWindow.emailTxtbox.textBox.Text == "" ? null : AddCustomerWindow.emailTxtbox.textBox.Text;
+                        customer.Address = AddCustomerWindow.addressTxtbox.textBox.Text == "" ? null : AddCustomerWindow.addressTxtbox.textBox.Text;
 
                         DatabaseHelper.InsertCustomerData(customer);
                         MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Thêm khách hàng thành công", MessageType.Success, MessageButtons.OK);
