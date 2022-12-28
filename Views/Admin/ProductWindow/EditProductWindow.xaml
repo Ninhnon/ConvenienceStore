@@ -160,16 +160,17 @@
                                     </StackPanel>
 
                                     <Grid>
+                                        <!-- Height 15.96 -->
                                         <TextBlock Text="{Binding ElementName=CostTextBox, Path=Text}"
-                                               VerticalAlignment="Center"
-                                               Foreground="Gray"
-                                               Margin="1 0 0 0"/>
-
+                                                   VerticalAlignment="Center"
+                                                   Foreground="Gray"
+                                                   Margin="2 8 0 9"/>
+                                        <!-- Height 32.96 -->
                                         <TextBox x:Name="CostTextBox"
-                                             Text="{Binding Cost, Mode=OneTime}"
-                                             VerticalContentAlignment="Center"
-                                             Background="White"
-                                             Visibility="{Binding ElementName=CostToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
+                                                 Text="{Binding Cost, Mode=OneTime}"
+                                                 VerticalContentAlignment="Center"
+                                                 Background="White"
+                                                 Visibility="{Binding ElementName=CostToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
                                     </Grid>
 
 
@@ -197,7 +198,7 @@
                                         <TextBlock Text="{Binding ElementName=PriceTextBox, Path=Text}"
                                                    VerticalAlignment="Center"
                                                    Foreground="Gray"
-                                                   Margin="1 0 0 0"/>
+                                                   Margin="2 8 0 9"/>
 
                                         <TextBox x:Name="PriceTextBox"
                                                  Text="{Binding Price, Mode=OneTime}"
@@ -280,12 +281,14 @@
                             </StackPanel>
 
                             <Grid>
-
+                                
+                                <!-- Height 15.96 -->
                                 <TextBlock Text="{Binding ElementName=ManufacturingDate,
                                            Path=SelectedDate, StringFormat=dd-MM-yyyy}"
-                                           VerticalAlignment="Center"
-                                           Foreground="Gray"/>
-
+                                           Foreground="Gray"
+                                           Margin="0 5 0 8"/>
+                                
+                                <!-- Height 28.96 -->
                                 <Grid Background="White"
                                       Visibility="{Binding ElementName=ManufacturingDateToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
                                     <DatePicker x:Name="ManufacturingDate"
@@ -331,8 +334,8 @@
 
                                 <TextBlock Text="{Binding ElementName=ExpiryDate,
                                            Path=SelectedDate, StringFormat=dd-MM-yyyy}"
-                                           VerticalAlignment="Center"
-                                           Foreground="Gray"/>
+                                                   Foreground="Gray"
+                                                   Margin="0 5 0 8"/>
 
                                 <Grid Background="White"
                                           Visibility="{Binding ElementName=ExpiryDateToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
@@ -380,7 +383,7 @@
                                            Foreground="Red"/>
                         </StackPanel>
 
-                        <StackPanel Grid.Column="2">
+                        <!--<StackPanel Grid.Column="2">
 
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Số lượng"
@@ -398,7 +401,7 @@
                                 <TextBlock Text="{Binding ElementName=StockTextBox, Path=Text}"
                                            VerticalAlignment="Top"
                                            Foreground="Gray"
-                                           Margin="1 8 0 0"/>
+                                           Margin="2 8 0 0"/>
 
                                 <TextBox x:Name="StockTextBox"
                                          Text="{Binding Stock, Mode=OneTime}"
@@ -411,7 +414,7 @@
                             <TextBlock x:Name="StockErrorMessage"
                                            Height="16"
                                            Foreground="Red"/>
-                        </StackPanel>
+                        </StackPanel>-->
                     </Grid>
 
 

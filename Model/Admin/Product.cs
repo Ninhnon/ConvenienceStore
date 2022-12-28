@@ -96,6 +96,14 @@ namespace ConvenienceStore.Model.Admin
             set { discount = value; OnPropertyChanged("Discount"); }
         }
 
+        private int inStock;
+
+        public int InStock
+        {
+            get { return inStock; }
+            set { inStock = value; OnPropertyChanged("InStock"); }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         void OnPropertyChanged(string propertyName)

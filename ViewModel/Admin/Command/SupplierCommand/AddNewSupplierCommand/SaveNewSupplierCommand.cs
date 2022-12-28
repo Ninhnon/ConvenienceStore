@@ -3,7 +3,6 @@ using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Utils.Validation;
 using ConvenienceStore.ViewModel.Admin.AdminVM;
 using ConvenienceStore.Views.Admin.SupplierWindow;
-using ConvenienceStore.Views.Staff.ProductWindow;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
