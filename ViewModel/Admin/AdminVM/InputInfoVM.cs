@@ -145,12 +145,13 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public SaveNewProductCommand SaveNewProductCommand { get; set; }
         public BindingProductSnackbar BindingProductSnackbar { get; set; }
         public CheckExistBarcode CheckExistBarcode { get; set; }
+        public RefreshInputInfoData RefreshInputInfoData { get; set; }
 
         public InputInfoVM()
         {
             CurAccountName = CurrentAccount.Name;
 
-            inputInfos = DatabaseHelper.FetchingInputInfo();
+            inputInfos = new List<InputInfo>();
             ObservableInputInfos = new ObservableCollection<InputInfo>();
 
             IsDesc = 0;
@@ -180,6 +181,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
             BindingProductSnackbar = new BindingProductSnackbar(this);
             CheckExistBarcode = new CheckExistBarcode(this);
+
+            RefreshInputInfoData = new RefreshInputInfoData(this);
         }
     
         public void LoadProducts()

@@ -9,16 +9,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand
+namespace ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand
 {
-    class RefreshData : ICommand
+    public class RefreshInputInfoData : ICommand
     {
-        VoucherVM VM;
-        public RefreshData(VoucherVM VM)
+        InputInfoVM VM;
+
+        public RefreshInputInfoData(InputInfoVM VM)
         {
             this.VM = VM;
         }
-
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
@@ -32,12 +32,11 @@ namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand
 
         public void Execute(object parameter)
         {
-            VM.blockVouchers = DatabaseHelper.FetchingBlockVoucherData();
-
-            VM.ObservableBlockVouchers.Clear();
-            for (int i = 0; i < VM.blockVouchers.Count; i++)
+            VM.inputInfos = DatabaseHelper.FetchingInputInfo();
+            VM.ObservableInputInfos.Clear();
+            for (int i = 0; i < VM.inputInfos.Count; i++)
             {
-                VM.ObservableBlockVouchers.Add(VM.blockVouchers[i]);
+                VM.ObservableInputInfos.Add(VM.inputInfos[i]);
             }
         }
     }

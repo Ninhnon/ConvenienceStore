@@ -41,6 +41,7 @@
                         </MultiBinding>
                     </i:InvokeCommandAction.CommandParameter>
                 </i:InvokeCommandAction>
+                <i:InvokeCommandAction Command="{Binding RefreshInputInfoData}"/>
             </i:EventTrigger>
         </i:Interaction.Triggers>
         <Grid.ColumnDefinitions>
@@ -287,6 +288,26 @@
                 </Ellipse>
 
                 <StackPanel Margin="0 0 0 15">
+
+                    <Grid Margin="0 0 0 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="275"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="/Resources/Images/IconForInputInfo/id_hasColor.png"
+                               Width="30"
+                               HorizontalAlignment="Left"
+                               ToolTip="Mã nhập hàng"/>
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding Id}"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   d:Text="2"/>
+                    </Grid>
+
                     <Grid Margin="0 0 0 5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"/>
@@ -295,8 +316,9 @@
                         </Grid.ColumnDefinitions>
 
                         <Image Source="/Resources/Images/IconForInputInfo/user_color.png"
-                            Width="30"
-                            HorizontalAlignment="Left"/>
+                               Width="30"
+                               HorizontalAlignment="Left"
+                               ToolTip="Tên người nhập"/>
                         <TextBlock Grid.Column="2"
                                 Text="{Binding UserName}"
                                 FontSize="18"
@@ -313,8 +335,9 @@
                         </Grid.ColumnDefinitions>
 
                         <Image Source="/Resources/Images/IconForInputInfo/telephone.png"
-                            Width="30"
-                            HorizontalAlignment="Left"/>
+                               Width="30"
+                               HorizontalAlignment="Left"
+                               ToolTip="Số điện thoại"/>
 
                         <TextBlock Grid.Column="2"
                                 Text="{Binding Phone}"
@@ -332,8 +355,9 @@
                         </Grid.ColumnDefinitions>
 
                         <Image Source="/Resources/Images/IconForInputInfo/gmail.png"
-                            Width="30"
-                            HorizontalAlignment="Left"/>
+                               Width="30"
+                               HorizontalAlignment="Left"
+                               ToolTip="Email"/>
                         <TextBlock Grid.Column="2"
                                 Text="{Binding Email}"
                                 FontSize="18"
@@ -358,14 +382,15 @@
                             <ColumnDefinition Width="275"/>
                         </Grid.ColumnDefinitions>
                         <Image Source="/Resources/Images/IconForInputInfo/calendar_color.png"
-                            Width="30"
-                            HorizontalAlignment="Left"/>
+                               Width="30"
+                               HorizontalAlignment="Left"
+                               ToolTip="Ngày nhập hàng"/>
                         <TextBlock Grid.Column="2"
-                                Text="{Binding InputDate, StringFormat=dd-MM-yyyy}"
-                                FontSize="18"
-                                FontWeight="SemiBold"
-                                    VerticalAlignment="Center"
-                                d:Text="01-12-2022"/>
+                                   Text="{Binding InputDate, StringFormat=dd-MM-yyyy}"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   d:Text="01-12-2022"/>
                     </Grid>
 
 
@@ -377,9 +402,10 @@
                             <ColumnDefinition Width="275"/>
                         </Grid.ColumnDefinitions>
                         <Image Source="/Resources/Images/IconForInputInfo/delivery-courier.png"
-                                Width="30"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top"/>
+                               Width="30"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               ToolTip="Nhà cung cấp"/>
                         <Button Grid.Column="2"
                                 BorderBrush="Transparent"
                                 Background="Transparent"
@@ -592,7 +618,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
-                                <UserControls:ProductCard ProductItem="{Binding}"/>
+                                <UserControls:ConsignmentCard ProductItem="{Binding}"/>
                                 <StackPanel HorizontalAlignment="Right"
                                             VerticalAlignment="Center"
                                             Orientation="Horizontal">

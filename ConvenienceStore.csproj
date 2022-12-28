@@ -19,6 +19,8 @@
     <None Remove="Resources\Images\IconForInputInfo\close_box.png" />
     <None Remove="Resources\Images\IconForInputInfo\delivery-courier.png" />
     <None Remove="Resources\Images\IconForInputInfo\gmail.png" />
+    <None Remove="Resources\Images\IconForInputInfo\id.png" />
+    <None Remove="Resources\Images\IconForInputInfo\id_hasColor.png" />
     <None Remove="Resources\Images\IconForInputInfo\info_32.png" />
     <None Remove="Resources\Images\IconForInputInfo\telephone.png" />
     <None Remove="Resources\Images\IconForInputInfo\truck_64.png" />
@@ -132,6 +134,8 @@
     <Resource Include="Resources\Images\IconForInputInfo\close_box.png" />
     <Resource Include="Resources\Images\IconForInputInfo\delivery-courier.png" />
     <Resource Include="Resources\Images\IconForInputInfo\gmail.png" />
+    <Resource Include="Resources\Images\IconForInputInfo\id.png" />
+    <Resource Include="Resources\Images\IconForInputInfo\id_hasColor.png" />
     <Resource Include="Resources\Images\IconForInputInfo\info_32.png" />
     <Resource Include="Resources\Images\IconForInputInfo\telephone.png" />
     <Resource Include="Resources\Images\IconForInputInfo\truck_64.png" />
