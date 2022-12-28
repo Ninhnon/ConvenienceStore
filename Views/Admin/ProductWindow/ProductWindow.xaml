@@ -273,10 +273,11 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                             Width="30"
                                             Height="30"
                                             DataContext="{StaticResource ProductVM}"
-                                            ToolTip="Thông tin chi tiết">
+                                            ToolTip="Dọn sản phẩm khỏi kho">
                                         <materialDesign:PackIcon Kind="Delete"
                                                                  Width="30"
                                                                  Height="30" 
+                                                                 Foreground="LightPink"
                                                                  VerticalAlignment="Center" 
                                                                  HorizontalAlignment="Center"/>
                                         <i:Interaction.Triggers>
