@@ -136,7 +136,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
             });
             ProductCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                p.Content = new ProductWindow();
+                p.Content = new ProductView();
             });
             VoucherCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {

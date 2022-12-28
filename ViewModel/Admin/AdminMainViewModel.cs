@@ -128,7 +128,7 @@ namespace ConvenienceStore.ViewModel.Admin
             });
             ProductCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                p.Content = new ProductWindow();
+                p.Content = new ProductView();
 
             });
             ProfileCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>

@@ -15,15 +15,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ConvenienceStore.Views.Admin.ProductWindow
+namespace ConvenienceStore.Views.Admin
 {
     /// <summary>
     /// Interaction logic for ProductWindow.xaml
     /// </summary>
-    public partial class ProductWindow : Page
+    public partial class ProductView : Page
     {
         ProductVM VM;
-        public ProductWindow()
+        public ProductView()
         {
             InitializeComponent();
             VM = DataContext as ProductVM;
