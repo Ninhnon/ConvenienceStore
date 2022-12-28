@@ -7,8 +7,6 @@
                     xmlns:vmAdminVM="clr-namespace:ConvenienceStore.ViewModel.Admin.AdminVM"
                     xmlns:vmAdmin="clr-namespace:ConvenienceStore.ViewModel.Admin"
                     xmlns:subViewModel="clr-namespace:ConvenienceStore.ViewModel.SubViewModels"
-                    
-                    
                     >
     <!-- VM của Lâm đẹp troai -->
     <vmAdminVM:InputInfoVM x:Key="InputInfoVM"/>
@@ -35,6 +33,7 @@
     <staffViewModel:ProfileViewModel x:Key="ProfileVM" />
     <converter:IntToVNDCurrency x:Key="MoneyToVNDCurrency" />
     <converter:BoolToVisibilityConverter x:Key="BoolToVis"/>
+    <converter:BoolToVisibility x:Key="MyBoolToVisibility"/>
     <!-- primary -->
 
     <SolidColorBrush x:Key="PrimaryHueLightBrush"

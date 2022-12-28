@@ -15,12 +15,16 @@ using Emgu.CV;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace ConvenienceStore.ViewModel.StaffVM
 {
     public class PaymentViewModel : BaseViewModel
     {
-    
+
+        private BackgroundWorker worker;
+        private bool _IsLoading;
+        public bool IsLoading { get { return _IsLoading; } set { _IsLoading = value; OnPropertyChanged(); }}
 
         SoundPlayer player = new SoundPlayer(Environment.CurrentDirectory+@"\beep.wav");
         #region ICommand Payment
@@ -228,8 +232,40 @@ namespace ConvenienceStore.ViewModel.StaffVM
             }
         }
 
+        private void Worker_ProgressChanged(object? sender, ProgressChangedEventArgs e)
+        {
+            IsLoading = false;
+        }
+
+        public void LoadData()
+        {
+            IsLoading = true;
+            try
+            {
+                worker.RunWorkerAsync();
+            }
+            catch
+            {
+                //get some more time for worker
+            }
+        }
+
+        private void Worker_DoWork(object? sender, DoWorkEventArgs e)
+        {
+
+            Thread.Sleep(2000);
+            products = DatabaseHelper.FetchingProductData();
+            List = new ObservableCollection<Products>(products);
+            FilteredList = List;
+            (sender as BackgroundWorker).ReportProgress(0);
+        }
+
         public PaymentViewModel()
         {
+            worker = new BackgroundWorker { WorkerReportsProgress = true };
+            worker.DoWork += Worker_DoWork;
+            worker.ProgressChanged += Worker_ProgressChanged;
+
             StaffName = CurrentAccount.Name;
             StaffId = CurrentAccount.idAccount;
             FilteredList = List;
@@ -284,9 +320,12 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 return true;
             }, (p) =>
             {
-                products = DatabaseHelper.FetchingProductData();
-                List = new ObservableCollection<Products>(products);
-                FilteredList = List;
+                List = null;
+                FilteredList = null;
+                LoadData();
+                //products = DatabaseHelper.FetchingProductData();
+                //List = new ObservableCollection<Products>(products);
+                //FilteredList = List;
             });
 
             FindProductCommand = new RelayCommand<BarCodeUC>(parameter => true, parameter => FindProduct(parameter));
@@ -832,5 +871,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 }    
             });
         }
+
+
     }
 }
