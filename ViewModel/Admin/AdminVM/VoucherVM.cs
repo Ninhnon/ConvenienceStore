@@ -79,10 +79,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public RefreshData RefreshData { get; set; }
         public VoucherVM()
         {
-            blockVouchers = DatabaseHelper.FetchingBlockVoucherData();
-
-            ObservableBlockVouchers = new ObservableCollection<BlockVoucher>(blockVouchers);
-       
+            blockVouchers = new List<BlockVoucher>();
+            ObservableBlockVouchers = new ObservableCollection<BlockVoucher>();
 
             vouchers = new List<Voucher>();
             ObservableVouchers = new ObservableCollection<Voucher>();
