@@ -353,7 +353,7 @@ namespace ConvenienceStore.Utils.Helpers
             sqlCon.Open();
             var strCmd = string.Format(@"select Image from [Product] where Barcode=N'{0}'", id);
 
-            byte[] Avatar = new byte[byte.MaxValue];
+            byte[]? Avatar = new byte[byte.MaxValue];
             SqlCommand cmd = new(strCmd, sqlCon);
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -606,6 +606,7 @@ namespace ConvenienceStore.Utils.Helpers
             SqlDataReader reader = cmd.ExecuteReader();
             reader.Read();
             customerPoint = reader.IsDBNull(0) ? 0 : reader.GetInt32(0);
+            reader.Close();
             sqlCon.Close();
             return customerPoint;
         }
