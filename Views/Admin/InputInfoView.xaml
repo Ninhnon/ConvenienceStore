@@ -666,7 +666,7 @@
                 Grid.Column="1"
                 CornerRadius="0 8 8 0"
                 DataContext="{Binding ElementName=ListViewConsignmentCard, Path=SelectedItem}"
-                Visibility="Hidden">
+                Visibility="Visible">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                     <GradientStop Color='#E9E4F0' Offset="0"/>
@@ -723,14 +723,14 @@
                                 HorizontalAlignment="Left"
                                 Margin="0 0 15 0"/>
                         <TextBlock Text="SL:"
-                                    FontSize="18"
-                                    FontWeight="SemiBold"
-                                    VerticalAlignment="Center"
-                                    Width="115"/>
-                        <TextBlock Text="{Binding Stock}"
-                                    FontSize="18"
-                                    FontWeight="SemiBold"
-                                    VerticalAlignment="Center"/>
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   Width="115"/>
+                        <TextBlock Text="{Binding InStock}"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal"

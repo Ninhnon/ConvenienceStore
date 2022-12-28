@@ -5,7 +5,6 @@ using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Utils.Validation;
 using ConvenienceStore.ViewModel.StaffVM;
 using ConvenienceStore.Views;
-using ConvenienceStore.Views.Staff.ProductWindow;
 using ConvenienceStore.Views.Staff.TroubleWindow;
 using FluentValidation;
 using MaterialDesignThemes.Wpf;

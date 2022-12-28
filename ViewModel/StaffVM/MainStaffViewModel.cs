@@ -1,5 +1,4 @@
-﻿using ConvenienceStore.Views.Staff.ProductWindow;
-using ConvenienceStore.Views.Staff.TroubleWindow;
+﻿using ConvenienceStore.Views.Staff.TroubleWindow;
 using ConvenienceStore.Views.Staff.VoucherWindow;
 using ConvenienceStore.Views.Staff.PaymentWindow;
 using ConvenienceStore.Model;
