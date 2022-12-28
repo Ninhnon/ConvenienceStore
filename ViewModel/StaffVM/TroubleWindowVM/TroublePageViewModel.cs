@@ -114,7 +114,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         public ICommand MouseMoveCommand { get; set; }
         public ICommand SaveNewTroubleCommand { get; set; }
         public ICommand UpdateReportButtonCommand { get; set; }
-        public static Grid MaskName { get; set; }
+        public Grid MaskName { get; set; }
 
         public List<Report> danhsach = new();
 
@@ -140,7 +140,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             BindingTroubleSnackbar = new BindingTroubleSnackbar(this);
 
             danhsach = DatabaseHelper.FetchingReportData();
-            //MaskName.Visibility = Visibility.Collapsed;
+            MaskName.Visibility = Visibility.Collapsed;
             ListError = new ObservableCollection<Report>(danhsach);
             GetCurrentDate = DateTime.Today;
             //FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
@@ -152,6 +152,13 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             //    //ListError = new ObservableCollection<Report>(danhsach);
             //    IsLoading = false;
             //});
+            MaskNameCM = new RelayCommand<Grid>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                MaskName = p;
+            });
             CancelCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
                 {
                     MaskName.Visibility = Visibility.Collapsed;
@@ -207,6 +214,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             OpenAddErrorCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 RenewWindowData();
+                MaskName.Visibility= Visibility.Visible;
                 AddTrouble w1 = new();
                 w1.StaffName.Text = CurrentAccount.Name.ToString();
                 w1.cbxStatus.Text = "Chờ tiếp nhận";
