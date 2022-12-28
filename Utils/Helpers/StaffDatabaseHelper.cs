@@ -579,7 +579,7 @@ namespace ConvenienceStore.Utils.Helpers
                     TotalPrice = reader.IsDBNull(2) ? null : reader.GetInt32(2),
                 });
             }
-
+            reader.Close();
             sqlCon.Close();
             return list;
         }
@@ -616,9 +616,9 @@ namespace ConvenienceStore.Utils.Helpers
             sqlCon.Open();
             SqlCommand cmd = new SqlCommand(queryInsertCustomer, sqlCon);
             cmd.Parameters.AddWithValue("@name", customer.Name);
-            cmd.Parameters.AddWithValue("@address", customer.Address);
+            cmd.Parameters.AddWithValue("@address", customer.Address == null ? DBNull.Value : customer.Address);
             cmd.Parameters.AddWithValue("@phone", customer.Phone);
-            cmd.Parameters.AddWithValue("@email", customer.Email);
+            cmd.Parameters.AddWithValue("@email", customer.Email == null ? DBNull.Value : customer.Email);
             cmd.ExecuteNonQuery();
             sqlCon.Close();
         }
