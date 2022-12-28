@@ -120,7 +120,8 @@ namespace ConvenienceStore.ViewModel.Login
         public void EncodingPassword(PasswordBox parameter)
         {
             password = parameter.Password;
-            //  this.password = MD5Hash(this.password);
+            this.password = MD5Hash(this.password);
+            this.password = MD5Hash(this.password);
         }
         public void OpenForgotPasswordWindow(System.Windows.Window parameter)
         {
