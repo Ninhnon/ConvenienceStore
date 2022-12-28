@@ -191,7 +191,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 </StackPanel>
             </Grid>
 
-            <Grid Grid.Row="2">
+
                 <DataGrid
                     x:Name="ProductDatagrid"
                     Background="Transparent"
@@ -292,7 +292,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     </DataGrid.Columns>
                 </DataGrid>
 
-            </Grid>
+           
             <Grid Grid.RowSpan="3"
                   Background="Transparent"
                   Visibility="Collapsed"
