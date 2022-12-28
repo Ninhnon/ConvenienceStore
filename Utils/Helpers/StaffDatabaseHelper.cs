@@ -12,12 +12,12 @@ namespace ConvenienceStore.Utils.Helpers
 {
     public partial class DatabaseHelper
     {
-        static readonly string queryProduct = @"select Barcode,Title,ProductionSite,Image,InputPrice,OutputPrice,Stock,ManufacturingDate,ExpiryDate,Discount,Type,InputInfoId
+        static readonly string queryProduct = @"select Barcode,Title,ProductionSite,Image,InputPrice,OutputPrice,InStock,ManufacturingDate,ExpiryDate,Discount,Type,InputInfoId
         from Consignment c,Product p,
         ( 
         select ProductId, min([ExpiryDate]) e
         from Consignment
-        where Stock>0 AND ExpiryDate > GETDATE()
+        where InStock>0 AND ExpiryDate > GETDATE()
         group by ProductId
         ) h
         where c.ProductId=p.Barcode and h.ProductId=c.ProductId and h.e = c.ExpiryDate
@@ -42,8 +42,8 @@ namespace ConvenienceStore.Utils.Helpers
                                                         where Code = @code AND Status = 0";
         static readonly string queryUpdateVoucherStatus = @"update Voucher set Status = 1 where Code = @code";
         static readonly string queryVoucherDetail = @"select Code, Status, TypeVoucher, ParValue, StartDate, FinishDate from Voucher v join BlockVoucher b on v.BlockId = b.Id";
-        static readonly string queryUpdateConsignmentStock = @"update Consignment
-                                                                set Stock = stock - @quantity
+        static readonly string queryUpdateConsignmentInStock = @"update Consignment
+                                                                set InStock = InStock - @quantity
                                                                 where InputInfoId = @inputInfoId and ProductId = @productId";
 
         static readonly string insertReport = "insert Report values (@Title, @Description, @Status, @SubmittedAt,@RepairCost,Null,Null,@StaffId, @Image)";
@@ -615,7 +615,7 @@ namespace ConvenienceStore.Utils.Helpers
         public static void UpdateConsignmentStock(BillDetails b)
         {
             sqlCon.Open();
-            SqlCommand cmd = new SqlCommand(queryUpdateConsignmentStock, sqlCon);
+            SqlCommand cmd = new SqlCommand(queryUpdateConsignmentInStock, sqlCon);
             cmd.Parameters.AddWithValue("@quantity", b.Quantity);
             cmd.Parameters.AddWithValue("@productId", b.ProductId);
             cmd.Parameters.AddWithValue("@inputInfoId", b.InputInfoId);
