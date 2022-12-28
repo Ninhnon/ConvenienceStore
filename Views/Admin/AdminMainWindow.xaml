@@ -163,6 +163,11 @@
                                  CommandParameter="{Binding ElementName=PagesNavigation}"
                                  Margin="0 5 0 5"
                                  FontWeight="SemiBold"/>
+                        <RadioButton x:Name="rdProduct" Content="Sản phẩm" Style="{DynamicResource MenuRadioButtonStyle}" 
+                                 Tag="{DynamicResource product}" Margin="0 5 0 5"
+                                 Command="{Binding ProductCommand}"
+                                 CommandParameter="{Binding ElementName=PagesNavigation}"
+                                 FontWeight="SemiBold"/>
                         <RadioButton x:Name="rdReport" Content="Báo cáo"
                                  Style="{DynamicResource MenuRadioButtonStyle}"
                                  Tag="{DynamicResource report}" 

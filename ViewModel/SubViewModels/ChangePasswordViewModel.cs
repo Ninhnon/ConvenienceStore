@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
+
 namespace ConvenienceStore.ViewModel.SubViewModels
 {
     public class ChangePasswordViewModel
@@ -40,7 +41,7 @@ namespace ConvenienceStore.ViewModel.SubViewModels
                 parameter.CurrentPasswordBox.passwordBox.Focus();
                 isValid = false;
             }
-            else if (CurrentAccount.Password != parameter.CurrentPasswordBox.passwordBox.Password.ToString())
+            else if (CurrentAccount.Password != BaseViewModel.MD5Hash(BaseViewModel.MD5Hash( parameter.CurrentPasswordBox.passwordBox.Password.ToString())))
             {
                 parameter.CurrentPasswordBox.ErrorMessage.Text = "Mật khẩu hiện tại không chính xác!";
                 parameter.CurrentPasswordBox.passwordBox.Focus();
@@ -71,7 +72,7 @@ namespace ConvenienceStore.ViewModel.SubViewModels
             if(isValid)
             {
 
-                AccountDAL.Instance.UpdatePassword(parameter.NewPasswordBox.passwordBox.Password.ToString(), CurrentAccount.Email);
+                AccountDAL.Instance.UpdatePassword(BaseViewModel.MD5Hash(BaseViewModel.MD5Hash(parameter.NewPasswordBox.passwordBox.Password.ToString())), CurrentAccount.Email);
                 MessageBoxCustom mb = new("Thông báo", "Thay đổi mật khẩu thành công", MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();
             }

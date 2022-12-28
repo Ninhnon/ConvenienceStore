@@ -154,7 +154,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public void AddEmployee(EmployeeView parameter)
         {
             AddEmployeeView addView = new AddEmployeeView();
-           
+            Selected = DatabaseHelper.FetchingAccounAdminWithIdData(CurrentAccount.idAccount).Name;
             addView.ShowDialog();
             int i = 1;
             foreach(var account in accounts)
@@ -355,7 +355,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                            parameter.phoneTxtbox.textBox.Text.ToString(),
                            parameter.emailTxtbox.textBox.Text.ToString(),
                            parameter.usernameTxtbox.textBox.Text.ToString(),
-                           parameter.passwordTxtbox.passwordBox.Password.ToString()
+                          BaseViewModel.MD5Hash(BaseViewModel.MD5Hash(parameter.passwordTxtbox.passwordBox.Password.ToString()))
                            , ConvertImageToBytes(openDialog.FileName).ToArray(),
                           i
                            );

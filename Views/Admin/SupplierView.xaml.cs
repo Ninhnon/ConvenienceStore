@@ -21,27 +21,24 @@ namespace ConvenienceStore.Views.Admin
     /// </summary>
     public partial class SupplierView : Page
     {
+        SupplierVM VM;
         public SupplierView()
         {
             InitializeComponent();
+            VM = DataContext as SupplierVM;
         }
 
         private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            var searchTextBox = (TextBox)sender;
             if (e.Key == Key.Enter)
             {
-                var VM = searchTextBox.DataContext as SupplierVM;
                 VM.SetSupplierCorespondSearch();
             }
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var button = (Border)sender;
-            var VM = button.DataContext as SupplierVM;
             VM.SetSupplierCorespondSearch();
-           
         }
     }
 }

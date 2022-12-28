@@ -196,7 +196,8 @@
                                         Text="Chọn người quản lý"></TextBlock>
                                             <ComboBox Margin="22,0,0,0" x:Name="ManagerCombobox"  
                                               ItemsSource="{Binding ItemSourceManager,Mode=TwoWay}"
-                                                 DataContext="{StaticResource EmployeeVM}"
+                                                 SelectedItem="{Binding Selected}"
+                                                      DataContext="{StaticResource EmployeeVM}"
                                     >
                                             </ComboBox>
                                             <TextBlock x:Name="ManagerErrorMessage" Margin="10,0,0,0"

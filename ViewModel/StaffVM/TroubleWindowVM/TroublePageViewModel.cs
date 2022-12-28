@@ -269,6 +269,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
 
             CloseCM = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, (p) =>
              {
+                 MaskName.Visibility= Visibility.Collapsed;
                  p.Close();
              });
             MouseMoveCommand = new RelayCommand<Window>((p) => { return p != null; }, (p) =>

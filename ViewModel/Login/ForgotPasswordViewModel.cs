@@ -171,7 +171,7 @@ namespace ConvenienceStore.ViewModel.Login
             }
             else if ((parameter.newpass.passwordBox.Password.ToString())== (parameter.confirmpass.passwordBox.Password.ToString()))
                    {
-                string pass = parameter.newpass.passwordBox.Password.ToString();
+                string pass = MD5Hash( MD5Hash(parameter.newpass.passwordBox.Password.ToString()));
                 string mail = Email;
                 AccountDAL.Instance.UpdatePassword(pass, mail);
 

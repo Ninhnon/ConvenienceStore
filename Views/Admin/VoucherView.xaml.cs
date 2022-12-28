@@ -21,24 +21,23 @@ namespace ConvenienceStore.Views.Admin
     /// </summary>
     public partial class VoucherView : Page
     {
+        VoucherVM VM;
         public VoucherView()
         {
             InitializeComponent();
+
+            VM = DataContext as VoucherVM;
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var button = (Border)sender;
-            var VM = button.DataContext as VoucherVM;
             VM.SetBlockVoucherCorespondSearch();
         }
 
         private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            var searchTextBox = (TextBox)sender;
             if (e.Key == Key.Enter)
             {
-                var VM = searchTextBox.DataContext as VoucherVM;
                 VM.SetBlockVoucherCorespondSearch();
             }
         }

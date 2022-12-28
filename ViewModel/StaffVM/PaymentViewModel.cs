@@ -232,8 +232,6 @@ namespace ConvenienceStore.ViewModel.StaffVM
         {
             StaffName = CurrentAccount.Name;
             StaffId = CurrentAccount.idAccount;
-            products = DatabaseHelper.FetchingProductData();
-            List = new ObservableCollection<Products>(products);
             FilteredList = List;
             ShoppingCart = new ObservableCollection<BillDetails>();
 
