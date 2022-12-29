@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace ConvenienceStore.ViewModel.Admin.Command.SmallProduct
+namespace ConvenienceStore.ViewModel.Admin.Command.SmallProductCommand
 {
     public class RefreshSmallProductData : ICommand
     {

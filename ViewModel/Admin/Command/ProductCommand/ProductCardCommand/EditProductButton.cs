@@ -33,7 +33,6 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCom
                 Image = currentProduct.Image,
                 Cost = currentProduct.Cost,
                 Price = currentProduct.Price,
-                Stock = currentProduct.Stock,
                 ManufacturingDate = currentProduct.ManufacturingDate,
                 ExpiryDate = currentProduct.ExpiryDate,
                 Discount = currentProduct.Discount

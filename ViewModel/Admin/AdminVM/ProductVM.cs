@@ -1,5 +1,5 @@
 ﻿using ConvenienceStore.Model.Admin;
-using ConvenienceStore.ViewModel.Admin.Command.SmallProduct;
+using ConvenienceStore.ViewModel.Admin.Command.SmallProductCommand;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,6 +30,18 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 {
                     SetBlockSmallProductCorespondSearch();
                 }
+            }
+        }
+
+        private SmallProduct selectedSmallProduct;
+
+        public SmallProduct SelectedSmallProduct
+        {
+            get { return selectedSmallProduct; }
+            set
+            {
+                selectedSmallProduct = value;
+                OnPropertyChanged("SelectedSmallProduct");
             }
         }
 

@@ -171,6 +171,9 @@
                                             <i:ChangePropertyAction TargetObject="{Binding ElementName=OperateButtons}"
                                                                 PropertyName="Visibility"
                                                                 Value="Visible"/>
+                                            <i:ChangePropertyAction TargetObject="{Binding ElementName=InputInfoCards}"
+                                                                        PropertyName="SelectedItem"
+                                                                        Value="{Binding}"/>
                                         </i:EventTrigger>
                                         <i:EventTrigger EventName="MouseLeave">
                                             <i:InvokeCommandAction Command="{StaticResource HideOperateButtonsCommand}"
@@ -202,14 +205,14 @@
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseEnter">
                                                 <i:ChangePropertyAction PropertyName="Background"
-                                                                    Value="#D9D9D9"/>
+                                                                        Value="#D9D9D9"/>
                                             </i:EventTrigger>
 
-                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                            <!--<i:EventTrigger EventName="MouseLeftButtonDown">
                                                 <i:ChangePropertyAction TargetObject="{Binding ElementName=InputInfoCards}"
-                                                                    PropertyName="SelectedItem"
-                                                                    Value="{Binding}"/>
-                                            </i:EventTrigger>
+                                                                        PropertyName="SelectedItem"
+                                                                        Value="{Binding}"/>
+                                            </i:EventTrigger>-->
 
                                             <i:EventTrigger EventName="MouseLeave">
                                                 <i:ChangePropertyAction PropertyName="Background"
@@ -367,7 +370,7 @@
                 </StackPanel>
 
                 <Separator Margin="0 0 0 15"
-                            Background="#E8E8E8">
+                           Background="#E8E8E8">
                     <Separator.RenderTransform>
                         <ScaleTransform ScaleY="3" />
                     </Separator.RenderTransform>
@@ -457,8 +460,8 @@
             <Grid>
 
                 <Grid VerticalAlignment="Top"
-                        HorizontalAlignment="Stretch"
-                        Margin="30 25 30 0">
+                      HorizontalAlignment="Stretch"
+                      Margin="30 20 30 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -666,7 +669,7 @@
                 Grid.Column="1"
                 CornerRadius="0 8 8 0"
                 DataContext="{Binding ElementName=ListViewConsignmentCard, Path=SelectedItem}"
-                Visibility="Visible">
+                Visibility="Hidden">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                     <GradientStop Color='#E9E4F0' Offset="0"/>
@@ -700,9 +703,10 @@
                                HorizontalAlignment="Left"
                                Margin="0 0 15 0"/>
                         <TextBlock Text="{Binding Barcode}"
-                                    FontSize="18"
-                                    FontWeight="SemiBold"
-                                    VerticalAlignment="Center"/>
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   d:Text="8934822111212"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal"
@@ -711,9 +715,10 @@
                                 Height="30"
                                 Margin="0 0 15 0"/>
                         <TextBlock Text="{Binding ProductionSite}"
-                                    FontSize="18"
-                                    FontWeight="SemiBold"
-                                    VerticalAlignment="Center"/>
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   d:Text="VietNam"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal"
@@ -722,12 +727,12 @@
                                 Height="30"
                                 HorizontalAlignment="Left"
                                 Margin="0 0 15 0"/>
-                        <TextBlock Text="SL:"
+                        <TextBlock Text="SL nhập:"
                                    FontSize="18"
                                    FontWeight="SemiBold"
                                    VerticalAlignment="Center"
                                    Width="115"/>
-                        <TextBlock Text="{Binding InStock}"
+                        <TextBlock Text="{Binding Stock}"
                                    FontSize="18"
                                    FontWeight="SemiBold"
                                    VerticalAlignment="Center"/>

@@ -37,6 +37,7 @@
     <None Remove="Resources\Images\IconForProduct\package.png" />
     <None Remove="Resources\Images\IconForProduct\salary.png" />
     <None Remove="Resources\Images\IconForProduct\schedule.png" />
+    <None Remove="Resources\Images\IconForProduct\shape.png" />
     <None Remove="Resources\Images\IconForProduct\tag.png" />
     <None Remove="Resources\Images\IconForTrouble\check-list.png" />
     <None Remove="Resources\Images\IconForTrouble\clipboard.png" />
@@ -152,6 +153,7 @@
     <Resource Include="Resources\Images\IconForProduct\package.png" />
     <Resource Include="Resources\Images\IconForProduct\salary.png" />
     <Resource Include="Resources\Images\IconForProduct\schedule.png" />
+    <Resource Include="Resources\Images\IconForProduct\shape.png" />
     <Resource Include="Resources\Images\IconForProduct\tag.png" />
     <Resource Include="Resources\Images\IconForTrouble\check-list.png" />
     <Resource Include="Resources\Images\IconForTrouble\clipboard.png" />

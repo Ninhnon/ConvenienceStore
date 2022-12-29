@@ -9,6 +9,8 @@
              mc:Ignorable="d">
 
     <UserControl.Resources>
+        
+        <!-- Nằm ở Resource/Styles/Lam/MyCustomCard.xaml
         <Path x:Key="VoucherOutline"
               Stroke="Black"
               Fill="White"
@@ -25,7 +27,7 @@
               C 10 55 5 50 0 50
               v -40">
 
-        </Path>
+        </Path>-->
 
         <VoucherConverter:StatusToDisplayConverter x:Key="StatusToDisplayConverter"/>
     </UserControl.Resources>

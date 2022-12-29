@@ -56,8 +56,9 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryImageProductViaBarcode = @"select Image from Product
                                                                where Barcode = '{0}'";
 
-        static readonly string queryInputInfoIdViaBarcode = @"select InputInfoId from Consignment, Product
-                                                              where ProductId = Barcode and Barcode = '{0}'";
+        static readonly string queryConsignmentViaBarcode = @"select Id, InStock, ExpiryDate, Discount 
+                                                              from InputInfo, Consignment 
+                                                              where Id = InputInfoId and ProductId = '{0}'";
 
         static readonly string insertInputInfo = "insert InputInfo values ('{0}', {1}, {2})";
 
@@ -529,8 +530,6 @@ namespace ConvenienceStore.Utils.Helpers
                     Stock = reader.GetInt32(4),
                 };
 
-                smallProduct.InputInfoId = new int[reader.GetInt32(5)];
-
                 smallProducts.Add(smallProduct);
             }
             reader.Close();
@@ -538,18 +537,20 @@ namespace ConvenienceStore.Utils.Helpers
 
             for (int i = 0; i < smallProducts.Count; ++i)
             {
-                FetchingInputInfoIdViaBarcode(smallProducts[i].InputInfoId, smallProducts[i].Barcode);
+                smallProducts[i].ObservableSmallConsignments = FetchingConsignmentViaBarcode(smallProducts[i].Barcode);
                 smallProducts[i].Image = FetchingImageViaBarcode(smallProducts[i].Barcode);
             }
 
             return smallProducts;
         }
 
-        static void FetchingInputInfoIdViaBarcode(int[] iunputInfoId, string Barcode)
+        static ObservableCollection<SmallConsignment> FetchingConsignmentViaBarcode(string Barcode)
         {
             sqlCon.Open();
-            var strCmd = string.Format(queryInputInfoIdViaBarcode, Barcode);
+            var strCmd = string.Format(queryConsignmentViaBarcode, Barcode);
             var cmd = new SqlCommand(strCmd, sqlCon);
+
+            var list = new ObservableCollection<SmallConsignment>();
 
             SqlDataReader reader = cmd.ExecuteReader();
 
@@ -557,11 +558,19 @@ namespace ConvenienceStore.Utils.Helpers
 
             while (reader.Read())
             {
-                iunputInfoId[index] = reader.GetInt32(0);
+                list.Add(new SmallConsignment()
+                {
+                    Id = reader.GetInt32(0),
+                    InStock = reader.GetInt32(1),
+                    ExperyDate = reader.GetDateTime(2),
+                    Discount = reader.GetDouble(3) * 100
+                });
             }
 
             reader.Close();
             sqlCon.Close();
+
+            return list;
         }
 
         static byte[] FetchingImageViaBarcode(string Barcode)
