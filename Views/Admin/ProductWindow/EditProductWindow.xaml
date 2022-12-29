@@ -383,7 +383,7 @@
                                            Foreground="Red"/>
                         </StackPanel>
 
-                        <!--<StackPanel Grid.Column="2">
+                        <StackPanel Grid.Column="2">
 
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Số lượng"
@@ -414,7 +414,7 @@
                             <TextBlock x:Name="StockErrorMessage"
                                            Height="16"
                                            Foreground="Red"/>
-                        </StackPanel>-->
+                        </StackPanel>
                     </Grid>
 
 
