@@ -1,4 +1,7 @@
 ﻿
+using ConvenienceStore.Views.Admin;
+using System.Windows.Controls;
+using System.Windows.Input;
 using ConvenienceStore.Model;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Views.Admin;
