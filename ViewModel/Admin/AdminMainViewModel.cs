@@ -1,21 +1,14 @@
 ﻿
 using ConvenienceStore.Views.Admin;
-using ConvenienceStore.Views.Staff.TroubleWindow;
-using ConvenienceStore.Views.Staff.VoucherWindow;
-using ConvenienceStore.Views.Staff;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ConvenienceStore.Model;
 using ConvenienceStore.Utils.Helpers;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using ConvenienceStore.Views;
 using System.Windows;
 using ConvenienceStore.Views.Admin.SubViews;
 using System.IO;
 using System.Windows.Media.Imaging;
 using System;
-using ConvenienceStore.Views.Admin.ProductWindow;
 
 namespace ConvenienceStore.ViewModel.Admin
 {
