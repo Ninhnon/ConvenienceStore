@@ -37,7 +37,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.EditProductCom
             window.ManufacturingDateErrorMessage.Text = string.Empty;
             window.ExpiryDateErrorMessage.Text = string.Empty;
             window.DiscountErrorMessage.Text = string.Empty;
-            window.StockErrorMessage.Text = string.Empty;
+            //window.StockErrorMessage.Text = string.Empty;
 
             // Pre Validation
             bool isValid = true;
@@ -70,19 +70,19 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.EditProductCom
                 }
             }
 
-            if (string.IsNullOrEmpty(window.StockTextBox.Text))
-            {
-                window.StockErrorMessage.Text = "Chưa nhập số lượng";
-                isValid = false;
-            }
-            else
-            {
-                if (!int.TryParse(window.StockTextBox.Text, out int Stock))
-                {
-                    window.StockErrorMessage.Text = "Số lượng không hợp lệ";
-                    isValid = false;
-                }
-            }
+            //if (string.IsNullOrEmpty(window.StockTextBox.Text))
+            //{
+            //    window.StockErrorMessage.Text = "Chưa nhập số lượng";
+            //    isValid = false;
+            //}
+            //else
+            //{
+            //    if (!int.TryParse(window.StockTextBox.Text, out int Stock))
+            //    {
+            //        window.StockErrorMessage.Text = "Số lượng không hợp lệ";
+            //        isValid = false;
+            //    }
+            //}
 
             if (window.ManufacturingDate.SelectedDate.HasValue && window.ExpiryDate.SelectedDate.HasValue && window.ManufacturingDate.SelectedDate >= window.ExpiryDate.SelectedDate)
             {
@@ -99,7 +99,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.EditProductCom
                 Type = window.TypeComboBox.Text,
                 Cost = int.Parse(window.CostTextBox.Text),
                 Price = int.Parse(window.PriceTextBox.Text),
-                Stock = int.Parse(window.StockTextBox.Text),
+                //Stock = int.Parse(window.StockTextBox.Text),
                 ManufacturingDate = (DateTime)window.ManufacturingDate.SelectedDate,
                 ExpiryDate = (DateTime)window.ExpiryDate.SelectedDate,
                 Discount = double.Parse(window.DiscountTextBox.Text)
@@ -142,8 +142,8 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.EditProductCom
                     if (error.PropertyName == "Discount")
                         window.DiscountErrorMessage.Text = error.ErrorMessage;
 
-                    if (error.PropertyName == "Stock")
-                        window.StockErrorMessage.Text = error.ErrorMessage;
+                    //if (error.PropertyName == "Stock")
+                    //    window.StockErrorMessage.Text = error.ErrorMessage;
                 }
                 return;
             }
@@ -161,7 +161,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.EditProductCom
             curProduct.ManufacturingDate = newProduct.ManufacturingDate;
             curProduct.ExpiryDate = newProduct.ExpiryDate;
             curProduct.Discount = newProduct.Discount;
-            curProduct.Stock = newProduct.Stock;
+            //curProduct.Stock = newProduct.Stock;
 
             window.Close();
         }
