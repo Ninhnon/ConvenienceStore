@@ -469,7 +469,7 @@
                                FontWeight="SemiBold"
                                VerticalAlignment="Top"
                                HorizontalAlignment="Center"
-                               Margin="0 24 0 0"/>
+                               Margin="0 22 0 0"/>
 
                     <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Top"

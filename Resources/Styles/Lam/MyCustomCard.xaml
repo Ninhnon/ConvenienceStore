@@ -66,9 +66,27 @@
         <Setter Property="Cursor" Value="Hand"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#EFEFEF"/>
+                <Setter Property="Background" Value="#97DECE"/>
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Path x:Key="VoucherOutline"
+              Stroke="Black"
+              Fill="White"
+              StrokeThickness="1"
+              StrokeStartLineCap="Round"
+              StrokeEndLineCap="Round"
+              Data="M0, 10
+              C 5 10 10 5 10 0
+              h 80
+              C 90 5 95 10 100 10
+              v 40
+              C 95 50 90 55 90 60
+              h -80
+              C 10 55 5 50 0 50
+              v -40">
+
+    </Path>
 
 </ResourceDictionary>

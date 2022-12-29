@@ -112,10 +112,21 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
             }
             else
             {
-                if (!int.TryParse(window.StockTextBox.Text, out int Stock))
+                int Stock;
+                if (!int.TryParse(window.StockTextBox.Text, out Stock))
                 {
                     window.StockErrorMessage.Text = "Số lượng không hợp lệ";
                     isValid = false;
+                }
+                else
+                {
+                    if (Stock <= 0)
+                    {
+                        {
+                            window.StockErrorMessage.Text = "Số lượng phải > 0";
+                            isValid = false;
+                        }
+                    }
                 }
             }
 
@@ -175,6 +186,9 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
                 ExpiryDate = (DateTime)window.ExpiryDate.SelectedDate,
                 Discount = 0
             };
+
+            newProduct.InStock = newProduct.Stock;
+
             if (window.ImageProduct.ImageSource != null)
             {
                 JpegBitmapEncoder encoder = new JpegBitmapEncoder();
@@ -220,9 +234,6 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
 
                     if (error.PropertyName == "Price")
                         window.PriceErrorMessage.Text = error.ErrorMessage;
-
-                    if (error.PropertyName == "Stock")
-                        window.StockErrorMessage.Text = error.ErrorMessage;
                 }
                 return;
             }

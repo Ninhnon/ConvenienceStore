@@ -15,13 +15,13 @@
             </i:EventTrigger>
         </i:Interaction.Triggers>
 
-        <Border.Effect>
+        <!--<Border.Effect>
             <DropShadowEffect BlurRadius="5"
                               Direction="270"
                               Opacity="0.45"
                               RenderingBias="Performance"
                               ShadowDepth="1.5"/>
-        </Border.Effect>
+        </Border.Effect>-->
 
         <Grid>
 
