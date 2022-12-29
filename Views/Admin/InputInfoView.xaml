@@ -732,7 +732,7 @@
                                    FontWeight="SemiBold"
                                    VerticalAlignment="Center"
                                    Width="115"/>
-                        <TextBlock Text="{Binding Stock}"
+                        <TextBlock Text="{Binding InStock}"
                                    FontSize="18"
                                    FontWeight="SemiBold"
                                    VerticalAlignment="Center"/>
