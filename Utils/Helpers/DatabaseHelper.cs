@@ -18,7 +18,7 @@ namespace ConvenienceStore.Utils.Helpers
                                                   where InputInfo.UserId = Users.Id and InputInfo.SupplierId = Supplier.Id
                                                   order by InputDate asc";
 
-        static readonly string queryProducts = @"select Barcode, Title, ProductionSite, Image, Stock, InputPrice, OutputPrice, ManufacturingDate, ExpiryDate, Discount, Type
+        static readonly string queryProducts = @"select Barcode, Title, ProductionSite, Image, Stock, InputPrice, OutputPrice, ManufacturingDate, ExpiryDate, Discount, Type, InStock
                                                  from Consignment, Product
                                                  where InputInfoId = {0} and ProductId = Barcode";
 
@@ -172,7 +172,8 @@ namespace ConvenienceStore.Utils.Helpers
                     ManufacturingDate = reader.GetDateTime(7),
                     ExpiryDate = reader.GetDateTime(8),
                     Discount = reader.GetDouble(9) * 100,
-                    Type = reader.GetString(10)
+                    Type = reader.GetString(10),
+                    InStock = reader.GetInt32(11)
                 });
 
             }
