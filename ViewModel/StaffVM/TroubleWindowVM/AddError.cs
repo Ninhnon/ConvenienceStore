@@ -1,19 +1,14 @@
 ﻿using ConvenienceStore.Model;
-using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Utils.Validation;
 using ConvenienceStore.ViewModel.StaffVM;
-using ConvenienceStore.Views;
 using ConvenienceStore.Views.Staff.TroubleWindow;
 using FluentValidation;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.IO;
-using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ConvenienceStore.ViewModel.TroubleWindowVM
 {
@@ -106,5 +101,5 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
                 p.Close();
             }
         }
-    } 
+    }
 }

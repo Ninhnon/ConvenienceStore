@@ -1,8 +1,5 @@
-﻿using ConvenienceStore.Model;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace ConvenienceStore.Views.Staff.TroubleWindow
 {
@@ -31,7 +28,7 @@ namespace ConvenienceStore.Views.Staff.TroubleWindow
             this.DragMove();
         }
 
-      
+
     }
-   
+
 }

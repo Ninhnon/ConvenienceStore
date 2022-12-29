@@ -6,16 +6,13 @@ using ConvenienceStore.Views.Staff.PaymentWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Media;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Media;
-using Emgu.CV;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using System.ComponentModel;
 
 namespace ConvenienceStore.ViewModel.StaffVM
 {
@@ -24,9 +21,9 @@ namespace ConvenienceStore.ViewModel.StaffVM
 
         private BackgroundWorker worker;
         private bool _IsLoading;
-        public bool IsLoading { get { return _IsLoading; } set { _IsLoading = value; OnPropertyChanged(); }}
+        public bool IsLoading { get { return _IsLoading; } set { _IsLoading = value; OnPropertyChanged(); } }
 
-        SoundPlayer player = new SoundPlayer(Environment.CurrentDirectory+@"\beep.wav");
+        SoundPlayer player = new SoundPlayer(Environment.CurrentDirectory + @"\beep.wav");
         #region ICommand Payment
         public ICommand AddToCart { get; set; }
         public ICommand AddToCartBarCode { get; set; }
@@ -101,7 +98,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
         private int _OriginTotalBill;
         public int OriginTotalBill { get { return _OriginTotalBill; } set { _OriginTotalBill = value; OnPropertyChanged(); } }
 
-        public int Discount 
+        public int Discount
         {
             get
             {
@@ -176,12 +173,12 @@ namespace ConvenienceStore.ViewModel.StaffVM
 
         public void FindProduct(BarCodeUC parameter)
         {
-          
+
             FilteredList = List;
             if (parameter.txtBarcode.Text != "")
             {
-               
-           
+
+
                 if (long.TryParse(parameter.txtBarcode.Text, out long n))
                 {
                     FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.BarCode.ToLower().Contains(parameter.txtBarcode.Text.ToLower())).ToList());
@@ -190,7 +187,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 {
                     FilteredList = new ObservableCollection<Products>(FilteredList.Where(x => x.Title.ToLower().Contains(parameter.txtBarcode.Text.ToLower())).ToList());
                 }
-            
+
                 //Kiểm tra trong giỏ hàng đã có hay chưa, có rồi thì không thêm vào
                 if (FilteredList.Count > 0)
                 {
@@ -208,10 +205,10 @@ namespace ConvenienceStore.ViewModel.StaffVM
                                 bd.TotalPrice = bd.TotalPrice / bd.Quantity * (bd.Quantity + 1);
                                 TotalBill += (int)(bd.TotalPrice == null ? 0 : bd.TotalPrice);
                                 bd.Quantity++;
-                              
+
                             }
                         }
-                   
+
                     }
                     else
                     {
@@ -226,7 +223,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         TotalBill += (int)billDetail.TotalPrice;
                         SelectedBillDetail = billDetail;
                         ShoppingCart.Add(billDetail);
-                  
+
                     }
                 }
             }
@@ -283,7 +280,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                     return;
                 else if (checkExistItem.Count() != 0)
                 {
-                    foreach(BillDetails bd in ShoppingCart)
+                    foreach (BillDetails bd in ShoppingCart)
                     {
                         if (bd.ProductId == SelectedItem.BarCode && bd.Quantity < SelectedItem.Stock)
                         {
@@ -304,11 +301,11 @@ namespace ConvenienceStore.ViewModel.StaffVM
                     billDetail.Image = SelectedItem.Image;
                     billDetail.InputInfoId = SelectedItem.InputInfoId;
 
-                     TotalBill += (int)billDetail.TotalPrice;
-                     SelectedBillDetail = billDetail;
-                     ShoppingCart.Add(billDetail);
-                 }
-             }
+                    TotalBill += (int)billDetail.TotalPrice;
+                    SelectedBillDetail = billDetail;
+                    ShoppingCart.Add(billDetail);
+                }
+            }
             );
 
             AddToCartBarCode = new RelayCommand<BarCodeUC>(parameter => true, parameter => AddBarCode(parameter));
@@ -868,7 +865,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         mb.ShowDialog();
                     }
 
-                }    
+                }
             });
         }
 

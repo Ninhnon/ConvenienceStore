@@ -82,7 +82,7 @@ namespace ConvenienceStore.Utils.Helpers
 
         public static bool IsValidAddress(string address)
         {
-            if(address is null) return false;
+            if (address is null) return false;
             return Regex.Match(address, @"^[a-zA-Z0-9\p{L}\s,.'-/]{1,100}$").Success;
         }
 
@@ -112,7 +112,7 @@ namespace ConvenienceStore.Utils.Helpers
         }
         public static string? GetStaffName(int StaffId)
         {
-            return DatabaseHelper.GetName(StaffId); 
+            return DatabaseHelper.GetName(StaffId);
         }
 
         public static string FormatStatus(bool status)

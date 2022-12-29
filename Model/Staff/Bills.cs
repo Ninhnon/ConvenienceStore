@@ -1,16 +1,11 @@
 ﻿using ConvenienceStore.ViewModel.StaffVM;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace ConvenienceStore.Model.Staff
 {
     public class Bills : BaseViewModel
     {
-        #nullable enable
+#nullable enable
 
         private int? _BillId;
         public int? BillId { get { return _BillId; } set { _BillId = value; OnPropertyChanged(); } }

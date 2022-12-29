@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ConvenienceStore.ViewModel.Admin.AdminVM;
+using System;
 using System.Windows.Input;
-using ConvenienceStore.ViewModel.Admin.AdminVM;
 
 namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand
 {

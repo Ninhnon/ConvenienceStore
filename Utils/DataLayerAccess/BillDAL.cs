@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ConvenienceStore.Utils.DataLayerAccess
+﻿namespace ConvenienceStore.Utils.DataLayerAccess
 {
     public class BillDAL : DataProvider
     {

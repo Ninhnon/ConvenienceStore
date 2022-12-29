@@ -6,14 +6,11 @@ using ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand.DeleteInputInfoC
 using ConvenienceStore.ViewModel.Admin.Command.ProductCommand;
 using ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductCommand;
 using ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCommand;
-using ConvenienceStore.Views.Admin;
 using MaterialDesignThemes.Wpf;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.Admin.AdminVM
 {
@@ -24,8 +21,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public string CurAccountName
         {
             get { return curAccountName; }
-            set 
-            { 
+            set
+            {
                 curAccountName = value;
                 OnPropertyChanged("CurAccountName");
             }
@@ -133,7 +130,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public Snackbar ProductSnackbar;
 
         // Command
-      
+
         public OpenInputInfoCommand OpenInputInfoCommand { get; set; }
         public AddInputInfoButtonCommand AddInputInfoButtonCommand { get; set; }
         public CreateInputInfoButtonCommand CreateInputInfoButtonCommand { get; set; }
@@ -184,7 +181,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
             RefreshInputInfoData = new RefreshInputInfoData(this);
         }
-    
+
         public void LoadProducts()
         {
             products = selectedInputInfo.products;

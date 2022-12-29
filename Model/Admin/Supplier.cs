@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace ConvenienceStore.Model.Admin
 {
@@ -13,11 +8,11 @@ namespace ConvenienceStore.Model.Admin
         public int Id { get; set; }
 
         private int number;
-        public int Number 
+        public int Number
         {
             get { return number; }
             set { number = value; OnPropertyChanged("Number"); }
-        } 
+        }
 
         private string name;
         public string Name

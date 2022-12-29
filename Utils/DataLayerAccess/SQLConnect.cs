@@ -2,7 +2,6 @@
 using System;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Windows;
 
 namespace ConvenienceStore.Utils.DataLayerAccess
 {
@@ -16,7 +15,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             {
                 strConn = @ConfigurationManager.ConnectionStrings["Default"].ToString(); ;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
                 return;
@@ -35,7 +34,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             }
             catch (Exception ex)
             {
-                
+
                 throw ex;
             }
         }
