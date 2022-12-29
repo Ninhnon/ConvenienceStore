@@ -184,7 +184,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
                 Stock = int.Parse(window.StockTextBox.Text),
                 ManufacturingDate = (DateTime)window.ManufacturingDate.SelectedDate,
                 ExpiryDate = (DateTime)window.ExpiryDate.SelectedDate,
-                Discount = 0
+                Discount = 0,
             };
 
             newProduct.InStock = newProduct.Stock;

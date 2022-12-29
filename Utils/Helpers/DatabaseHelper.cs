@@ -49,7 +49,7 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryVoucherViaBlockId = @"select Code, Status from Voucher
                                                           where BlockId = {0}";
 
-        static readonly string querySmallProductWithOutImage = @"select Barcode, Title, Type, ProductionSite, SUM(Stock), COUNT(InputInfoId) from Product, Consignment
+        static readonly string querySmallProductWithOutImage = @"select Barcode, Title, Type, ProductionSite, SUM(InStock), COUNT(InputInfoId) from Product, Consignment
                                                                  where ProductId = Barcode
                                                                  group by Barcode, Title, Type, ProductionSite";
 
