@@ -1,12 +1,7 @@
 ﻿using ConvenienceStore.Model.Admin;
 using ConvenienceStore.ViewModel.Admin.AdminVM;
-using ConvenienceStore.Views.Admin.InputInfoWindow;
 using ConvenienceStore.Views.Admin.VoucherWindow;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCommand.DeleteBlockVoucherCommand

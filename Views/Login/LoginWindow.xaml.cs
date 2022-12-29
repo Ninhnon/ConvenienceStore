@@ -1,5 +1,4 @@
-﻿using ConvenienceStore.Utils.DataLayerAccess;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 
 namespace ConvenienceStore.Views.Login
@@ -25,7 +24,7 @@ namespace ConvenienceStore.Views.Login
                 DragMove();
         }
 
-  
+
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxCustom mb = new MessageBoxCustom("Thoát", "Bạn có chắc muốn thoát?", MessageType.Info, MessageButtons.YesNo);

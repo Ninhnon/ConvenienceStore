@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
-using System.Windows;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace ConvenienceStore.Utils.Helpers
 {
@@ -60,7 +58,7 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string updateReportAD = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost,Status = @Status, Description = @Description, StartDate = NULL, FinishDate = NULL where Id=@Id";
         static readonly string updateReportADS = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost,Status = @Status, StartDate = @StartDate, FinishDate = NULL,Description = @Description where Id=@Id";
         static readonly string updateReportADSF = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost,Status = @Status, StartDate = @StartDate, FinishDate = @FinishDate,Description = @Description where Id=@Id";
-        
+
         static readonly string updateReportFULL = @"update Report set Title = N'{0}', [Image] = {1}, RepairCost = {2},[Status] = '{3}',StartDate = '{4}',FinishDate = '{5}',Description = N'{6}' where [Id]={7}";
 
         static readonly string queryCustomerPoint = @"select Point
@@ -527,7 +525,7 @@ namespace ConvenienceStore.Utils.Helpers
             //cmd.ExecuteNonQuery();
             //cmd.Dispose();
             var cmd = new SqlCommand();
-            if (editedReport.Status=="Chờ tiếp nhận")
+            if (editedReport.Status == "Chờ tiếp nhận")
                 cmd = new SqlCommand(updateReportAD, sqlCon);
             else if (editedReport.Status == "Đang giải quyết")
             {
@@ -542,9 +540,9 @@ namespace ConvenienceStore.Utils.Helpers
             }
             else
             {
-                if (editedReport.StartDate==null && editedReport.FinishDate ==null)
+                if (editedReport.StartDate == null && editedReport.FinishDate == null)
                     cmd = new SqlCommand(updateReportAD, sqlCon);
-                else if ( editedReport.FinishDate == null)
+                else if (editedReport.FinishDate == null)
                 {
                     cmd = new SqlCommand(updateReportADS, sqlCon);
                     cmd.Parameters.AddWithValue("@StartDate", editedReport.StartDate);
@@ -639,7 +637,7 @@ namespace ConvenienceStore.Utils.Helpers
             return customerPoint;
         }
 
-        public static void InsertCustomerData (Customer customer)
+        public static void InsertCustomerData(Customer customer)
         {
             sqlCon.Open();
             SqlCommand cmd = new SqlCommand(queryInsertCustomer, sqlCon);
@@ -651,7 +649,7 @@ namespace ConvenienceStore.Utils.Helpers
             sqlCon.Close();
         }
 
-        public static ObservableCollection<Member> FetchTeamMembers (int id, int managerId)
+        public static ObservableCollection<Member> FetchTeamMembers(int id, int managerId)
         {
             sqlCon.Open();
 

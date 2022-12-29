@@ -1,18 +1,6 @@
 ﻿using ConvenienceStore.ViewModel.Admin.AdminVM;
-using Emgu.CV.Structure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ConvenienceStore.Views.Admin.SubViews
 {
@@ -28,7 +16,7 @@ namespace ConvenienceStore.Views.Admin.SubViews
             set { salaryAdded = value; }
         }
         private int salarySubtracted;
-        public int SalarySubtracted 
+        public int SalarySubtracted
         {
             get { return salarySubtracted; }
             set { salarySubtracted = value; }
@@ -42,9 +30,9 @@ namespace ConvenienceStore.Views.Admin.SubViews
 
         private void plusTextChanged(object sender, TextChangedEventArgs e)
         {
-            if(!(int.TryParse(this.plustextBox.Text, out int n))&& this.plustextBox.Text != "")
+            if (!(int.TryParse(this.plustextBox.Text, out int n)) && this.plustextBox.Text != "")
             {
-               
+
                 this.plustextBox.Text = "";
                 this.salaryTxtbox.textBox.Text = EmployeeViewModel.Salary.ToString();
                 this.plustextBox.Focus();
@@ -54,7 +42,7 @@ namespace ConvenienceStore.Views.Admin.SubViews
             {
                 if (string.IsNullOrEmpty(this.minustextBox.Text))
                 {
-                salaryAdded = EmployeeViewModel.Salary;
+                    salaryAdded = EmployeeViewModel.Salary;
                     this.salaryTxtbox.textBox.Text = EmployeeViewModel.Salary.ToString();
                 }
                 else
@@ -66,7 +54,7 @@ namespace ConvenienceStore.Views.Admin.SubViews
                     salarySubtracted = result;
                 }
             }
-               
+
             else
             {
                 if (string.IsNullOrEmpty(this.minustextBox.Text))
@@ -78,7 +66,7 @@ namespace ConvenienceStore.Views.Admin.SubViews
                     this.salaryTxtbox.textBox.Text = result.ToString();
                     SalaryAdded = result;
                 }
-              else
+                else
                 {
                     int a = int.Parse(this.plustextBox.Text);
                     int b = SalarySubtracted;
@@ -131,7 +119,7 @@ namespace ConvenienceStore.Views.Admin.SubViews
                 {
                     int a = int.Parse(this.minustextBox.Text);
                     int b = SalaryAdded;
-                    int result = b-a;
+                    int result = b - a;
                     this.salaryTxtbox.textBox.Text = result.ToString();
                     SalarySubtracted = result;
                 }

@@ -1,16 +1,11 @@
-﻿using ConvenienceStore.Model.Admin;
-using ConvenienceStore.Model.Staff;
+﻿using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Views.Staff;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
 
 
@@ -19,15 +14,15 @@ namespace ConvenienceStore.ViewModel.StaffVM
     public class HistoryViewModel : BaseViewModel
     {
         #region Region for History Page ICommand
-            public ICommand SearchBillCM { get; set; }
-            public ICommand GetMoreBillDetailCM { get; set; }
-            public ICommand SelectionChangedCM { get; set; }
-            public ICommand LoadHistoryPageCM { get; set; }
-            public ICommand MaskNameCM { get; set; }
+        public ICommand SearchBillCM { get; set; }
+        public ICommand GetMoreBillDetailCM { get; set; }
+        public ICommand SelectionChangedCM { get; set; }
+        public ICommand LoadHistoryPageCM { get; set; }
+        public ICommand MaskNameCM { get; set; }
         #endregion
 
         #region Region for History Receipt ICommand
-            public ICommand CancelReceiptCM { get; set; }
+        public ICommand CancelReceiptCM { get; set; }
         #endregion
 
         public List<Bills> bills = new List<Bills>();

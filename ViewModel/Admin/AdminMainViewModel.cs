@@ -1,21 +1,17 @@
 ﻿
 using ConvenienceStore.Views.Admin;
-using ConvenienceStore.Views.Staff.TroubleWindow;
-using ConvenienceStore.Views.Staff.VoucherWindow;
-using ConvenienceStore.Views.Staff;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ConvenienceStore.Model;
 using ConvenienceStore.Utils.Helpers;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using ConvenienceStore.Views;
-using System.Windows;
+using ConvenienceStore.Views.Admin;
 using ConvenienceStore.Views.Admin.SubViews;
-using System.IO;
-using System.Windows.Media.Imaging;
 using System;
-using ConvenienceStore.Views.Admin.ProductWindow;
+using System.IO;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace ConvenienceStore.ViewModel.Admin
 {
@@ -101,12 +97,12 @@ namespace ConvenienceStore.ViewModel.Admin
             }
         }
         public AdminMainViewModel()
-        { 
+        {
 
-             Ten = CurrentAccount.Name;
+            Ten = CurrentAccount.Name;
             Anh = DatabaseHelper.LoadAvatar(CurrentAccount.idAccount);
             Email = CurrentAccount.Email;
-          
+
             IsPanelVisible = 0;  //moi vo la no ko mo menu =hidden
             OpacityChange = 1;
             OpacityChange1 = 0.9;
@@ -144,7 +140,7 @@ namespace ConvenienceStore.ViewModel.Admin
                 p.Content = new TroubleView();
 
             });
-           
+
             VoucherCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 p.Content = new VoucherView();
@@ -171,7 +167,7 @@ namespace ConvenienceStore.ViewModel.Admin
             OpacityChange1 = 0.9;
         }
 
-        
+
         public void Load(AdminMainWindow parameter)
         {
             parameter.DataContext = new AdminMainViewModel();
@@ -179,7 +175,7 @@ namespace ConvenienceStore.ViewModel.Admin
         public void Setting(AdminMainWindow parameter)
         {
             Setting s = new Setting();
-           
+
             s.nameTxtbox.textBox.Text = CurrentAccount.Name;
             s.emailTxtbox.textBox.Text = CurrentAccount.Email;
             s.phoneTxtbox.textBox.Text = CurrentAccount.Phone;

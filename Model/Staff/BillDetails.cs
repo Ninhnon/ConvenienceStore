@@ -1,15 +1,10 @@
 ﻿using ConvenienceStore.ViewModel.StaffVM;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConvenienceStore.Model.Staff
 {
     public partial class BillDetails : BaseViewModel
     {
-        #nullable enable
+#nullable enable
 
         private int? _BillId;
         public int? BillId { get { return _BillId; } set { _BillId = value; OnPropertyChanged(); } }
@@ -26,6 +21,6 @@ namespace ConvenienceStore.Model.Staff
         private byte[]? _Image;
         public byte[]? Image { get { return _Image; } set { _Image = value; OnPropertyChanged(); } }
 
-        #nullable disable
+#nullable disable
     }
 }
