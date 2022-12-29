@@ -1,8 +1,6 @@
 ﻿
 using ConvenienceStore.Views.Admin;
-using ConvenienceStore.Views.Staff.ProductWindow;
 using ConvenienceStore.Views.Staff.TroubleWindow;
-using ConvenienceStore.Views.Staff.VoucherWindow;
 using ConvenienceStore.Views.Staff;
 using System.Windows.Controls;
 using System.Windows.Input;
