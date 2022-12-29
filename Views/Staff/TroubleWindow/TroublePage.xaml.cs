@@ -4,7 +4,7 @@ using System.Windows.Input;
 namespace ConvenienceStore.Views.Staff.TroubleWindow
 {
     /// <summary>
-    /// Interaction logic for TroublePage.xaml
+    /// Interaction logic for TroubleView.xaml
     /// </summary>
     public partial class TroublePage : Page
     {

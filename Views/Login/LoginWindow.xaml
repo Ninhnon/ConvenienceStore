@@ -4,113 +4,258 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConvenienceStore.Views.Login"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        
-         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i1="http://schemas.microsoft.com/xaml/behaviors"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-     TextElement.FontWeight="Regular"
-     TextElement.FontSize="13"
-     TextOptions.TextFormattingMode="Ideal"
-     TextOptions.TextRenderingMode="Auto"
-     FontFamily="{DynamicResource MaterialDesignFont}"
+        xmlns:vm="clr-namespace:ConvenienceStore.ViewModel.Login"
+        x:Name="wdLogin"
+        Title="Login"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         WindowStyle="None"
-        AllowsTransparency="True"
-        WindowStartupLocation="CenterScreen"
-        Background="Transparent"
         DataContext="{StaticResource LoginVM}"
-        Loaded="Loginwindow_Loaded"
-        Name="loginWindow"
-        Title="Đăng nhập" Height="443" Width="780">
-    <Border BorderThickness="0.5"
-            BorderBrush="Black"
-            CornerRadius="10"
-            Background="white">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="314*" />
-                <ColumnDefinition Width="466*" />
-            </Grid.ColumnDefinitions>
+        Height="660" Width="900" MouseDown="Window_MouseDown">
+  
+    <Border CornerRadius="12">
+        <Border.Background>
+            <ImageBrush ImageSource="/Resources/Images/Login/pay.jpg"
+                        Stretch="UniformToFill"/>
+        </Border.Background>
+        <Border CornerRadius="10"                    
+            BorderThickness="2"
+            Opacity="0.95">
+          
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#3A1C71" Offset="0"/>
+                    <GradientStop Color="#D76D77" Offset="0.75"/>
+                    <GradientStop Color="#FFAF7B" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
 
-            <!--Left-->
-
-            <Image x:Name="imgframe"
-                   Grid.Row="0"
-                   Stretch="UniformToFill"
-                   Source="\Resources\Images\cute\1.png"
-                   HorizontalAlignment="Stretch"
-                   VerticalAlignment="Stretch">
+            <Border.Background>
                 
-                <Image.Clip>
-                    <RectangleGeometry RadiusX="10"
-                                       RadiusY="10"
-                                       Rect="0,0,350,443" />
-                </Image.Clip>
-            </Image>
-
-            <!--Right-->
-            <Grid Grid.Column="1"
-                  Grid.RowSpan="2">
-                <Grid Grid.Row="0">
-                    <!--<uc:ControlBarUC Tag="{Binding Title, ElementName=loginWindow}"></uc:ControlBarUC>-->
-                </Grid>
-                <materialDesign:Card Grid.RowSpan="2" Width="330" Height="150" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color='#E9E4F0' Offset="0"/>
+                    <GradientStop Color='#D3CCE3' Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
             <Grid>
-                <Grid.Resources>
-                    <Style TargetType="Grid">
-                        <Setter Property="Margin" Value="15 0 15 0"></Setter>
-                    </Style>
-                </Grid.Resources>
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
-                             Text="{Binding UserName}"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                </Grid>
-                <Grid Grid.Row="1">
-                    <PasswordBox x:Name="FloatingPasswordBox"
-                                 materialDesign:HintAssist.Hint="Mật khẩu"
-                                 Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" >
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PasswordChanged">
-                                <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
-                                   CommandParameter="{Binding ElementName=FloatingPasswordBox}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </PasswordBox>
-                </Grid>
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0"    
-                            IsDefault="True"
-                            Style="{StaticResource MaterialDesignRaisedButton}"    
-                            Width="110"  
-                            Command="{Binding LoginCommand}"
-                            CommandParameter="{Binding ElementName=loginWindow}"
-                            ToolTip="Resource name: MaterialDesignRaisedButton" Content="Đăng nhập"></Button>
-                    <Button Grid.Column="1"    
-                            Style="{StaticResource MaterialDesignRaisedButton}"    
-                            Width="110"   
-                            Command="{Binding CloseCommand}"                          
-                            CommandParameter="{Binding ElementName=loginWindow}"
-                            Background="OrangeRed"
-                            ToolTip="Resource name: MaterialDesignRaisedButton" Content="Thoát"></Button>
+                <Grid Grid.Row="0" Margin="0,0,-0.2,0.4">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="LOG IN"
+                               Foreground="DarkGray"
+                               FontSize="10"
+                               FontFamily="Montserrat"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="10,0,0,0"/>
+
+                    <Button x:Name="btnMinimize"    
+                            Style="{DynamicResource IconButtonsStyle}" Content="{DynamicResource minimize}" Click="btnMinimize_Click"
+                            BorderThickness="0"
+                            Foreground="White"
+                            FontSize="16"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="1">
+
+
+                    </Button>
+
+                    <Button x:Name="btnClose" 
+                            Style="{StaticResource IconButtonsStyle}" 
+                            Content="{DynamicResource close}"
+                            Grid.Column="2"
+                            Click="btnClose_Click">
+                    </Button>
                 </Grid>
+
+                <StackPanel Width="220"
+                            Grid.Row="1"
+                            Orientation="Vertical"
+                            Margin="288,34.6,288.8,0.2">
+                    <Border CornerRadius="30"
+                              Width="220" Height="155">
+                        <Border.Background>
+                            <ImageBrush
+                        ImageSource="/Resources/Images/Login/mm1.png"
+                         
+                           
+                           >
+
+                            </ImageBrush>
+                        </Border.Background>
+
+                    </Border>
+
+                    <TextBlock Text="Ellipse K"
+                               FontSize="25"
+                               FontFamily="Montserrat"
+                               HorizontalAlignment="Center"
+                               FontWeight="Bold"
+                              Margin="0,10,0,0"
+                               >
+                        <TextBlock.Foreground>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#fd746c" Offset="0"/>
+                                <GradientStop Color="#F29492" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+
+
+
+                    <TextBlock Text="Tên đăng nhập"
+                               Foreground="DarkGray"
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"                             
+                               Margin="0,35,0,0" Width="196"/>
+                    <Border CornerRadius="20" Background="#d7d2cc">
+                        <TextBox  x:Name="txtUsername"
+                    Text="{Binding UserName}"
+                    FontSize="13"
+                            
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"                            
+                             Foreground="Black"
+                             CaretBrush="LightGray"
+                         
+                             Height="38"
+                             VerticalContentAlignment="Center"
+                             Padding="10,0,0,0" Width="197" BorderBrush="{x:Null}" >
+                            <TextBox.Background>
+                                <ImageBrush ImageSource="/Resources/Images/Login/user-icon.png"
+                                        Stretch="None"
+                                        AlignmentX="Left"/>
+                            </TextBox.Background>
+                        </TextBox>
+                    </Border>
+                    <TextBlock Text="Mật khẩu"
+                               Foreground="DarkGray"
+                               FontSize="12"
+                                      Margin="0,15,0,0"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat" Width="198" 
+                               
+                               />
+                    <Border Margin="0,0,0,0"
+                        
+                        CornerRadius="20" Background="#d7d2cc">
+                        <Grid>
+
+
+
+                            <PasswordBox  Height="38"
+                    x:Name="txtPassword"
+                   FontSize="13"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"                            
+                             Foreground="Black"
+                             CaretBrush="LightGray"
+                             BorderBrush="{x:Null}"
+                             BorderThickness="0,0,0,2"
+                             
+                             VerticalContentAlignment="Center"
+                             
+                             Padding="10,0,0,0" Margin="10,0,16,0" >
+                                <PasswordBox.Background>
+                                    <ImageBrush ImageSource="/Resources/Images/Login/key-icon.png"
+                                        Stretch="None"
+                                        AlignmentX="Left"/>
+                                </PasswordBox.Background>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PasswordChanged">
+                                        <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
+                                                   CommandParameter="{Binding ElementName=txtPassword}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </PasswordBox>
+                        </Grid>
+                       
+                    </Border>
+                    <Button 
+               
+                x:Name="btnLogin"
+                IsDefault="True"
+                Command="{Binding LogInCommand}"
+                CommandParameter="{Binding ElementName=wdLogin}"
+                BorderThickness="0"
+                          
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"                           
+                            Margin="0,50,0,0"
+                           
+                Content="Đăng nhập"
+                Height="40" 
+                Width="220"
+              
+                ToolTip="Đăng nhập" 
+                VerticalAlignment="Top" 
+               
+                HorizontalAlignment="Center"
+                TabIndex="3" 
+               Style="{StaticResource loginBtnStyle}"
+                FontWeight="Bold"
+                Padding="0" >
+                    </Button>
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Margin="0,15,0,0">
+
+
+
+
+                        <Button Foreground="Black"
+                            Background="Transparent"
+                x:Name="btnSignUp" 
+                            BorderThickness="0"
+                FocusVisualStyle="{x:Null}"
+                Command="{Binding OpenForgotPasswordWindowCommand}"
+                CommandParameter="{Binding ElementName=wdLogin}"
+                Content="Quên mật khẩu" 
+                ToolTip="Quên mật khẩu? Hãy nhấn"
+               
+             
+                Padding="0" 
+               
+                
+              
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               Cursor="Hand"
+                               Margin="8,0,0,0"
+              VerticalAlignment="Top"
+                            VerticalContentAlignment="Top"
+               
+               
+                
+                IsTabStop="False"/>
+
+                    </StackPanel>
+
+
+                </StackPanel>
+
             </Grid>
-        </materialDesign:Card>
-    </Grid>
-     </Grid>
-   </Border>
+        </Border>
+
+    </Border>
 </Window>

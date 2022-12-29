@@ -8,30 +8,61 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Images\IconForInputInfo\box.png" />
-    <None Remove="Assets\Images\IconForInputInfo\calendar.png" />
-    <None Remove="Assets\Images\IconForInputInfo\calendar_color.png" />
-    <None Remove="Assets\Images\IconForInputInfo\delivery-courier.png" />
-    <None Remove="Assets\Images\IconForInputInfo\gmail.png" />
-    <None Remove="Assets\Images\IconForInputInfo\info_32.png" />
-    <None Remove="Assets\Images\IconForInputInfo\telephone.png" />
-    <None Remove="Assets\Images\IconForInputInfo\truck_64.png" />
-    <None Remove="Assets\Images\IconForInputInfo\user_64.png" />
-    <None Remove="Assets\Images\IconForInputInfo\user_color.png" />
-    <None Remove="Assets\Images\IconForProduct\arrow.png" />
-    <None Remove="Assets\Images\IconForProduct\box.png" />
-    <None Remove="Assets\Images\IconForProduct\calendar.png" />
-    <None Remove="Assets\Images\IconForProduct\image.png" />
-    <None Remove="Assets\Images\IconForProduct\location.png" />
-    <None Remove="Assets\Images\IconForProduct\money.png" />
-    <None Remove="Assets\Images\IconForProduct\package.png" />
-    <None Remove="Assets\Images\IconForProduct\salary.png" />
-    <None Remove="Assets\Images\IconForProduct\schedule.png" />
-    <None Remove="Assets\Images\IconForProduct\tag.png" />
-    <None Remove="Assets\Images\OverallApp\caret-arrow-up.png" />
-    <None Remove="Assets\Images\OverallApp\caret-down.png" />
-    <None Remove="Assets\Images\OverallApp\normal_shutdown button.png" />
-    <None Remove="Assets\Images\OverallApp\trigger_shutdown_button.png" />
+    <None Remove="Resources\Icons\account-key.png" />
+    <None Remove="Resources\Icons\boxes.png" />
+    <None Remove="Resources\Icons\discount.png" />
+    <None Remove="Resources\Icons\leadership.png" />
+    <None Remove="Resources\Icons\pay.png" />
+    <None Remove="Resources\Images\IconForInputInfo\box.png" />
+    <None Remove="Resources\Images\IconForInputInfo\calendar.png" />
+    <None Remove="Resources\Images\IconForInputInfo\calendar_color.png" />
+    <None Remove="Resources\Images\IconForInputInfo\close_box.png" />
+    <None Remove="Resources\Images\IconForInputInfo\delivery-courier.png" />
+    <None Remove="Resources\Images\IconForInputInfo\gmail.png" />
+    <None Remove="Resources\Images\IconForInputInfo\id.png" />
+    <None Remove="Resources\Images\IconForInputInfo\id_hasColor.png" />
+    <None Remove="Resources\Images\IconForInputInfo\info_32.png" />
+    <None Remove="Resources\Images\IconForInputInfo\telephone.png" />
+    <None Remove="Resources\Images\IconForInputInfo\truck_64.png" />
+    <None Remove="Resources\Images\IconForInputInfo\user_64.png" />
+    <None Remove="Resources\Images\IconForInputInfo\user_color.png" />
+    <None Remove="Resources\Images\IconForProduct\addEmployee.png" />
+    <None Remove="Resources\Images\IconForProduct\arrow.png" />
+    <None Remove="Resources\Images\IconForProduct\avatar.png" />
+    <None Remove="Resources\Images\IconForProduct\box.png" />
+    <None Remove="Resources\Images\IconForProduct\calendar.png" />
+    <None Remove="Resources\Images\IconForProduct\image.png" />
+    <None Remove="Resources\Images\IconForProduct\location.png" />
+    <None Remove="Resources\Images\IconForProduct\money.png" />
+    <None Remove="Resources\Images\IconForProduct\package.png" />
+    <None Remove="Resources\Images\IconForProduct\salary.png" />
+    <None Remove="Resources\Images\IconForProduct\schedule.png" />
+    <None Remove="Resources\Images\IconForProduct\tag.png" />
+    <None Remove="Resources\Images\IconForTrouble\check-list.png" />
+    <None Remove="Resources\Images\IconForTrouble\clipboard.png" />
+    <None Remove="Resources\Images\IconForTrouble\error-page.png" />
+    <None Remove="Resources\Images\IconForTrouble\finish.png" />
+    <None Remove="Resources\Images\IconForTrouble\info.png" />
+    <None Remove="Resources\Images\IconForTrouble\label.png" />
+    <None Remove="Resources\Images\IconForTrouble\service.png" />
+    <None Remove="Resources\Images\IconForTrouble\start.png" />
+    <None Remove="Resources\Images\IconForTrouble\steward.png" />
+    <None Remove="Resources\Images\IconForTrouble\title.png" />
+    <None Remove="Resources\Images\IconForTrouble\upload.png" />
+    <None Remove="Resources\Images\IconForVoucher\calendar.png" />
+    <None Remove="Resources\Images\IconForVoucher\coupons.png" />
+    <None Remove="Resources\Images\IconForVoucher\right.png" />
+    <None Remove="Resources\Images\IconForVoucher\ticket_hascolor.png" />
+    <None Remove="Resources\Images\Login\logo.jpg" />
+    <None Remove="Resources\Images\Login\logo1.png" />
+    <None Remove="Resources\Images\Login\mm1.png" />
+    <None Remove="Resources\Images\Login\pay.jpg" />
+    <None Remove="Resources\Images\Menu\home.png" />
+    <None Remove="Resources\Images\OverallApp\caret-arrow-up.png" />
+    <None Remove="Resources\Images\OverallApp\caret-down.png" />
+    <None Remove="Resources\Images\OverallApp\normal_shutdown button.png" />
+    <None Remove="Resources\Images\OverallApp\trigger_shutdown_button.png" />
+    <None Remove="Resources\Icons\money.png" />
     <None Remove="Resources\Images\cute\1.png" />
     <None Remove="Resources\Images\cute\2.png" />
     <None Remove="Resources\Images\cute\3.png" />
@@ -53,8 +84,8 @@
     <None Remove="Resources\Images\pencil.png" />
     <None Remove="Resources\Images\product.png" />
     <None Remove="Resources\Images\qr.png" />
+    <None Remove="Resources\Images\stones.jpg" />
     <None Remove="Resources\Images\Thuong1.png" />
-    <None Remove="Resources\Images\Tincute.jpg" />
     <None Remove="Resources\Images\trash_can.png" />
     <None Remove="Resources\Images\troubles.png" />
     <None Remove="Resources\Images\user-icon.png" />
@@ -64,23 +95,20 @@
     <None Remove="Resources\UserControlCustom\product.png" />
     <None Remove="Resources\UserControlCustom\profile.png" />
     <None Remove="Resources\UserControlCustom\report.png" />
-    <None Remove="Styles\close_def.png" />
-    <None Remove="Styles\close_mo.png" />
-    <None Remove="Styles\menu_def.png" />
-    <None Remove="Styles\menu_mo.png" />
-    <None Remove="Styles\shutdown_def.png" />
-    <None Remove="Styles\shutdown_mo.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AForge.Video.DirectShow" Version="2.2.5" />
     <PackageReference Include="Emgu.CV" Version="4.6.0.5131" />
     <PackageReference Include="Emgu.CV.Bitmap" Version="4.6.0.5131" />
     <PackageReference Include="Emgu.CV.runtime.windows" Version="4.6.0.5131" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="FluentValidation" Version="11.4.0" />
     <PackageReference Include="FontAwesome.Sharp" Version="6.1.1" />
+    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
     <PackageReference Include="MaterialDesignColors" Version="2.0.9" />
     <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
@@ -95,30 +123,61 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Images\IconForInputInfo\box.png" />
-    <Resource Include="Assets\Images\IconForInputInfo\calendar.png" />
-    <Resource Include="Assets\Images\IconForInputInfo\calendar_color.png" />
-    <Resource Include="Assets\Images\IconForInputInfo\delivery-courier.png" />
-    <Resource Include="Assets\Images\IconForInputInfo\gmail.png" />
-    <Resource Include="Assets\Images\IconForInputInfo\info_32.png" />
-    <Resource Include="Assets\Images\IconForInputInfo\telephone.png" />
-    <Resource Include="Assets\Images\IconForInputInfo\truck_64.png" />
-    <Resource Include="Assets\Images\IconForInputInfo\user_64.png" />
-    <Resource Include="Assets\Images\IconForInputInfo\user_color.png" />
-    <Resource Include="Assets\Images\IconForProduct\arrow.png" />
-    <Resource Include="Assets\Images\IconForProduct\box.png" />
-    <Resource Include="Assets\Images\IconForProduct\calendar.png" />
-    <Resource Include="Assets\Images\IconForProduct\image.png" />
-    <Resource Include="Assets\Images\IconForProduct\location.png" />
-    <Resource Include="Assets\Images\IconForProduct\money.png" />
-    <Resource Include="Assets\Images\IconForProduct\package.png" />
-    <Resource Include="Assets\Images\IconForProduct\salary.png" />
-    <Resource Include="Assets\Images\IconForProduct\schedule.png" />
-    <Resource Include="Assets\Images\IconForProduct\tag.png" />
-    <Resource Include="Assets\Images\OverallApp\caret-arrow-up.png" />
-    <Resource Include="Assets\Images\OverallApp\caret-down.png" />
-    <Resource Include="Assets\Images\OverallApp\normal_shutdown button.png" />
-    <Resource Include="Assets\Images\OverallApp\trigger_shutdown_button.png" />
+    <Resource Include="Resources\Icons\account-key.png" />
+    <Resource Include="Resources\Icons\boxes.png" />
+    <Resource Include="Resources\Icons\discount.png" />
+    <Resource Include="Resources\Icons\leadership.png" />
+    <Resource Include="Resources\Icons\pay.png" />
+    <Resource Include="Resources\Images\IconForInputInfo\box.png" />
+    <Resource Include="Resources\Images\IconForInputInfo\calendar.png" />
+    <Resource Include="Resources\Images\IconForInputInfo\calendar_color.png" />
+    <Resource Include="Resources\Images\IconForInputInfo\close_box.png" />
+    <Resource Include="Resources\Images\IconForInputInfo\delivery-courier.png" />
+    <Resource Include="Resources\Images\IconForInputInfo\gmail.png" />
+    <Resource Include="Resources\Images\IconForInputInfo\id.png" />
+    <Resource Include="Resources\Images\IconForInputInfo\id_hasColor.png" />
+    <Resource Include="Resources\Images\IconForInputInfo\info_32.png" />
+    <Resource Include="Resources\Images\IconForInputInfo\telephone.png" />
+    <Resource Include="Resources\Images\IconForInputInfo\truck_64.png" />
+    <Resource Include="Resources\Images\IconForInputInfo\user_64.png" />
+    <Resource Include="Resources\Images\IconForInputInfo\user_color.png" />
+    <Resource Include="Resources\Images\IconForProduct\addEmployee.png" />
+    <Resource Include="Resources\Images\IconForProduct\arrow.png" />
+    <Resource Include="Resources\Images\IconForProduct\avatar.png" />
+    <Resource Include="Resources\Images\IconForProduct\box.png" />
+    <Resource Include="Resources\Images\IconForProduct\calendar.png" />
+    <Resource Include="Resources\Images\IconForProduct\image.png" />
+    <Resource Include="Resources\Images\IconForProduct\location.png" />
+    <Resource Include="Resources\Images\IconForProduct\money.png" />
+    <Resource Include="Resources\Images\IconForProduct\package.png" />
+    <Resource Include="Resources\Images\IconForProduct\salary.png" />
+    <Resource Include="Resources\Images\IconForProduct\schedule.png" />
+    <Resource Include="Resources\Images\IconForProduct\tag.png" />
+    <Resource Include="Resources\Images\IconForTrouble\check-list.png" />
+    <Resource Include="Resources\Images\IconForTrouble\clipboard.png" />
+    <Resource Include="Resources\Images\IconForTrouble\error-page.png" />
+    <Resource Include="Resources\Images\IconForTrouble\finish.png" />
+    <Resource Include="Resources\Images\IconForTrouble\info.png" />
+    <Resource Include="Resources\Images\IconForTrouble\label.png" />
+    <Resource Include="Resources\Images\IconForTrouble\service.png" />
+    <Resource Include="Resources\Images\IconForTrouble\start.png" />
+    <Resource Include="Resources\Images\IconForTrouble\steward.png" />
+    <Resource Include="Resources\Images\IconForTrouble\title.png" />
+    <Resource Include="Resources\Images\IconForTrouble\upload.png" />
+    <Resource Include="Resources\Images\IconForVoucher\calendar.png" />
+    <Resource Include="Resources\Images\IconForVoucher\coupons.png" />
+    <Resource Include="Resources\Images\IconForVoucher\right.png" />
+    <Resource Include="Resources\Images\IconForVoucher\ticket_hascolor.png" />
+    <Resource Include="Resources\Images\Login\logo.jpg" />
+    <Resource Include="Resources\Images\Login\logo1.png" />
+    <Resource Include="Resources\Images\Login\mm1.png" />
+    <Resource Include="Resources\Images\Login\pay.jpg" />
+    <Resource Include="Resources\Images\Menu\home.png" />
+    <Resource Include="Resources\Images\OverallApp\caret-arrow-up.png" />
+    <Resource Include="Resources\Images\OverallApp\caret-down.png" />
+    <Resource Include="Resources\Images\OverallApp\normal_shutdown button.png" />
+    <Resource Include="Resources\Images\OverallApp\trigger_shutdown_button.png" />
+    <Resource Include="Resources\Icons\money.png" />
     <Resource Include="Resources\Images\cute\1.png" />
     <Resource Include="Resources\Images\cute\2.png" />
     <Resource Include="Resources\Images\cute\3.png" />
@@ -127,36 +186,57 @@
     <Resource Include="Resources\Images\cute\6.png" />
     <Resource Include="Resources\Images\cute\7.png" />
     <Resource Include="Resources\Images\cute\8.png" />
-    <Resource Include="Resources\Images\employee.png" />
-    <Resource Include="Resources\Images\Food1.jpg" />
-    <Resource Include="Resources\Images\key-icon.png" />
-    <Resource Include="Resources\Images\menu_def.png" />
-    <Resource Include="Resources\Images\menu_default.png" />
-    <Resource Include="Resources\Images\menu_mo.png" />
+    <Resource Include="Resources\Images\Menu\employee.png" />
+    <Resource Include="Resources\Images\Logo\Food1.jpg" />
+    <Resource Include="Resources\Images\Login\key-icon.png" />
+    <Resource Include="Resources\Images\Menu\menu_def.png" />
+    <Resource Include="Resources\Images\Menu\menu_default.png" />
+    <Resource Include="Resources\Images\Menu\menu_mo.png" />
     <Resource Include="Resources\Images\Messageicon\error.png" />
     <Resource Include="Resources\Images\Messageicon\info.png" />
     <Resource Include="Resources\Images\Messageicon\success.png" />
     <Resource Include="Resources\Images\Messageicon\warning.png" />
-    <Resource Include="Resources\Images\pencil.png" />
-    <Resource Include="Resources\Images\product.png" />
-    <Resource Include="Resources\Images\qr.png" />
-    <Resource Include="Resources\Images\Thuong1.png" />
-    <Resource Include="Resources\Images\Tincute.jpg" />
-    <Resource Include="Resources\Images\trash_can.png" />
-    <Resource Include="Resources\Images\troubles.png" />
-    <Resource Include="Resources\Images\user-icon.png" />
-    <Resource Include="Resources\Images\voucher.png" />
+    <Resource Include="Resources\Images\Messageicon\pencil.png" />
+    <Resource Include="Resources\Images\Menu\product.png" />
+    <Resource Include="Resources\Images\Product\qr.png" />
+    <Resource Include="Resources\Images\Login\Thuong1.png" />
+    <Resource Include="Resources\Images\Messageicon\trash_can.png" />
+    <Resource Include="Resources\Images\Menu\troubles.png" />
+    <Resource Include="Resources\Images\Login\user-icon.png" />
+    <Resource Include="Resources\Images\Menu\voucher.png" />
+    <Resource Include="Resources\Images\stones.jpg" />
     <Resource Include="Resources\UserControlCustom\employee.png" />
     <Resource Include="Resources\UserControlCustom\home.png" />
     <Resource Include="Resources\UserControlCustom\product.png" />
     <Resource Include="Resources\UserControlCustom\profile.png" />
     <Resource Include="Resources\UserControlCustom\report.png" />
-    <Resource Include="Styles\close_def.png" />
-    <Resource Include="Styles\close_mo.png" />
-    <Resource Include="Styles\menu_def.png" />
-    <Resource Include="Styles\menu_mo.png" />
-    <Resource Include="Styles\shutdown_def.png" />
-    <Resource Include="Styles\shutdown_mo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

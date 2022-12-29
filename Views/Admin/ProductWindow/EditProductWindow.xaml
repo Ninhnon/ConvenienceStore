@@ -1,0 +1,449 @@
+﻿<Window x:Class="ConvenienceStore.Views.Admin.ProductWindow.EditProductWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConvenienceStore.Views.Admin.ProductWindow"
+        xmlns:Command="clr-namespace:ConvenienceStore.ViewModel.Admin.Command"
+        xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
+        xmlns:EditProductCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.ProductCommand.EditProductCommand"
+        x:Name="EditProductScreen"
+        mc:Ignorable="d"
+        Height="660" Width="1200"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
+
+    <Window.Resources>
+        <Command:CloseAppCommand x:Key="CloseAppCommand"/>
+        <EditProductCommand:ChangeImageCommand x:Key="ChangeImageCommand"/>
+        <EditProductCommand:UpdateProductButtonCommand x:Key="UpdateProductButtonCommand"/>
+        <Converters:BoolToVisibility x:Key="BoolToVisibility"/>
+        <Converters:IndexToVisibility x:Key="IndexToVisibility"/>
+        <Converters:HasImageConverter x:Key="HasImageConverter"/>
+    </Window.Resources>
+
+    <Grid>
+        <Border Background="Black"
+                Opacity="0.5"
+                CornerRadius="8">
+        </Border>
+
+        <Grid Width="600"
+              VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Background="{StaticResource PrimaryColor}"
+                    CornerRadius="8 8 0 0">
+                <Grid Margin="30 15"
+                      VerticalAlignment="Center">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Chỉnh sửa sản phẩm"
+                               Foreground="White"
+                               FontSize="29"
+                               FontWeight="SemiBold"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+
+                    <StackPanel Grid.Column="1">
+
+                        <TextBlock x:Name="BarcodeTextBlock"
+                                   Text="{Binding Barcode}"
+                                   Foreground="White"
+                                   FontSize="24"
+                                   FontWeight="SemiBold"
+                                   HorizontalAlignment="Right"
+                                   d:Text="4711577007571"/>
+
+                        <TextBlock x:Name="ProductionSiteTextBlock"
+                                   Text="{Binding ProductionSite}"
+                                   d:Text="Taiwan"
+                                   Foreground="White"
+                                   FontSize="18"
+                                   HorizontalAlignment="Right"/>
+                    </StackPanel>
+
+                </Grid>
+
+
+
+            </Border>
+
+            <Border Grid.Row="1"
+                    Background="White"
+                    CornerRadius="0 0 8 8">
+
+                <StackPanel Margin="30 20 30 30">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="142"/>
+
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="Tên"
+                                               FontSize="18"
+                                               FontWeight="SemiBold"
+                                               Height="24"/>    
+
+                                    <TextBox x:Name="TitleTextBox"
+                                             Text="{Binding Title, Mode=OneTime}"
+                                             VerticalContentAlignment="Center"/>
+
+                                    <TextBlock x:Name="TitleErrorMessage"
+                                               Foreground="Red"
+                                               Height="16"
+                                               Margin="0 0 0 10"/>  
+                                </StackPanel>
+                                <StackPanel Grid.Column="2">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Loại"
+                                                   FontSize="16"
+                                                   FontWeight="SemiBold"
+                                                   Height="22"/>
+                                        <TextBlock Text=" *"
+                                                   Foreground="Red"
+                                                   FontSize="16"/>
+                                    </StackPanel>
+                                    <ComboBox x:Name="TypeComboBox"
+                                              Height="28.95"
+                                              Margin="0 4 0 0"
+                                              d:SelectedIndex="0">
+                                        <ComboBoxItem Content="Đồ ăn" />
+                                        <ComboBoxItem Content="Thức uống" />
+                                        <ComboBoxItem Content="Khác" />
+                                    </ComboBox>
+                                    <TextBlock x:Name="TypeErrorMessage"
+                                               Foreground="Red"
+                                               Height="16"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid Margin="0 0 0 10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Giá nhập"
+                                                   FontSize="18"
+                                                   FontWeight="SemiBold"
+                                                   Height="24"/>
+
+                                        <ToggleButton x:Name="CostToggleButton"
+                                                      Style="{StaticResource LockToggleButton}"
+                                                      Foreground="LightGray"
+                                                      Margin="5 0 0 0"/>
+                                    </StackPanel>
+
+                                    <Grid>
+                                        <!-- Height 15.96 -->
+                                        <TextBlock Text="{Binding ElementName=CostTextBox, Path=Text}"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="Gray"
+                                                   Margin="2 8 0 9"/>
+                                        <!-- Height 32.96 -->
+                                        <TextBox x:Name="CostTextBox"
+                                                 Text="{Binding Cost, Mode=OneTime}"
+                                                 VerticalContentAlignment="Center"
+                                                 Background="White"
+                                                 Visibility="{Binding ElementName=CostToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
+                                    </Grid>
+
+
+                                    <TextBlock x:Name="CostErrorMessage"
+                                           Foreground="Red"
+                                           Height="16"/>
+
+                                </StackPanel>
+                                <StackPanel Grid.Column="2">
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Giá bán"
+                                               FontWeight="SemiBold"
+                                               FontSize="18"
+                                               Height="24"/>
+
+                                        <ToggleButton x:Name="PriceToggleButton"
+                                                  Style="{StaticResource LockToggleButton}"
+                                                  Foreground="LightGray"
+                                                  Margin="5 0 0 0"/>
+                                    </StackPanel>
+
+                                    <Grid>
+
+                                        <TextBlock Text="{Binding ElementName=PriceTextBox, Path=Text}"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="Gray"
+                                                   Margin="2 8 0 9"/>
+
+                                        <TextBox x:Name="PriceTextBox"
+                                                 Text="{Binding Price, Mode=OneTime}"
+                                                 VerticalContentAlignment="Center"
+                                                 Background="White"
+                                                 Visibility="{Binding ElementName=PriceToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
+
+                                    </Grid>
+
+                                    <TextBlock x:Name="PriceErrorMessage"
+                                           Foreground="Red"
+                                           Height="16"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+
+                        <Border 
+                                Grid.Column="2"
+                                Width="142"
+                                Height="142"
+                                VerticalAlignment="Top"
+                                BorderBrush="#808080"
+                                BorderThickness="2"
+                                CornerRadius="8"
+                                MouseEnter="ImagePreview_MouseEnter">
+
+                            <Border.Background>
+                                <ImageBrush x:Name="ImageProduct"
+                                            ImageSource="{Binding Image}"
+                                            Stretch="UniformToFill"/>
+                            </Border.Background>
+
+                        </Border>
+
+                        <Border x:Name="MarkUploadImage"
+                                Grid.Column="2"
+                                Width="142"
+                                Height="142"
+                                VerticalAlignment="Top"
+                                Background="#CCE9E9E9"
+                                BorderBrush="#808080"
+                                BorderThickness="2"
+                                CornerRadius="8"
+                                Visibility="Hidden"
+                                MouseLeave="MarkUploadImage_MouseLeave">
+                            <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                                    Content="Chọn ảnh"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Foreground="Black"
+                                    BorderBrush="Black"
+                                    BorderThickness="2"
+                                    Cursor="Hand"
+                                    Command="{StaticResource ChangeImageCommand}"
+                                    CommandParameter="{Binding ElementName=ImageProduct}"/>
+                        </Border>
+                    </Grid>
+
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <TextBlock Text="Ngày sản xuất"
+                                           FontSize="18"
+                                           FontWeight="SemiBold"
+                                           Height="24"/>
+
+                                <ToggleButton x:Name="ManufacturingDateToggleButton"
+                                                  Style="{StaticResource LockToggleButton}"
+                                                  Foreground="LightGray"
+                                                  Margin="5 0 0 0"/>
+
+                            </StackPanel>
+
+                            <Grid>
+                                
+                                <!-- Height 15.96 -->
+                                <TextBlock Text="{Binding ElementName=ManufacturingDate,
+                                           Path=SelectedDate, StringFormat=dd-MM-yyyy}"
+                                           Foreground="Gray"
+                                           Margin="0 5 0 8"/>
+                                
+                                <!-- Height 28.96 -->
+                                <Grid Background="White"
+                                      Visibility="{Binding ElementName=ManufacturingDateToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
+                                    <DatePicker x:Name="ManufacturingDate"
+                                                SelectedDate="{Binding ManufacturingDate, Mode=OneTime}"
+                                                SelectedDateFormat="Short"
+                                                Height="26"
+                                                VerticalContentAlignment="Center"
+                                                FontSize="1"
+                                                Language="vi"/>
+                                    <TextBlock Text="{Binding ElementName=ManufacturingDate,
+                                               Path=SelectedDate, StringFormat=dd-MM-yyyy}"
+                                               Background="White"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Top"
+                                               Margin="0 5 0 0"
+                                               Height="19" Width="230"/>
+                                </Grid>
+
+                            </Grid>
+
+                            <TextBlock x:Name="ManufacturingDateErrorMessage"
+                                       Foreground="Red"/>
+
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Column="2">
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <TextBlock Text="Hạn sử dụng"
+                                           FontSize="18"
+                                           FontWeight="SemiBold"
+                                           Height="24"/>
+
+                                <ToggleButton x:Name="ExpiryDateToggleButton"
+                                              Style="{StaticResource LockToggleButton}"
+                                              Foreground="LightGray"
+                                              Margin="5 0 0 0"/>
+
+                            </StackPanel>
+
+                            <Grid>
+
+                                <TextBlock Text="{Binding ElementName=ExpiryDate,
+                                           Path=SelectedDate, StringFormat=dd-MM-yyyy}"
+                                                   Foreground="Gray"
+                                                   Margin="0 5 0 8"/>
+
+                                <Grid Background="White"
+                                          Visibility="{Binding ElementName=ExpiryDateToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
+
+                                    <DatePicker x:Name="ExpiryDate"
+                                                SelectedDate="{Binding ExpiryDate, Mode=OneTime}"
+                                                SelectedDateFormat="Short"
+                                                Height="26"
+                                                Language="vi"
+                                                VerticalContentAlignment="Center"/>
+                                    <TextBlock x:Name="ExpiryDateTextBlock"
+                                               Text="{Binding ElementName=ExpiryDate, Path=SelectedDate, StringFormat=dd-MM-yyyy}"
+                                               Background="White"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Top"
+                                               Margin="0 5 0 0"
+                                               Height="19" Width="230"/>
+                                </Grid>
+
+                            </Grid>
+
+
+                            <TextBlock x:Name="ExpiryDateErrorMessage"
+                                           Foreground="Red"/>
+
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="Giảm giá (%)"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       Height="24"/>
+                            <TextBox x:Name="DiscountTextBox"
+                                     Text="{Binding Discount, Mode=OneTime}"
+                                     VerticalContentAlignment="Center"/>
+                            <TextBlock x:Name="DiscountErrorMessage"
+                                           
+                                           Foreground="Red"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Số lượng"
+                                               FontSize="18"
+                                               FontWeight="SemiBold"
+                                               Height="24"/>
+                                <ToggleButton x:Name="StockToggleButton"
+                                              Style="{StaticResource LockToggleButton}"
+                                              Foreground="LightGray"
+                                              Margin="5 0 0 0"/>
+                            </StackPanel>
+
+                            <Grid>
+
+                                <TextBlock Text="{Binding ElementName=StockTextBox, Path=Text}"
+                                           VerticalAlignment="Top"
+                                           Foreground="Gray"
+                                           Margin="2 8 0 0"/>
+
+                                <TextBox x:Name="StockTextBox"
+                                         Text="{Binding Stock, Mode=OneTime}"
+                                         Background="White"
+                                         VerticalContentAlignment="Center"
+                                         Visibility="{Binding ElementName=StockToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
+
+                            </Grid>
+
+                            <TextBlock x:Name="StockErrorMessage"
+                                           Height="16"
+                                           Foreground="Red"/>
+                        </StackPanel>
+                    </Grid>
+
+
+                    <StackPanel Grid.Row="1">
+
+                        <StackPanel 
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                            <Button Content="Hủy"
+                                    Foreground="{StaticResource PrimaryColor}"
+                                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                                    BorderBrush="{StaticResource PrimaryColor}"
+                                    Margin="0 0 20 0"
+                                    Width="75"
+                                    Command="{StaticResource CloseAppCommand}"
+                                    CommandParameter="{Binding ElementName=EditProductScreen}"/>
+                            <Button x:Name="UpdateButton"
+                                    Content="Lưu"
+                                    Background="#3982E4"
+                                    BorderThickness="0"
+                                    Width="90"
+                                    Command="{StaticResource UpdateProductButtonCommand}"
+                                    CommandParameter="{Binding ElementName=EditProductScreen}"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

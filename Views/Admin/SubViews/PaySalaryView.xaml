@@ -1,0 +1,238 @@
+﻿<Window x:Class="ConvenienceStore.Views.Admin.SubViews.PaySalaryView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConvenienceStore.Views.Admin.SubViews"
+        mc:Ignorable="d"
+        xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
+            xmlns:uc="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
+  AllowsTransparency="True"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+                xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+  Height="660" Width="1200"
+        x:Name="wdSalary"
+    DataContext="{StaticResource EmployeeVM}">
+    
+
+
+
+        <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding InitManagerCommandEdit}" 
+                                           CommandParameter="{Binding ElementName=wdEditEmployee}"
+                >
+
+            </i:InvokeCommandAction>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.Resources>
+       <BooleanToVisibilityConverter x:Key="MyBoolToVisibilityConverter" />
+        <Converters:HasImageConverter x:Key="HasImageConverter"/>
+    </Window.Resources>
+    <Grid Background="Transparent" Margin="0,0,0,-83">
+        <Border Background="Black"
+                Opacity="0.4"
+                CornerRadius="25">
+        </Border>
+        <Border CornerRadius="20" Width="650" Margin="275,0,275,0" VerticalAlignment="Center" Height="568" RenderTransformOrigin="0.5,0.5"
+                 >
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="-0.187"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0.561"/>
+                </TransformGroup>
+            </Border.RenderTransform>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color='#E9E4F0' Offset="0"/>
+                    <GradientStop Color='#D3CCE3' Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid 
+              
+              VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="149*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid VerticalAlignment="Center " Grid.ColumnSpan="2">
+                    <!--Background Layers-->
+
+                    <StackPanel>
+
+
+                        <Border HorizontalAlignment="Center"
+                            CornerRadius="7" Margin="0,0,0,0" Height="3718" Width="646" >
+                            <Border.Effect>
+                                <DropShadowEffect Direction="-130" BlurRadius="30" ShadowDepth="5" Opacity="0.1"/>
+                            </Border.Effect>
+
+                            <Grid Margin="20,0,20,2768">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="100*"/>
+                                  
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!--Form Title-->
+                                <StackPanel  Grid.ColumnSpan="2">
+                                    <StackPanel Orientation="Horizontal" Margin="20 20 0 0">
+                                        <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="#EFEFEF">
+                                            <Ellipse 
+                                                Width="50" Height="50">
+                                                <Ellipse.Fill>
+                                                    <ImageBrush 
+                                                        ImageSource="/Resources/Icons/pay.png">
+                                                    </ImageBrush>
+                                                </Ellipse.Fill>
+                                            </Ellipse>
+                                        </Border>
+
+                                        <TextBlock Text="Trả lương nhân viên" Foreground="#374655" FontSize="18" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+
+                                </StackPanel>
+
+
+                                <!--Form Percentage-->
+
+                                <Separator Grid.Row="1" Grid.ColumnSpan="2" Margin="-20,20,-20,20" Background="#E1E6EB"/>
+
+                                <!--Inputs-->
+                                <StackPanel  Grid.Column="0" 
+                                              Grid.Row="1"
+                                             Grid.RowSpan="6"
+                                    Orientation="Vertical">
+
+
+                                </StackPanel>
+
+
+
+
+
+
+
+                                <!--Form Bottom Background-->
+
+                                <Button Grid.Row="2" Content="Quay lại"
+                                    Command="{Binding BackCommandPay}" 
+                            CommandParameter="{Binding ElementName=wdSalary}"
+                                    VerticalAlignment="Center"
+                                    Margin="125,0,10,0"
+                                    Style="{StaticResource backButton}" Width="100" Height="40"/>
+                                <!--Main Button-->
+                                <Button Grid.Column="1" Grid.Row="2" 
+                                        Command="{Binding PayCommand}"
+                                        CommandParameter="{Binding ElementName=wdSalary}"
+                                        Content="Trả lương" 
+                                        HorizontalAlignment="Left" 
+                                        Margin="10,0,0,0" 
+                                        Style="{StaticResource saveEmployeeButton}" Width="100"
+                                        >
+                                    <Button.Effect>
+                                        <DropShadowEffect Direction="-120" BlurRadius="10" Opacity="0.3" ShadowDepth="5" Color="#4880FF"/>
+                                    </Button.Effect>
+                                </Button>
+
+
+
+
+                            </Grid>
+
+
+
+                        </Border>
+
+                    </StackPanel>
+                    <!--Main Layer-->
+                    <StackPanel Margin="0,60,20,0"
+                                            HorizontalAlignment="Center">
+
+
+
+                        <Grid  Background="Transparent" Margin="0,30,0,0" Width="323">
+                            <StackPanel >
+                                <uc:TextBoxUC 
+                                    Caption="Ngày nhận lương gần nhất"
+                                    
+                                    x:Name="DayGet" IsEnabled="False" Width="321">
+
+                                </uc:TextBoxUC>
+                                <uc:TextBoxUC 
+                                    Caption="Số ngày làm việc (đơn vị Ngày)"
+                                    
+                                    x:Name="DayWork" IsEnabled="False" Width="321">
+
+                                </uc:TextBoxUC>
+                                <StackPanel Margin="20 10 20 0">
+                                    <TextBlock Text="Thưởng thêm (đơn vị VND)" Foreground="#97A5B4"
+                       FontSize="13" Margin="0 0 0 0"/>
+
+                                    <Grid>
+                                        <TextBlock 
+                     VerticalAlignment="Center" Foreground="#868686" IsHitTestVisible="False" Panel.ZIndex="1"
+                   Text="0" FontSize="14"
+                   Visibility="{Binding ElementName=plustextBox, Path=Text.IsEmpty, Converter={StaticResource MyBoolToVisibilityConverter}}" />
+
+                                        <TextBox Name="plustextBox" TextChanged="plusTextChanged"/>
+
+
+                                    </Grid>
+                                    <TextBlock x:Name="ErrorMessage"
+                                   
+                                        Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Margin="20 20 20 0">
+                                    <TextBlock Text="Trừ lương (đơn vị -VND)" Foreground="#97A5B4"
+                       FontSize="13" Margin="0 0 0 0"/>
+
+                                    <Grid>
+                                        <TextBlock 
+                     VerticalAlignment="Center" Foreground="#868686" IsHitTestVisible="False" Panel.ZIndex="1"
+                   Text="0" FontSize="14"
+                   Visibility="{Binding ElementName=minustextBox, Path=Text.IsEmpty, Converter={StaticResource MyBoolToVisibilityConverter}}" />
+
+                                        <TextBox Name="minustextBox" TextChanged="minusTextChanged"/>
+
+
+                                    </Grid>
+                                    <TextBlock x:Name="MinusErrorMessage"
+                                   
+                                        Foreground="Red"/>
+                                </StackPanel>
+
+
+                                <uc:TextBoxUC IsEnabled="False"  
+                                    x:Name="salaryTxtbox" Hint="VND" Caption="Mức lương nhận được (đơn vị VND)" Width="321">
+
+                                    </uc:TextBoxUC>
+                                </StackPanel>
+                            
+                        </Grid>
+                            
+
+                    </StackPanel>
+
+
+                </Grid>
+            </Grid>
+        </Border>
+
+
+
+    </Grid>
+</Window>

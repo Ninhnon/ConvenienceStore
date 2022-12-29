@@ -18,19 +18,4 @@
                 Value="22,0,0,0" />
 
     </Style>
-    <Style x:Key="Border_Style"
-           TargetType="Border">
-
-        <Setter Property="HorizontalAlignment"
-                Value="Left" />
-        <Setter Property="VerticalAlignment"
-                Value="Center" />
-        <Setter Property="Height"
-                Value="30" />
-        <Setter Property="Width"
-                Value="30" />
-        <Setter Property="Margin"
-                Value="22,0,0,0" />
-
-    </Style>
 </ResourceDictionary>

@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="ConvenienceStore.Views.Admin.UserControls.ProductCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ConvenienceStore.Views.Admin.UserControls"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
+    <Border Style="{StaticResource ProductCard}">
+
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="MouseLeftButtonDown">
+                
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="5"
+                              Direction="270"
+                              Opacity="0.45"
+                              RenderingBias="Performance"
+                              ShadowDepth="1.5"/>
+        </Border.Effect>
+
+        <Grid>
+
+            <Border CornerRadius="8 8 0 0"
+                    Height="135"
+                    VerticalAlignment="Top">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding Image}"
+                                Stretch="UniformToFill"/>
+                </Border.Background>
+            </Border>
+
+            <StackPanel Margin="12 145 12 10"
+                        HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal"
+                            Margin="0 0 0 2">
+                    <TextBlock Text="# "
+                               FontSize="15"
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding Barcode}"
+                               FontSize="15"
+                               VerticalAlignment="Center"
+                               d:Text="8936185351397"
+                               FontWeight="SemiBold"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                    <TextBlock Text="SL: "
+                               FontSize="15"
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding Stock}"
+                               FontSize="15"
+                               VerticalAlignment="Center"
+                               d:Text="23"
+                               FontWeight="SemiBold"/>
+                </StackPanel>
+            </StackPanel>
+            
+        </Grid>
+        
+    </Border>
+
+</UserControl>

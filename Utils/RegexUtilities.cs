@@ -28,11 +28,11 @@ namespace CinemaManagement.Utils
                 }
 
             }
-            catch (RegexMatchTimeoutException )
+            catch (RegexMatchTimeoutException)
             {
                 return false;
             }
-            catch (ArgumentException )
+            catch (ArgumentException)
             {
                 return false;
             }

@@ -1,0 +1,128 @@
+﻿<Window x:Class="ConvenienceStore.Views.Admin.SupplierWindow.EditSupplierWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConvenienceStore.Views.Admin.SupplierWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Command="clr-namespace:ConvenienceStore.ViewModel.Admin.Command"
+        xmlns:EditSupplierCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.EditSupplierCommad"
+        mc:Ignorable="d"
+        x:Name="EditSupplierScreen"
+        Height="660" Width="1200"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
+
+    <Window.Resources>
+
+        <Command:CloseAppCommand x:Key="CloseAppCommand"/>
+        <EditSupplierCommand:UpdateSupplierButtonCommand x:Key="UpdateSupplierButtonCommand"/>
+
+    </Window.Resources>
+
+    <Grid>
+        <Border Background="Black"
+                Opacity="0.4"
+                CornerRadius="8"/>
+
+        <Grid Width="500"
+              VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Background="{StaticResource PrimaryColor}"
+                    CornerRadius="8 8 0 0">
+                <TextBlock Text="Chỉnh sửa nhà cung cấp"
+                           Foreground="White"
+                           FontSize="35"
+                           FontWeight="SemiBold"
+                           Margin="30 20"
+                           HorizontalAlignment="Left"/>
+            </Border>
+            <Border Grid.Row="1"
+                    Background="White"
+                    CornerRadius="0 0 8 8">
+                <StackPanel Orientation="Vertical"
+                            Margin="30 20 30 30">
+
+                    <TextBlock Text="Tên nhà cung cấp"
+                               FontWeight="SemiBold"
+                               FontSize="18"
+                               Margin="0 0 0 5"/>
+                    <TextBox x:Name="SupplierName"
+                             Style="{StaticResource MyTextBoxStyle}"
+                             Text="{Binding Name, Mode=OneTime}"/>
+
+                    <TextBlock x:Name="NameErrorMessage"
+                               Foreground="Red"
+                               Height="16"
+                               Margin="0 0 0 10"/>
+
+                    <TextBlock Text="Địa chỉ"
+                               FontWeight="SemiBold"
+                               FontSize="18"
+                               Margin="0 0 0 5"/>
+                    <TextBox x:Name="Address"
+                             Style="{StaticResource MyTextBoxStyle}"
+                             Text="{Binding Address, Mode=OneTime}"/>
+
+                    <TextBlock x:Name="AddressErrorMessage"
+                               Foreground="Red"
+                               Height="16"
+                               Margin="0 0 0 10"/>
+
+                    <Grid Margin="0 0 0 15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Email"
+                                       FontWeight="SemiBold"
+                                       FontSize="18"
+                                       Margin="0 0 0 5"/>
+                            <TextBox x:Name="Email"
+                                     Style="{StaticResource MyTextBoxStyle}"
+                                     Text="{Binding Email, Mode=OneTime}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2"
+                                    Orientation="Vertical">
+                            <TextBlock Text="Số điện thoại"
+                                       FontWeight="SemiBold"
+                                       FontSize="18"
+                                       Margin="0 0 0 5"/>
+                            <TextBox x:Name="Phone"
+                                     Style="{StaticResource MyTextBoxStyle}"
+                                     Text="{Binding Phone, Mode=OneTime}"/>
+                            <TextBlock x:Name="PhoneErrorMessage"
+                                       Foreground="Red"
+                                       Height="16"
+                                       Margin="0 0 0 10"/>
+                        </StackPanel>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                        <Button Content="Hủy"
+                                Style="{StaticResource MaterialDesignOutlinedButton}"
+                                Foreground="{StaticResource PrimaryColor}"
+                                BorderBrush="{StaticResource PrimaryColor}"
+                                Margin="0 0 20 0"
+                                Command="{StaticResource CloseAppCommand}"
+                                CommandParameter="{Binding ElementName=EditSupplierScreen}"/>
+                        <Button Content="Lưu"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Background="{StaticResource PrimaryColor}"
+                                BorderBrush="{StaticResource PrimaryColor}"
+                                Command="{StaticResource UpdateSupplierButtonCommand}"
+                                CommandParameter="{Binding ElementName=EditSupplierScreen}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

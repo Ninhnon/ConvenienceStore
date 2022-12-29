@@ -1,0 +1,13 @@
+﻿namespace ConvenienceStore.Model.Admin
+{
+    public class SmallProduct
+    {
+        public int[] InputInfoId { get; set; }
+        public string Barcode { get; set; }
+        public string Title { get; set; }
+        public byte[] Image { get; set; }
+        public string Type { get; set; }
+        public string ProductionSite { get; set; }
+        public int Stock { get; set; }
+    }
+}

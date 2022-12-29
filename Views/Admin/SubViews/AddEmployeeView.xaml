@@ -1,0 +1,253 @@
+﻿<Window x:Class="ConvenienceStore.Views.Admin.SubViews.AddEmployeeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConvenienceStore.Views.Admin.SubViews"
+        mc:Ignorable="d"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        WindowStartupLocation="CenterScreen"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:uc="clr-namespace:ConvenienceStore.Resources.UserControlCustom"
+        xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
+        Title="AddEmployeeView" Height="660" Width="1200"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Background="Transparent"
+        DataContext="{StaticResource EmployeeVM}"
+        x:Name="addEmployeeWd"
+        >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding InitManagerCommand}" 
+                                           CommandParameter="{Binding ElementName=addEmployeeWd}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.Resources>
+
+        <Converters:HasImageConverter x:Key="HasImageConverter"/>
+    </Window.Resources>
+    <Grid Background="Transparent">
+        <Border Background="Black"
+                Opacity="0.4"
+                CornerRadius="25">
+        </Border>
+        <Border CornerRadius="20" Width="650"
+                 >
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color='#E9E4F0' Offset="0"/>
+                    <GradientStop Color='#D3CCE3' Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid 
+              
+              VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="149*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid VerticalAlignment="Center " Grid.ColumnSpan="2">
+                    <!--Background Layers-->
+
+                    <StackPanel>
+
+
+                        <Border HorizontalAlignment="Center" 
+                            CornerRadius="7" Margin="0,0,0,0" Height="657" Width="645" >
+                            <Border.Effect>
+                                <DropShadowEffect Direction="-130" BlurRadius="30" ShadowDepth="5" Opacity="0.1"/>
+                            </Border.Effect>
+
+                            <Grid Margin="20 0">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="100*"/>
+                                    <RowDefinition Height="100*"/>
+                                    <RowDefinition Height="100*"/>
+                                    <RowDefinition Height="100*"/>
+                                    <RowDefinition Height="50"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!--Form Title-->
+                                <StackPanel  Grid.ColumnSpan="2">
+                                    <StackPanel Orientation="Horizontal" Margin="20 20 0 0">
+                                        <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="#EFEFEF">
+                                            <Ellipse 
+                                                Width="40" Height="40">
+                                                <Ellipse.Fill>
+                                                    <ImageBrush 
+                                                        ImageSource="/Resources/Images/IconForProduct/addEmployee.png">
+                                                    </ImageBrush>
+                                                </Ellipse.Fill>
+                                            </Ellipse>
+                                        </Border>
+
+                                        <TextBlock Text="Thêm nhân viên" Foreground="#374655" FontSize="18" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                    <Grid>
+                                        <StackPanel Orientation="Vertical">
+                                            <Border 
+                                    Grid.Column="2"
+                                    Width="193"
+                                    Height="193"
+                                    VerticalAlignment="Top"
+                                    BorderBrush="#808080"
+                                    BorderThickness="2"
+                                    CornerRadius="15"
+                                    MouseEnter="ImagePreview_MouseEnter">
+
+                                                <StackPanel x:Name="ImagePreview"
+                                            Orientation="Vertical"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            Visibility="{Binding ElementName=ImageProduct, Path=ImageSource, Converter={StaticResource HasImageConverter}}">
+
+                                                    <fa:IconImage Width="75"
+                                            Margin="0 0 0 5" Icon="User">
+                                                        
+                                                    </fa:IconImage>
+
+                                                    <TextBlock Text="Xem trước"
+                                               Foreground="#808080"
+                                               FontSize="16"
+                                               FontWeight="DemiBold"/>
+                                                </StackPanel>
+
+                                                <Border.Background>
+                                                    <ImageBrush x:Name="ImageProduct"
+                                                Stretch="UniformToFill"/>
+                                                </Border.Background>
+
+                                            </Border>
+
+                                            <TextBlock 
+                                                x:Name="ImageErrorMessage"
+                                                Foreground="Red"
+                                                HorizontalAlignment="Center">
+
+                                            </TextBlock>
+                                        </StackPanel>
+
+
+                                        <Border
+                                         DataContext="{StaticResource EmployeeVM}"
+                                        x:Name="MarkUploadImage"
+                                    Grid.Column="2"
+                                    Width="193"
+                                    Height="193"
+                                    VerticalAlignment="Top"
+                                    Background="#E9E9E9"
+                                    BorderBrush="#808080"
+                                    BorderThickness="2"
+                                    CornerRadius="15"
+                                    Visibility="Hidden"
+                                    MouseLeave="MarkUploadImage_MouseLeave">
+                                            <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                                        Content="Chọn ảnh"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Foreground="Black"
+                                        BorderBrush="#808080"
+                                        BorderThickness="2"
+                                        Cursor="Hand"
+                                        Command="{Binding UploadImageCommand}"
+                                        CommandParameter="{Binding ElementName=addEmployeeWd}"/>
+                                        </Border>
+                                    </Grid>
+                                </StackPanel>
+
+
+                                <!--Form Percentage-->
+
+                                <Separator Grid.Row="1" Grid.ColumnSpan="2" Margin="-20,20,-20,20" Background="#E1E6EB"/>
+
+                                <!--Inputs-->
+                                <StackPanel  Grid.Column="0" 
+                                              Grid.Row="1"
+                                             Grid.RowSpan="6"
+                                    Orientation="Vertical">
+                                    <uc:TextBoxUC x:Name="nameTxtbox"  Caption="Họ Tên" Hint="Nhập họ tên"  VerticalAlignment="Center"/>
+                                    <uc:TextBoxUC x:Name="emailTxtbox" Caption="Email" Hint="Nhập email" VerticalAlignment="Center" />
+                                    <uc:TextBoxUC x:Name="phoneTxtbox"  Caption="Điện thoại" Hint="Nhập số điện thoại" />
+                                    <uc:TextBoxUC x:Name="addressTxtbox"  Caption="Địa Chỉ" Hint="Nhập địa chỉ" />
+
+                                </StackPanel>
+
+                                <StackPanel 
+                                              Grid.Row="1"
+                                             Grid.RowSpan="6"
+                                    Orientation="Vertical" Grid.ColumnSpan="2" Margin="302,0,0,0">
+
+                                    <uc:TextBoxUC x:Name="usernameTxtbox" Caption="Tên đăng nhập" Hint="Nhập tên đăng nhập" />
+                                    <uc:PasswordBoxUC Background="Transparent" x:Name="passwordTxtbox"  Caption="Mật khẩu" Hint="Nhập mật khẩu" />
+                                    <uc:PasswordBoxUC Background="Transparent" x:Name="confirmPasswordTxtbox"  Caption="Xác nhận mật khẩu" Hint="Xác nhận mật khẩu" />
+                                    <Grid  Background="Transparent">
+                                        <StackPanel >
+                                            <TextBlock Margin="22,10,0,8" Foreground="#97A5B4"
+                       FontSize="13"  
+                                        Text="Chọn người quản lý"></TextBlock>
+                                            <ComboBox Margin="22,0,0,0" x:Name="ManagerCombobox"  
+                                              ItemsSource="{Binding ItemSourceManager,Mode=TwoWay}"
+                                                 SelectedItem="{Binding Selected}"
+                                                      DataContext="{StaticResource EmployeeVM}"
+                                    >
+                                            </ComboBox>
+                                            <TextBlock x:Name="ManagerErrorMessage" Margin="10,0,0,0"
+                                   
+                                        Foreground="Red" Width="269"/>
+                                        </StackPanel>
+                                    </Grid>
+
+                                </StackPanel>
+
+
+
+
+
+
+
+                                <!--Form Bottom Background-->
+
+                                <Button Grid.Row="6" Content="Quay lại"
+                                    Command="{Binding BackCommand}" 
+                            CommandParameter="{Binding ElementName=addEmployeeWd}"
+                                    VerticalAlignment="Center"
+                                    Margin="125,0,10,0"
+                                    Style="{StaticResource backButton}" Width="100" Height="40"/>
+                                <!--Main Button-->
+                                <Button Grid.Column="1" Grid.Row="6" 
+                                        Command="{Binding SaveCommand}"
+                                        CommandParameter="{Binding ElementName=addEmployeeWd}"
+                                        Content="Thêm" 
+                                        HorizontalAlignment="Left" 
+                                        Margin="10,0,0,0" 
+                                        Style="{StaticResource saveEmployeeButton}" Width="100"
+                                        >
+                                    <Button.Effect>
+                                        <DropShadowEffect Direction="-120" BlurRadius="10" Opacity="0.3" ShadowDepth="5" Color="#4880FF"/>
+                                    </Button.Effect>
+                                </Button>
+
+
+
+
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                    <!--Main Layer-->
+                </Grid>
+            </Grid>
+        </Border>
+
+
+
+    </Grid>
+</Window>

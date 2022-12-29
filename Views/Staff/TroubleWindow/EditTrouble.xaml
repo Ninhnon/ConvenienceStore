@@ -1,0 +1,288 @@
+﻿<Window x:Class="ConvenienceStore.Views.Staff.TroubleWindow.EditTrouble"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Command="clr-namespace:ConvenienceStore.ViewModel.Admin.Command"
+        xmlns:Converters="clr-namespace:ConvenienceStore.ViewModel.Admin.Converters"
+        xmlns:EditProductCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.ProductCommand.EditProductCommand"
+        xmlns:AddNewProductCommand="clr-namespace:ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductCommand"
+        x:Name="EditReportScreen"
+        mc:Ignorable="d"
+        Height="660" Width="1200"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        DataContext="{StaticResource TroubleVM}"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        AllowsTransparency="True">
+
+    <Window.Resources>
+        <Command:CloseAppCommand x:Key="CloseAppCommand"/>
+        <EditProductCommand:ChangeImageCommand x:Key="ChangeImageCommand"/>
+        <EditProductCommand:UpdateProductButtonCommand x:Key="UpdateProductButtonCommand"/>
+        <Converters:BoolToVisibility x:Key="BoolToVisibility"/>
+        <Converters:HasImageConverter x:Key="HasImageConverter"/>
+        <AddNewProductCommand:UploadImageCommand x:Key="UploadImageCommand"/>
+    </Window.Resources>
+
+    <Grid>
+        <Border Background="Black"
+                Opacity="0.5"
+                CornerRadius="8">
+        </Border>
+
+        <Grid Width="600"
+              VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Background="{StaticResource PrimaryColor}"
+                    CornerRadius="25 25 0 0">
+                <Grid Margin="30 15"
+                          VerticalAlignment="Center">
+                    <TextBlock Text="Chỉnh sửa vấn đề"
+                           Foreground="White"
+                           FontSize="30"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"/>
+                </Grid>
+
+
+
+            </Border>
+
+            <Border Grid.Row="1"
+                    Background="White"
+                    CornerRadius="0 0 25 25">
+
+                <StackPanel Margin="30 20 20 30">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="172"/>
+
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Vấn đề"
+                                               FontWeight="SemiBold"
+                                               FontSize="18"
+                                               Height="24"/>
+
+                                <ToggleButton x:Name="TitleToggleButton"
+                                                  Style="{StaticResource LockToggleButton}"
+                                                  Foreground="LightGray"
+                                                  Margin="5 0 0 0"/>
+                            </StackPanel>
+                            <Grid>
+
+                                <TextBlock Text="{Binding ElementName=TitleTextBox, Path=Text}"
+                                               VerticalAlignment="Center"
+                                               Foreground="Gray"
+                                               Margin="1 0 0 0"/>
+
+                                <TextBox x:Name="TitleTextBox"
+                                             Text="{Binding SelectedItem.Title, Mode=OneTime}"
+                                             
+                                             VerticalContentAlignment="Center"
+                                             Background="White"
+                                             Visibility="{Binding ElementName=TitleToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
+
+                            </Grid>
+                            <TextBlock x:Name="TitleErrorMessage"
+                                   Foreground="Red"
+                                   Height="16"
+                                   Margin="0 0 0 10"/>
+                            <StackPanel>
+                                <TextBlock Text="Thông tin chi tiết"
+                                            FontSize="16"
+                                            FontWeight="SemiBold"
+                                            Height="22"/>
+                                <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                         x:Name="cbxDecription"
+                                     VerticalAlignment="Top"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     VerticalScrollBarVisibility="Auto"
+                                     HorizontalScrollBarVisibility="Disabled"
+                                     FontSize="16"
+                                     Margin="0 5 0 10"
+                                     Foreground="Black"
+                                     materialDesign:ValidationAssist.Background="White"
+                                     Text="{Binding SelectedItem.Description, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <Grid Margin="0 0 0 10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+
+                                    <TextBlock Text="Trạng thái"
+                                        FontSize="16"
+                                        FontWeight="SemiBold"
+                                        Height="22"/>
+
+                                    <TextBlock Text="{Binding SelectedItem.Status,Mode=OneTime}"
+                                       x:Name="cbxStatus"
+                                             
+                                        Height="25"/>
+
+
+                                </StackPanel>
+                                <StackPanel Grid.Column="2">
+
+                                    <TextBlock Text="Nhân viên báo cáo"
+                                        FontWeight="SemiBold"
+                                        FontSize="16"
+                                        Height="22"/>
+                                    <TextBlock x:Name="StaffName"
+                                        Height="25" />
+                                </StackPanel>
+                            </Grid>
+
+
+                        </StackPanel>
+
+                        <Border 
+                                Grid.Column="2"
+                                Width="172"
+                                Height="172"
+                                VerticalAlignment="Top"
+                                BorderBrush="#808080"
+                                BorderThickness="2"
+                                CornerRadius="15"
+                                MouseEnter="ImagePreview_MouseEnter">
+
+                            <Border.Background>
+                                <ImageBrush x:Name="ImageProduct"
+                                            ImageSource="{Binding SelectedItem.Image,Mode=OneTime}"
+                                            Stretch="UniformToFill"/>
+                            </Border.Background>
+
+                        </Border>
+
+                        <Border x:Name="MarkUploadImage"
+                                Grid.Column="2"
+                                Width="172"
+                                Height="172"
+                                VerticalAlignment="Top"
+                                Background="#E9E9E9"
+                                BorderBrush="#808080"
+                                BorderThickness="2"
+                                CornerRadius="15"
+                                Visibility="Hidden"
+                                MouseLeave="MarkUploadImage_MouseLeave">
+                            <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                                    Content="Chọn hình"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Foreground="Black"
+                                    BorderBrush="#808080"
+                                    BorderThickness="2"
+                                    Cursor="Hand"
+                                    Command="{StaticResource ChangeImageCommand}"
+                                    CommandParameter="{Binding ElementName=ImageProduct}"/>
+                        </Border>
+                    </Grid>
+
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Chi phí dự kiến"
+                                               FontSize="18"
+                                               FontWeight="SemiBold"
+                                               Height="24"/>
+
+                                <ToggleButton x:Name="CostToggleButton"
+                                                  Style="{StaticResource LockToggleButton}"
+                                                  Foreground="LightGray"
+                                                  Margin="5 0 0 0"/>
+                            </StackPanel>
+
+                            <Grid>
+                                <TextBlock Text="{Binding ElementName=CostTextBox, Path=Text}"
+                                               VerticalAlignment="Center"
+                                               Foreground="Gray"
+                                               Margin="1 0 0 0"/>
+
+                                <TextBox x:Name="CostTextBox"
+                                             Text="{Binding RepairCost, Mode=OneTime}"
+                                             
+                                             VerticalContentAlignment="Center"
+                                             Background="White"
+                                             Visibility="{Binding ElementName=CostToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
+                            </Grid>
+                            <TextBlock x:Name="CostErrorMessage"
+                                           Foreground="Red"
+                                           Height="16"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Ngày báo cáo"
+                                        FontSize="16"
+                                        FontWeight="SemiBold"
+                                        Height="22"/>
+                            <Grid>
+
+                                <!--<DatePicker x:Name="ExpiryDate"
+                                            SelectedDateFormat="Short"/>-->
+                                <!--Text="{Binding ElementName=ExpiryDate, Path=SelectedDate, StringFormat=dd-MM-yyyy}"-->
+                                <TextBlock x:Name="submitdate"
+                                            Text="{Binding SelectedItem.SubmittedAt,Mode=OneTime}"
+                                            Background="White"
+                                            FontSize="16"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Top"
+                                            Margin="0 3.5 14 0"
+                                            Height="19"/>
+                            </Grid>
+
+                        </StackPanel>
+                    </Grid>
+
+
+                    <StackPanel Grid.Row="1">
+
+                        <StackPanel 
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                            <Button Content="Hủy"
+                                    Foreground="{StaticResource PrimaryColor}"
+                                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                                    BorderBrush="{StaticResource PrimaryColor}"
+                                    Margin="0 0 20 0"
+                                    Width="80"
+                                    Command="{Binding CloseCM}"
+                                    CommandParameter="{Binding ElementName=EditReportScreen}"/>
+                            <Button x:Name="UpdateButton"
+                                    Content="Lưu"
+                                    Background="#3982E4"
+                                    BorderThickness="0"
+                                    Width="80"
+                                    Command="{Binding UpdateReportButtonCommand}"
+                                    CommandParameter="{Binding ElementName=EditReportScreen}"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

@@ -20,7 +20,7 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         FontFamily="{DynamicResource MaterialDesignFont}">
-    <Border CornerRadius="10"
+    <Border CornerRadius="15"
             BorderBrush="Black"
             BorderThickness="1.2"
             Background="White">
@@ -38,7 +38,7 @@
                     x:Name="BackGroundTittle"
                     Grid.ColumnSpan="2"
                     Background="Green"
-                    CornerRadius="10,10,0,0">
+                    CornerRadius="15,15,0,0">
                 <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5"
                                      Background="Transparent"
                                      Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
@@ -112,6 +112,7 @@
 
                         <Button x:Name="btnOk"
                                 Click="btnOk_Click"
+                                IsDefault="True"
                                 Grid.Column="1"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 BorderBrush="Black"

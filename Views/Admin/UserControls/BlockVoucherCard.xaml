@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="ConvenienceStore.Views.Admin.UserControls.BlockVoucherCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ConvenienceStore.Views.Admin.UserControls"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d">
+    <Border Style="{StaticResource InputInfoCard}"
+            Cursor="Hand">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="MouseLeftButtonDown">
+                <i:ChangePropertyAction TargetObject="{Binding ElementName=Voucher}"
+                                        PropertyName="Visibility"
+                                        Value="Visible"/>
+                <i:ChangePropertyAction TargetObject="{Binding ElementName=BlockVoucherDetail}"
+                                        PropertyName="Visibility"
+                                        Value="Visible"/>
+                <i:ChangePropertyAction TargetObject="{Binding ElementName=ComboBox}"
+                                        PropertyName="SelectedIndex"
+                                        Value="0"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="5"
+                              Direction="270"
+                              Opacity="0.45"
+                              RenderingBias="Performance"
+                              ShadowDepth="1.5"/>
+        </Border.Effect>
+        <Grid>
+            <Image Source="/Resources/Images/IconForVoucher/coupons.png"
+                   Width="75"
+                   VerticalAlignment="Top"
+                   Margin="0 25 0 0"/>
+
+            <Border VerticalAlignment="Bottom"
+                CornerRadius="0 0 10 10"
+                Background="White"
+                Height="80">
+                
+                <StackPanel Margin="10 0"
+                            VerticalAlignment="Center">
+                    <TextBlock Text="{Binding ReleaseName}"
+                               d:Text="TET2023"
+                               FontSize="14"
+                               FontWeight="SemiBold"
+                               Margin="0 0 0 4"/>
+
+                    <Grid Margin="0 0 0 6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                               Source="/Resources/Images/IconForVoucher/right.png"
+                               Width="18"/>
+                        <TextBlock x:Name="ActiveTextBlock"
+                                   Grid.Column="2"
+                                   d:Text="Active 23/50"
+                                   Foreground="Gray"
+                                   FontSize="14"/>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                               Source="/Resources/Images/IconForVoucher/calendar.png"
+                               Width="18"/>
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding FinishDate,StringFormat=dd-MM-yyy}"
+                                   Foreground="Gray"
+                                   FontSize="14"
+                                   d:Text="20-2-2023"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+    </Border>
+</UserControl>

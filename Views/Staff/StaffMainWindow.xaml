@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConvenienceStore.Views.Staff"
+          xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="660"
@@ -19,110 +20,208 @@
         ResizeMode="NoResize"
         WindowStyle="None"
         AllowsTransparency="True"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        DataContext="{StaticResource MainStaffVM}"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         WindowStartupLocation="CenterScreen"
         Background="Transparent">
-    <!--xmlns:uc="clr-namespace:ConvenienceStore.UserControlWPF"-->
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadCommand}"
+                                   CommandParameter="{Binding ElementName=mainWindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Border CornerRadius="8" 
             Background="{DynamicResource PrimaryBackgroundColor}">
+
         <Grid>
+
             <!-- Start: GridColumn Right -->
             <Grid >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
                 <!-- Start: Button Close | Restore | Minimize -->
-                <StackPanel Grid.Row="0" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft">
-                    <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="btnClose_Click" Tag="IsCloseButton"/>
-                    <Button x:Name="btnRestore" Margin="5,0" Click="btnRestore_Click">
-                        <Button.Style>
-                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonsStyle}">
-                                <Setter Property="Content" Value="{DynamicResource maximize}"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=home, Path=WindowState}" Value="Maximized">
-                                        <Setter Property="Content" Value="{DynamicResource restore}"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                    <Button x:Name="btnMinimize" Style="{DynamicResource IconButtonsStyle}" Content="{DynamicResource minimize}" Click="btnMinimize_Click"/>
+                <StackPanel Grid.Row="0"
+                            Grid.Column="4"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Margin="0,5,5,0"
+                            Orientation="Horizontal"
+                            FlowDirection="RightToLeft">
+
+                    <Button x:Name="btnClose"
+                            Style="{StaticResource IconButtonsStyle}"
+                            Content="{DynamicResource close}"
+                            Click="btnClose_Click"
+                            Tag="IsCloseButton"/>
+
+                    <Button x:Name="btnMinimize"
+                            Style="{DynamicResource IconButtonsStyle}"
+                            Content="{DynamicResource minimize}"
+                            Click="btnMinimize_Click"/>
                 </StackPanel>
+
                 <!-- End: Button Close | Restore | Minimize -->
+                <Frame Grid.Row="1" 
+                       Margin="60 0 0 0"
+                       x:Name="PagesNavigation"
+                       NavigationUIVisibility="Hidden">
 
-                <Frame Grid.Row="1" Margin="60 0 0 0" x:Name="PagesNavigation" NavigationUIVisibility="Hidden">
-                    <!-- Page Content -->
-                    <!--<i:Interaction.Triggers>
-
-                            <i:EventTrigger EventName="MouseUp">
-                                <i:InvokeCommandAction Command="{Binding HidePanelCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>-->
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding PaymentCommand}"
+                                                   CommandParameter="{Binding ElementName=PagesNavigation}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Frame>
             </Grid>
-            <!-- Start: GridColumn Right -->
 
             <!-- Start: GridColum Left-->
-            <Grid x:Name="gridMenu" Width="60"  HorizontalAlignment="Left" Background="{DynamicResource SecondaryBackgroundColor}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="80"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+            <Border CornerRadius="8"
+                    Background="{DynamicResource SecondaryBackgroundColor}"
+                    HorizontalAlignment="Left">
 
-                <!-- Logo -->
-                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
-                    <Path Data="{DynamicResource logo}" Margin="16 0 0 0" Stretch="Fill" Fill="{DynamicResource PrimaryBlueColor}" Width="25" Height="25" HorizontalAlignment="Left"/>
-                    <Label Content="Store" Foreground="{DynamicResource PrimaryBlueColor}" FontWeight="Bold" FontSize="20" VerticalAlignment="Center" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="14 0 0 0"/>
-                </StackPanel>
+                <Grid x:Name="gridMenu" Width="60"
+                      HorizontalAlignment="Left">
 
-                <!-- Menu -->
-                <ToggleButton x:Name="btnMenu"  HorizontalAlignment="Right" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Style="{StaticResource MenuIconStyle}" Margin="0 0 15 0">
-                    <ToggleButton.Triggers>
-                        <EventTrigger RoutedEvent="ToggleButton.Unchecked">
-                            <BeginStoryboard>
-                                <Storyboard x:Name="HideStackPanel">
-                                    <DoubleAnimation Storyboard.TargetName="gridMenu" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="200" To="60" Duration="0:0:0.3">
-                                    </DoubleAnimation>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="ToggleButton.Checked">
-                            <BeginStoryboard>
-                                <Storyboard x:Name="ShowStackPanel">
-                                    <DoubleAnimation Storyboard.TargetName="gridMenu" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="60" To="200" Duration="0:0:0.3">
-                                    </DoubleAnimation>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </ToggleButton.Triggers>
-                </ToggleButton>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 
-                <StackPanel Grid.Row="3">
-                    <RadioButton x:Name="rdPayment" IsChecked="True" Content="Payment" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource payment}" Click="rdPayment_Click" FontWeight="SemiBold"/>
-                    <RadioButton x:Name="rdHistory" Content="History" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource history}" Margin="0 5 0 5" Click="rdHistory_Click" FontWeight="SemiBold"/>
-                    <RadioButton x:Name="rdProfile" Content="Profile" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource profile}" Margin="0 5 0 5" Click="rdProfile_Click" FontWeight="SemiBold"/>
-                    <RadioButton x:Name="rdProduct" Content="Product" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource product}" Margin="0 5 0 5" Click="rdProduct_Click" FontWeight="SemiBold"/>
-                    <RadioButton x:Name="rdVoucher" Content="Voucher" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource voucher}" Margin="0 5 0 5" Click="rdVoucher_Click" FontWeight="SemiBold"/>
-                    <RadioButton x:Name="rdReport" Content="Report" Style="{DynamicResource MenuRadioButtonStyle}" Tag="{DynamicResource report}" Margin="0 5 0 5" Click="rdReport_Click" FontWeight="SemiBold"/>
-                </StackPanel>
+                    <!-- Logo -->
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Top">
 
-                <StackPanel Grid.Row="3" VerticalAlignment="Bottom" Orientation="Horizontal" Width="200" Margin="0 0 0 20">
-                    <Ellipse Width="40" Height="40" Margin="10 0 0 0">
-                        <Ellipse.Fill>
-                            <ImageBrush ImageSource="\Resources\Images\Food1.jpg"/>
-                        </Ellipse.Fill>
-                    </Ellipse>
-                    <StackPanel Orientation="Vertical" Margin="8 0 0 0">
-                        <Label Content="Tín Nguyễn" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="SemiBold" HorizontalContentAlignment="Center" HorizontalAlignment="Left"/>
-                        <Label Content="ngoctin0809@gmail.com" Foreground="{DynamicResource PrimaryGrayColor}" FontSize="11" FontWeight="Regular" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0 -10 0 0"/>
+                        <Path Data="{DynamicResource logo}"
+                              Margin="16 0 0 0"
+                              Stretch="Fill"
+                              Fill="{DynamicResource PrimaryBlueColor}"
+                              Width="25"
+                              Height="25"
+                              HorizontalAlignment="Left"/>
+
+                        <Label Content="Cửa hàng"
+                               Foreground="{DynamicResource PrimaryBlueColor}"
+                               FontWeight="Bold" 
+                               FontSize="20" 
+                               VerticalAlignment="Center" 
+                               HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="14 0 0 0"/>
+                        <Button Style="{StaticResource topButton}"
+                                Margin="10 0 0 0"
+                                Background="#dcdcdc"
+                                Cursor="Hand"
+                                Command="{Binding SettingCommand}">
+                            <Icon:PackIconMaterial Kind="Cog"/>
+                        </Button>
                     </StackPanel>
-                </StackPanel>
-            </Grid>
+
+                    <!-- Menu -->
+                    <ToggleButton x:Name="btnMenu"
+                                  HorizontalAlignment="Right"
+                                  BorderThickness="0"
+                                  Background="Transparent"
+                                  VerticalAlignment="Center"
+                                  Style="{StaticResource MenuIconStyle}"
+                                  Margin="0 0 15 0">
+
+                        <ToggleButton.Triggers>
+
+                            <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                <BeginStoryboard>
+                                    <Storyboard x:Name="HideStackPanel">
+                                        <DoubleAnimation Storyboard.TargetName="gridMenu"
+                                                         Storyboard.TargetProperty="Width"
+                                                         BeginTime="0:0:0"
+                                                         From="200"
+                                                         To="60"
+                                                         Duration="0:0:0.3">
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                <BeginStoryboard>
+                                    <Storyboard x:Name="ShowStackPanel">
+                                        <DoubleAnimation Storyboard.TargetName="gridMenu"
+                                                         Storyboard.TargetProperty="Width"
+                                                         BeginTime="0:0:0"
+                                                         From="60"
+                                                         To="200"
+                                                         Duration="0:0:0.3">
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ToggleButton.Triggers>
+                    </ToggleButton>
+
+                    <StackPanel Grid.Row="3">
+                        <RadioButton x:Name="rdPayment" IsChecked="True" Content="Thanh toán" Style="{DynamicResource MenuRadioButtonStyle}"
+                     Tag="{DynamicResource payment}"
+                     Command="{Binding PaymentCommand}"
+                     CommandParameter="{Binding ElementName=PagesNavigation}"
+                                 FontWeight="SemiBold"/>
+                        <RadioButton x:Name="rdHistory" Content="Lịch sử" Style="{DynamicResource MenuRadioButtonStyle}"
+                                 Tag="{DynamicResource history}" Margin="0 5 0 5"
+                                 Command="{Binding HistoryCommand}"
+                                 CommandParameter="{Binding ElementName=PagesNavigation}"
+                                 FontWeight="SemiBold"/>
+                        
+                        <!--<RadioButton x:Name="rdProduct" Content="Sản phẩm" Style="{DynamicResource MenuRadioButtonStyle}" 
+                                 Tag="{DynamicResource product}" Margin="0 5 0 5"
+                                 Command="{Binding ProductCommand}"
+                                 CommandParameter="{Binding ElementName=PagesNavigation}"
+                                 FontWeight="SemiBold"/>-->
+                        <!--<RadioButton x:Name="rdVoucher" Content="Voucher" Style="{DynamicResource MenuRadioButtonStyle}"
+                                 Tag="{DynamicResource voucher}" Margin="0 5 0 5"
+                                 Command="{Binding VoucherCommand}"
+                                 CommandParameter="{Binding ElementName=PagesNavigation}"
+                                 FontWeight="SemiBold"/>-->
+                        <RadioButton x:Name="rdReport" Content="Báo cáo" Style="{DynamicResource MenuRadioButtonStyle}"
+                                 Tag="{DynamicResource report}" Margin="0 5 0 5"
+                                 Command="{Binding ReportCommand}"
+                                 CommandParameter="{Binding ElementName=PagesNavigation}"
+                                 FontWeight="SemiBold"/>
+                        <RadioButton x:Name="rdProfile" Content="Thông tin cá nhân" Style="{DynamicResource MenuRadioButtonStyle}"
+                                 Tag="{DynamicResource profile}" Margin="0 5 0 5"
+                                 Command="{Binding ProfileCommand}"
+                                 CommandParameter="{Binding ElementName=PagesNavigation}"
+                                 FontWeight="SemiBold"/>
+                        <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" 
+                            Cursor="Hand"
+                            Click="btnLogout_Click"
+                            Margin="0 140 0 20">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Đăng xuất"/>
+                            </StackPanel>
+                        </Button>
+
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="3" VerticalAlignment="Bottom" Orientation="Horizontal" Width="200" Margin="0 0 0 20">
+                        <Ellipse Width="40" Height="40" Margin="10 0 0 0">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{Binding Anh}"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <StackPanel Orientation="Vertical" Margin="8 0 0 0">
+                            <Label Content="{Binding Ten}" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="SemiBold" HorizontalContentAlignment="Center" HorizontalAlignment="Left"/>
+                            <Label Content="{Binding Email}" Foreground="{DynamicResource PrimaryGrayColor}" FontSize="11" FontWeight="Regular" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0 -10 0 0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
             <!-- End: GridColum Left-->
         </Grid>
     </Border>

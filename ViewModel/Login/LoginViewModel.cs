@@ -1,146 +1,132 @@
-﻿using ConvenienceStore.Views.Staff;
-using ConvenienceStore.Model;
-using ConvenienceStore.ViewModel.MainBase;
-using ConvenienceStore.ViewModel.StaffVM;
+﻿using ConvenienceStore.Model;
+using ConvenienceStore.Utils.DataLayerAccess;
+using ConvenienceStore.ViewModel.Admin;
 using ConvenienceStore.Views;
-using Emgu.CV.Cuda;
-using System;
+using ConvenienceStore.Views.Admin;
+using ConvenienceStore.Views.Login;
+using ConvenienceStore.Views.Staff;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using ZXing;
-using ConvenienceStore.ViewModel.Lam.Helpers;
 
 namespace ConvenienceStore.ViewModel.Login
 {
     public class LoginViewModel : BaseViewModel
     {
-        public bool IsLogin { get; set; }
-        private string _UserName;
-        public string UserName { get => _UserName; set { _UserName = value; OnPropertyChanged(); } }
-        private string _Password;
-        public string Password { get => _Password; set { _Password = value; OnPropertyChanged(); } }
-
-        public ICommand CloseCommand { get; set; }
-        public ICommand LoginCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
-        private ObservableCollection<User> _List;
-        public ObservableCollection<User> List { get => _List; set { _List = value; OnPropertyChanged(); } }
-        public List<User> danhsach = new();
+        public ICommand OpenForgotPasswordWindowCommand { get; set; }
+        public ICommand LogInCommand { get; set; }
+        private string password;
+        public string Password { get => password; set { password = value; OnPropertyChanged(); } }
+        private string userName;
+        public string UserName { get => userName; set { userName = value; OnPropertyChanged(); } }
+        private bool isLogin;
+        public bool IsLogin { get => isLogin; set => isLogin = value; }
 
         public LoginViewModel()
         {
-
-            danhsach = DatabaseHelper.FetchingUserData();
-            List = new ObservableCollection<User>(danhsach);
-            IsLogin = false;
-            Password = "";
-            UserName = "";
-            LoginCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { Login(p); });
-            CloseCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { p.Close(); });
-            PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
-
+            LogInCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => Login(parameter));
+            PasswordChangedCommand = new RelayCommand<PasswordBox>((parameter) => true, (parameter) => EncodingPassword(parameter));
+            OpenForgotPasswordWindowCommand = new RelayCommand<System.Windows.Window>((parameter) => true, (parameter) => OpenForgotPasswordWindow(parameter));
         }
-
-        void Login(Window p)
+        public void Login(LoginWindow parameter)
         {
-            if (p == null)
+            isLogin = false;
+            List<Account> accounts = AccountDAL.Instance.ConvertDataTableToList();
+            if (string.IsNullOrEmpty(parameter.txtUsername.Text))
+            {
+                MessageBoxCustom mb = new("Cảnh báo", "Hãy nhập tài khoản", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
+                parameter.txtUsername.Focus();
                 return;
-
-            /*
-             admin
-             admin
-
-            staff
-            staff
-             */
-            IsLogin = true;
-            //string passEncode = MD5Hash(Base64Encode(Password));
-
-            var accCount = List.Where(x => x.UserName == UserName && x.Password == Password/*passEncode*/).Count();
-            var role = List.First(x => x.UserName == UserName && x.Password == Password).UserRole;
-            var acc = List.First(x => x.UserName == UserName && x.Password == Password);
-            var accimg = List.First(x => x.UserName == UserName && x.Password == Password).Image;
-            if (accCount > 0)
-            {
-                IsLogin = true;
-                if (role == "0")
-                {
-                    MainStaffViewModel.StaffCurrent = acc;
-                    //MainStaffViewModel.Image = acc.Image;
-                    StaffMainWindow n = new StaffMainWindow();
-
-                    //n.txbHoTenNV.Text = acc.Name;
-
-                    //string s = Convert.ToBase64String(acc.Image);
-
-                    //BitmapImage imageSource = new BitmapImage();
-
-                    //imageSource.BeginInit();
-                    //imageSource.StreamSource = new MemoryStream(System.Convert.FromBase64String(s));
-                    //imageSource.EndInit();
-                    //ImageBrush imageBrush = new ImageBrush(imageSource);
-                    //n.imgAvatar.Fill = imageBrush;
-                    //n.imgAvatar.ImageSource = image;
-                    n.Show();
-                    p.Close();
-                }
-                if (role == "1")
-                {
-                    //MainStaffViewModel.StaffCurrent = acc;
-                    //MainStaffViewModel.Image = acc.Image;
-                    MainWindow n = new MainWindow();
-
-                    //n.txbHoTenNV.Text = acc.Name;
-
-                    //string s = Convert.ToBase64String(acc.Image);
-
-                    //BitmapImage imageSource = new BitmapImage();
-
-                    //imageSource.BeginInit();
-                    //imageSource.StreamSource = new MemoryStream(System.Convert.FromBase64String(s));
-                    //imageSource.EndInit();
-                    //ImageBrush imageBrush = new ImageBrush(imageSource);
-                    //n.imgAvatar.Fill = imageBrush;
-                    //n.imgAvatar.ImageSource = image;
-                    n.Show();
-                    p.Close();
-                }
             }
-            else
+            if (string.IsNullOrEmpty(parameter.txtPassword.Password.ToString()))
+
             {
-                IsLogin = false;
-                MessageBox.Show("Sai tài khoản hoặc mật khẩu!");
+                MessageBoxCustom mb = new("Cảnh báo", "Hãy nhập mật khẩu", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
+                parameter.txtPassword.Focus();
+                return;
+            }
+            int flag = 0;
+            foreach (var account in accounts)
+            {
+
+                if (account.UserName == UserName && account.Password == Password)
+                {
+                    CurrentAccount.UserRole = account.UserRole;
+                    CurrentAccount.Name = account.Name;
+                    CurrentAccount.Email = account.Email;
+                    CurrentAccount.Address = account.Address;
+                    CurrentAccount.Phone = account.Phone;
+                    CurrentAccount.idAccount = account.IdAccount;
+                    CurrentAccount.Password = account.Password;
+                    CurrentAccount.Avatar = account.Avatar;
+                    CurrentAccount.ManagerId = account.ManagerId;
+
+                    MessageBoxCustom mb = new("Thông báo", "Đăng nhập thành công", MessageType.Success, MessageButtons.OK);
+                    flag = 1;
+                    isLogin = true;
+                    mb.ShowDialog();
+                    //mb = new("Thông báo", "Đăng nhập thất bại", MessageType.Error, MessageButtons.OK);
+                    //mb.ShowDialog();
+                    //mb = new("Thông báo", "Bạn có muốn xóa hay không?", MessageType.Warning, MessageButtons.YesNo);
+                    //mb.ShowDialog();
+                    //mb = new("Thông báo", "Sự cố đã được thêm từ trước", MessageType.Info, MessageButtons.OK);
+                    //mb.ShowDialog();
+                    break;
+
+                }
+
+            }
+            if (flag == 0)
+            {
+                MessageBoxCustom mb = new("Cảnh báo", "Tên đăng nhập hoặc mật khẩu không đúng", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
+                parameter.txtUsername.Focus();
+                parameter.txtPassword.Focus();
+            }
+            if (isLogin == true && CurrentAccount.UserRole == "1")
+            {
+                AdminMainWindow home = new AdminMainWindow();
+
+                parameter.Close();
+
+                home.Dispatcher.Invoke(home.ShowDialog);
+
+
+
+            }
+            else if (isLogin == true && CurrentAccount.UserRole == "0")
+            {
+                StaffMainWindow home = new StaffMainWindow();
+
+                parameter.Close();
+                home.Dispatcher.Invoke(home.ShowDialog);
+
+
+
             }
         }
 
-        //public static string Base64Encode(string plainText)
-        //{
-        //    var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-        //    return System.Convert.ToBase64String(plainTextBytes);
-        //}
+        public void EncodingPassword(PasswordBox parameter)
+        {
+            password = parameter.Password;
+            this.password = MD5Hash(this.password);
+            this.password = MD5Hash(this.password);
+        }
+        public void OpenForgotPasswordWindow(System.Windows.Window parameter)
+        {
+            ForgotPasswordWindow forgot = new ForgotPasswordWindow();
 
-        //public static string MD5Hash(string input)
-        //{
-        //    StringBuilder hash = new StringBuilder();
-        //    MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
-        //    byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
 
-        //    for (int i = 0; i < bytes.Length; i++)
-        //    {
-        //        hash.Append(bytes[i].ToString("x2"));
-        //    }
-        //    return hash.ToString();
-        //}
+            parameter.WindowStyle = WindowStyle.None;
+            forgot.ShowDialog();
 
+            parameter.Opacity = 1;
+            parameter.Show();
+        }
 
     }
 }
