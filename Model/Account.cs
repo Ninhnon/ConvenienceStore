@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ConvenienceStore.Model
+﻿namespace ConvenienceStore.Model
 {
     public class Account
     {
@@ -18,7 +12,7 @@ namespace ConvenienceStore.Model
         public int IdAccount
         {
             get { return _idAccount; }
-             set { _idAccount = value; }
+            set { _idAccount = value; }
         }
         private string userRole_;
         public string UserRole
@@ -35,13 +29,13 @@ namespace ConvenienceStore.Model
         private string address_;
         public string Address
         {
-           get { return address_; }
+            get { return address_; }
             set { address_ = value; }
         }
         private string phone_;
         public string Phone
         {
-           get { return phone_; }
+            get { return phone_; }
             set { phone_ = value; }
         }
         private string email_;
@@ -90,10 +84,11 @@ namespace ConvenienceStore.Model
         private int tong_;
         public int Tong
         {
-            get { return tong_; } set { tong_ = value; }
+            get { return tong_; }
+            set { tong_ = value; }
         }
 
-        public Account(int idAccount_,string userRole_, string name_, string address_, string phone_, string email_, string username_, string password_, byte[] avatar_,int managerId_)
+        public Account(int idAccount_, string userRole_, string name_, string address_, string phone_, string email_, string username_, string password_, byte[] avatar_, int managerId_)
         {
             this._idAccount = idAccount_;
             this.userRole_ = userRole_;
@@ -104,10 +99,10 @@ namespace ConvenienceStore.Model
             this.username_ = username_;
             this.password_ = password_;
             this.avatar_ = avatar_;
-            this.managerId_= managerId_;
+            this.managerId_ = managerId_;
         }
-    
-        public Account(string userRole_, string name_, string address_, string phone_, string email_, string username_, string password_, byte[]avatar_,int managerId_)
+
+        public Account(string userRole_, string name_, string address_, string phone_, string email_, string username_, string password_, byte[] avatar_, int managerId_)
         {
 
             this.userRole_ = userRole_;
@@ -121,11 +116,11 @@ namespace ConvenienceStore.Model
             this.managerId_ = managerId_;
 
         }
-        public Account(int idAccount,string name_, int tong_)
+        public Account(int idAccount, string name_, int tong_)
         {
             this._idAccount = idAccount;
-            this.name_= name_;
-            this.tong_= tong_;
+            this.name_ = name_;
+            this.tong_ = tong_;
         }
     }
 }

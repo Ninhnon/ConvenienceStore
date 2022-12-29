@@ -1,19 +1,9 @@
-﻿using ConvenienceStore.Model;
-using ConvenienceStore.Model.Admin;
-using ConvenienceStore.Model.Staff;
+﻿using ConvenienceStore.Model.Admin;
 using LiveCharts;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Forms;
 
 namespace ConvenienceStore.Utils.DataLayerAccess
 {
@@ -463,7 +453,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
 
                 {
                     Barcode = read.GetString(0),
-                   Title= read.GetString(1),
+                    Title = read.GetString(1),
                     Total = read.GetInt32(2)
 
 
@@ -571,7 +561,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
 
 
             }
-            
+
         }
         public string QueryDrinkRevenueInYear(string year)
         {
@@ -607,7 +597,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
 
 
             }
-          
+
         }
         public string QueryOtherRevenueInYear(string year)
         {
@@ -643,7 +633,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
 
 
             }
-          
+
         }
         public string QueryFoodRevenueInMonth(string month, string year)
         {
@@ -679,7 +669,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
 
 
             }
-           
+
         }
         public string QueryDrinkRevenueInMonth(string month, string year)
         {
@@ -718,7 +708,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
 
             }
         }
-        public string QueryOtherRevenueInMonth(string month,string year)
+        public string QueryOtherRevenueInMonth(string month, string year)
         {
             string s = "0";
             try
@@ -751,10 +741,10 @@ namespace ConvenienceStore.Utils.DataLayerAccess
 
 
             }
-          
+
         }
 
-        public string QueryFoodRevenueInDay(string day,string month, string year)
+        public string QueryFoodRevenueInDay(string day, string month, string year)
         {
             string s = "0";
             try
@@ -788,11 +778,12 @@ namespace ConvenienceStore.Utils.DataLayerAccess
 
             }
         }
-        public string QueryDrinkRevenueInDay(string day,string month, string year)
+        public string QueryDrinkRevenueInDay(string day, string month, string year)
         {
 
             string s = "0";
-            try {
+            try
+            {
 
                 OpenConnection();
                 string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
@@ -816,13 +807,13 @@ namespace ConvenienceStore.Utils.DataLayerAccess
 
             finally
             {
-               
+
                 CloseConnection();
 
-              
+
             }
         }
-        public string QueryOtherRevenueInDay(string day,string month, string year)
+        public string QueryOtherRevenueInDay(string day, string month, string year)
         {
 
             string s = "0";
@@ -926,7 +917,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
 
             }
         }
-        public string QuerySalaryYear( string year)
+        public string QuerySalaryYear(string year)
         {
 
             string s = "0";
@@ -934,7 +925,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             {
 
                 OpenConnection();
-                string queryString = string.Format("select sum(totalmoney) as tong from salarybill where year(salarybilldate)={0}",  int.Parse(year));
+                string queryString = string.Format("select sum(totalmoney) as tong from salarybill where year(salarybilldate)={0}", int.Parse(year));
                 SqlCommand command = new SqlCommand(queryString, conn);
                 SqlDataReader rdr = command.ExecuteReader();
 
@@ -961,60 +952,60 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             }
         }
 
-        public int QueryRevenueNumOfSoldBillInMonth( string month,string year)
+        public int QueryRevenueNumOfSoldBillInMonth(string month, string year)
         {
             int res = 0;
-         
-                OpenConnection();
-                string queryString = string.Format("select count(Id) as numOfSoldBill from Bill " +
-                    "where year(BillDate) = {0} and month(BillDate) = {1}", int.Parse(year), int.Parse(month));
-                SqlCommand command = new SqlCommand(queryString, conn);
 
-                SqlDataReader rdr = command.ExecuteReader();
-                while (rdr.Read())
-                {
-                    res = int.Parse(rdr["numOfSoldBill"].ToString());
-                }
-                return res;
-         
-                CloseConnection();
-            
+            OpenConnection();
+            string queryString = string.Format("select count(Id) as numOfSoldBill from Bill " +
+                "where year(BillDate) = {0} and month(BillDate) = {1}", int.Parse(year), int.Parse(month));
+            SqlCommand command = new SqlCommand(queryString, conn);
+
+            SqlDataReader rdr = command.ExecuteReader();
+            while (rdr.Read())
+            {
+                res = int.Parse(rdr["numOfSoldBill"].ToString());
+            }
+            return res;
+
+            CloseConnection();
+
         }
         public string[] QueryMonthInYear(string year)
         {
             List<string> res = new List<string>();
-        
-                OpenConnection();
-                string queryString = string.Format("select distinct month(BillDate) as month from Bill where year(BillDate) = {0} ", year);
-                SqlCommand command = new SqlCommand(queryString, conn);
 
-                SqlDataReader rdr = command.ExecuteReader();
-                while (rdr.Read())
-                {
-                    res.Add(rdr["month"].ToString());
-                }
-                return res.ToArray();
-          
-                CloseConnection();
-            
+            OpenConnection();
+            string queryString = string.Format("select distinct month(BillDate) as month from Bill where year(BillDate) = {0} ", year);
+            SqlCommand command = new SqlCommand(queryString, conn);
+
+            SqlDataReader rdr = command.ExecuteReader();
+            while (rdr.Read())
+            {
+                res.Add(rdr["month"].ToString());
+            }
+            return res.ToArray();
+
+            CloseConnection();
+
         }
-        public List<string> QueryMonthInYearList (string year)
+        public List<string> QueryMonthInYearList(string year)
         {
             List<string> res = new List<string>();
-           
-                OpenConnection();
-                string queryString = string.Format("select distinct month(BillDate) as month from Bill where year(BillDate) = {0} ", year);
-                SqlCommand command = new SqlCommand(queryString, conn);
 
-                SqlDataReader rdr = command.ExecuteReader();
-                while (rdr.Read())
-                {
-                    res.Add(rdr["month"].ToString());
-                }
-                return res;
-          
-                CloseConnection();
-            
+            OpenConnection();
+            string queryString = string.Format("select distinct month(BillDate) as month from Bill where year(BillDate) = {0} ", year);
+            SqlCommand command = new SqlCommand(queryString, conn);
+
+            SqlDataReader rdr = command.ExecuteReader();
+            while (rdr.Read())
+            {
+                res.Add(rdr["month"].ToString());
+            }
+            return res;
+
+            CloseConnection();
+
         }
 
         public ChartValues<long> QueryRevenueByYear(string year)

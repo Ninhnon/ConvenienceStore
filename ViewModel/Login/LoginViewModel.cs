@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows;
-using System.Windows.Input;
-using ConvenienceStore.Views;
-using ConvenienceStore.Model;
-using ConvenienceStore.Views.Staff;
+﻿using ConvenienceStore.Model;
 using ConvenienceStore.Utils.DataLayerAccess;
 using ConvenienceStore.ViewModel.Admin;
+using ConvenienceStore.Views;
 using ConvenienceStore.Views.Admin;
 using ConvenienceStore.Views.Login;
-using ConvenienceStore.Utils.Helpers;
-using ConvenienceStore.ViewModel.Admin.Command;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using ConvenienceStore.Views.Staff;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.Login
 {
@@ -59,7 +52,7 @@ namespace ConvenienceStore.ViewModel.Login
             int flag = 0;
             foreach (var account in accounts)
             {
-              
+
                 if (account.UserName == UserName && account.Password == Password)
                 {
                     CurrentAccount.UserRole = account.UserRole;
@@ -70,8 +63,8 @@ namespace ConvenienceStore.ViewModel.Login
                     CurrentAccount.idAccount = account.IdAccount;
                     CurrentAccount.Password = account.Password;
                     CurrentAccount.Avatar = account.Avatar;
-                    CurrentAccount.ManagerId=account.ManagerId;
-                    
+                    CurrentAccount.ManagerId = account.ManagerId;
+
                     MessageBoxCustom mb = new("Thông báo", "Đăng nhập thành công", MessageType.Success, MessageButtons.OK);
                     flag = 1;
                     isLogin = true;
@@ -97,23 +90,23 @@ namespace ConvenienceStore.ViewModel.Login
             if (isLogin == true && CurrentAccount.UserRole == "1")
             {
                 AdminMainWindow home = new AdminMainWindow();
-  
-                parameter.Close();
-           
-                home.Dispatcher.Invoke(home.ShowDialog);
-           
 
-            
+                parameter.Close();
+
+                home.Dispatcher.Invoke(home.ShowDialog);
+
+
+
             }
             else if (isLogin == true && CurrentAccount.UserRole == "0")
             {
                 StaffMainWindow home = new StaffMainWindow();
-              
+
                 parameter.Close();
                 home.Dispatcher.Invoke(home.ShowDialog);
-             
 
-          
+
+
             }
         }
 
@@ -125,15 +118,15 @@ namespace ConvenienceStore.ViewModel.Login
         }
         public void OpenForgotPasswordWindow(System.Windows.Window parameter)
         {
-            ForgotPasswordWindow forgot=new ForgotPasswordWindow();
-            
-            
+            ForgotPasswordWindow forgot = new ForgotPasswordWindow();
+
+
             parameter.WindowStyle = WindowStyle.None;
             forgot.ShowDialog();
-           
+
             parameter.Opacity = 1;
             parameter.Show();
         }
-        
+
     }
 }

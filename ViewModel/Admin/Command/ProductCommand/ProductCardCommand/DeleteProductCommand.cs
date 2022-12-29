@@ -1,13 +1,8 @@
 ﻿using ConvenienceStore.Model.Admin;
-using ConvenienceStore.ViewModel.Admin.AdminVM;
 using ConvenienceStore.Utils.Helpers;
+using ConvenienceStore.ViewModel.Admin.AdminVM;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using MaterialDesignThemes.Wpf;
 
 namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCommand
 {

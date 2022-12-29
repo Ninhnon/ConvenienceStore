@@ -1,11 +1,5 @@
 ﻿using ConvenienceStore.ViewModel.Admin.AdminVM;
-using Emgu.CV;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -29,7 +23,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
         {
             var values = (object[])parameter;
             var s = (string)values[0];
-            return 8 <= s.Length && s.Length <= 13 ;
+            return 8 <= s.Length && s.Length <= 13;
         }
 
         public void Execute(object parameter)

@@ -18,7 +18,7 @@ namespace ConvenienceStore.Utils.Helpers
                                                   where InputInfo.UserId = Users.Id and InputInfo.SupplierId = Supplier.Id
                                                   order by InputDate asc";
 
-        static readonly string queryProducts = @"select Barcode, Title, ProductionSite, Image, Stock, InputPrice, OutputPrice, ManufacturingDate, ExpiryDate, Discount, Type, InStock
+        static readonly string queryProducts = @"select Barcode, Title, ProductionSite, Image, Stock, InputPrice, OutputPrice, ManufacturingDate, ExpiryDate, Discount, Type
                                                  from Consignment, Product
                                                  where InputInfoId = {0} and ProductId = Barcode";
 
@@ -49,7 +49,7 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryVoucherViaBlockId = @"select Code, Status from Voucher
                                                           where BlockId = {0}";
 
-        static readonly string querySmallProductWithOutImage = @"select Barcode, Title, Type, ProductionSite, SUM(InStock), COUNT(InputInfoId) from Product, Consignment
+        static readonly string querySmallProductWithOutImage = @"select Barcode, Title, Type, ProductionSite, SUM(Stock), COUNT(InputInfoId) from Product, Consignment
                                                                  where ProductId = Barcode
                                                                  group by Barcode, Title, Type, ProductionSite";
 
@@ -63,7 +63,7 @@ namespace ConvenienceStore.Utils.Helpers
 
         static readonly string insertProduct = "insert Product values (@Barcode, @Title, @Image, @Type, @ProductionSite)";
 
-        static readonly string insertConsignment = "insert Consignment values ({0}, '{1}', {2}, '{3}', '{4}', {5}, {6}, {7}, {8})";
+        static readonly string insertConsignment = "insert Consignment values ({0}, '{1}', {2}, '{3}', '{4}', {5}, {6}, {7})";
 
         static readonly string insertSupplier = "insert Supplier values (N'{0}', N'{1}', '{2}', '{3}')";
 
@@ -171,8 +171,7 @@ namespace ConvenienceStore.Utils.Helpers
                     ManufacturingDate = reader.GetDateTime(7),
                     ExpiryDate = reader.GetDateTime(8),
                     Discount = reader.GetDouble(9) * 100,
-                    Type = reader.GetString(10),
-                    InStock = reader.GetInt32(11)
+                    Type = reader.GetString(10)
                 });
 
             }
@@ -657,9 +656,7 @@ namespace ConvenienceStore.Utils.Helpers
                 product.ExpiryDate,
                 product.Cost,
                 product.Price,
-                product.Discount,
-                // Lúc nhập hàng thì InStock = Stock
-                product.Stock
+                product.Discount
             );
 
             cmd = new SqlCommand(strCmd, sqlCon);
@@ -783,8 +780,7 @@ namespace ConvenienceStore.Utils.Helpers
                 editedSupplier.Address,
                 editedSupplier.Phone,
                 editedSupplier.Email,
-                editedSupplier.Id
-            );
+                editedSupplier.Id);
             var cmd = new SqlCommand(strCmd, sqlCon);
             cmd.ExecuteNonQuery();
 

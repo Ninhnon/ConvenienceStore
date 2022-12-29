@@ -3,9 +3,7 @@ using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Utils.Validation;
 using ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand.DeleteInputInfoCommand;
-using ConvenienceStore.Views;
 using ConvenienceStore.Views.Admin.TroubleWindow;
-using Emgu.CV.Cuda;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -268,7 +266,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 p.startErrorMessage.Text = "Ngày bắt đầu phải lớn hơn ngày báo cáo";
                 isValid = false;
             }
-            if (!p.StartDate.SelectedDate.HasValue && (p.cbxStatus.Text =="Đang giải quyết" || p.cbxStatus.Text == "Đã giải quyết"))
+            if (!p.StartDate.SelectedDate.HasValue && (p.cbxStatus.Text == "Đang giải quyết" || p.cbxStatus.Text == "Đã giải quyết"))
             {
                 p.startErrorMessage.Text = "Chưa nhập ngày bắt đầu";
                 isValid = false;
@@ -303,7 +301,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 newReport.StartDate = null;
             else newReport.StartDate = p.StartDate.SelectedDate;
             if (!p.FinishDate.SelectedDate.HasValue || p.cbxStatus.Text == "Chờ tiếp nhận" || p.cbxStatus.Text == "Đang giải quyết")
-                 newReport.FinishDate = null;
+                newReport.FinishDate = null;
             else newReport.FinishDate = p.FinishDate.SelectedDate;
             //}
             //else
@@ -338,7 +336,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 tmpReport.FinishDate != newReport.FinishDate)
             {
                 DatabaseHelper.UpdateReportAD(newReport);
-                for(int i=0;i<Reports.Count;i++)
+                for (int i = 0; i < Reports.Count; i++)
                 {
                     if (Reports[i].Id == newReport.Id)
                     {

@@ -1,22 +1,17 @@
 ﻿using ConvenienceStore.Model;
-using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.StaffVM;
 using ConvenienceStore.ViewModel.StaffVM.TroubleWindowVM;
 using ConvenienceStore.Views.Staff.TroubleWindow;
-using Emgu.CV.ML;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -177,7 +172,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             {
                 ViewError w = new();
                 ReportName = DatabaseHelper.GetName(SelectedItem.StaffId);
-                
+
                 if (SelectedItem.RepairCost == null)
                 {
                     w._cost.IsEnabled = false;
@@ -214,7 +209,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             OpenAddErrorCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 RenewWindowData();
-                MaskName.Visibility= Visibility.Visible;
+                MaskName.Visibility = Visibility.Visible;
                 AddTrouble w1 = new();
                 w1.StaffName.Text = CurrentAccount.Name.ToString();
                 w1.cbxStatus.Text = "Chờ tiếp nhận";
@@ -255,7 +250,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             UpdateReportButtonCommand = new RelayCommand<EditTrouble>((p) => { return true; }, (p) =>
             {
                 IsSaving = true;
-                Update(p,tmpReport, TroubleSnackbar);
+                Update(p, tmpReport, TroubleSnackbar);
                 IsSaving = false;
             });
             LoadEditErrorCM = new RelayCommand<DataGrid>((p) => { return true; }, (p) =>
@@ -269,7 +264,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
 
             CloseCM = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, (p) =>
              {
-                 MaskName.Visibility= Visibility.Collapsed;
+                 MaskName.Visibility = Visibility.Collapsed;
                  p.Close();
              });
             MouseMoveCommand = new RelayCommand<Window>((p) => { return p != null; }, (p) =>

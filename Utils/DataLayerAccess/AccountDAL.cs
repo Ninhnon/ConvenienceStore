@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
-using ConvenienceStore.Model;
+﻿using ConvenienceStore.Model;
 using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Utils.Helpers;
-using ZXing;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace ConvenienceStore.Utils.DataLayerAccess
 {
@@ -80,13 +70,13 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             List<Account> accounts = DatabaseHelper.FetchingAccountData();
             return accounts;
         }
-        public  List<SalaryBill> LoadSalaryBill()
+        public List<SalaryBill> LoadSalaryBill()
         {
             string query = string.Format("select * from salarybill");
             OpenConnection();
             var cmd = new SqlCommand(query, conn);
             List<SalaryBill> bills = new List<SalaryBill>();
-     
+
             SqlDataReader read = cmd.ExecuteReader();
             string a;
             string s;
@@ -97,12 +87,12 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 a = read.GetDateTime(1).ToString();
                 s = a.Split(" ")[0];
                 bill.BillDate = s;
-                bill.IdAccount =read.GetInt32(2);
+                bill.IdAccount = read.GetInt32(2);
                 bill.Price = read.GetInt32(3);
                 bills.Add(bill);
-              
+
             }
-        for(int i=0; i < bills.Count; i++)
+            for (int i = 0; i < bills.Count; i++)
             {
                 bills[i].EmployeeName = GetUserNameById(bills[i].IdAccount);
             }
@@ -114,7 +104,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         {
             string s = "";
 
-           
+
             try
             {
                 OpenConnection();
@@ -151,7 +141,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             CloseConnection();
 
         }
-        public void UpdateManager (int id, int newId)
+        public void UpdateManager(int id, int newId)
         {
             OpenConnection();
             string query = "Update Users set ManagerId=@newId where id=@id";
@@ -179,26 +169,26 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             cmd.ExecuteNonQuery();
             CloseConnection();
         }
-       
+
         public void DeleteAccount(int idAccount)
         {
-         
-                OpenConnection();
-                string query = "delete from Users where Id = " + idAccount;
-                SqlCommand command = new SqlCommand(query, conn);
+
+            OpenConnection();
+            string query = "delete from Users where Id = " + idAccount;
+            SqlCommand command = new SqlCommand(query, conn);
             command.ExecuteNonQuery();
-                   
-                CloseConnection();
-            
+
+            CloseConnection();
+
         }
-     
+
         public void setNewPass(string pass, string email)
         {
             OpenConnection();
-            string query = String.Format("Update Users set Password=\'{0}\' where Email=\'{1}\'",pass , email);
-           
+            string query = String.Format("Update Users set Password=\'{0}\' where Email=\'{1}\'", pass, email);
 
-          
+
+
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.ExecuteNonQuery();
             CloseConnection();
@@ -271,7 +261,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    string a= reader.GetDateTime(0).ToString();
+                    string a = reader.GetDateTime(0).ToString();
                     s = a.Split(" ")[0];
                 }
 
@@ -294,17 +284,17 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             try
             {
                 OpenConnection();
-                string queryString = String.Format("select salary from Users where id={0}",id.ToString());
+                string queryString = String.Format("select salary from Users where id={0}", id.ToString());
                 SqlCommand command = new SqlCommand(queryString, conn);
                 SqlDataReader reader = command.ExecuteReader();
-               while(reader.Read())
+                while (reader.Read())
                 {
                     salary = reader.GetInt32(0);
-                }    
+                }
 
 
-                    return salary;
-                
+                return salary;
+
             }
             catch
             {
@@ -318,7 +308,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         public void SetSalaryDate(int id)
         {
             OpenConnection();
-            string query =string.Format("update users set SalaryDate=GetDate() where id={0}",id);
+            string query = string.Format("update users set SalaryDate=GetDate() where id={0}", id);
             SqlCommand command = new SqlCommand(query, conn);
             command.ExecuteNonQuery();
             CloseConnection();
@@ -335,7 +325,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         public void InsertSalaryBill(int id, int money)
         {
             OpenConnection();
-            string query = string.Format("INSERT INTO salarybill  Values (DATEADD(day, 1, GetDate()),{0},{1})", id,money);
+            string query = string.Format("INSERT INTO salarybill  Values (DATEADD(day, 1, GetDate()),{0},{1})", id, money);
             SqlCommand command = new SqlCommand(query, conn);
             command.ExecuteNonQuery();
             CloseConnection();

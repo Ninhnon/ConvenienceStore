@@ -1,15 +1,11 @@
 ﻿using ConvenienceStore.Model.Admin;
+using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Utils.Validation;
 using ConvenienceStore.ViewModel.Admin.AdminVM;
-using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Views.Admin.ProductWindow;
 using FluentValidation;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -152,7 +148,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
                     window.ExpiryDateErrorMessage.Text = "HSD phải > Ngày nhập hàng";
                     isValid = false;
                 }
-            }    
+            }
 
             // Check xem manager đã upload ảnh lên chưa
             //if (window.ImageProduct.ImageSource == null)

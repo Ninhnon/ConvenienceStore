@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ConvenienceStore.ViewModel.Admin
 {
@@ -26,7 +22,7 @@ namespace ConvenienceStore.ViewModel.Admin
             {
                 hash.Append(bytes[i].ToString("X2"));
             }
-            return hash.ToString().ToLower() ;
+            return hash.ToString().ToLower();
         }
     }
 }
