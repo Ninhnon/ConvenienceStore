@@ -65,7 +65,6 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCom
                 currentProduct.Image != coppyCurProduct.Image ||
                 currentProduct.Cost != coppyCurProduct.Cost ||
                 currentProduct.Price != coppyCurProduct.Price ||
-                currentProduct.Stock != coppyCurProduct.Stock ||
                 currentProduct.ManufacturingDate != coppyCurProduct.ManufacturingDate ||
                 currentProduct.ExpiryDate != coppyCurProduct.ExpiryDate ||
                 currentProduct.Discount != coppyCurProduct.Discount)

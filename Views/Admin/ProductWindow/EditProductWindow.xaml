@@ -116,15 +116,10 @@
                                                Margin="0 0 0 10"/>  
                                 </StackPanel>
                                 <StackPanel Grid.Column="2">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Loại"
-                                                   FontSize="16"
-                                                   FontWeight="SemiBold"
-                                                   Height="22"/>
-                                        <TextBlock Text=" *"
-                                                   Foreground="Red"
-                                                   FontSize="16"/>
-                                    </StackPanel>
+                                    <TextBlock Text="Loại"
+                                                FontSize="16"
+                                                FontWeight="SemiBold"
+                                                Height="22"/>
                                     <ComboBox x:Name="TypeComboBox"
                                               Height="28.95"
                                               Margin="0 4 0 0"
@@ -382,39 +377,7 @@
                                            
                                            Foreground="Red"/>
                         </StackPanel>
-
-                        <StackPanel Grid.Column="2">
-
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Số lượng"
-                                               FontSize="18"
-                                               FontWeight="SemiBold"
-                                               Height="24"/>
-                                <ToggleButton x:Name="StockToggleButton"
-                                              Style="{StaticResource LockToggleButton}"
-                                              Foreground="LightGray"
-                                              Margin="5 0 0 0"/>
-                            </StackPanel>
-
-                            <Grid>
-
-                                <TextBlock Text="{Binding ElementName=StockTextBox, Path=Text}"
-                                           VerticalAlignment="Top"
-                                           Foreground="Gray"
-                                           Margin="2 8 0 0"/>
-
-                                <TextBox x:Name="StockTextBox"
-                                         Text="{Binding Stock, Mode=OneTime}"
-                                         Background="White"
-                                         VerticalContentAlignment="Center"
-                                         Visibility="{Binding ElementName=StockToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
-
-                            </Grid>
-
-                            <TextBlock x:Name="StockErrorMessage"
-                                           Height="16"
-                                           Foreground="Red"/>
-                        </StackPanel>
+                        
                     </Grid>
 
 
