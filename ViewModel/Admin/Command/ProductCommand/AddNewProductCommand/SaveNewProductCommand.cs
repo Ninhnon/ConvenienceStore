@@ -62,7 +62,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
 
             if (window.TypeComboBox.SelectedIndex == -1)
             {
-                window.TypeErrorMessage.Text = "Chưa chọn loại sản phẩm";
+                window.TypeErrorMessage.Text = "Chưa chọn loại SP";
                 isValid = false;
             }
 
