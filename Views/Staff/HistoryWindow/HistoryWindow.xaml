@@ -175,10 +175,11 @@
                       ItemsSource="{Binding BillList, Mode=TwoWay}"
                           SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                      ScrollViewer.VerticalScrollBarVisibility="Visible"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
                       ScrollViewer.CanContentScroll="True"
                       VirtualizingPanel.IsVirtualizing="True"
                       Height="434"
+                          Width="1050"
                       CanUserAddRows="False"
                       AutoGenerateColumns="False"
                       Style="{DynamicResource DataGridStyle2}">
@@ -242,28 +243,6 @@
                                             CanUserResize="False"
                                             Width="Auto">
                             <DataGridTemplateColumn.CellTemplate>
-                                <!--<DataTemplate>
-                                    <StackPanel Orientation="Horizontal" DataContext="{StaticResource SupplierVM}">
-                                        <Button Style="{StaticResource MaterialDesignFlatLightButton}"
-                                            Content="{materialDesign:PackIcon Kind=Edit, Size=24}"
-                                            Foreground="#4B0082"
-                                            Height="32"
-                                            Padding="6 4"
-                                            Command="{Binding Source={StaticResource SupplierVM}, Path=EditSupplierButton}"
-                                            CommandParameter="{Binding}"/>
-                                        <Button Style="{StaticResource MaterialDesignFlatLightButton}"
-                                            Content="{materialDesign:PackIcon Kind=Delete, Size=24}"
-                                            Height="32"
-                                            Foreground="#CF0A0A"
-                                            Padding="6 4"
-                                            Margin="15 0 0 0"
-                                            HorizontalAlignment="Right"
-                                                DataContext="{StaticResource HistoryVM}"
-                                            Command="{Binding GetMoreBillDetailCM }"
-                                            CommandParameter="{Binding ElementName=billsDataGrid}"/>
-
-                                    </StackPanel>
-                                </DataTemplate>-->
                                 <DataTemplate>
                                     <Border Cursor="Hand"
                                             Background="Transparent" 
