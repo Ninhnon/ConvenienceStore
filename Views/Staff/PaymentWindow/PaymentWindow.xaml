@@ -272,7 +272,7 @@
                                 <!--Define maximum item in one row-->
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <UniformGrid Columns="4" />
+                                        <UniformGrid Columns="4"/>
                                     </ItemsPanelTemplate>
                                 </ListBox.ItemsPanel>
 
