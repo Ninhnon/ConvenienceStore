@@ -477,6 +477,9 @@ namespace ConvenienceStore.ViewModel.StaffVM
                         ShoppingCart.RemoveAt(ShoppingCart.Count - 1);
                     }
                     TotalBill = 0;
+
+                    //Update danh sách sản phẩm
+                    LoadCommand.Execute(this);
                 }
 
                 // Trả tổng đơn giá về ban đầu
@@ -714,9 +717,6 @@ namespace ConvenienceStore.ViewModel.StaffVM
                     DatabaseHelper.UpdateVoucherStatus(VoucherCode);
                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Thanh toán thành công", MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
-
-                    //Update danh sách sản phẩm
-                    LoadCommand.Execute(this);
 
                     //Disable nút thanh toán
                     p.IsEnabled = false;
