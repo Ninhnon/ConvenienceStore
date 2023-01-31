@@ -868,7 +868,5 @@ namespace ConvenienceStore.ViewModel.StaffVM
                 }
             });
         }
-
-
     }
 }

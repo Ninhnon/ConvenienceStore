@@ -1,4 +1,5 @@
 ﻿using ConvenienceStore.Model;
+using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.StaffVM;
@@ -8,8 +9,10 @@ using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -22,6 +25,36 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
 {
     public partial class TroublePageViewModel : BaseViewModel
     {
+        private BackgroundWorker worker;
+        private bool _IsLoading;
+        public bool IsLoading { get { return _IsLoading; } set { _IsLoading = value; OnPropertyChanged(); } }
+
+        private void Worker_ProgressChanged(object? sender, ProgressChangedEventArgs e)
+        {
+            IsLoading = false;
+        }
+
+        public void LoadData()
+        {
+            IsLoading = true;
+            try
+            {
+                worker.RunWorkerAsync();
+            }
+            catch
+            {
+                //get some more time for worker
+            }
+        }
+
+        private void Worker_DoWork(object? sender, DoWorkEventArgs e)
+        {
+
+            Thread.Sleep(2000);
+            danhsach = DatabaseHelper.FetchingReportData();
+            ListError = new ObservableCollection<Report>(danhsach);
+            (sender as BackgroundWorker).ReportProgress(0);
+        }
 
         private ObservableCollection<Report>? _ListError;
         public ObservableCollection<Report>? ListError
@@ -109,6 +142,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         public ICommand MouseMoveCommand { get; set; }
         public ICommand SaveNewTroubleCommand { get; set; }
         public ICommand UpdateReportButtonCommand { get; set; }
+        public ICommand LoadTroublePageCM { get; set; }
         public Grid MaskName { get; set; }
 
         public List<Report> danhsach = new();
@@ -132,11 +166,16 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
 
         public TroublePageViewModel()
         {
+            worker = new BackgroundWorker { WorkerReportsProgress = true };
+            worker.DoWork += Worker_DoWork;
+            worker.ProgressChanged += Worker_ProgressChanged;
+
             BindingTroubleSnackbar = new BindingTroubleSnackbar(this);
 
-            danhsach = DatabaseHelper.FetchingReportData();
+            //danhsach = DatabaseHelper.FetchingReportData();
+            //ListError = new ObservableCollection<Report>(danhsach);
             //MaskName.Visibility = Visibility.Collapsed;
-            ListError = new ObservableCollection<Report>(danhsach);
+
             GetCurrentDate = DateTime.Today;
             //FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             //{
@@ -147,6 +186,15 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             //    //ListError = new ObservableCollection<Report>(danhsach);
             //    IsLoading = false;
             //});
+            LoadTroublePageCM = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                ListError = null;
+                LoadData();
+            });
+
             MaskNameCM = new RelayCommand<Grid>((p) =>
             {
                 return true;

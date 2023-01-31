@@ -17,7 +17,8 @@
       TextOptions.TextRenderingMode="Auto"
       DataContext="{StaticResource HistoryVM}"
       ShowsNavigationUI="False"
-      FontFamily="{DynamicResource MaterialDesignFont}">
+      FontFamily="{DynamicResource MaterialDesignFont}"
+      xmlns:fa="http://schemas.fontawesome.io/icons/">
     <Border CornerRadius="8">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,1"
@@ -189,6 +190,45 @@
                             <ColumnDefinition Width="1050" />
                             <ColumnDefinition Width="auto" />
                         </Grid.ColumnDefinitions>
+
+                        <StackPanel Panel.ZIndex="1"
+                                    Grid.RowSpan="3"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Visibility="{Binding IsLoading, Converter={StaticResource MyBoolToVisibility}}">
+
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsLoading}"
+                                                     Value="True">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                         From="1"
+                                                                         To="0"
+                                                                         Duration="0:0:3"
+                                                                         AutoReverse="True"
+                                                                         RepeatBehavior="Forever" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+
+                            <fa:ImageAwesome Icon="Refresh"
+                                             Spin="True"
+                                             Height="50"
+                                             Width="50"
+                                             Grid.RowSpan="3" />
+
+                            <TextBlock Text="Đang tải dữ liệu ..."
+                                       FontSize="18"
+                                       Margin="0 10 0 0" />
+                        </StackPanel>
 
                         <DataGrid Grid.Column="0"
                                   x:Name="billsDataGrid"
