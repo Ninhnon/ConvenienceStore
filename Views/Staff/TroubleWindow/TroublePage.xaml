@@ -190,8 +190,7 @@
                                   x:Name="errorDatagrid"
                                   ToolTip="Nháy đúp để xem chi tiết"
                                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                  Height="450">
+                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
 
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseDoubleClick">

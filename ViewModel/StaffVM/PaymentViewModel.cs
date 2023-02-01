@@ -51,7 +51,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
         public ICommand OpenAddCustomerWindow { get; set; }
         #endregion
 
-        #region Icommand AddCustomer
+        #region AddCustomer Icommand
         public ICommand BackCommand { get; set; }
         public ICommand IsValidName { get; set; }
         public ICommand IsValidPhoneNumber { get; set; }

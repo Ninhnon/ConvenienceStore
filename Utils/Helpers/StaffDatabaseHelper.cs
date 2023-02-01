@@ -10,15 +10,15 @@ namespace ConvenienceStore.Utils.Helpers
 {
     public partial class DatabaseHelper
     {
-        static readonly string queryProduct = @"select Barcode,Title,ProductionSite,Image,InputPrice,OutputPrice,InStock,ManufacturingDate,ExpiryDate,Discount,Type,InputInfoId
-        from Consignment c,Product p,
+        static readonly string queryProduct = @"select Barcode,Title,ProductionSite,Image,InputPrice,OutputPrice,InStock,ManufacturingDate,ExpiryDate,Discount,Type, InputInfoId
+        from Consignment c,Product p, InputInfo iii,
         ( 
-        select ProductId, min([ExpiryDate]) e
-        from Consignment
-        where InStock>0 AND ExpiryDate > GETDATE()
+        select  distinct cc.ProductId, min([ExpiryDate]) e, min(InputDate) ii
+        from Consignment cc, InputInfo i
+        where InStock>0 AND ExpiryDate > GETDATE() and i.Id=cc.InputInfoId
         group by ProductId
         ) h
-        where c.ProductId=p.Barcode and h.ProductId=c.ProductId and h.e = c.ExpiryDate
+        where c.ProductId=p.Barcode and h.ProductId=c.ProductId and h.e = c.ExpiryDate and iii.id= c.InputInfoId and iii.InputDate=h.ii 
         order by ExpiryDate";
         static readonly string queryProductT = @"select Barcode,Title,ProductionSite,Image,InputPrice,OutputPrice,InStock,ManufacturingDate,ExpiryDate,Discount,Type,InputInfoId
         from Consignment c,Product p
