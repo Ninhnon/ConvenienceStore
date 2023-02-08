@@ -668,5 +668,20 @@ namespace ConvenienceStore.Utils.Helpers
             cmd.Dispose();
             sqlCon.Close();
         }
+        public static string GetName(int id)
+        {
+            var strCmd = string.Format(queryName, id);
+            sqlCon.Open();
+            string s = "Nguyễn Trọng Ninh";
+            SqlCommand cmd = new(strCmd, sqlCon);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                s = reader.GetString(0);
+            }
+            reader.Close();
+            sqlCon.Close();
+            return s;
+        }
     }
 }

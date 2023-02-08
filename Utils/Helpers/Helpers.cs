@@ -140,5 +140,9 @@ namespace ConvenienceStore.Utils.Helpers
             return string.Format(CultureInfo.InvariantCulture,
                                 "{0:#,#}", n);
         }
+        public static string? GetStaffName(int StaffId)
+        {
+            return DatabaseHelper.GetName(StaffId);
+        }
     }
 }

@@ -229,7 +229,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public void LoadEditError(EditTrouble w1)
         {
             w1.CostTextBox.Text = tmpReport.RepairCost.ToString();
-            w1.StaffName.Text = CurrentAccount.Name;
+            w1.StaffName.Text = DatabaseHelper.GetName(tmpReport.StaffId);
             w1.cbxStatus.Text = tmpReport.Status;
             w1.submitdate.Text = tmpReport.SubmittedAt.ToShortDateString();
             if (tmpReport.StartDate.HasValue) w1.startdate.Text = String.Format("{0:dd/MM/yyyy}", tmpReport.StartDate);

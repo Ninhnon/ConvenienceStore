@@ -219,7 +219,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             LoadDetailWindowCM = new RelayCommand<DataGrid>((p) => { return true; }, (p) =>
             {
                 ViewError w = new();
-                ReportName = CurrentAccount.Name;
+                ReportName = DatabaseHelper.GetName(SelectedItem.StaffId);
 
                 if (SelectedItem.RepairCost == null)
                 {
