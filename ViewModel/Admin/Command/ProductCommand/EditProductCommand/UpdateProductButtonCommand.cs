@@ -81,7 +81,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.EditProductCom
                 Price = int.Parse(window.PriceTextBox.Text),
                 ManufacturingDate = (DateTime)window.ManufacturingDate.SelectedDate,
                 ExpiryDate = (DateTime)window.ExpiryDate.SelectedDate,
-                Discount = double.Parse(window.DiscountTextBox.Text)
+                Discount = double.Parse(window.DiscountTextBox.Text),
             };
 
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
@@ -137,7 +137,6 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.EditProductCom
             curProduct.ManufacturingDate = newProduct.ManufacturingDate;
             curProduct.ExpiryDate = newProduct.ExpiryDate;
             curProduct.Discount = newProduct.Discount;
-            curProduct.Stock = newProduct.Stock;
 
             window.Close();
         }
