@@ -30,6 +30,7 @@ namespace ConvenienceStore.Views.Admin
         private void EmployeeClick(object sender, RoutedEventArgs e)
         {
             this.HistoryDataGrid.Visibility = Visibility.Hidden;
+            this.SearchGrid.Visibility = Visibility.Visible;
             this.AccountsDataGrid.Visibility = Visibility.Visible;
 
         }
@@ -37,6 +38,7 @@ namespace ConvenienceStore.Views.Admin
         private void HistoryClick(object sender, RoutedEventArgs e)
         {
             this.AccountsDataGrid.Visibility = Visibility.Hidden;
+            this.SearchGrid.Visibility = Visibility.Hidden;
             this.HistoryDataGrid.Visibility = Visibility.Visible;
         }
     }

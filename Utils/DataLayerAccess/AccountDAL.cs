@@ -174,9 +174,12 @@ namespace ConvenienceStore.Utils.DataLayerAccess
         {
 
             OpenConnection();
-            string query = "delete from Users where Id = " + idAccount;
+            string query = "delete from salarybill where userid=" + idAccount;
+            string query1 = "delete from Users where Id =" + idAccount ;
             SqlCommand command = new SqlCommand(query, conn);
             command.ExecuteNonQuery();
+            SqlCommand command1 = new SqlCommand(query1, conn);
+            command1.ExecuteNonQuery();
 
             CloseConnection();
 
