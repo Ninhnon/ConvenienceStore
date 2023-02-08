@@ -107,7 +107,6 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public ICommand MouseMoveCommand { get; set; }
         public ICommand SaveNewTroubleCommand { get; set; }
         public ICommand UpdateReportButtonCommand { get; set; }
-        public ICommand LoadCommand { get; set; }
         public Report tmpReport { get; set; }
         public static Grid MaskName { get; set; }
         // Command
@@ -161,7 +160,6 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 Window w = Window.GetWindow(p);
                 w?.DragMove();
             });
-            LoadCommand = new RelayCommand<TroubleView>(parameter => true, parameter => { parameter.DataContext = new TroubleAdminVM(); });
             //CreateReportButtonCommand = new CreateReportButtonCommand(this);
             //OpenAlertDialog = new OpenAlertDialog(this);
             //DeleteReportCommand = new DeleteReportCommand(this);

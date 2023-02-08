@@ -22,12 +22,6 @@ x:Name="wdReport"
         <InputInfoCommand:HideOperateButtonsCommand x:Key="HideOperateButtonsCommand"/>
         <Converters:HasOjectConverter x:Key="HasOjectConverter"/>
     </Page.Resources>
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadCommand}"
-                                   CommandParameter="{Binding ElementName=wdReport}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
     <Border>
 
 
