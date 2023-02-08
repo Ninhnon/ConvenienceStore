@@ -5,6 +5,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\Icons\app.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,8 +20,6 @@
     <None Remove="Resources\Images\IconForInputInfo\close_box.png" />
     <None Remove="Resources\Images\IconForInputInfo\delivery-courier.png" />
     <None Remove="Resources\Images\IconForInputInfo\gmail.png" />
-    <None Remove="Resources\Images\IconForInputInfo\id.png" />
-    <None Remove="Resources\Images\IconForInputInfo\id_hasColor.png" />
     <None Remove="Resources\Images\IconForInputInfo\info_32.png" />
     <None Remove="Resources\Images\IconForInputInfo\telephone.png" />
     <None Remove="Resources\Images\IconForInputInfo\truck_64.png" />
@@ -37,7 +36,6 @@
     <None Remove="Resources\Images\IconForProduct\package.png" />
     <None Remove="Resources\Images\IconForProduct\salary.png" />
     <None Remove="Resources\Images\IconForProduct\schedule.png" />
-    <None Remove="Resources\Images\IconForProduct\shape.png" />
     <None Remove="Resources\Images\IconForProduct\tag.png" />
     <None Remove="Resources\Images\IconForTrouble\check-list.png" />
     <None Remove="Resources\Images\IconForTrouble\clipboard.png" />
@@ -99,6 +97,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Icons\app.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AForge.Video.DirectShow" Version="2.2.5" />
     <PackageReference Include="Emgu.CV" Version="4.6.0.5131" />
     <PackageReference Include="Emgu.CV.Bitmap" Version="4.6.0.5131" />
@@ -135,8 +137,6 @@
     <Resource Include="Resources\Images\IconForInputInfo\close_box.png" />
     <Resource Include="Resources\Images\IconForInputInfo\delivery-courier.png" />
     <Resource Include="Resources\Images\IconForInputInfo\gmail.png" />
-    <Resource Include="Resources\Images\IconForInputInfo\id.png" />
-    <Resource Include="Resources\Images\IconForInputInfo\id_hasColor.png" />
     <Resource Include="Resources\Images\IconForInputInfo\info_32.png" />
     <Resource Include="Resources\Images\IconForInputInfo\telephone.png" />
     <Resource Include="Resources\Images\IconForInputInfo\truck_64.png" />
@@ -153,7 +153,6 @@
     <Resource Include="Resources\Images\IconForProduct\package.png" />
     <Resource Include="Resources\Images\IconForProduct\salary.png" />
     <Resource Include="Resources\Images\IconForProduct\schedule.png" />
-    <Resource Include="Resources\Images\IconForProduct\shape.png" />
     <Resource Include="Resources\Images\IconForProduct\tag.png" />
     <Resource Include="Resources\Images\IconForTrouble\check-list.png" />
     <Resource Include="Resources\Images\IconForTrouble\clipboard.png" />
