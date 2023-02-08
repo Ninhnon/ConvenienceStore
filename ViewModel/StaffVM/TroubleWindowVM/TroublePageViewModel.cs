@@ -50,7 +50,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         private void Worker_DoWork(object? sender, DoWorkEventArgs e)
         {
 
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             danhsach = DatabaseHelper.FetchingReportData();
             ListError = new ObservableCollection<Report>(danhsach);
             (sender as BackgroundWorker).ReportProgress(0);

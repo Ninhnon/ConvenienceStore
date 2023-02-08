@@ -250,7 +250,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
         private void Worker_DoWork(object? sender, DoWorkEventArgs e)
         {
 
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             products = DatabaseHelper.FetchingProductData();
             List = new ObservableCollection<Products>(products);
             FilteredList = List;
