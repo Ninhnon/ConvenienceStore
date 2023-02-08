@@ -3,18 +3,16 @@ using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin.Command.SupplierCommand;
 using ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.AddNewSupplierCommand;
 using ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.SupplierCard;
-using ConvenienceStore.Views.Admin;
 using MaterialDesignThemes.Wpf;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.Admin.AdminVM
 {
     public class SupplierVM : INotifyPropertyChanged
     {
-     
+
         public List<Supplier> suppliers { get; set; }
 
         public ObservableCollection<Supplier> ObservableSupplier { get; set; }
@@ -82,7 +80,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                     ObservableSupplier.Add(suppliers[i]);
                 }
             }
-            
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

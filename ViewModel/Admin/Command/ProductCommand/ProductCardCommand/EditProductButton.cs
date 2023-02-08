@@ -22,7 +22,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCom
 
         public void Execute(object parameter)
         {
-            var values = (object[]) parameter;
+            var values = (object[])parameter;
             var currentProduct = (Product)values[0];
             var snackbar = (Snackbar)values[1];
 
@@ -33,7 +33,6 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCom
                 Image = currentProduct.Image,
                 Cost = currentProduct.Cost,
                 Price = currentProduct.Price,
-                Stock = currentProduct.Stock,
                 ManufacturingDate = currentProduct.ManufacturingDate,
                 ExpiryDate = currentProduct.ExpiryDate,
                 Discount = currentProduct.Discount
@@ -66,7 +65,6 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCom
                 currentProduct.Image != coppyCurProduct.Image ||
                 currentProduct.Cost != coppyCurProduct.Cost ||
                 currentProduct.Price != coppyCurProduct.Price ||
-                currentProduct.Stock != coppyCurProduct.Stock ||
                 currentProduct.ManufacturingDate != coppyCurProduct.ManufacturingDate ||
                 currentProduct.ExpiryDate != coppyCurProduct.ExpiryDate ||
                 currentProduct.Discount != coppyCurProduct.Discount)

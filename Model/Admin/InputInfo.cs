@@ -1,9 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConvenienceStore.Model.Admin
 {
@@ -12,7 +8,7 @@ namespace ConvenienceStore.Model.Admin
         public int Id { get; set; }
         public DateTime InputDate { get; set; }
         public int UserId { get; set; }
-        public string UserName { get; set;}
+        public string UserName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
         public byte[] Avatar { get; set; }

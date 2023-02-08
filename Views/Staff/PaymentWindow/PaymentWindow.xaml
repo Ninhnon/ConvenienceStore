@@ -21,12 +21,9 @@
       DataContext="{StaticResource PaymentVM}"
       FontFamily="{DynamicResource MaterialDesignFont}"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-      ShowsNavigationUI="False">
-   
-    <Page.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-    </Page.Resources>
-    
+      ShowsNavigationUI="False"
+      xmlns:fa="http://schemas.fontawesome.io/icons/">
+
     <Border CornerRadius="8"
             Background="#D3CCE3">
 
@@ -35,14 +32,14 @@
                 <i:InvokeCommandAction Command="{Binding MaskNameCM}"
                                        CommandParameter="{Binding ElementName=shadowMask}" />
 
-                <i:InvokeCommandAction Command="{Binding LoadCommand}"/>
+                <i:InvokeCommandAction Command="{Binding LoadCommand}" />
             </i:EventTrigger>
         </i:Interaction.Triggers>
-        
+
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
@@ -54,8 +51,8 @@
             <Grid Grid.Row="1">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
                 <Border Grid.Column="0"
@@ -66,39 +63,40 @@
                         Panel.ZIndex="2"
                         Margin="20 20 0 0"
                         HorizontalAlignment="Left">
-                    
+
                     <Border.Effect>
                         <DropShadowEffect BlurRadius="5"
                                           Direction="270"
                                           Opacity="0.45"
                                           RenderingBias="Performance"
-                                          ShadowDepth="1.5"/>
+                                          ShadowDepth="1.5" />
                     </Border.Effect>
-                    
+
                     <Grid>
-                        
+
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="60" />
                         </Grid.ColumnDefinitions>
-                        
+
                         <Grid Grid.Column="0">
-                            
+
                             <TextBlock FontSize="14"
                                        Foreground="#9ea4ad"
                                        Margin="22 0 15 0"
                                        VerticalAlignment="Center"
                                        IsHitTestVisible="False">
-                                
+
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
-                                        <Setter Property="Text" 
-                                                Value=""/>
-                                        
+                                        <Setter Property="Text"
+                                                Value="" />
+
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ElementName=SearchBox, Path=Text}" Value="">
-                                                <Setter Property="Text" 
-                                                        Value="Tìm kiếm..."/>
+                                            <DataTrigger Binding="{Binding ElementName=SearchBox, Path=Text}"
+                                                         Value="">
+                                                <Setter Property="Text"
+                                                        Value="Tìm kiếm..." />
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -114,7 +112,9 @@
                                      VerticalContentAlignment="Center">
 
                                 <TextBox.InputBindings>
-                                    <KeyBinding Key="Enter" Command="{Binding SearchProductName}" CommandParameter="{Binding ElementName=SearchBox}"/>
+                                    <KeyBinding Key="Enter"
+                                                Command="{Binding SearchProductName}"
+                                                CommandParameter="{Binding ElementName=SearchBox}" />
                                 </TextBox.InputBindings>
                             </TextBox>
                         </Grid>
@@ -127,23 +127,23 @@
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseLeftButtonDown">
                                     <i:InvokeCommandAction Command="{Binding SearchProductName}"
-                                                           CommandParameter="{Binding ElementName=SearchBox}"/>
+                                                           CommandParameter="{Binding ElementName=SearchBox}" />
                                 </i:EventTrigger>
 
                             </i:Interaction.Triggers>
-                            
+
                             <materialDesign:PackIcon Kind="Search"
                                                      Foreground="White"
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Center"
-                                                     Height="20" 
-                                                     Width="20"/>
+                                                     Height="20"
+                                                     Width="20" />
 
                         </Border>
                     </Grid>
                 </Border>
-                
-                <StackPanel Orientation="Horizontal" 
+
+                <StackPanel Orientation="Horizontal"
                             Margin="100,0,0,0">
 
                     <Button Margin="350,20,0,0"
@@ -155,11 +155,11 @@
                             CommandParameter="{Binding ElementName=paymentWindow}">
 
                         <Image Width="25"
-                               Height="25" 
+                               Height="25"
                                Source="/Resources/Images/Product/qr.png"
-                               Stretch="Fill"/>
+                               Stretch="Fill" />
                     </Button>
-                    
+
                     <ComboBox Grid.Column="1"
                               FontSize="14"
                               Height="40"
@@ -172,16 +172,20 @@
                               HorizontalAlignment="Left"
                               materialDesign:HintAssist.Hint="Loại tìm kiếm"
                               Style="{StaticResource CustomComboBoxHasBorder}">
-                        
-                        <ComboBoxItem Content="Tất cả" Foreground="Black"/>
-                        <ComboBoxItem Content="Đồ ăn" Foreground="Black"/>
-                        <ComboBoxItem Content="Thức uống" Foreground="Black"/>
-                        <ComboBoxItem Content="Khác" Foreground="Black"/>
+
+                        <ComboBoxItem Content="Tất cả"
+                                      Foreground="Black" />
+                        <ComboBoxItem Content="Đồ ăn"
+                                      Foreground="Black" />
+                        <ComboBoxItem Content="Thức uống"
+                                      Foreground="Black" />
+                        <ComboBoxItem Content="Khác"
+                                      Foreground="Black" />
 
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding FilterType}" />
-                                <i:InvokeCommandAction Command="{Binding SearchProductName}" 
+                                <i:InvokeCommandAction Command="{Binding SearchProductName}"
                                                        CommandParameter="{Binding ElementName=SearchBox}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
@@ -190,14 +194,55 @@
             </Grid>
 
             <Grid Grid.Row="2">
-                
+
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
 
                 <!--List of item-->
                 <Grid Grid.Column="0">
+
+                    <StackPanel Panel.ZIndex="1"
+                                Grid.RowSpan="3"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Visibility="{Binding IsLoading, Converter={StaticResource MyBoolToVisibility}}">
+
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsLoading}"
+                                                 Value="True">
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                     From="1"
+                                                                     To="0"
+                                                                     Duration="0:0:3"
+                                                                     AutoReverse="True"
+                                                                     RepeatBehavior="Forever" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.EnterActions>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+
+                        <fa:ImageAwesome Icon="Refresh"
+                                         Spin="True"
+                                         Height="50"
+                                         Width="50"
+                                         Grid.RowSpan="3" />
+
+                        <TextBlock Text="Đang tải dữ liệu ..."
+                                   FontSize="18"
+                                   Margin="0 10 0 0" />
+                    </StackPanel>
+
+
 
                     <materialDesign:Card Margin="20 20 10 20"
                                          Width="750"
@@ -208,217 +253,230 @@
                         <ScrollViewer HorizontalScrollBarVisibility="Hidden"
                                       VerticalScrollBarVisibility="Visible"
                                       PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
-                                      CanContentScroll="True" >
+                                      CanContentScroll="True">
 
-                            <ListBox ItemsSource="{Binding FilteredList}"
-                                     x:Name="listBox"
-                                     SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                                     VerticalAlignment="Top"
-                                     materialDesign:ListBoxItemAssist.ShowSelection="False"
-                                     materialDesign:ListBoxAssist.IsToggle="False" >
-                                
-                                <ListBox.ItemContainerStyle>
-                                    <Style TargetType="ListBoxItem"
-                                           BasedOn="{StaticResource MaterialDesignListBoxItem}">
-                                        
-                                        <!--Trigger để khi chuột di chuyển vào button, SelectedItem sẽ thay đổi-->
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver"
-                                                     Value="True">
-                                                <Setter Property="IsSelected"
-                                                        Value="True" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ListBox.ItemContainerStyle>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
 
-                                <!--Define maximum item in one row-->
-                                <ListBox.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <UniformGrid Columns="4" />
-                                    </ItemsPanelTemplate>
-                                </ListBox.ItemsPanel>
+                                <ListBox ItemsSource="{Binding FilteredList}"
+                                         Grid.Column="0"
+                                         x:Name="listBox"
+                                         SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                                         VerticalAlignment="Top"
+                                         materialDesign:ListBoxItemAssist.ShowSelection="False"
+                                         materialDesign:ListBoxAssist.IsToggle="False">
 
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border CornerRadius="15">
-                                            <Border.Style>
-                                                <Style TargetType="Border">
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver"
-                                                                 Value="True">
-                                                            <Setter Property="Background"
-                                                                    Value="LightGray" />
-                                                        </Trigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Border.Style>
-                                            
-                                            <Grid Background="Transparent">
-                                                
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition />
-                                                    <RowDefinition />
-                                                </Grid.RowDefinitions>
-                                                
-                                                <Ellipse Stroke="Transparent"
-                                                         Width="90"
-                                                         Height="90"
-                                                         Panel.ZIndex="2"
-                                                         VerticalAlignment="Top"
-                                                         Grid.Row="0"
-                                                         Grid.RowSpan="2">
-                                                    
-                                                    <Ellipse.Fill>
-                                                        <ImageBrush ImageSource="{Binding Image}"
-                                                                    Stretch="UniformToFill"/>
-                                                    </Ellipse.Fill>
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem"
+                                               BasedOn="{StaticResource MaterialDesignListBoxItem}">
 
-                                                    <Ellipse.Effect>
-                                                        <DropShadowEffect Color="LightGray"
-                                                                          BlurRadius="20"  />
-                                                    </Ellipse.Effect>
-                                                </Ellipse>
+                                            <!--Trigger để khi chuột di chuyển vào button, SelectedItem sẽ thay đổi-->
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver"
+                                                         Value="True">
+                                                    <Setter Property="IsSelected"
+                                                            Value="True" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
 
-                                                <materialDesign:Card Width="170"
-                                                                     Height="170"
-                                                                     Panel.ZIndex="1"
-                                                                     UniformCornerRadius="15"
-                                                                     Grid.RowSpan="2" Margin="0,40,0,0">
-                                                    
-                                                    <Grid>
-                                                        
-                                                        <Grid.RowDefinitions>
-                                                            <RowDefinition Height="1.7*"/>
-                                                            <RowDefinition Height="1*"/>
-                                                        </Grid.RowDefinitions>
+                                    <!--Define maximum item in one row-->
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <UniformGrid Columns="4" />
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
 
-                                                        <Grid Grid.Row="0"
-                                                              Margin="5 0 0 0">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border CornerRadius="15">
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver"
+                                                                     Value="True">
+                                                                <Setter Property="Background"
+                                                                        Value="LightGray" />
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
 
-                                                            <TextBlock Text="{Binding Title}"
-                                                                    FontWeight="Bold"
-                                                                    Margin="5 60 5 0"
-                                                                    HorizontalAlignment="Left"
-                                                                    TextWrapping="Wrap" 
-                                                                    TextTrimming="None"/>
-                                                        </Grid>
+                                                <Grid Background="Transparent">
 
-                                                        <Grid Grid.Row="1"
-                                                              Margin="5 0 5 5"
-                                                              Grid.ColumnSpan="2">
-                                                            
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition />
+                                                        <RowDefinition />
+                                                    </Grid.RowDefinitions>
+
+                                                    <Ellipse Stroke="Transparent"
+                                                             Width="90"
+                                                             Height="90"
+                                                             Panel.ZIndex="2"
+                                                             VerticalAlignment="Top"
+                                                             Grid.Row="0"
+                                                             Grid.RowSpan="2">
+
+                                                        <Ellipse.Fill>
+                                                            <ImageBrush ImageSource="{Binding Image}"
+                                                                        Stretch="UniformToFill" />
+                                                        </Ellipse.Fill>
+
+                                                        <Ellipse.Effect>
+                                                            <DropShadowEffect Color="LightGray"
+                                                                              BlurRadius="20" />
+                                                        </Ellipse.Effect>
+                                                    </Ellipse>
+
+                                                    <materialDesign:Card Width="170"
+                                                                         Height="170"
+                                                                         Panel.ZIndex="1"
+                                                                         UniformCornerRadius="15"
+                                                                         Grid.RowSpan="2"
+                                                                         Margin="0,40,0,0">
+
+                                                        <Grid>
+
                                                             <Grid.RowDefinitions>
-                                                                <RowDefinition/>
-                                                                <RowDefinition/>
-                                                                <RowDefinition/>
+                                                                <RowDefinition Height="1.7*" />
+                                                                <RowDefinition Height="1*" />
                                                             </Grid.RowDefinitions>
 
-                                                            <StackPanel Orientation="Horizontal"
-                                                                        Grid.Row="0">
+                                                            <Grid Grid.Row="0"
+                                                                  Margin="5 0 0 0">
 
-                                                                <Image Source="/Resources/Icons/boxes.png"
-                                                                       HorizontalAlignment="Left"
-                                                                       Margin="5 0 5 0"
-                                                                       Width="20" />
+                                                                <TextBlock Text="{Binding Title}"
+                                                                           FontWeight="Bold"
+                                                                           Margin="5 60 5 0"
+                                                                           HorizontalAlignment="Left"
+                                                                           TextWrapping="Wrap"
+                                                                           TextTrimming="None" />
+                                                            </Grid>
 
-                                                                <TextBlock FontWeight="Bold"
-                                                                           VerticalAlignment="Center" 
-                                                                           Margin="5 5 5 0">
-                                                                    
-                                                                    <Run Text="Số lượng:"/>
-                                                                    <Run Text="{Binding Stock}"/>
-                                                                </TextBlock>
-                                                            </StackPanel>
+                                                            <Grid Grid.Row="1"
+                                                                  Margin="5 0 5 5"
+                                                                  Grid.ColumnSpan="2">
 
-                                                            <StackPanel Orientation="Horizontal"
-                                                                        Grid.Row="1">
-
-                                                                <Image Source="/Resources/Icons/discount.png"
-                                                                       HorizontalAlignment="Left"
-                                                                       Margin="5 5 5 0"
-                                                                       Width="20" />
-
-                                                                <TextBlock FontWeight="Bold"
-                                                                           VerticalAlignment="Center" 
-                                                                           Margin="5 5 5 0">
-                                                                    
-                                                                    <Run Text="Giảm giá:"/>
-                                                                    <Run Text="{Binding Discount, StringFormat='{}{0:P0}'}"/>
-                                                                </TextBlock>
-                                                            </StackPanel>
-
-                                                            <Grid Grid.Row="2">
-                                                                
-                                                                <Grid.ColumnDefinitions>
-                                                                    <ColumnDefinition Width="150"/>
-                                                                    <ColumnDefinition Width="auto"/>
-                                                                </Grid.ColumnDefinitions>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition />
+                                                                    <RowDefinition />
+                                                                    <RowDefinition />
+                                                                </Grid.RowDefinitions>
 
                                                                 <StackPanel Orientation="Horizontal"
-                                                                            Grid.Column="0">
+                                                                            Grid.Row="0">
+
+                                                                    <Image Source="/Resources/Icons/boxes.png"
+                                                                           HorizontalAlignment="Left"
+                                                                           Margin="5 0 5 0"
+                                                                           Width="20" />
+
+                                                                    <TextBlock FontWeight="Bold"
+                                                                               VerticalAlignment="Center"
+                                                                               Margin="5 5 5 0">
                                                                     
-                                                                    <Image Source="/Resources/Icons/money.png"
+                                                                    <Run Text="Số lượng:" />
+                                                                    <Run Text="{Binding Stock}" />
+                                                                    </TextBlock>
+                                                                </StackPanel>
+
+                                                                <StackPanel Orientation="Horizontal"
+                                                                            Grid.Row="1">
+
+                                                                    <Image Source="/Resources/Icons/discount.png"
                                                                            HorizontalAlignment="Left"
                                                                            Margin="5 5 5 0"
                                                                            Width="20" />
 
-                                                                    <TextBlock Text="{Binding Price, Converter={StaticResource MoneyToVNDCurrency}}" 
-                                                                               FontWeight="Bold"
-                                                                               VerticalAlignment="Center" 
-                                                                               Margin="5 5 5 0"/>
+                                                                    <TextBlock FontWeight="Bold"
+                                                                               VerticalAlignment="Center"
+                                                                               Margin="5 5 5 0">
+                                                                    
+                                                                    <Run Text="Giảm giá:" />
+                                                                    <Run Text="{Binding Discount, StringFormat='{}{0:P0}'}" />
+                                                                    </TextBlock>
                                                                 </StackPanel>
-                                                            </Grid>
 
-                                                            <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                                                                    Grid.Column="1"
-                                                                    Grid.RowSpan="3"
-                                                                    Grid.ColumnSpan="3"
-                                                                    Margin="0 25 0 0"
-                                                                    x:Name="addButton"
-                                                                    ToolTip="Thêm vào giỏ hàng"
-                                                                    Width="30"
-                                                                    Height="30"
-                                                                    Content="{materialDesign:PackIcon Kind=PlusThick}" 
-                                                                    HorizontalAlignment="Right"
-                                                                    VerticalAlignment="Center"
-                                                                    Command="{Binding ElementName=listBox, Path=DataContext.AddToCart}"
-                                                                    Cursor="Hand" />
+                                                                <Grid Grid.Row="2">
+
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="150" />
+                                                                        <ColumnDefinition Width="auto" />
+                                                                    </Grid.ColumnDefinitions>
+
+                                                                    <StackPanel Orientation="Horizontal"
+                                                                                Grid.Column="0">
+
+                                                                        <Image Source="/Resources/Icons/money.png"
+                                                                               HorizontalAlignment="Left"
+                                                                               Margin="5 5 5 0"
+                                                                               Width="20" />
+
+                                                                        <TextBlock Text="{Binding Price, Converter={StaticResource MoneyToVNDCurrency}}"
+                                                                                   FontWeight="Bold"
+                                                                                   VerticalAlignment="Center"
+                                                                                   Margin="5 5 5 0" />
+                                                                    </StackPanel>
+                                                                </Grid>
+
+                                                                <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                                                        Grid.Column="1"
+                                                                        Grid.RowSpan="3"
+                                                                        Grid.ColumnSpan="3"
+                                                                        Margin="0 25 0 0"
+                                                                        x:Name="addButton"
+                                                                        ToolTip="Thêm vào giỏ hàng"
+                                                                        Width="30"
+                                                                        Height="30"
+                                                                        Content="{materialDesign:PackIcon Kind=PlusThick}"
+                                                                        HorizontalAlignment="Right"
+                                                                        VerticalAlignment="Center"
+                                                                        Command="{Binding ElementName=listBox, Path=DataContext.AddToCart}"
+                                                                        Cursor="Hand" />
+                                                            </Grid>
                                                         </Grid>
-                                                    </Grid>
-                                                </materialDesign:Card>
-                                            </Grid>
-                                        </Border>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
+                                                    </materialDesign:Card>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+
+                                <Border Grid.Column="1"
+                                        Width="{x:Static SystemParameters.VerticalScrollBarWidth}" />
+                            </Grid>
+
                         </ScrollViewer>
                     </materialDesign:Card>
                 </Grid>
 
                 <!--Bill-->
                 <Grid Grid.Column="1">
-                    
+
                     <materialDesign:Card Margin="0 20 20 20"
                                          UniformCornerRadius="15"
                                          Background="{DynamicResource PrimaryBackgroundColor}">
-                        
+
                         <Grid>
-                            
+
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto" />
                                 <RowDefinition />
-                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
 
                             <!--Tiêu đề-->
                             <Grid Grid.Row="0">
-                                
+
                                 <TextBlock Text="Hóa đơn"
                                            FontSize="24"
                                            FontWeight="Bold"
                                            TextAlignment="Center"
-                                           Margin="0 10 0 0"/>
+                                           Margin="0 10 0 0" />
                             </Grid>
 
                             <!--Sản phẩm cần thanh toán-->
@@ -431,7 +489,7 @@
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="ScrollChanged">
                                         <i:InvokeCommandAction Command="{Binding ScrollToEndListBox}"
-                                                               CommandParameter="{Binding ElementName=shoppingCart}"/>
+                                                               CommandParameter="{Binding ElementName=shoppingCart}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
 
@@ -472,7 +530,7 @@
                                                         <Grid>
 
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="100"/>
+                                                                <ColumnDefinition Width="100" />
                                                                 <ColumnDefinition />
                                                             </Grid.ColumnDefinitions>
 
@@ -485,12 +543,12 @@
                                                                      Grid.Column="0">
 
                                                                 <Ellipse.Fill>
-                                                                    <ImageBrush ImageSource="{Binding Image}"/>
+                                                                    <ImageBrush ImageSource="{Binding Image}" />
                                                                 </Ellipse.Fill>
 
                                                                 <Ellipse.Effect>
-                                                                    <DropShadowEffect Color="LightGray" 
-                                                                                      BlurRadius="20"  />
+                                                                    <DropShadowEffect Color="LightGray"
+                                                                                      BlurRadius="20" />
                                                                 </Ellipse.Effect>
                                                             </Ellipse>
 
@@ -508,18 +566,18 @@
                                                                                HorizontalAlignment="Left"
                                                                                VerticalAlignment="Bottom"
                                                                                TextWrapping="Wrap"
-                                                                               Margin="5 0 5 5"/>
+                                                                               Margin="5 0 5 5" />
                                                                 </Grid>
 
                                                                 <Grid Grid.Row="1">
-                                                                    
+
                                                                     <Grid.RowDefinitions>
-                                                                        <RowDefinition Height="auto"/>
+                                                                        <RowDefinition Height="auto" />
                                                                         <RowDefinition />
                                                                     </Grid.RowDefinitions>
 
                                                                     <Grid Grid.Row="0">
-                                                                        
+
                                                                         <TextBlock Text=""
                                                                                    FontWeight="Bold"
                                                                                    HorizontalAlignment="Left"
@@ -530,36 +588,37 @@
                                                                     <Grid Grid.Row="1">
 
                                                                         <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                                                                                Width="20" Height="20"
-                                                                                Content="{materialDesign:PackIcon Kind=MinusThick}" 
+                                                                                Width="20"
+                                                                                Height="20"
+                                                                                Content="{materialDesign:PackIcon Kind=MinusThick}"
                                                                                 VerticalAlignment="Top"
                                                                                 Margin="-140 -1 0 0"
-                                                                                Command="{Binding ElementName=shoppingCart, Path=DataContext.DecreaseProductAmount}"/>
+                                                                                Command="{Binding ElementName=shoppingCart, Path=DataContext.DecreaseProductAmount}" />
 
                                                                         <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                                                                 Width="20"
                                                                                 Height="20"
-                                                                                Content="{materialDesign:PackIcon Kind=PlusThick}" 
+                                                                                Content="{materialDesign:PackIcon Kind=PlusThick}"
                                                                                 VerticalAlignment="Center"
                                                                                 Margin="0 -12 0 0"
-                                                                                Command="{Binding ElementName=shoppingCart, Path=DataContext.IncreaseProductAmount}"/>
+                                                                                Command="{Binding ElementName=shoppingCart, Path=DataContext.IncreaseProductAmount}" />
 
                                                                         <TextBlock Text="{Binding Quantity}"
                                                                                    FontWeight="Bold"
                                                                                    TextAlignment="Center"
                                                                                    Width="50"
                                                                                    Height="20"
-                                                                                   Margin="-70 -10 0 0"/>
+                                                                                   Margin="-70 -10 0 0" />
 
                                                                         <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                                                                 Width="20"
                                                                                 Height="20"
-                                                                                Content="{materialDesign:PackIcon Kind=DeleteEmpty}" 
+                                                                                Content="{materialDesign:PackIcon Kind=DeleteEmpty}"
                                                                                 VerticalAlignment="Top"
-                                                                                Margin="100, -2 0, 0" 
+                                                                                Margin="100, -2 0, 0"
                                                                                 Command="{Binding ElementName=shoppingCart, Path=DataContext.RemoveProduct}"
                                                                                 Background="Red"
-                                                                                BorderBrush="Red"/>
+                                                                                BorderBrush="Red" />
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -580,8 +639,8 @@
                                         Command="{Binding OpenReceiptPage}">
 
                                     <TextBlock>
-                                        <Run Text="THANH TOÁN"/>
-                                        <Run Text="{Binding TotalBill, Converter={StaticResource MoneyToVNDCurrency}}"/>
+                                        <Run Text="THANH TOÁN" />
+                                        <Run Text="{Binding TotalBill, Converter={StaticResource MoneyToVNDCurrency}}" />
                                     </TextBlock>
                                 </Button>
                             </Grid>
@@ -593,19 +652,29 @@
             <Grid Grid.RowSpan="3"
                   Background="Transparent"
                   Visibility="Collapsed"
-                  x:Name="shadowMask" >
+                  x:Name="shadowMask">
 
                 <Border CornerRadius="8"
-                        BorderThickness="8" 
+                        BorderThickness="8"
                         Background="Gray"
-                        Opacity="0.5"/>
+                        Opacity="0.5" />
             </Grid>
+
+
+            <!--<ProgressBar x:Name="loadingIndicator" 
+                         Style="{StaticResource MaterialDesignCircularProgressBar}"
+                             IsIndeterminate="True" 
+                         Grid.RowSpan="3"
+                         Width="50"
+                         Height="50"
+                             Visibility="{Binding IsLoading, Converter={StaticResource MyBoolToVisibility}}"/>-->
+
 
             <ucbar:BarCodeUC Visibility="Hidden"
                              x:Name="barcodeUC"
                              DataContext="{StaticResource PaymentVM}"
                              Margin="250,100,365,90"
-                             Grid.RowSpan="3"/>
+                             Grid.RowSpan="3" />
         </Grid>
     </Border>
 </Page>

@@ -1,20 +1,17 @@
-﻿using LiveCharts.Wpf;
+﻿using ConvenienceStore.Model.Admin;
+using ConvenienceStore.Utils.DataLayerAccess;
+using ConvenienceStore.Utils.Helpers;
+using ConvenienceStore.Views.Admin;
 using LiveCharts;
+using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using ConvenienceStore.Views;
-using System.Windows;
-using ConvenienceStore.Utils.DataLayerAccess;
-using ConvenienceStore.Views.Admin;
-using ConvenienceStore.Model;
-using ConvenienceStore.Utils.Helpers;
-using System.IO;
 using System.Windows.Media.Imaging;
-using System.Windows.Ink;
-using ConvenienceStore.Model.Admin;
 
 namespace ConvenienceStore.ViewModel.Admin.AdminVM
 {
@@ -22,7 +19,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
     {
         public ReportViewModel()
         {
-         
+
             InitColumnChartTodayCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartToday(parameter));
             InitColumnChartMonthCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartMonth(parameter));
             InitColumnChartYearCommand = new RelayCommand<HomeView>(parameter => true, parameter => InitColumnChartYear(parameter));
@@ -41,9 +38,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         }
 
 
-     
+
         private string thisYear;
-        public string ThisYear{ get => thisYear; set { thisYear = value; OnPropertyChanged(); } }
+        public string ThisYear { get => thisYear; set { thisYear = value; OnPropertyChanged(); } }
 
         private string revenue = "0 đồng";
         public string Revenue { get => revenue; set { revenue = value; OnPropertyChanged(); } }
@@ -57,7 +54,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
         //Số đơn bán được
 
-        private string salary= "0 đồng";
+        private string salary = "0 đồng";
         public string Salary { get => salary; set { salary = value; OnPropertyChanged(); } }
 
 
@@ -79,20 +76,20 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public ICommand LoadYearCommand { get; set; }
         public void LoadToday(HomeView homeWindow)
         {
-          
-         ThisYear= DateTime.Now.ToString("yyyy");
-        
+
+            ThisYear = DateTime.Now.ToString("yyyy");
+
 
             string currentDay = DateTime.Now.Day.ToString();
             string currentMonth = DateTime.Now.Month.ToString();
-  
-            string currentYear = DateTime.Now.Year.ToString();
-            Revenue = string.Format("{0:n0}", ReportDAL.Instance.QueryRevenueInToday(currentDay,currentMonth, currentYear)).ToString() + " đồng";
-            Consignment= string.Format("{0:n0}", ReportDAL.Instance.QueryConsignmentInToday(currentDay,currentMonth,currentYear)).ToString()+ " đồng";
-            RepairCost= string.Format("{0:n0}", ReportDAL.Instance.QueryRepairCostToday(currentDay,currentMonth,currentYear)).ToString() + " đồng";
 
-            Salary = ReportDAL.Instance.QuerySalaryToday((int.Parse(currentDay) +1).ToString(),currentMonth, currentYear).ToString() + " đồng";
-    
+            string currentYear = DateTime.Now.Year.ToString();
+            Revenue = string.Format("{0:n0}", ReportDAL.Instance.QueryRevenueInToday(currentDay, currentMonth, currentYear)).ToString() + " đồng";
+            Consignment = string.Format("{0:n0}", ReportDAL.Instance.QueryConsignmentInToday(currentDay, currentMonth, currentYear)).ToString() + " đồng";
+            RepairCost = string.Format("{0:n0}", ReportDAL.Instance.QueryRepairCostToday(currentDay, currentMonth, currentYear)).ToString() + " đồng";
+
+            Salary = ReportDAL.Instance.QuerySalaryToday((int.Parse(currentDay) + 1).ToString(), currentMonth, currentYear).ToString() + " đồng";
+
 
 
         }
@@ -106,9 +103,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             string currentMonth = DateTime.Now.Month.ToString();
 
             string currentYear = DateTime.Now.Year.ToString();
-            Revenue = string.Format("{0:n0}", ReportDAL.Instance.QueryRevenueInMonth( currentMonth, currentYear)).ToString() + " đồng";
-            Consignment = string.Format("{0:n0}", ReportDAL.Instance.QueryConsignmentInMonth( currentMonth, currentYear)).ToString() + " đồng";
-            RepairCost = string.Format("{0:n0}", ReportDAL.Instance.QueryRepairCostMonth( currentMonth, currentYear)).ToString() + " đồng";
+            Revenue = string.Format("{0:n0}", ReportDAL.Instance.QueryRevenueInMonth(currentMonth, currentYear)).ToString() + " đồng";
+            Consignment = string.Format("{0:n0}", ReportDAL.Instance.QueryConsignmentInMonth(currentMonth, currentYear)).ToString() + " đồng";
+            RepairCost = string.Format("{0:n0}", ReportDAL.Instance.QueryRepairCostMonth(currentMonth, currentYear)).ToString() + " đồng";
 
             Salary = ReportDAL.Instance.QuerySalaryMonth(currentMonth, currentYear).ToString() + " đồng";
 
@@ -125,9 +122,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             string currentMonth = DateTime.Now.Month.ToString();
 
             string currentYear = DateTime.Now.Year.ToString();
-            Revenue = string.Format("{0:n0}", ReportDAL.Instance.QueryRevenueInYear( currentYear)).ToString() + " đồng";
-            Consignment = string.Format("{0:n0}", ReportDAL.Instance.QueryConsignmentInYear( currentYear)).ToString() + " đồng";
-            RepairCost = string.Format("{0:n0}", ReportDAL.Instance.QueryRepairCostYear( currentYear)).ToString() + " đồng";
+            Revenue = string.Format("{0:n0}", ReportDAL.Instance.QueryRevenueInYear(currentYear)).ToString() + " đồng";
+            Consignment = string.Format("{0:n0}", ReportDAL.Instance.QueryConsignmentInYear(currentYear)).ToString() + " đồng";
+            RepairCost = string.Format("{0:n0}", ReportDAL.Instance.QueryRepairCostYear(currentYear)).ToString() + " đồng";
 
             Salary = ReportDAL.Instance.QuerySalaryYear(currentYear).ToString() + " đồng";
 
@@ -153,7 +150,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public string AxisYTitle { get => axisYTitle; set { axisYTitle = value; OnPropertyChanged(); } }
         private SeriesCollection columnSeriesCollection;
         public SeriesCollection ColumnSeriesCollection { get => columnSeriesCollection; set { columnSeriesCollection = value; OnPropertyChanged(); } }
-        
+
         private string[] labels;
         public string[] Labels { get => labels; set { labels = value; OnPropertyChanged(); } }
         private Func<double, string> formatter;
@@ -167,7 +164,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public ICommand InitTopSaleMonthCommand { get; set; }
 
         public ICommand InitTopSaleYearCommand { get; set; }
-        
+
 
         //Khởi tạo biểu đồ cột
 
@@ -192,16 +189,16 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                             Title = "Doanh thu",
                             Fill = gradient,
                             Values = ReportDAL.Instance.QueryRevenueByDay(today,thismonth,thisyear),
-                            
-                        } 
+
+                        }
                        ,
-                         new ColumnSeries 
+                         new ColumnSeries
                         {
                             Title = "Đơn hàng",
                       Fill=(Brush)new BrushConverter().ConvertFrom("#E44D26"),
                             Values = ReportDAL.Instance.QueryNumOfSoldBillToday(today,thismonth),
                         }
-                        
+
 
                     };
             List<string> res = new List<string>();
@@ -209,9 +206,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
             Labels = res.ToArray();
             Formatter = value => string.Format("{0:N0}", value); //Format dấu ,
-            FoodRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryFoodRevenueInDay(today,thismonth, currentYear))).ToString() + " VND";
-            DrinkRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryDrinkRevenueInDay(today,thismonth, currentYear))).ToString() + " VND";
-            OtherRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryOtherRevenueInDay(today,thismonth, currentYear))).ToString() + " VND";
+            FoodRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryFoodRevenueInDay(today, thismonth, currentYear))).ToString() + " VND";
+            DrinkRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryDrinkRevenueInDay(today, thismonth, currentYear))).ToString() + " VND";
+            OtherRevenue = string.Format("{0:#,##0}", long.Parse(ReportDAL.Instance.QueryOtherRevenueInDay(today, thismonth, currentYear))).ToString() + " VND";
 
 
         }
@@ -256,9 +253,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         {
 
             AxisXTitle = "Tháng";
-            
+
             string selectedYear = DateTime.Now.Year.ToString();
-            
+
             LinearGradientBrush gradient = new LinearGradientBrush();
             gradient.StartPoint = new Point(0.5, 0);
             gradient.EndPoint = new Point(0.5, 1);
@@ -278,7 +275,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                           Values=ReportDAL.Instance.QueryRevenueNumOfSoldBillInYear(selectedYear)
         }
             };
-         
+
 
 
 
@@ -300,7 +297,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 foodRevenue_ = value;
                 OnPropertyChanged();
             }
-            }
+        }
         private string drinkRevenue_;
         public string DrinkRevenue
         {
@@ -355,7 +352,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         }
 
 
-        
+
         private SeriesCollection pieSeriesCollection_;
         public SeriesCollection PieSeriesCollection
         {
@@ -374,7 +371,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             string currentMonth = DateTime.Now.Month.ToString();
 
             string currentYear = DateTime.Now.Year.ToString();
-            FoodRevenue1 = (ReportDAL.Instance.QueryFoodRevenueInDay(today,currentMonth,currentYear)).ToString();
+            FoodRevenue1 = (ReportDAL.Instance.QueryFoodRevenueInDay(today, currentMonth, currentYear)).ToString();
             DrinkRevenue1 = (ReportDAL.Instance.QueryDrinkRevenueInDay(today, currentMonth, currentYear)).ToString();
             OtherRevenue1 = (ReportDAL.Instance.QueryOtherRevenueInDay(today, currentMonth, currentYear)).ToString();
 
@@ -419,9 +416,9 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             string currentMonth = DateTime.Now.Month.ToString();
 
             string currentYear = DateTime.Now.Year.ToString();
-            FoodRevenue1 = (ReportDAL.Instance.QueryFoodRevenueInMonth(currentMonth,currentYear)).ToString();
-            DrinkRevenue1 = (ReportDAL.Instance.QueryDrinkRevenueInMonth(currentMonth,currentYear)).ToString();
-            OtherRevenue1 = (ReportDAL.Instance.QueryOtherRevenueInMonth(currentMonth,currentYear)).ToString();
+            FoodRevenue1 = (ReportDAL.Instance.QueryFoodRevenueInMonth(currentMonth, currentYear)).ToString();
+            DrinkRevenue1 = (ReportDAL.Instance.QueryDrinkRevenueInMonth(currentMonth, currentYear)).ToString();
+            OtherRevenue1 = (ReportDAL.Instance.QueryOtherRevenueInMonth(currentMonth, currentYear)).ToString();
 
             ChartValues<long> food = new ChartValues<long>();
             food.Add(long.Parse(FoodRevenue1));
@@ -464,10 +461,10 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public void InitPieChartYear(HomeView parameter)
         {
             string currentMonth = DateTime.Now.Month.ToString();
-     
+
             string currentYear = DateTime.Now.Year.ToString();
-            FoodRevenue1 =(ReportDAL.Instance.QueryFoodRevenueInYear( currentYear)).ToString();
-            DrinkRevenue1 = (ReportDAL.Instance.QueryDrinkRevenueInYear( currentYear)).ToString();
+            FoodRevenue1 = (ReportDAL.Instance.QueryFoodRevenueInYear(currentYear)).ToString();
+            DrinkRevenue1 = (ReportDAL.Instance.QueryDrinkRevenueInYear(currentYear)).ToString();
             OtherRevenue1 = (ReportDAL.Instance.QueryOtherRevenueInYear(currentYear)).ToString();
 
             ChartValues<long> food = new ChartValues<long>();
@@ -478,7 +475,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             other.Add(long.Parse(OtherRevenue1));
             PieSeriesCollection = new SeriesCollection()
             {
-                
+
                  new PieSeries
                 {
                     Title="Thức uống",
@@ -507,7 +504,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
 
 
-       
+
         public BitmapImage ConvertByteToBitmapImage(Byte[] image)
         {
             BitmapImage bi = new BitmapImage();
@@ -538,7 +535,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             string currentMonth = DateTime.Now.Month.ToString();
 
             string currentYear = DateTime.Now.Year.ToString();
-            List<Product> products = ReportDAL.Instance.QueryTopSaleMonth( currentMonth, currentYear);
+            List<Product> products = ReportDAL.Instance.QueryTopSaleMonth(currentMonth, currentYear);
 
             if (products.Count == 3)
             {
@@ -612,7 +609,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             string currentMonth = DateTime.Now.Month.ToString();
 
             string currentYear = DateTime.Now.Year.ToString();
-            List<Product> products = ReportDAL.Instance.QueryTopSaleToday(today,currentMonth, currentYear);
+            List<Product> products = ReportDAL.Instance.QueryTopSaleToday(today, currentMonth, currentYear);
 
             if (products.Count == 3)
             {
@@ -687,7 +684,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
             string currentMonth = DateTime.Now.Month.ToString();
 
             string currentYear = DateTime.Now.Year.ToString();
-            List<Product> products = ReportDAL.Instance.QueryTopSaleYear( currentYear);
+            List<Product> products = ReportDAL.Instance.QueryTopSaleYear(currentYear);
 
             if (products.Count == 3)
             {

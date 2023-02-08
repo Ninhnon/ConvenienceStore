@@ -1,11 +1,6 @@
 ﻿using ConvenienceStore.Model.Admin;
 using ConvenienceStore.Model.Staff;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConvenienceStore.Utils.Validation
 {
@@ -31,8 +26,6 @@ namespace ConvenienceStore.Utils.Validation
                 .Must(NonNegativeDouble).WithMessage("Tỉ lệ giảm giá phải >= 0")
                 .Must(BeAValidDiscount).WithMessage("Tỉ lệ giảm giá phải <= 100");
 
-            RuleFor(p => p.Stock)
-                .Must(BeAValidStock).WithMessage("Số lượng phải > 0");
         }
 
         protected bool NonNegativeInteger(int Number)
@@ -50,10 +43,6 @@ namespace ConvenienceStore.Utils.Validation
             return discount <= 100;
         }
 
-        protected bool BeAValidStock(int Stock)
-        {
-            return Stock > 0;
-        }
     }
     public class ReportValidator : AbstractValidator<Report>
     {

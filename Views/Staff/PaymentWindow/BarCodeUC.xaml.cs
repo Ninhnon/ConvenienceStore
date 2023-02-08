@@ -1,23 +1,11 @@
 ﻿using AForge.Video.DirectShow;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Media;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ZXing;
 using ZXing.Windows.Compatibility;
 
 namespace ConvenienceStore.Views.Staff.PaymentWindow
@@ -61,12 +49,12 @@ namespace ConvenienceStore.Views.Staff.PaymentWindow
 
         private void VideoCaptureDevice_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
         {
-         
+
             this.Dispatcher.Invoke(() =>
             {
                 Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
                 BarcodeReader reader = new BarcodeReader();
-         
+
                 var result = reader.Decode(bitmap);
                 BitmapImage bitmapImage = new BitmapImage();
                 using (MemoryStream memory = new MemoryStream())
@@ -84,17 +72,17 @@ namespace ConvenienceStore.Views.Staff.PaymentWindow
                     result1 = result.ToString();
                     Thread.Sleep(33);
 
-                   
-                     
 
-                    count+=2;
+
+
+                    count += 2;
                 }
-                    if (count >= 5)
+                if (count >= 5)
 
-                    {
+                {
                     txtBarcode.Text = "";
-                
-                  
+
+
                     txtBarcode.Text = result.ToString();
                     player.Play();
 
@@ -103,10 +91,10 @@ namespace ConvenienceStore.Views.Staff.PaymentWindow
                 }
 
 
-            
 
-                
-           
+
+
+
             });
 
 

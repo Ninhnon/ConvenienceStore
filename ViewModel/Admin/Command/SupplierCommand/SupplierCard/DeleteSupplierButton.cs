@@ -1,14 +1,6 @@
-﻿using ConvenienceStore.Model;
-using ConvenienceStore.Model.Admin;
+﻿using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin.AdminVM;
-using ConvenienceStore.Utils.Helpers;
-using ConvenienceStore.Views.Admin.SupplierWindow;
-using Microsoft.EntityFrameworkCore.Storage;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.SupplierCard
@@ -52,7 +44,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.SupplierCommand.SupplierCard
                 VM.suppliers[i].Number = i + 1;
             }
 
-            
+
         }
     }
 }

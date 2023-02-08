@@ -1,24 +1,19 @@
-﻿using ConvenienceStore.Views.Staff.ProductWindow;
-using ConvenienceStore.Views.Staff.TroubleWindow;
-using ConvenienceStore.Views.Staff.VoucherWindow;
+﻿using ConvenienceStore.Model;
+using ConvenienceStore.Model.Staff;
+using ConvenienceStore.Utils.Helpers;
+using ConvenienceStore.Views.Admin;
+using ConvenienceStore.Views.Admin.SubViews;
+using ConvenienceStore.Views.Staff;
 using ConvenienceStore.Views.Staff.PaymentWindow;
-using ConvenienceStore.Model;
+using ConvenienceStore.Views.Staff.TroubleWindow;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ConvenienceStore.Views;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using ConvenienceStore.Utils.Helpers;
-using ConvenienceStore.Model.Staff;
-using ConvenienceStore.Views.Admin;
-using ConvenienceStore.Views.Staff;
-using ConvenienceStore.Views.Admin.SubViews;
-using System.IO;
 using System.Windows.Media.Imaging;
-using System;
-using ConvenienceStore.Views.Admin.ProductWindow;
 
 namespace ConvenienceStore.ViewModel.StaffVM
 {
@@ -136,12 +131,7 @@ namespace ConvenienceStore.ViewModel.StaffVM
             });
             ProductCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                p.Content = new ProductWindow();
-            });
-            VoucherCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
-            {
-                p.Content = new VoucherPage();
-
+                p.Content = new ProductView();
             });
             ReportCommand = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {

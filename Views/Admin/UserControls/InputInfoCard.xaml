@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:ConvenienceStore.Views.Admin.UserControls"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" >
-    <Border Style="{StaticResource InputInfoCard}"
-            Cursor="Hand">
+    <Border Style="{StaticResource InputInfoCard}">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseLeftButtonDown">
                 <i:ChangePropertyAction TargetObject="{Binding ElementName=ProductS1}"
@@ -27,7 +26,7 @@
                               Opacity="0.45"
                               RenderingBias="Performance"
                               ShadowDepth="1.5"/>
-            </Border.Effect>
+        </Border.Effect>
 
         <Grid>
 
@@ -45,7 +44,21 @@
                 <StackPanel Orientation="Vertical"
                         Margin="10 0"
                         VerticalAlignment="Center">
-                    
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Left"
+                                Margin="0 0 0 6">
+                        <Image Source="/Resources/Images/IconForInputInfo/id.png"
+                               Width="18"
+                               Opacity="0.6"/>
+                        <Border Width="15"/>
+                        <TextBlock Text="{Binding Id}"
+                                   VerticalAlignment="Center"
+                                   FontSize="14"
+                                   d:Text="1"
+                                   FontWeight="SemiBold"/>
+                    </StackPanel>
+
                     <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Left"
                             Margin="0 0 0 4">
@@ -61,8 +74,7 @@
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Left"
-                            Margin="0 0 0 6">
+                            HorizontalAlignment="Left">
                         <Image Source="/Resources/Images/IconForInputInfo/user_64.png"
                            Width="18"
                            Opacity="0.6"/>
@@ -71,18 +83,6 @@
                                VerticalAlignment="Center"
                                FontSize="14"
                                d:Text="Trần Lê Hoàng Lâm"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Left">
-                        <Image Source="/Resources/Images/IconForInputInfo/truck_64.png"
-                        Width="18"
-                        Opacity="0.6"/>
-                        <Border Width="15"/>
-                        <TextBlock Text="{Binding SupplierName}"
-                               VerticalAlignment="Center"
-                               FontSize="14"
-                               d:Text="Công Ty CP Thương Mại Imexco Việt Nam"/>
                     </StackPanel>
 
                 </StackPanel>

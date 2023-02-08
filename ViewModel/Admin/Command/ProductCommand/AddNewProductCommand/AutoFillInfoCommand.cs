@@ -1,11 +1,7 @@
 ﻿using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Views.Admin.ProductWindow;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -57,11 +53,11 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
 
             window.TitleTextBox.Text = title;
             window.ImageProduct.ImageSource = bi;
-            
+
             switch (type)
             {
-                case "Đồ ăn": 
-                    window.TypeComboBox.SelectedIndex = 0; 
+                case "Đồ ăn":
+                    window.TypeComboBox.SelectedIndex = 0;
                     break;
                 case "Thức uống":
                     window.TypeComboBox.SelectedIndex = 1;

@@ -30,7 +30,7 @@
     <Grid>
         <Border Background="Black"
                 Opacity="0.4"
-                CornerRadius="8" Margin="0,2,0,-2">
+                CornerRadius="8">
         </Border>
         <Grid Width="650"
               VerticalAlignment="Center">
@@ -57,7 +57,7 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="40"/>
                             <ColumnDefinition Width="193"/>
 
                         </Grid.ColumnDefinitions>
@@ -66,7 +66,7 @@
                             <Grid Margin="0 0 0 10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="40"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel>
@@ -118,7 +118,7 @@
                             <Grid Margin="0 0 0 10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="40"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel>

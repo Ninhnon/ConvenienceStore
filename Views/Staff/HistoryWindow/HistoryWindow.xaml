@@ -17,53 +17,57 @@
       TextOptions.TextRenderingMode="Auto"
       DataContext="{StaticResource HistoryVM}"
       ShowsNavigationUI="False"
-      FontFamily="{DynamicResource MaterialDesignFont}">
+      FontFamily="{DynamicResource MaterialDesignFont}"
+      xmlns:fa="http://schemas.fontawesome.io/icons/">
     <Border CornerRadius="8">
         <Border.Background>
-            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                <GradientStop Color='#E9E4F0' Offset="0"/>
-                <GradientStop Color='#D3CCE3' Offset="1"/>
+            <LinearGradientBrush StartPoint="0,1"
+                                 EndPoint="1,0">
+                <GradientStop Color='#E9E4F0'
+                              Offset="0" />
+                <GradientStop Color='#D3CCE3'
+                              Offset="1" />
             </LinearGradientBrush>
         </Border.Background>
         <Grid>
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Loaded">
-                    <i:InvokeCommandAction Command="{Binding LoadHistoryPageCM}"/>
+                    <i:InvokeCommandAction Command="{Binding LoadHistoryPageCM}" />
                     <i:InvokeCommandAction Command="{Binding MaskNameCM}"
-                                       CommandParameter="{Binding ElementName=shadowMask}" />
+                                           CommandParameter="{Binding ElementName=shadowMask}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <StackPanel Margin="30 20">
                 <Grid Margin="0 0 0 20">
                     <TextBlock Text="Chi tiết hóa đơn"
-                           FontSize="32"
-                           FontWeight="SemiBold"
-                           Margin="0 0 0 5"/>
+                               FontSize="32"
+                               FontWeight="SemiBold"
+                               Margin="0 0 0 5" />
                 </Grid>
 
                 <Grid Margin="0 0 0 15">
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Orientation="Horizontal"
                                 Grid.Column="0">
-                        
+
                         <TextBlock Text="Số lượng:  "
-                           FontSize="24"
-                           FontWeight="DemiBold"
-                           VerticalAlignment="Center"/>
-                        
+                                   FontSize="24"
+                                   FontWeight="DemiBold"
+                                   VerticalAlignment="Center" />
+
                         <TextBlock Text="{Binding BillList.Count}"
-                           d:Text="10"
-                           FontSize="24"
-                           FontWeight="DemiBold"
-                           VerticalAlignment="Center"/>
+                                   d:Text="10"
+                                   FontSize="24"
+                                   FontWeight="DemiBold"
+                                   VerticalAlignment="Center" />
                     </StackPanel>
 
                     <Border Grid.Column="2"
@@ -74,29 +78,31 @@
                             Panel.ZIndex="2">
                         <Border.Effect>
                             <DropShadowEffect BlurRadius="5"
-                                            Direction="270"
-                                            Opacity="0.45"
-                                            RenderingBias="Performance"
-                                            ShadowDepth="1.5"/>
+                                              Direction="270"
+                                              Opacity="0.45"
+                                              RenderingBias="Performance"
+                                              ShadowDepth="1.5" />
                         </Border.Effect>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="60" />
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
-                                <TextBlock
-                                    FontSize="14"
-                                    Foreground="#9ea4ad"
-                                    Margin="22 0 15 0"
-                                    VerticalAlignment="Center"
-                                    IsHitTestVisible="False">
+                                <TextBlock FontSize="14"
+                                           Foreground="#9ea4ad"
+                                           Margin="22 0 15 0"
+                                           VerticalAlignment="Center"
+                                           IsHitTestVisible="False">
                                     <TextBlock.Style>
                                         <Style TargetType="TextBlock">
-                                            <Setter Property="Text" Value=""/>
+                                            <Setter Property="Text"
+                                                    Value="" />
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding ElementName=SearchTextBox, Path=Text}" Value="">
-                                                    <Setter Property="Text" Value="Tìm kiếm..."/>
+                                                <DataTrigger Binding="{Binding ElementName=SearchTextBox, Path=Text}"
+                                                             Value="">
+                                                    <Setter Property="Text"
+                                                            Value="Tìm kiếm..." />
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
@@ -112,192 +118,229 @@
                                          VerticalContentAlignment="Center">
 
                                     <TextBox.InputBindings>
-                                        <KeyBinding Key="Enter" Command="{Binding SearchBillCM}"/>
+                                        <KeyBinding Key="Enter"
+                                                    Command="{Binding SearchBillCM}" />
                                     </TextBox.InputBindings>
                                 </TextBox>
                             </Grid>
 
                             <Border Grid.Column="1"
-                                Background="#B06AB3"
-                                CornerRadius="0 20 20 0"
-                                Cursor="Hand">
+                                    Background="#B06AB3"
+                                    CornerRadius="0 20 20 0"
+                                    Cursor="Hand">
 
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseLeftButtonDown">
-                                        <i:InvokeCommandAction Command="{Binding SearchBillCM}"/>
+                                        <i:InvokeCommandAction Command="{Binding SearchBillCM}" />
                                     </i:EventTrigger>
 
                                 </i:Interaction.Triggers>
                                 <materialDesign:PackIcon Kind="Search"
-                                                     Foreground="White"
-                                                     VerticalAlignment="Center"
-                                                     HorizontalAlignment="Center"
-                                                     Height="20" 
-                                                     Width="20"/>
+                                                         Foreground="White"
+                                                         VerticalAlignment="Center"
+                                                         HorizontalAlignment="Center"
+                                                         Height="20"
+                                                         Width="20" />
 
                             </Border>
                         </Grid>
                     </Border>
 
                     <ComboBox Grid.Column="3"
-                    FontSize="14"
+                              FontSize="14"
                               Height="40"
-                      Width="160"
-                      SelectedIndex="0"
-                      x:Name="cboxFilter"
-                      VerticalContentAlignment="Bottom"
-                      HorizontalAlignment="Left"
+                              Width="160"
+                              SelectedIndex="0"
+                              x:Name="cboxFilter"
+                              VerticalContentAlignment="Bottom"
+                              HorizontalAlignment="Left"
                               DataContext="{StaticResource HistoryVM}"
-                      SelectedItem="{Binding ComboBoxCategory, Mode=TwoWay}"
+                              SelectedItem="{Binding ComboBoxCategory, Mode=TwoWay}"
                               Margin="10 0 0 0"
-                      VerticalAlignment="Top"
+                              VerticalAlignment="Top"
                               materialDesign:HintAssist.Hint="Loại tìm kiếm"
                               Style="{StaticResource CustomComboBoxHasBorder}">
-                        <ComboBoxItem Content="Số hóa đơn" Foreground="Black"/>
-                        <ComboBoxItem Content="Tên khách hàng" Foreground="Black"/>
-                        <ComboBoxItem Content="Tên nhân viên" Foreground="Black"/>
+                        <ComboBoxItem Content="Số hóa đơn"
+                                      Foreground="Black" />
+                        <ComboBoxItem Content="Tên khách hàng"
+                                      Foreground="Black" />
+                        <ComboBoxItem Content="Tên nhân viên"
+                                      Foreground="Black" />
 
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding SearchBillCM}"
-                                                       CommandParameter="{Binding ElementName=SearchTextBox}"/>
+                                                       CommandParameter="{Binding ElementName=SearchTextBox}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                        
+
                     </ComboBox>
                 </Grid>
 
-                <DataGrid x:Name="billsDataGrid"
-                          Background="Transparent"
-                      CellStyle="{DynamicResource DataGridCellStyle2}" 
-                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}" 
-                      RowStyle="{DynamicResource DataGridRowStyle2}"
-                      ItemsSource="{Binding BillList, Mode=TwoWay}"
-                          SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                      ScrollViewer.VerticalScrollBarVisibility="Visible"
-                      ScrollViewer.CanContentScroll="True"
-                      VirtualizingPanel.IsVirtualizing="True"
-                      Height="434"
-                      CanUserAddRows="False"
-                      AutoGenerateColumns="False"
-                      Style="{DynamicResource DataGridStyle2}">
 
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Số hóa đơn" 
-                                        IsReadOnly="True"
-                                        CanUserResize="False"
-                                        Width="Auto"
-                                        Binding="{Binding BillId}"/>
+                <ScrollViewer HorizontalScrollBarVisibility="Hidden"
+                              VerticalScrollBarVisibility="Visible"
+                              PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
+                              CanContentScroll="True"
+                              Height="434"
+                              Width="1065">
 
-                        <DataGridTemplateColumn x:Name="userName"
-                                            Header="Nhân viên thanh toán"
-                                            IsReadOnly="True"
-                                            CanUserResize="False"
-                                            Width="*">
-                            
-                            <DataGridTemplateColumn.CellTemplate>
-                                
-                                <DataTemplate>
-                                    
-                                    <TextBlock Text="{Binding UserName}"
-                                           ToolTip="{Binding UserName}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1050" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
 
-                        <DataGridTemplateColumn Header="Tên khách hàng"
-                                            IsReadOnly="True"
-                                            CanUserResize="False"
-                                            Width="*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding CustomerName}"
-                                           ToolTip="{Binding CustomerName}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        <StackPanel Panel.ZIndex="1"
+                                    Grid.RowSpan="3"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Visibility="{Binding IsLoading, Converter={StaticResource MyBoolToVisibility}}">
 
-                        <DataGridTemplateColumn Header="Ngày hóa đơn" 
-                                        IsReadOnly="True"
-                                        CanUserResize="False"
-                                        Width="*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding BillDate, StringFormat={}{0:dddd, dd MMMM yyyy, HH:mm}}"
-                                           ToolTip="{Binding BillDate, StringFormat={}{0:dddd, dd MMMM yyyy, HH:mm}}"
-                                               Language="vi"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        
-                        <DataGridTextColumn Header="Tổng tiền" 
-                                        IsReadOnly="True"
-                                        CanUserResize="False"
-                                        Width="140"
-                                        Binding="{Binding TotalPrice, Converter={StaticResource MoneyToVNDCurrency}}"/>
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsLoading}"
+                                                     Value="True">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                         From="1"
+                                                                         To="0"
+                                                                         Duration="0:0:3"
+                                                                         AutoReverse="True"
+                                                                         RepeatBehavior="Forever" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
 
-                        <DataGridTemplateColumn Header="Thao tác"
-                                            IsReadOnly="True"
-                                            CanUserResize="False"
-                                            Width="Auto">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <!--<DataTemplate>
-                                    <StackPanel Orientation="Horizontal" DataContext="{StaticResource SupplierVM}">
-                                        <Button Style="{StaticResource MaterialDesignFlatLightButton}"
-                                            Content="{materialDesign:PackIcon Kind=Edit, Size=24}"
-                                            Foreground="#4B0082"
-                                            Height="32"
-                                            Padding="6 4"
-                                            Command="{Binding Source={StaticResource SupplierVM}, Path=EditSupplierButton}"
-                                            CommandParameter="{Binding}"/>
-                                        <Button Style="{StaticResource MaterialDesignFlatLightButton}"
-                                            Content="{materialDesign:PackIcon Kind=Delete, Size=24}"
-                                            Height="32"
-                                            Foreground="#CF0A0A"
-                                            Padding="6 4"
-                                            Margin="15 0 0 0"
-                                            HorizontalAlignment="Right"
-                                                DataContext="{StaticResource HistoryVM}"
-                                            Command="{Binding GetMoreBillDetailCM }"
-                                            CommandParameter="{Binding ElementName=billsDataGrid}"/>
+                            <fa:ImageAwesome Icon="Refresh"
+                                             Spin="True"
+                                             Height="50"
+                                             Width="50"
+                                             Grid.RowSpan="3" />
 
-                                    </StackPanel>
-                                </DataTemplate>-->
-                                <DataTemplate>
-                                    <Border Cursor="Hand"
-                                            Background="Transparent" 
-                                            Width="30"
-                                            Height="30"
-                                            DataContext="{StaticResource HistoryVM}"
-                                            ToolTip="Thông tin chi tiết">
-                                        <materialDesign:PackIcon Kind="AlertCircleOutline"
-                                                                 Width="30"
-                                                                 Height="30"                         
-                                                                 VerticalAlignment="Center" 
-                                                                 HorizontalAlignment="Center"/>
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding GetMoreBillDetailCM}"
-                                                                       CommandParameter="{Binding ElementName=billsDataGrid}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Border>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                            
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                            <TextBlock Text="Đang tải dữ liệu ..."
+                                       FontSize="18"
+                                       Margin="0 10 0 0" />
+                        </StackPanel>
+
+                        <DataGrid Grid.Column="0"
+                                  x:Name="billsDataGrid"
+                                  Background="Transparent"
+                                  CellStyle="{DynamicResource DataGridCellStyle2}"
+                                  ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}"
+                                  RowStyle="{DynamicResource DataGridRowStyle2}"
+                                  ItemsSource="{Binding BillList, Mode=TwoWay}"
+                                  SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  CanUserAddRows="False"
+                                  AutoGenerateColumns="False"
+                                  Style="{DynamicResource DataGridStyle2}">
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Số hóa đơn"
+                                                    IsReadOnly="True"
+                                                    CanUserResize="False"
+                                                    Width="Auto"
+                                                    Binding="{Binding BillId}" />
+
+                                <DataGridTemplateColumn x:Name="userName"
+                                                        Header="Nhân viên thanh toán"
+                                                        IsReadOnly="True"
+                                                        CanUserResize="False"
+                                                        Width="*">
+
+                                    <DataGridTemplateColumn.CellTemplate>
+
+                                        <DataTemplate>
+
+                                            <TextBlock Text="{Binding UserName}"
+                                                       ToolTip="{Binding UserName}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="Tên khách hàng"
+                                                        IsReadOnly="True"
+                                                        CanUserResize="False"
+                                                        Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding CustomerName}"
+                                                       ToolTip="{Binding CustomerName}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="Ngày hóa đơn"
+                                                        IsReadOnly="True"
+                                                        CanUserResize="False"
+                                                        Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding BillDate, StringFormat={}{0:dddd, dd MMMM yyyy, HH:mm}}"
+                                                       ToolTip="{Binding BillDate, StringFormat={}{0:dddd, dd MMMM yyyy, HH:mm}}"
+                                                       Language="vi" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTextColumn Header="Tổng tiền"
+                                                    IsReadOnly="True"
+                                                    CanUserResize="False"
+                                                    Width="140"
+                                                    Binding="{Binding TotalPrice, Converter={StaticResource MoneyToVNDCurrency}}" />
+
+                                <DataGridTemplateColumn Header="Thao tác"
+                                                        IsReadOnly="True"
+                                                        CanUserResize="False"
+                                                        Width="Auto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border Cursor="Hand"
+                                                    Background="Transparent"
+                                                    Width="30"
+                                                    Height="30"
+                                                    DataContext="{StaticResource HistoryVM}"
+                                                    ToolTip="Thông tin chi tiết">
+                                                <materialDesign:PackIcon Kind="AlertCircleOutline"
+                                                                         Width="30"
+                                                                         Height="30"
+                                                                         VerticalAlignment="Center"
+                                                                         HorizontalAlignment="Center" />
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                        <i:InvokeCommandAction Command="{Binding GetMoreBillDetailCM}"
+                                                                               CommandParameter="{Binding ElementName=billsDataGrid}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </Border>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <Border Grid.Column="1"
+                                Width="{x:Static SystemParameters.VerticalScrollBarWidth}" />
+                    </Grid>
+
+                </ScrollViewer>
             </StackPanel>
 
             <Grid Background="Transparent"
                   Visibility="Collapsed"
-                  x:Name="shadowMask" >
+                  x:Name="shadowMask">
                 <Border CornerRadius="8"
-                        BorderThickness="8" 
+                        BorderThickness="8"
                         Background="Gray"
-                        Opacity="0.5"/>
+                        Opacity="0.5" />
             </Grid>
         </Grid>
     </Border>

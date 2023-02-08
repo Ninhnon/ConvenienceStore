@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ConvenienceStore.ViewModel.StaffVM;
 
 namespace ConvenienceStore.Views.Staff.PaymentWindow
 {
@@ -48,6 +37,7 @@ namespace ConvenienceStore.Views.Staff.PaymentWindow
                     OkBtn.Visibility = Visibility.Collapsed;
                     CancelBtn.Visibility = Visibility.Collapsed;
                     applyPointGrid.Visibility = Visibility.Collapsed;
+                    AddCustomerBtn.Visibility = Visibility.Collapsed;
 
                     if (billDetailListView.ActualHeight > billDetailCard.Height)
                         receiptPage.Height = receiptPage.Height + billDetailListView.ActualHeight - billDetailCard.Height;
@@ -63,6 +53,7 @@ namespace ConvenienceStore.Views.Staff.PaymentWindow
                     OkBtn.Visibility = Visibility.Visible;
                     CancelBtn.Visibility = Visibility.Visible;
                     applyPointGrid.Visibility = Visibility.Visible;
+                    AddCustomerBtn.Visibility = Visibility.Visible;
 
                     //Gán trở lại
                     billDetailCard.Height = a;
@@ -71,7 +62,7 @@ namespace ConvenienceStore.Views.Staff.PaymentWindow
             }
             catch
             {
-                
+
             }
         }
     }

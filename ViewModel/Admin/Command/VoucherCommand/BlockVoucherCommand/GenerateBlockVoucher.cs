@@ -1,16 +1,12 @@
 ﻿using ConvenienceStore.Model.Admin;
-using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin.AdminVM;
 using ConvenienceStore.Views.Admin;
-using ConvenienceStore.Views.Staff.ProductWindow;
-using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCommand
@@ -94,7 +90,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCo
             }
             else
             {
-                
+
                 if (!int.TryParse(window.NumberOfVoucher.Text, out numberOfVoucher))
                 {
                     window.NumberOfVoucherErrorMessage.Text = "Số lượng không hợp lệ";
@@ -124,7 +120,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCo
                                 isValid = false;
                             }
                         }
-                    } 
+                    }
                 }
             }
 
@@ -234,9 +230,9 @@ namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCo
 
             DatabaseHelper.InsertBlockVoucher(newBlockVoucher);
             List<BlockVoucher> blockVouchers = DatabaseHelper.FetchingBlockVoucherData();
-            ObservableCollection<BlockVoucher>  ObservableBlockVouchers = new ObservableCollection<BlockVoucher>(blockVouchers);
+            ObservableCollection<BlockVoucher> ObservableBlockVouchers = new ObservableCollection<BlockVoucher>(blockVouchers);
 
-            window.BlockVoucherCards.ItemsSource= ObservableBlockVouchers;
+            window.BlockVoucherCards.ItemsSource = ObservableBlockVouchers;
             window.BlockVoucherCards.Items.Refresh(); //Update item ngay khi add xong, by: Thuong
 
             VM.VoucherSnackbar.MessageQueue?.Enqueue($"Đã sinh ngẫu nhiên Voucher \"{newBlockVoucher.ReleaseName}\"", null, null, null, false, true, TimeSpan.FromSeconds(0.7));
@@ -260,7 +256,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCo
                 {
                     c = Convert.ToChar(48 + number % 10);
                 }
-                
+
                 sb.Append(c);
             }
             return sb.ToString();

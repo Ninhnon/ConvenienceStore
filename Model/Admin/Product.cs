@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConvenienceStore.Model.Admin
 {
@@ -94,6 +90,14 @@ namespace ConvenienceStore.Model.Admin
         {
             get { return discount; }
             set { discount = value; OnPropertyChanged("Discount"); }
+        }
+
+        private int inStock;
+
+        public int InStock
+        {
+            get { return inStock; }
+            set { inStock = value; OnPropertyChanged("InStock"); }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

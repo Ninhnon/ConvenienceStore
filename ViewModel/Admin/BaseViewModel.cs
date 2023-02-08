@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ConvenienceStore.ViewModel.Admin
 {
@@ -16,7 +12,7 @@ namespace ConvenienceStore.ViewModel.Admin
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public string MD5Hash(string str)
+        public static string MD5Hash(string str)
         {
             StringBuilder hash = new StringBuilder();
             MD5 md5 = MD5.Create();
@@ -26,7 +22,7 @@ namespace ConvenienceStore.ViewModel.Admin
             {
                 hash.Append(bytes[i].ToString("X2"));
             }
-            return hash.ToString();
+            return hash.ToString().ToLower();
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using ConvenienceStore.Views.Login;
-using System;
 using System.Windows;
 
 namespace ConvenienceStore.Views.Staff

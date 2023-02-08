@@ -1,17 +1,11 @@
 ﻿using ConvenienceStore.Model.Admin;
-using ConvenienceStore.Model.Staff;
-using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin.Command.VoucherCommand;
 using ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCommand;
 using ConvenienceStore.ViewModel.Admin.Command.VoucherCommand.BlockVoucherCommand.DeleteBlockVoucherCommand;
 using MaterialDesignThemes.Wpf;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConvenienceStore.ViewModel.Admin.AdminVM
 {
@@ -75,14 +69,12 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public FilterActiveVoucherCommand FilterActiveVoucherCommand { get; set; }
         public FilterAllVoucherCommand FilterAllVoucherCommand { get; set; }
         public BindingVoucherSnackbar BindingVoucherSnackbar { get; set; }
-
         public RefreshData RefreshData { get; set; }
+
         public VoucherVM()
         {
-            blockVouchers = DatabaseHelper.FetchingBlockVoucherData();
-
-            ObservableBlockVouchers = new ObservableCollection<BlockVoucher>(blockVouchers);
-       
+            blockVouchers = new List<BlockVoucher>();
+            ObservableBlockVouchers = new ObservableCollection<BlockVoucher>();
 
             vouchers = new List<Voucher>();
             ObservableVouchers = new ObservableCollection<Voucher>();

@@ -1,12 +1,6 @@
-﻿using ConvenienceStore.Model.Admin;
-using ConvenienceStore.Utils.Helpers;
+﻿using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin.AdminVM;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand
@@ -34,7 +28,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.VoucherCommand
         {
             VM.blockVouchers = DatabaseHelper.FetchingBlockVoucherData();
 
-            VM.ObservableBlockVouchers = new ObservableCollection<BlockVoucher>();
+            VM.ObservableBlockVouchers.Clear();
             for (int i = 0; i < VM.blockVouchers.Count; i++)
             {
                 VM.ObservableBlockVouchers.Add(VM.blockVouchers[i]);

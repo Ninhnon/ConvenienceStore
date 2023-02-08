@@ -1,15 +1,11 @@
 ﻿using ConvenienceStore.Model.Admin;
+using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Utils.Validation;
 using ConvenienceStore.ViewModel.Admin.AdminVM;
-using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Views.Admin.ProductWindow;
 using FluentValidation;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -66,7 +62,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
 
             if (window.TypeComboBox.SelectedIndex == -1)
             {
-                window.TypeErrorMessage.Text = "Chưa chọn loại sản phẩm";
+                window.TypeErrorMessage.Text = "Chưa chọn loại SP";
                 isValid = false;
             }
 
@@ -116,10 +112,21 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
             }
             else
             {
-                if (!int.TryParse(window.StockTextBox.Text, out int Stock))
+                int Stock;
+                if (!int.TryParse(window.StockTextBox.Text, out Stock))
                 {
                     window.StockErrorMessage.Text = "Số lượng không hợp lệ";
                     isValid = false;
+                }
+                else
+                {
+                    if (Stock <= 0)
+                    {
+                        {
+                            window.StockErrorMessage.Text = "Số lượng phải > 0";
+                            isValid = false;
+                        }
+                    }
                 }
             }
 
@@ -152,7 +159,7 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
                     window.ExpiryDateErrorMessage.Text = "HSD phải > Ngày nhập hàng";
                     isValid = false;
                 }
-            }    
+            }
 
             // Check xem manager đã upload ảnh lên chưa
             //if (window.ImageProduct.ImageSource == null)
@@ -177,8 +184,11 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
                 Stock = int.Parse(window.StockTextBox.Text),
                 ManufacturingDate = (DateTime)window.ManufacturingDate.SelectedDate,
                 ExpiryDate = (DateTime)window.ExpiryDate.SelectedDate,
-                Discount = 0
+                Discount = 0,
             };
+
+            newProduct.InStock = newProduct.Stock;
+
             if (window.ImageProduct.ImageSource != null)
             {
                 JpegBitmapEncoder encoder = new JpegBitmapEncoder();
@@ -224,9 +234,6 @@ namespace ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductC
 
                     if (error.PropertyName == "Price")
                         window.PriceErrorMessage.Text = error.ErrorMessage;
-
-                    if (error.PropertyName == "Stock")
-                        window.StockErrorMessage.Text = error.ErrorMessage;
                 }
                 return;
             }

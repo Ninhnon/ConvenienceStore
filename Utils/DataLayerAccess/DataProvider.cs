@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace ConvenienceStore.Utils.DataLayerAccess
 {
@@ -25,7 +20,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
                 CloseConnection();
                 return dt;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
 

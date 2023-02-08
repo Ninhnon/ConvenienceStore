@@ -3,14 +3,11 @@ using ConvenienceStore.Model;
 using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Utils.Validation;
-using ConvenienceStore.Views;
 using ConvenienceStore.Views.Staff.TroubleWindow;
 using FluentValidation;
 using MaterialDesignThemes.Wpf;
 using System;
-using System.Collections.ObjectModel;
 using System.IO;
-using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 

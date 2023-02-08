@@ -6,14 +6,11 @@ using ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand.DeleteInputInfoC
 using ConvenienceStore.ViewModel.Admin.Command.ProductCommand;
 using ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductCommand;
 using ConvenienceStore.ViewModel.Admin.Command.ProductCommand.ProductCardCommand;
-using ConvenienceStore.Views.Admin;
 using MaterialDesignThemes.Wpf;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.Admin.AdminVM
 {
@@ -24,8 +21,8 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public string CurAccountName
         {
             get { return curAccountName; }
-            set 
-            { 
+            set
+            {
                 curAccountName = value;
                 OnPropertyChanged("CurAccountName");
             }
@@ -133,7 +130,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public Snackbar ProductSnackbar;
 
         // Command
-      
+
         public OpenInputInfoCommand OpenInputInfoCommand { get; set; }
         public AddInputInfoButtonCommand AddInputInfoButtonCommand { get; set; }
         public CreateInputInfoButtonCommand CreateInputInfoButtonCommand { get; set; }
@@ -145,12 +142,13 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public SaveNewProductCommand SaveNewProductCommand { get; set; }
         public BindingProductSnackbar BindingProductSnackbar { get; set; }
         public CheckExistBarcode CheckExistBarcode { get; set; }
+        public RefreshInputInfoData RefreshInputInfoData { get; set; }
 
         public InputInfoVM()
         {
             CurAccountName = CurrentAccount.Name;
 
-            inputInfos = DatabaseHelper.FetchingInputInfo();
+            inputInfos = new List<InputInfo>();
             ObservableInputInfos = new ObservableCollection<InputInfo>();
 
             IsDesc = 0;
@@ -180,8 +178,10 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
             BindingProductSnackbar = new BindingProductSnackbar(this);
             CheckExistBarcode = new CheckExistBarcode(this);
+
+            RefreshInputInfoData = new RefreshInputInfoData(this);
         }
-    
+
         public void LoadProducts()
         {
             products = selectedInputInfo.products;
@@ -246,7 +246,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
             for (int i = 0; i < products.Count; ++i)
             {
-                if (products[i].Barcode.Contains(searchContent))
+                if (products[i].Barcode.Contains(searchContent) || products[i].Title.ToLower().Contains(searchContent.ToLower()))
                 {
                     ObservableProducts.Add(products[i]);
                 }

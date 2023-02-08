@@ -1,25 +1,17 @@
 ﻿using ConvenienceStore.Utils.DataLayerAccess;
 using ConvenienceStore.ViewModel.Admin;
 using ConvenienceStore.Views;
-using ConvenienceStore.Views.Admin.SubViews;
 using ConvenienceStore.Views.Login;
-using Emgu.CV.Structure;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using System.Windows.Interop;
 
 namespace ConvenienceStore.ViewModel.Login
 {
-    public class ForgotPasswordViewModel:BaseViewModel
+    public class ForgotPasswordViewModel : BaseViewModel
     {
         private string email;
         public string Email
@@ -43,7 +35,7 @@ namespace ConvenienceStore.ViewModel.Login
         {
             BackCommand = new RelayCommand<ForgotPasswordWindow>(parameter => true, parameter => Back(parameter));
             ForgotPasswordCommand = new RelayCommand<ForgotPasswordWindow>(parameter => true, parameter => Forgot(parameter));
-            BackAuthenCommand=new RelayCommand<AuthenCodeWindow>(parameter => true, parameter => BackAuthen(parameter));
+            BackAuthenCommand = new RelayCommand<AuthenCodeWindow>(parameter => true, parameter => BackAuthen(parameter));
             AuthenCodeCommand = new RelayCommand<AuthenCodeWindow>(parameter => true, parameter => Authen(parameter));
             NewBackCommand = new RelayCommand<NewPasswordWindow>(parameter => true, parameter => NewBack(parameter));
             NewPasswordCommand = new RelayCommand<NewPasswordWindow>(parameter => true, parameter => NewPass(parameter));
@@ -60,7 +52,7 @@ namespace ConvenienceStore.ViewModel.Login
                 Email = parameter.textEmail.textBox.Text.ToString();
                 Random rnd = new Random();
                 Authencode = rnd.Next(100000, 999999);
-    
+
                 string cs = @ConfigurationManager.ConnectionStrings["Default"].ToString();
                 string query = "select* from Users where Email=" + "\'" + parameter.textEmail.textBox.Text.ToString() + "\'";
 
@@ -73,7 +65,7 @@ namespace ConvenienceStore.ViewModel.Login
                 {
                     reader.Read();
                     string email = reader["Email"].ToString();
-                   
+
 
                     SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
                     client.EnableSsl = true;
@@ -90,9 +82,9 @@ namespace ConvenienceStore.ViewModel.Login
                     AuthenCodeWindow authen = new AuthenCodeWindow();
                     reader.Close();
                     con.Close();
-                    
+
                     authen.ShowDialog();
-                 parameter.Close();
+                    parameter.Close();
 
 
 
@@ -105,7 +97,7 @@ namespace ConvenienceStore.ViewModel.Login
                     MessageBoxCustom mb = new("Cảnh báo", "Email không tồn tại!", MessageType.Warning, MessageButtons.OK);
                     mb.ShowDialog();
                 }
-               
+
             }
         }
         public void Back(ForgotPasswordWindow parameter)
@@ -126,24 +118,24 @@ namespace ConvenienceStore.ViewModel.Login
             {
                 parameter.textAuthen.ErrorMessage.Text = "Hãy nhập mã xác nhận";
                 parameter.textAuthen.Focus();
-             
+
             }
-            else if(!int.TryParse(parameter.textAuthen.textBox.Text.ToString(),out int n))
-                {
+            else if (!int.TryParse(parameter.textAuthen.textBox.Text.ToString(), out int n))
+            {
                 parameter.textAuthen.ErrorMessage.Text = "Hãy nhập mã xác nhận chỉ gồm 6 chữ số";
                 parameter.textAuthen.Focus();
             }
-            else if(int.Parse(parameter.textAuthen.textBox.Text)==Authencode )
+            else if (int.Parse(parameter.textAuthen.textBox.Text) == Authencode)
             {
-              
-                
-                    NewPasswordWindow newpass = new NewPasswordWindow();
-                 
-                    newpass.ShowDialog();
+
+
+                NewPasswordWindow newpass = new NewPasswordWindow();
+
+                newpass.ShowDialog();
                 parameter.Close();
-               
-                
-              
+
+
+
             }
             else
             {
@@ -169,9 +161,9 @@ namespace ConvenienceStore.ViewModel.Login
                 parameter.confirmpass.ErrorMessage.Text = "Hãy xác nhận mật khẩu mới";
                 parameter.confirmpass.Focus();
             }
-            else if ((parameter.newpass.passwordBox.Password.ToString())== (parameter.confirmpass.passwordBox.Password.ToString()))
-                   {
-                string pass = parameter.newpass.passwordBox.Password.ToString();
+            else if ((parameter.newpass.passwordBox.Password.ToString()) == (parameter.confirmpass.passwordBox.Password.ToString()))
+            {
+                string pass = MD5Hash(MD5Hash(parameter.newpass.passwordBox.Password.ToString()));
                 string mail = Email;
                 AccountDAL.Instance.UpdatePassword(pass, mail);
 
@@ -180,28 +172,28 @@ namespace ConvenienceStore.ViewModel.Login
                 parameter.Close();
 
 
-               
+
             }
             else
             {
-                
-                
+
+
                 MessageBoxCustom mb = new("Cảnh báo", "Mật khẩu xác nhận không chính xác!", MessageType.Warning, MessageButtons.OK);
                 mb.ShowDialog();
             }
-              
-               
-            }
-
-
 
 
         }
 
 
-  
-
 
 
     }
+
+
+
+
+
+
+}
 

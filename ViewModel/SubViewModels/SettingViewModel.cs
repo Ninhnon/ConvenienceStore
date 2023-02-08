@@ -2,25 +2,20 @@
 using ConvenienceStore.Utils.DataLayerAccess;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.ViewModel.Admin;
-using ConvenienceStore.ViewModel.Admin.AdminVM;
+using ConvenienceStore.Views;
 using ConvenienceStore.Views.Admin.SubViews;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using System.Windows.Media;
-using ConvenienceStore.ViewModel.Admin.Command.ProductCommand.AddNewProductCommand;
-using ConvenienceStore.Views;
+using System.Windows.Media.Imaging;
 
 namespace ConvenienceStore.ViewModel.SubViewModels
 {
-    public class SettingViewModel:BaseViewModel
+    public class SettingViewModel : BaseViewModel
     {
 
         private OpenFileDialog openDialog;
@@ -48,7 +43,7 @@ namespace ConvenienceStore.ViewModel.SubViewModels
         }
 
 
-        
+
 
         public void Back(Setting parameter)
         {
@@ -62,7 +57,7 @@ namespace ConvenienceStore.ViewModel.SubViewModels
             parameter.EmailErrorMessage.Text = "";
             parameter.PhoneErrorMessage.Text = "";
             parameter.AddressErrorMessage.Text = "";
-         
+
             parameter.ImageErrorMessage.Text = "";
             if (string.IsNullOrEmpty(parameter.nameTxtbox.textBox.Text))
             {
@@ -100,7 +95,7 @@ namespace ConvenienceStore.ViewModel.SubViewModels
                 parameter.AddressErrorMessage.Text = "Xin nhập Địa Chỉ";
                 isValid = false;
             }
-          
+
             if (parameter.ImageProduct.ImageSource == null)
             {
                 parameter.ImageErrorMessage.Text = "Xin chọn ảnh";
@@ -109,14 +104,14 @@ namespace ConvenienceStore.ViewModel.SubViewModels
             List<Account> accounts = AccountDAL.Instance.ConvertDataTableToList();
             foreach (var account in accounts)
             {
-               
+
                 if (parameter.phoneTxtbox.textBox.Text == account.Phone && parameter.phoneTxtbox.textBox.Text != CurrentAccount.Phone)
                 {
                     parameter.PhoneErrorMessage.Text = "Số điện thoại đã được đăng ký";
                     isValid = false;
                     break;
                 }
-                if (parameter.emailTxtbox.textBox.Text == account.Email&&parameter.emailTxtbox.textBox.Text!=CurrentAccount.Email)
+                if (parameter.emailTxtbox.textBox.Text == account.Email && parameter.emailTxtbox.textBox.Text != CurrentAccount.Email)
                 {
                     parameter.EmailErrorMessage.Text = "Email đã được đăng ký";
                     isValid = false;
@@ -128,7 +123,7 @@ namespace ConvenienceStore.ViewModel.SubViewModels
 
             if (isValid)
             {
-                
+
                 byte[] Avatar = new byte[byte.MaxValue];
                 if (openDialog == null)
                     Avatar = DatabaseHelper.LoadAvatar(CurrentAccount.idAccount);
@@ -141,7 +136,7 @@ namespace ConvenienceStore.ViewModel.SubViewModels
                    Avatar,
                     CurrentAccount.ManagerId, CurrentAccount.idAccount
                     );
-                CurrentAccount.Name=parameter.nameTxtbox.textBox.Text;
+                CurrentAccount.Name = parameter.nameTxtbox.textBox.Text;
                 CurrentAccount.Address = parameter.addressTxtbox.textBox.Text;
                 CurrentAccount.Email = parameter.emailTxtbox.textBox.Text;
                 CurrentAccount.Phone = parameter.phoneTxtbox.textBox.Text;

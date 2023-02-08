@@ -5,51 +5,65 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ConvenienceStore.Views.Admin.UserControls"
              mc:Ignorable="d" 
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
-    
-    <materialDesign:Card Style="{StaticResource ProductCard}"
-                         Cursor="Hand">
-        <Grid Height="100">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="20"/>
-                <ColumnDefinition Width="240"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="95"/>
-            </Grid.ColumnDefinitions>
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
+    <Border Style="{StaticResource ProductCard}">
 
-            <Border CornerRadius="5 0 0 5">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="MouseLeftButtonDown">
+                
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+
+        <!--<Border.Effect>
+            <DropShadowEffect BlurRadius="5"
+                              Direction="270"
+                              Opacity="0.45"
+                              RenderingBias="Performance"
+                              ShadowDepth="1.5"/>
+        </Border.Effect>-->
+
+        <Grid>
+
+            <Border CornerRadius="8 8 0 0"
+                    Height="135"
+                    VerticalAlignment="Top">
                 <Border.Background>
                     <ImageBrush ImageSource="{Binding Image}"
                                 Stretch="UniformToFill"/>
                 </Border.Background>
-
             </Border>
 
-            <StackPanel Grid.Column="2"
-                        VerticalAlignment="Center">
-                <TextBlock Text="{Binding Title}"
-                           TextWrapping="Wrap"
-                           Foreground="Black"
-                           FontSize="15"
-                           FontWeight="Bold"
-                           VerticalAlignment="Center"
-                           Margin="0 0 0 5"/>
-                <TextBlock Text="{Binding Barcode}"/>
+            <StackPanel Margin="12 145 12 10"
+                        HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal"
+                            Margin="0 0 0 2">
+                    <TextBlock Text="# "
+                               FontSize="15"
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding Barcode}"
+                               FontSize="15"
+                               VerticalAlignment="Center"
+                               d:Text="8936185351397"
+                               FontWeight="SemiBold"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                    <TextBlock Text="SL: "
+                               FontSize="15"
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding Stock}"
+                               FontSize="15"
+                               VerticalAlignment="Center"
+                               d:Text="23"
+                               FontWeight="SemiBold"/>
+                </StackPanel>
             </StackPanel>
-
-            <StackPanel Grid.Column="3"
-                        Orientation="Horizontal"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
-                        Margin="60 0 0 0">
-                <TextBlock Text="HSD: "
-                           Foreground="Gray"/>
-                <TextBlock Text="{Binding ExpiryDate, StringFormat=dd-MM-yyyy}"
-                           Foreground="Gray"
-                           d:Text="22-11-2022"/>
-            </StackPanel>
-
+            
         </Grid>
-    </materialDesign:Card>
+        
+    </Border>
+
 </UserControl>

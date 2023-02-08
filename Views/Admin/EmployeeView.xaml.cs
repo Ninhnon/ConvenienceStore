@@ -1,18 +1,7 @@
 ﻿using ConvenienceStore.ViewModel.Admin.AdminVM;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ConvenienceStore.Views.Admin
 {
@@ -24,7 +13,8 @@ namespace ConvenienceStore.Views.Admin
         public EmployeeView()
         {
             InitializeComponent();
-            this.HistoryDataGrid.Visibility = Visibility.Hidden;        }
+            this.HistoryDataGrid.Visibility = Visibility.Hidden;
+        }
 
         private void enter(object sender, KeyEventArgs e)
         {
@@ -32,7 +22,7 @@ namespace ConvenienceStore.Views.Admin
             if (e.Key == Key.Enter)
             {
                 var VM = searchTextBox.DataContext as EmployeeViewModel;
-               
+
                 VM.Search();
             }
         }
@@ -41,7 +31,7 @@ namespace ConvenienceStore.Views.Admin
         {
             this.HistoryDataGrid.Visibility = Visibility.Hidden;
             this.AccountsDataGrid.Visibility = Visibility.Visible;
-          
+
         }
 
         private void HistoryClick(object sender, RoutedEventArgs e)

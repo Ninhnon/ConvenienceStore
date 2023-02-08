@@ -5,26 +5,24 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
-using System.Windows;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace ConvenienceStore.Utils.Helpers
 {
     public partial class DatabaseHelper
     {
-        static readonly string queryProduct = @"select Barcode,Title,ProductionSite,Image,InputPrice,OutputPrice,Stock,ManufacturingDate,ExpiryDate,Discount,Type,InputInfoId
-        from Consignment c,Product p,
+        static readonly string queryProduct = @"select Barcode,Title,ProductionSite,Image,InputPrice,OutputPrice,InStock,ManufacturingDate,ExpiryDate,Discount,Type, InputInfoId
+        from Consignment c,Product p, InputInfo iii,
         ( 
-        select ProductId, min([ExpiryDate]) e
-        from Consignment
-        where Stock>0 AND ExpiryDate > GETDATE()
+        select  distinct cc.ProductId, min([ExpiryDate]) e, min(InputDate) ii
+        from Consignment cc, InputInfo i
+        where InStock>0 AND ExpiryDate > GETDATE() and i.Id=cc.InputInfoId
         group by ProductId
         ) h
-        where c.ProductId=p.Barcode and h.ProductId=c.ProductId and h.e = c.ExpiryDate
+        where c.ProductId=p.Barcode and h.ProductId=c.ProductId and h.e = c.ExpiryDate and iii.id= c.InputInfoId and iii.InputDate=h.ii 
         order by ExpiryDate";
-        static readonly string queryProductT = @"select Barcode,Title,ProductionSite,Image,InputPrice,OutputPrice,Stock,ManufacturingDate,ExpiryDate,Discount,Type,InputInfoId
+        static readonly string queryProductT = @"select Barcode,Title,ProductionSite,Image,InputPrice,OutputPrice,InStock,ManufacturingDate,ExpiryDate,Discount,Type,InputInfoId
         from Consignment c,Product p
-        where c.ProductId=p.Barcode and Stock>0
+        where c.ProductId=p.Barcode and InStock>0
         order by ExpiryDate";
         static readonly string queryVoucher = @"select * from [Voucher]";
         static readonly string queryReport = @"select * from [Report] order by SubmittedAt desc";
@@ -42,8 +40,8 @@ namespace ConvenienceStore.Utils.Helpers
                                                         where Code = @code AND Status = 0";
         static readonly string queryUpdateVoucherStatus = @"update Voucher set Status = 1 where Code = @code";
         static readonly string queryVoucherDetail = @"select Code, Status, TypeVoucher, ParValue, StartDate, FinishDate from Voucher v join BlockVoucher b on v.BlockId = b.Id";
-        static readonly string queryUpdateConsignmentStock = @"update Consignment
-                                                                set Stock = stock - @quantity
+        static readonly string queryUpdateConsignmentInStock = @"update Consignment
+                                                                set InStock = InStock - @quantity
                                                                 where InputInfoId = @inputInfoId and ProductId = @productId";
 
         static readonly string insertReport = "insert Report values (@Title, @Description, @Status, @SubmittedAt,@RepairCost,Null,Null,@StaffId, @Image)";
@@ -60,7 +58,7 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string updateReportAD = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost,Status = @Status, Description = @Description, StartDate = NULL, FinishDate = NULL where Id=@Id";
         static readonly string updateReportADS = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost,Status = @Status, StartDate = @StartDate, FinishDate = NULL,Description = @Description where Id=@Id";
         static readonly string updateReportADSF = @"update Report set Title = @Title, Image = @Image, RepairCost = @RepairCost,Status = @Status, StartDate = @StartDate, FinishDate = @FinishDate,Description = @Description where Id=@Id";
-        
+
         static readonly string updateReportFULL = @"update Report set Title = N'{0}', [Image] = {1}, RepairCost = {2},[Status] = '{3}',StartDate = '{4}',FinishDate = '{5}',Description = N'{6}' where [Id]={7}";
 
         static readonly string queryCustomerPoint = @"select Point
@@ -76,7 +74,7 @@ namespace ConvenienceStore.Utils.Helpers
         static readonly string queryTeamMembers = @"select Name, Avatar, UserRole from Users
                                                     where ManagerId = @managerId and Id != @id";
         static readonly string updateSL = @"update Consignment
-		                                    set Stock = 0
+		                                    set InStock = 0
 		                                    where InputInfoId = {0} and ProductId = N'{1}'";
         public static List<Model.Staff.Bill> FetchingBillData()
         {
@@ -527,7 +525,7 @@ namespace ConvenienceStore.Utils.Helpers
             //cmd.ExecuteNonQuery();
             //cmd.Dispose();
             var cmd = new SqlCommand();
-            if (editedReport.Status=="Chờ tiếp nhận")
+            if (editedReport.Status == "Chờ tiếp nhận")
                 cmd = new SqlCommand(updateReportAD, sqlCon);
             else if (editedReport.Status == "Đang giải quyết")
             {
@@ -542,9 +540,9 @@ namespace ConvenienceStore.Utils.Helpers
             }
             else
             {
-                if (editedReport.StartDate==null && editedReport.FinishDate ==null)
+                if (editedReport.StartDate == null && editedReport.FinishDate == null)
                     cmd = new SqlCommand(updateReportAD, sqlCon);
-                else if ( editedReport.FinishDate == null)
+                else if (editedReport.FinishDate == null)
                 {
                     cmd = new SqlCommand(updateReportADS, sqlCon);
                     cmd.Parameters.AddWithValue("@StartDate", editedReport.StartDate);
@@ -615,7 +613,7 @@ namespace ConvenienceStore.Utils.Helpers
         public static void UpdateConsignmentStock(BillDetails b)
         {
             sqlCon.Open();
-            SqlCommand cmd = new SqlCommand(queryUpdateConsignmentStock, sqlCon);
+            SqlCommand cmd = new SqlCommand(queryUpdateConsignmentInStock, sqlCon);
             cmd.Parameters.AddWithValue("@quantity", b.Quantity);
             cmd.Parameters.AddWithValue("@productId", b.ProductId);
             cmd.Parameters.AddWithValue("@inputInfoId", b.InputInfoId);
@@ -639,7 +637,7 @@ namespace ConvenienceStore.Utils.Helpers
             return customerPoint;
         }
 
-        public static void InsertCustomerData (Customer customer)
+        public static void InsertCustomerData(Customer customer)
         {
             sqlCon.Open();
             SqlCommand cmd = new SqlCommand(queryInsertCustomer, sqlCon);
@@ -651,7 +649,7 @@ namespace ConvenienceStore.Utils.Helpers
             sqlCon.Close();
         }
 
-        public static ObservableCollection<Member> FetchTeamMembers (int id, int managerId)
+        public static ObservableCollection<Member> FetchTeamMembers(int id, int managerId)
         {
             sqlCon.Open();
 

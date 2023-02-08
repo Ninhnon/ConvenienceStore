@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ConvenienceStore.Model;
 using ConvenienceStore.Model.Admin;
-using ConvenienceStore.Model;
 using ConvenienceStore.Utils.Helpers;
-using System.Windows.Input;
-using ConvenienceStore.ViewModel.StaffVM;
-using ConvenienceStore.Views.Admin;
+using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ConvenienceStore.ViewModel.StaffVM
 {
