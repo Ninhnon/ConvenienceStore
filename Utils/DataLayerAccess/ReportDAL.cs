@@ -534,7 +534,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             {
 
                 OpenConnection();
-                string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
                        "join product on billdetail.productid = product.barcode where product.type = N\'Đồ ăn\'  and year(billdate) = {0}", int.Parse(year));
                 SqlCommand command = new SqlCommand(queryString, conn);
                 SqlDataReader rdr = command.ExecuteReader();
@@ -570,7 +570,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             {
 
                 OpenConnection();
-                string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
                   "join product on billdetail.productid = product.barcode where product.type = N\'Thức uống\'  and year(billdate) = {0}", int.Parse(year));
                 SqlCommand command = new SqlCommand(queryString, conn);
                 SqlDataReader rdr = command.ExecuteReader();
@@ -606,7 +606,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             {
 
                 OpenConnection();
-                string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
               "join product on billdetail.productid = product.barcode where product.type = N\'Khác\'  and year(billdate) = {0}", int.Parse(year));
                 SqlCommand command = new SqlCommand(queryString, conn);
                 SqlDataReader rdr = command.ExecuteReader();
@@ -642,7 +642,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             {
 
                 OpenConnection();
-                string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
                  "join product on billdetail.productid = product.barcode where product.type = N\'Đồ ăn\' and month(billdate)={0} and year(billdate) = {1}", int.Parse(month), int.Parse(year));
                 SqlCommand command = new SqlCommand(queryString, conn);
                 SqlDataReader rdr = command.ExecuteReader();
@@ -679,7 +679,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             {
 
                 OpenConnection();
-                string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
                   "join product on billdetail.productid = product.barcode where product.type = N\'Thức uống\' and month(billdate)={0} and year(billdate) = {1}", int.Parse(month), int.Parse(year));
 
                 SqlCommand command = new SqlCommand(queryString, conn);
@@ -715,7 +715,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             {
 
                 OpenConnection();
-                string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
               "join product on billdetail.productid = product.barcode where product.type = N\'Khác\' and month(billdate)={0} and year(billdate) = {1}", int.Parse(month), int.Parse(year));
                 SqlCommand command = new SqlCommand(queryString, conn);
                 SqlDataReader rdr = command.ExecuteReader();
@@ -751,7 +751,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             {
 
                 OpenConnection();
-                string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
                     "join product on billdetail.productid = product.barcode where product.type = N\'Đồ ăn\' and day(billdate)={0} and month(billdate)={1} and year(billdate) = {2}", int.Parse(day), int.Parse(month), int.Parse(year));
                 SqlCommand command = new SqlCommand(queryString, conn);
                 SqlDataReader rdr = command.ExecuteReader();
@@ -786,7 +786,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             {
 
                 OpenConnection();
-                string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
                     "join product on billdetail.productid = product.barcode where product.type = N\'Thức uống\' and day(billdate)={0} and month(billdate)={1} and year(billdate) = {2}", int.Parse(day), int.Parse(month), int.Parse(year));
                 SqlCommand command = new SqlCommand(queryString, conn);
                 SqlDataReader rdr = command.ExecuteReader();
@@ -821,7 +821,7 @@ namespace ConvenienceStore.Utils.DataLayerAccess
             {
 
                 OpenConnection();
-                string queryString = string.Format("select sum(totalprice) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
+                string queryString = string.Format("select sum(price) as tong  from bill inner join billdetail on bill.id = billdetail.billid inner " +
                     "join product on billdetail.productid = product.barcode where product.type = N\'Khác\' and day(billdate)={0} and month(billdate)={1} and year(billdate) = {2}", int.Parse(day), int.Parse(month), int.Parse(year));
                 SqlCommand command = new SqlCommand(queryString, conn);
                 SqlDataReader rdr = command.ExecuteReader();
