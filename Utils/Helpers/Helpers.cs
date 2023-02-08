@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConvenienceStore.Model;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Globalization;
@@ -109,10 +110,6 @@ namespace ConvenienceStore.Utils.Helpers
             }
             return string.Format(CultureInfo.InvariantCulture,
                                 "{0:#,#} ₫", money);
-        }
-        public static string? GetStaffName(int StaffId)
-        {
-            return DatabaseHelper.GetName(StaffId);
         }
 
         public static string FormatStatus(bool status)

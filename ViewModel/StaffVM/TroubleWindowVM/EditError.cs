@@ -27,7 +27,7 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
         public void LoadEditError(EditTrouble w1)
         {
             w1.CostTextBox.Text = SelectedItem.RepairCost.ToString();
-            w1.StaffName.Text = DatabaseHelper.GetName(SelectedItem.StaffId);
+            w1.StaffName.Text = CurrentAccount.Name;
             w1.cbxStatus.Text = SelectedItem.Status;
             w1.submitdate.Text = SelectedItem.SubmittedAt.ToShortDateString();
             w1.cbxDecription.Text = SelectedItem.Description;

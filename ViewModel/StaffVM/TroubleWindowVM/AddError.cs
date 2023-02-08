@@ -95,7 +95,13 @@ namespace ConvenienceStore.ViewModel.TroubleWindowVM
             else
             {
                 danhsach.Add(newReport);
+                ListError.Clear();
                 ListError.Add(newReport);
+                for (int i = 0; i < danhsach.Count-1; ++i)
+                {
+                    ListError.Add( danhsach[i]);
+                }
+                
                 DatabaseHelper.InsertReport(newReport);
                 TroubleSnackbar.MessageQueue?.Enqueue($"Đã tạo Sự cố \"{newReport.Title}\"", null, null, null, false, true, TimeSpan.FromSeconds(1));
                 p.Close();

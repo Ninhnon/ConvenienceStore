@@ -3,7 +3,10 @@ using ConvenienceStore.Model.Staff;
 using ConvenienceStore.Utils.Helpers;
 using ConvenienceStore.Utils.Validation;
 using ConvenienceStore.ViewModel.Admin.Command.InputInfoCommand.DeleteInputInfoCommand;
+using ConvenienceStore.ViewModel.StaffVM;
+using ConvenienceStore.Views.Admin;
 using ConvenienceStore.Views.Admin.TroubleWindow;
+using ConvenienceStore.Views.Staff;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -104,6 +107,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public ICommand MouseMoveCommand { get; set; }
         public ICommand SaveNewTroubleCommand { get; set; }
         public ICommand UpdateReportButtonCommand { get; set; }
+        public ICommand LoadCommand { get; set; }
         public Report tmpReport { get; set; }
         public static Grid MaskName { get; set; }
         // Command
@@ -117,11 +121,17 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
 
             Reports = DatabaseHelper.FetchingReportData();
             ObservableReports = new ObservableCollection<Report>();
-
+            
             IsDesc = 0;
-
             Statuses = new List<string> { "Chờ tiếp nhận", "Đang giải quyết", "Đã giải quyết", "Đã hủy" };
-
+            selectedStatus = Statuses[0];
+            for (int i = 0; i < Reports.Count; ++i)
+            {
+                if (Reports[i].Status == selectedStatus)
+                {
+                    ObservableReports.Add(Reports[i]);
+                }
+            }
             UpdateReportButtonCommand = new RelayCommand<EditTrouble>((p) => { return true; }, (p) =>
             {
                 tmpReport = SelectedReport;
@@ -151,7 +161,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
                 Window w = Window.GetWindow(p);
                 w?.DragMove();
             });
-
+            LoadCommand = new RelayCommand<TroubleView>(parameter => true, parameter => { parameter.DataContext = new TroubleAdminVM(); });
             //CreateReportButtonCommand = new CreateReportButtonCommand(this);
             //OpenAlertDialog = new OpenAlertDialog(this);
             //DeleteReportCommand = new DeleteReportCommand(this);
@@ -219,7 +229,7 @@ namespace ConvenienceStore.ViewModel.Admin.AdminVM
         public void LoadEditError(EditTrouble w1)
         {
             w1.CostTextBox.Text = tmpReport.RepairCost.ToString();
-            w1.StaffName.Text = DatabaseHelper.GetName(tmpReport.StaffId);
+            w1.StaffName.Text = CurrentAccount.Name;
             w1.cbxStatus.Text = tmpReport.Status;
             w1.submitdate.Text = tmpReport.SubmittedAt.ToShortDateString();
             if (tmpReport.StartDate.HasValue) w1.startdate.Text = String.Format("{0:dd/MM/yyyy}", tmpReport.StartDate);

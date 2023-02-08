@@ -27,7 +27,7 @@
         {
             get
             {
-                return Helpers.GetStaffName(StaffId);
+                return CurrentAccount.Name;
             }
         }
 
