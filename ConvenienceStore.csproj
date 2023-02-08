@@ -5,6 +5,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\Icons\app.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -96,6 +97,10 @@
     <None Remove="Resources\UserControlCustom\product.png" />
     <None Remove="Resources\UserControlCustom\profile.png" />
     <None Remove="Resources\UserControlCustom\report.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Icons\app.ico" />
   </ItemGroup>
 
   <ItemGroup>
